@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="sample-app-about">
+  <title>A blog application expressed in Agavi</title>
+
+  <body>
+    <p>Bloggie's user interface consists of two separate parts: the public
+    part and the administrative part. At this point, you will only use a
+    single Module to provide an implementation for the public part and write
+    the minimum amount of code needed to achieve visible results.</p>
+
+    <section><title>User interface</title><p>At the very least, a blog should
+    have facilities to show blog posts and navigate between posts. In terms of
+    a Web application, this means you should have the following pages:</p><dl>
+        <dlentry>
+          <dt>Post</dt>
+
+          <dd>The post page displays a single blog post given a post ID in the
+          URL.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>Index</dt>
+
+          <dd>The index page displays a list of the most recent posts to the
+          blog. This page contains links to blog posts.</dd>
+        </dlentry>
+      </dl><p>Consider now some of the details you might provide for this
+    basic structure: a mechanism to generate URLs to posts, a way to easily
+    map a post ID in the URL to an actual entry in your database. There are
+    many potential implementational struggles that you need to overcome even
+    at this level. Luckily, Agavi makes your job much easier in this
+    regard.</p></section>
+
+    <section><title>Data</title><p>Blog applications seem to have a fairly
+    consistent data layout. Bloggie is no exception. It must store and access
+    the following data in the database: posts, categories, comments and
+    authors. With that in mind, you can now create the initial database schema
+    and insert some dummy data.</p></section>
+
+    <p>Your Models should roughly map to these database objects, since the
+    application is very simple at this stage.</p>
+  </body>
+</topic>

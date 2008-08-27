@@ -1,0 +1,26 @@
+**************************************************************************
+*                                                                        *
+*                       The Sinorcaish Stylesheet                        *
+*                   Copyright (C) 2004, John Zaitseff                    *
+*                                                                        *
+**************************************************************************
+
+You may freely redistribute and/or modify  the Sinorcaish stylesheet files
+"sinorcaish-screen.css" and  "sinorcaish-print.css" on the  condition that
+the original copyright notice is preserved.  The same condition applies to
+the overview  document, "index.html",  as well as to the  sample document,
+"sample.html".   You may  redistribute  and/or modify  the template  file,
+"template.html", without any such restriction.
+
+You may freely redistribute unmodified versions of the complete Sinorcaish
+stylesheet archives.
+
+These conditions may be waived; write to John Zaitseff for details:
+
+    Postal:   John Zaitseff,
+              The ZAP Group,
+              Unit 6, 116 Woodburn Road,
+              Berala, NSW, 2141,
+              Australia
+
+    E-mail:   J.Zaitseff@zap.org.au

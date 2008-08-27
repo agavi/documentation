@@ -1,0 +1,135 @@
+/*#############################################################
+Name: Blue Sky
+Date: 2006-07-12
+Author: Viktor Persson
+URL: http://arcsin.se
+
+Feel free to use and modify but please provide credits.
+#############################################################*/
+
+/* standard elements */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: #39F;
+}
+a:hover {
+	color: #06F;
+}
+
+body {
+	background: #84C8F1 url(img/bg.gif) repeat-y center top;
+	color: #466;
+	font: normal 62.5% "Lucida Sans Unicode",sans-serif;
+	margin: 0;
+}
+
+p,cite,code,ul {
+	font-size: 1.2em;
+	padding-bottom: 1.2em;
+}
+
+h1 {
+	font-size: 1.4em;
+	margin-bottom: 4px;
+}
+
+li {
+	list-style: url(img/li.gif);
+	margin-left: 18px;
+}
+code {
+	background: url(img/bgcode.gif);
+	border: 1px solid #F0F0F0;
+	color: #666;
+	display: block;
+	font: normal 1.1em "Lucida Sans Unicode",serif;
+	margin-bottom: 12px;
+	padding: 8px 10px;
+	white-space: pre;
+}
+
+cite {
+	background: url(img/quote.gif) no-repeat;
+	color: #246;
+	display: block;
+	font: normal 1.4em "Lucida Sans Unicode",serif;
+	padding-left: 28px;
+}
+h1,h2,h3 {
+	color: #37C;
+	padding-top: 6px;
+}
+/* misc */
+.clearer {
+	clear: both;
+}
+
+/* structure */
+.container {
+	margin: 0 auto;
+	width: 630px;
+}
+
+/* title */
+.title {
+	float: left;
+	margin: 24px 0 0 24px;
+	text-align: center;
+	width: 200px;
+}
+.title h1 {
+	font: normal 2em Verdana,sans-serif;
+}
+.title h2 {
+	color: #999;
+	font: normal 1.1em Verdana,sans-serif;
+}
+/* navigation */
+.navigation {
+	background: url(img/holder.jpg) no-repeat;
+	height: 100px;
+	padding: 0 16px;
+}
+.navigation a {
+	border-left: 1px solid #D2D2D2;
+	border-right: 1px solid #FFF;
+	color: #999;
+	float: right;
+	font: bold 1.2em "Trebuchet MS",sans-serif;
+	margin-top: 9px;
+	padding: 58px 18px 8px;
+	text-align: center;
+	text-decoration: none;
+}
+.navigation a:hover {
+	background: #FFF url(img/navhover.gif) repeat-x;
+	color: #28E;
+	padding: 56px 18px 10px;
+}
+
+/* holders */
+.holder {
+	background: url(img/bgholder.jpg) repeat-y;
+	padding: 0 32px;
+}
+.holder_top,.holder_bottom {
+	background: url(img/holder.jpg) no-repeat;
+	height: 40px;
+}
+.holder_top,.holder_bottom {
+	height: 40px;
+}
+.holder_bottom {
+	background-position: left bottom;
+}
+
+/* footer */
+.footer {
+	color: #666;
+	font-size: 1.1em;
+	text-align: center;
+}

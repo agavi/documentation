@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+    <!-- The "development" attribute here means that this configuration is only used in the development mode. See pub/index.php in which
+	the current environment is set -->
+	<configuration environment="development">
+	 <databases default="blog">
+	  <!-- AgaviPdoDatabase is the adapter class for PHP PDO -->
+	  <database name="blog" class="AgaviPdoDatabase">
+	   <parameter name="dsn">mysql:host=localhost;dbname=bloggie_dev</parameter>
+	   <parameter name="username">bloggie</parameter>
+	   <parameter name="password">password</parameter>
+	  </database>
+	 </databases>
+	</configuration>	
+</configurations>

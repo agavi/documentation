@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="mvc-in-agavi">
+  <title>MVC in Agavi</title>
+
+  <body>
+    <section><title>MVC and high-level application structure</title><p>Agavi
+    implements the <keyword>Model-View-Controller</keyword>
+    (<keyword>MVC</keyword>) architectural design pattern to provide structure
+    to applications. Agavi's interpretation of MVC is quite conservative, and
+    it is very important that you understand both how the three key parts of
+    the MVC concept come together and how Agavi implements them.</p><p>MVC
+    architecture defines three distinct parts of an application. Models
+    contain the application's logic. Controllers interpret requests from the
+    user interface and direct Models. Views question Models, and prepare and
+    send output to the user interface. </p><p>The Model-View-Controller
+    architecture offers certain advantages. Without in-depth discussion it is
+    sufficient to say that the MVC approach—combined with Agavi's naming
+    conventions and framework facilities—makes it possible to write
+    dependable, testable and extensible code.</p></section>
+
+    <section><title>MVC in Agavi</title><p>A<keyword> Model</keyword> is a
+    class that represents a unit of logic in your application. The properties
+    and methods of a Model describe and implement application-specific domain
+    (or "business") logic. Your application may be implemented entirely inside
+    a single Model or across dozens of Models that represent various areas of
+    your software. Some Models act as wrappers for external libraries and even
+    other applications or interfaces. An Agavi Model is just an empty class
+    that you fill with methods. </p><p>A Controller is called an
+    <keyword>Action</keyword> in Agavi. Actions generally have corresponding
+    Views. When a Web request arrives, the routing mechanism selects the
+    Action to be executed (this is called the initial action, since more than
+    one Action can be executed during a single request). The action performs
+    necessary changes in application state by calling methods in Models. The
+    Action also selects ("appoints") one of its Views to be executed after it
+    finishes. A <keyword>View</keyword> performs rendering of the
+    application's output.</p><p>Agavi Actions and Views can communicate with
+    each other. This is not typical for classic MVC interactive desktop
+    applications. Since HTTP works under the request-response model, Actions
+    appoint the Views to be executed after them even though strictly speaking
+    Agavi can be used successfully for applications in which no Web interface
+    exists at all. From the practical perspective, all this means is that
+    Views are never executed without an Action.</p><p><note>In simple cases
+    Actions don't cause state changes and their corresponding Views specify
+    some (static) output.</note></p><p>Actions and Views should not implement
+    any part of the application's domain logic. They serve merely as glue
+    between the user interface, request overhead, and the Models. This means
+    that your entire application should be implemented in Models.
+    </p><p>Actions, Views and Models are grouped into Modules. A
+    <keyword>Module</keyword> is a source tree directory that contains
+    Actions, Views, templates, module-specific Models, validators, local
+    configuration and whatever else that is only needed by a specific Module.
+    Agavi Modules can be found in your application's
+    <filepath>app/modules/</filepath> directory.</p><p>Agavi also has global
+    Models and templates. They reside in <filepath>app/models/</filepath> and
+    <filepath>app/templates/</filepath>.</p></section>
+  </body>
+</topic>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+	<configuration>
+		
+		<autoload name="BlogPublicBaseAction">%core.module_dir%/Public/lib/action/BlogPublicBaseAction.class.php</autoload>
+		<autoload name="BlogPublicBaseModel">%core.module_dir%/Public/lib/model/BlogPublicBaseModel.class.php</autoload>
+		<autoload name="BlogPublicBaseView">%core.module_dir%/Public/lib/view/BlogPublicBaseView.class.php</autoload>
+		
+	</configuration>
+</configurations>

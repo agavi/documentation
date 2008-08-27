@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="filesystem-layout">
+  <title>Application filesystem layout</title>
+
+  <body>
+    <p>An Agavi application directory is structured according to Agavi's
+      conventions. The Agavi project configuration system knows about the layout
+      and its commands create or modify files and directories inside the source
+      tree.</p>
+
+    <p>An application's <filepath>pub/</filepath> directory is the document
+      root for your Web server: it contains static resources such as CSS files,
+      javascript source, images and other items that are reachable through the
+      Web server but do not involve invocation of the application.</p>
+
+    <p>The application itself—configuration, temporary and cache directories,
+      libraries and source files—are located in <filepath>app/</filepath>.</p>
+
+    <ul>
+      <li>The high-level Modules and their corresponding contents are located
+	in <filepath>app/modules/</filepath>.</li>
+
+      <li>The global configuration can be found in
+	<filepath>app/config/</filepath>. (You will examine it in greater detail
+	in the next section of this chapter.)</li>
+
+      <li>The <filepath>app/models/</filepath> directory contains the global
+	Models for your application.</li>
+
+      <li>In a similar fashion, the <filepath>app/templates/</filepath>
+	directory contains the global templates for the application. Typically,
+	this directory contains templates that are used in all application
+	output: wrappers (called <keyword>decorators</keyword>), headers and
+	footers, and so forth.</li>
+
+      <li>Third party libraries are placed in <filepath>app/lib/</filepath>.
+	Agavi is very extensible and can cooperate with virtually any foreign
+	code.</li>
+    </ul>
+  </body>
+</topic>

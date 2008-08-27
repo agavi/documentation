@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basic-application-functions">
+  <title>Using basic Agavi facilities</title>
+
+  <body>
+    <p>In this chapter, you will learn how to use the basic Agavi facilities.
+    By the end of this chapter, you will have a simple blog engine
+    implementation. This is a great way to cover some of the architectural
+    decisions that have guided Agavi's development. This chapter covers the
+    topics of <keyword>Model-View-Controller (MVC)</keyword>,
+    <keyword>Actions</keyword>, <keyword>Views</keyword>,
+    <keyword>Models</keyword>, database access and
+    <keyword>routing</keyword>.</p>
+
+    <p>The resulting application is provided with this tutorial as the
+    <filepath>stage2</filepath> tarball. The archive also contains the mock
+    database data for your importation pleasure.</p>
+  </body>
+</topic>

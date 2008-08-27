@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="configuration-overview">
+  <title>Overview of application configuration</title>
+
+  <body>
+    <p>Agavi application configuration is defined in XML. The configuration
+    engine validates and parses the configuration, compiling it into cached
+    PHP source code, which is then applied to initalization of many Agavi
+    classes. The configuration processors allow for validation, including
+    further configuration from external files, XSL transformations, and
+    several other powerful features. Configuration values are made available
+    to Agavi and the application through the <apiname>AgaviConfig</apiname>
+    class.</p>
+
+    <p>The configuration system is the central management facility for Agavi
+    and Agavi applications: it doesn't just provide configuration services to
+    your application but also binds your application together, serving as the
+    glue between various Agavi components. It specifies which implementations
+    of core classes are instantiated so that you can "plug in" extensions
+    without editing the framework's source code.</p>
+
+    <p>The configuration system is smart. When the application is executed in
+    development mode, the configuration is recompiled every time the
+    application runs. In production mode, however, the configuration is only
+    compiled once (and is subsequently cached), so the benefits of XML
+    configuration can be kept without having to parse XML on every Web server
+    request.</p>
+
+    <p>An important concept of the configuration system is the
+    <keyword>environment</keyword>. You can define configuration for many
+    environments, for instance, your personal development setup environment,
+    an automated testing environment, your organization's production
+    environment, or a profiling environment. Configuration data can be
+    extracted from configuration files conditionally according to the
+    environment in which the application is being executed. In this tutorial,
+    we will begin with a single environment.</p>
+
+    <p>Agavi has a large number of configuration files, but don't be
+    discouraged by their seeming complexity! There are a few interesting files
+    that we will repeatedly use:</p>
+
+    <dl>
+      <dlentry>
+        <dt><filepath>settings.xml</filepath></dt>
+
+        <dd>This file contains the global application settings. Various
+        aspects of the application such as enabled services, core Actions and
+        custom configuration are contained here.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>databases.xml</filepath></dt>
+
+        <dd>This file describes your application's database connections, if
+        any. Agavi has a database manager and a set of adapters to integrate
+        with various libraries and PHP extensions (including Propel, Doctrine,
+        and PDO). You will edit this file to define connection parameters for
+        your blog's database.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>routing.xml</filepath></dt>
+
+        <dd>This file describes the routing map. The routing map connects URLs
+        and Agavi actions, allowing Agavi to recognize and create URLs. The
+        routing mechanism is very versatile and allows nearly any kind of URL
+        structure; in fact, routes can also match on conditions other than
+        URLs (such as request headers).</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>output_types.xml</filepath></dt>
+
+        <dd>This file describes the application's output types. In our initial
+        application, the only output type is HTML, as it is all that a simple
+        blog application produces. An output type configures Agavi's rendering
+        mechanisms, defining various aspects from template naming conventions
+        to HTTP response headers. Later on, we will add another type to
+        implement RSS feeds. An output type also contains the layout
+        configuration, which we will edit when we integrate a pretty HTML
+        template into our application.</dd>
+      </dlentry>
+    </dl>
+
+    <p>Other configuration files serve more advanced purposes:</p>
+
+    <dl>
+      <dlentry>
+        <dt><filepath>action_filters.xml</filepath></dt>
+
+        <dd>This file configures filters that run for every execution of an
+        action. <keyword>Filters</keyword> are an advanced mechanism used to
+        organize and modify the execution flow of your application. Your
+        actions are executed inside a Filter; security is enforced by another
+        Filter. Several filters are shipped and configured with a default
+        Agavi application.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>global_filters.xml</filepath></dt>
+
+        <dd>This file configures filters that run for every execution of an
+        application.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>autoload.xml</filepath></dt>
+
+        <dd>This file tells the class loading mechanism where to find various
+        class files. When you add a third party library, you typically tell
+        Agavi how to load it using this configuration file.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>config_handlers.xml</filepath></dt>
+
+        <dd>This file tells the configuration system how to translate XML
+        configuration to PHP source code. The configuration system allows for
+        the definition of custom configuration files, which can be extremely
+        useful when creating large projects.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>compile.xml</filepath></dt>
+
+        <dd>This file tells Agavi how to compile code caches. Its use is
+        beyond the scope of this tutorial.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>factories.xml</filepath></dt>
+
+        <dd>This file defines how actual classes map to given core interfaces
+        in Agavi's class factory system. This allows you to extend any of the
+        core Agavi services or facilities without having to edit the
+        framework's source code. For example, if you wanted to replace the
+        security user object implementation, you'd provide the name of your
+        new class here and Agavi will use it instead of its default
+        implementation.</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>logging.xml</filepath></dt>
+
+        <dd>This file configures the logging facility. You can use it in your
+        application to keep logs of the application's activity (although this
+        isn't the only use for the logging subsystem).</dd>
+      </dlentry>
+
+      <dlentry>
+        <dt><filepath>translation.xml</filepath></dt>
+
+        <dd>This file configures internationalization and format conversion
+        facilities. Agavi comes with fully featured internationalization and
+        localization services, supporting several backends, including
+        gettext.</dd>
+      </dlentry>
+    </dl>
+  </body>
+</topic>

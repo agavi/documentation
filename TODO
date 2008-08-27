@@ -1,0 +1,25 @@
+CONTENT
+
+Improve wording in configuring-webserver
+Iron out setting-up-actions inconsistencies
+Complete chapter basic layout
+mention base model extension in stage 2 tutorial (getPdo() etc)
+rip out <kbd> 
+rename the base classes from Blog* to Bloggie*
+
+TEMPLATE
+
+Navigation forward & backward
+Embed topic tree
+Embed the index page into template
+adjust to fixed width
+smaller font size
+
+VISUAL
+
+<userinput> outside of <screen> should be its own block?
+add PHP syntax highlighting (geshi-js etc?)
+
+Elements not for use:
+<systemoutput> 
+<msgblock> 

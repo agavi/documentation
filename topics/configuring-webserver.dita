@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="configuring-webserver">
+  <title>Configuring a Web server</title>
+
+  <body>
+    <p>A Web server starts your application through a special dispatcher
+    script which resides at <filepath>pub/index.php</filepath>. You must
+    configure the Web server to point to the <filepath>pub/</filepath>
+    directory as your document root. This naturally means that
+    <filepath>app/</filepath> is outside the document root and nothing in it
+    is ever available to the outside world for Web access directly.</p>
+
+    <p>When you were creating the project, you were prompted for the
+    following:</p>
+
+    <screen>Document-root relative path to the Agavi script [/]:</screen>
+
+    <p>As a part of new project initialization, the Agavi project configuration system creates
+    an Apache <filepath>.htaccess</filepath> file that includes some
+    mod_rewrite configuration so that "pretty" URLs work if mod_rewrite is
+    available. This value becomes the value of mod_rewrite's RewriteBase
+    command in <filepath>.htaccess</filepath>. If your application doesn't
+    have its own virtual host and is configured to respond in a URL
+    subdirectory (for example,
+    <filepath>http://myserver/~dev/apps/myapp/</filepath>), simply edit the
+    .htaccess file and specify the path part of the URL for the
+    <apiname>RewriteBase</apiname> directive (for example, <codeph>RewriteBase
+    /~dev/apps/myapp/</codeph>).</p>
+
+    <p>The dispatcher script starts up Agavi and begins the execution of your
+    application. Since the configuration environment name is a parameter Agavi
+    receives from outside during startup, it is defined in the dispatcher
+    script. The default dispatcher script comes with the environment name set
+    to "development". You should change this to "production" when deploying
+    the application.</p>
+
+    <section><title>Apache</title><p>Below is a minimum example configuration
+    for Apache assuming that you have name-based virtual hosting enabled in
+    Apache:</p><p><codeblock>&lt;VirtualHost *&gt;
+ ServerName bloggie.dev
+ DocumentRoot /srv/applications/bloggie/pub
+&lt;/VirtualHost&gt;</codeblock>Bear in mind that changing Apache
+    configuration requires a reload of the Web server.</p><p><note
+    type="tip">You don't need a full-fledged DNS system under your control in
+    order to use virtual host names. It's enough to add a hostname using your
+    operating system's hosts file (<filepath>/etc/hosts</filepath> on
+    UNIX-like or Linux systems and
+    <filepath><varname>%SystemRoot%</varname>\system32\drivers\etc\HOSTS</filepath>
+    on Windows).</note></p></section>
+
+    <p>If everything is configured correctly, you should now be able to see
+    the default welcome screen when pointing the browser at your development
+    URL.</p>
+
+    <p>The whole application we've created in this chapter is shipped with
+    this tutorial as the <filepath>stage1</filepath> tarball.</p>
+  </body>
+</topic>

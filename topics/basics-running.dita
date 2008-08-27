@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-running">
+  <title>Running Bloggie</title>
+
+  <body>
+    <p>If everything has been set up properly, you should be able to run the
+    application. When you open <filepath>http://bloggie.dev/</filepath>, you
+    should see the front page of your blog, listing the most recent posts.
+    Clicking on a "more" link shows the post page. It is worth taking a moment
+    to open the HTML source to view the rendered code.</p>
+
+    <p>You now have a very simple <filepath>stage2</filepath> application.
+    Armed with your understanding of the basics, you can now march onward and
+    turn Bloggie into a full-featured blog engine. In the next few chapters,
+    you will add administrative capabilities, including authentication and
+    security layers, "pretty" URLs, comments and input validation, form
+    handling, slots, nice templates and output types, and RSS feeds.</p>
+  </body>
+</topic>

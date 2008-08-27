@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN"
+"http://docs.oasis-open.org/dita/dtd/bookmap.dtd">
+<bookmap>
+  <title>Agavi tutorial</title>
+
+  <bookmeta>
+    <author>Mike Seth &lt;me@mikeseth.com&gt;</author>
+    <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
+  </bookmeta>
+
+  <chapter href="topics/introduction.dita" collection-type="sequence">
+    <topicref href="topics/introduction-agavi.dita"/>
+
+    <topicref href="topics/mvc-in-agavi.dita"/>
+    <topicref href="topics/agavi-services.dita"/>
+    <topicref href="topics/execution-flow-overview.dita"/>
+    <topicref href="topics/filesystem-layout.dita"/>
+
+    <topicref href="topics/configuration-overview.dita"/>
+  </chapter>
+
+  <chapter href="topics/setting-up-initial-application.dita" collection-type="sequence">
+    <topicref href="topics/installing-agavi.dita"/>
+
+    <topicref href="topics/creating-agavi-project.dita"/>
+
+    <topicref href="topics/configuring-example-application.dita"/>
+
+    <topicref href="topics/configuring-webserver.dita"/>
+  </chapter>
+
+  <chapter href="topics/basics.dita" collection-type="sequence">
+    <topicref href="topics/sample-app-about.dita"/>
+
+    <topicref href="topics/sample-app-prepare.dita"/>
+
+    <topicref href="topics/creating-models.dita"/>
+
+    <topicref href="topics/setting-up-actions.dita"/>
+
+    <topicref href="topics/basics-routing.dita"/>
+
+    <topicref href="topics/basics-running.dita"/>
+  </chapter>
+
+  <chapter href="topics/advanced-facilities.dita" collection-type="sequence"> 
+    <topicref href="topics/basic-layouts.dita"/>
+    <topicref href="topics/creating-decorator.dita"/>
+    <topicref href="topics/basic-forms.dita"/> 
+    <topicref href="topics/basics-authentication-security.dita"/>
+    <topicref href="topics/securing-admin-actions.dita"/>
+  </chapter>
+</bookmap>

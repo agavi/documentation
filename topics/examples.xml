@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="examples">
+  <title>Tutorial source code examples</title>
+  <body>
+    <codeblock id="services-example-context">
+$db_conn = $this->context->getDatabaseManager()->getDatabase('mydb');
+    </codeblock>
+    <codeblock id="services-example-config">
+// Retrieve a configuration value at org.mycompany.myapp.example_value
+// The second parameter is the value that should be returned instead of null
+
+$val = AgaviConfig::get('example_value', null, 'org.mycompany.myapp');
+    </codeblock>
+    <codeblock id="services-example-database">
+$dbm = $this->context->getDatabaseManager();
+$db = $dbm->getDatabase('mydb');
+$conn = $db->getConnection();
+    </codeblock>
+   <codeblock id="services-example-routing-gen">
+$ro = $this->context->getRouting();
+
+// Generate an absolute URL to a named route 
+$url = $ro->gen('posts.edit', array('id' => $post->id), array('relative' => false));
+    </codeblock>
+    <codeblock class="e1" id="configuration-database">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configurations xmlns="http://agavi.org/agavi/1.0/config"&gt;
+ &lt;!-- The "development" attribute here means that this configuration is
+only used in the development mode. See pub/index.php in which the current
+environment is set. --&gt;
+ &lt;configuration environment="development"&gt;
+  &lt;databases default="blog"&gt;
+   &lt;!-- AgaviPdoDatabase is the adapter class for PHP PDO --&gt;
+   &lt;database name="blog" class="AgaviPdoDatabase"&gt;
+    &lt;parameter name="dsn"&gt;mysql:host=localhost;dbname=bloggie_dev&lt;/parameter&gt;
+    &lt;parameter name="username"&gt;bloggie&lt;/parameter&gt;
+    &lt;parameter name="password"&gt;password&lt;/parameter&gt;
+   &lt;/database&gt;
+  &lt;/databases&gt;
+ &lt;/configuration&gt;
+&lt;/configurations&gt;
+</codeblock>
+<codeblock id="stage2-posts-model">
+  /**
+   * Retrieve 20 last posts.
+   *
+   * Selects the post summary, category name and author's screen name
+   * @return array Array of posts (id, title, posted, author_name, category_name)
+   */
+
+  public function findFrontPagePosts()
+  {
+    // Obtain the connection identifier from our base class
+    // This works out to $this->context->getDatabaseManager()->getConnection()
+
+    $conn = $this->getPdo();
+
+    $sql = 'SELECT p.id, p.title, p.posted , a.screen_name AS author_name, c.name AS category_name
+           FROM posts p
+           LEFT JOIN admin_users a ON p.author_id = a.id
+           LEFT JOIN categories c ON p.category_id = c.id
+           ORDER BY posted DESC LIMIT 20';
+    
+    return $conn->query($sql)->fetchAll();
+  }
+
+  /**
+   * Fetch a post by ID
+   *
+   * Retrieve a post record by given ID
+   * @param integer $id ID of the requested post
+   * @return array Post contents (all post fields, category_name, author_name)
+   */
+
+  public function findPostById($id)
+  {
+    $conn = $this->getPdo();
+    
+    $sth = $conn->prepare('SELECT p.*, a.screen_name AS author_name, c.name AS category_name
+           FROM posts p
+           LEFT JOIN admin_users a ON p.author_id = a.id
+           LEFT JOIN categories c ON p.category_id = c.id
+           WHERE p.id = ? LIMIT 1');
+    $sth->execute(array($id));
+    
+    return $sth->fetch(PDO::FETCH_ASSOC);
+  }
+
+</codeblock>
+<codeblock id="stage2-index-action">/**
+   * This Action doesn't change anything in the application state, so
+   * it has no execute() methods. 
+   */
+
+class Public_IndexAction extends BlogPublicBaseAction
+{
+  /**
+   * Returns the default view name which is used by Agavi to find the
+   * View as the last resort (e.g. Public_IndexSuccessView)
+   */
+
+  public function getDefaultViewName()
+  {
+    return 'Success';
+  }
+}
+</codeblock>
+<codeblock id="stage2-index-success-view">
+class Public_IndexSuccessView extends BlogPublicBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // Load the rendering configuration. 
+    $this->setupHtml($rd);
+
+    // Obtain the Posts model from this module
+    $m = $this->context->getModel('Posts', 'Public');
+
+    // Obtain the list of most recent posts from the model and export
+    // it so that templates can access it
+    $this->setAttribute('posts', $m->findFrontpagePosts());
+  }
+}
+      </codeblock>
+      <codeblock id="stage2-showpost-action">
+class Public_ShowPostAction extends BlogPublicBaseAction
+{
+  // Just to demonstrate how an execute() method looks, we'll define
+  // executeRead() which corresponds to HTTP GET.
+
+  /**
+   * Returns just the View name to be executed next 
+   */
+
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
+    return 'Success';
+  }
+
+  // Note that getDefaultViewName() is missing. Calling this action
+  // with any HTTP verb other than GET will cause an error because
+  // Agavi wouldn't be able to determine the View and so wouldn't be
+  // able to create an HTTP response.
+}
+      
+</codeblock>
+<codeblock id="stage2-showpost-success-view">
+class Public_ShowPostSuccessView extends BlogPublicBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // Load the rendering configuration 
+    $this->setupHtml($rd);
+
+    // Obtain the requested post from the model
+    $m = $this->context->getModel('Posts', 'Public');
+
+    $post = $m->findPostById($rd->getParameter('post_id'));
+    $this->setAttribute('post', $post);
+  }
+}
+      </codeblock>
+
+      <codeblock id="stage2-index-template">
+	&lt;!-- Note the full HTML. We haven't dressed the application yet,
+        so it's still ugly and every page has its own HTML layout --&gt;
+	&lt;html&gt;
+	&lt;head&gt;
+	&lt;title&gt;Our blog's front page&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;h1&gt;Our blog&lt;/h1&gt;
+	
+	&lt;!-- Loop over the posts exported by the View --&gt;
+	&lt;?php if (! empty($template['posts'])) foreach($template['posts'] as $post):?&gt;
+	&lt;hr/&gt;
+	&lt;h3&gt;
+	&lt;!-- Generate a link to the post, using its title as the caption --&gt;
+	&lt;a href=&quot;&lt;?php print $ro-&gt;gen('ShowPost', array('post_id' =&gt; $post['id'])); ?&gt;&quot;&gt;&lt;?php print $post['title']; ?&gt;&lt;/a&gt;
+	&lt;/h3&gt;
+	&lt;!-- the summary line with author name, posting date and category name --&gt;
+	by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; ?&gt;
+        in &lt;strong&gt;&lt;?php print $post['category_name']; ?&gt;&lt;/strong&gt;
+
+	&lt;?php endforeach; ?&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+      </codeblock>
+      <codeblock id="stage2-showpost-template">
+	&lt;!-- Note the full HTML. We haven't dressed the application yet,
+        so it's still ugly and every page has its own HTML layout --&gt;
+	
+	&lt;?php
+
+	// For convenience, import the post contents into a local variable
+	$post = $template['post']; 
+	?&gt;
+	&lt;html&gt;
+	&lt;head&gt;
+	&lt;title&gt;&lt;?php print $post['title']; ?&gt;&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;h1&gt;&lt;?php print $post['title']; ?&gt;&lt;sub &gt;by &lt;?php print $post['author_name']; ?&gt;&lt;/sub&gt;&lt;/h1&gt;
+	&lt;h4&gt;in &lt;?php print $post['category_name']; ?&gt;
+	&lt;h5&gt;&lt;?php print $post['posted']; ?&gt;&lt;/h5&gt;
+	&lt;div&gt;
+	&lt;?php print $post['content']; ?&gt;
+	&lt;/div&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
+      </codeblock>
+<codeblock id="user-object-example">// Obtain the current User object
+$us = $this-&gt;context-&gt;getUser();
+
+if (! $us-&gt;isAuthenticated())
+ die("This user is not logged in!");
+
+// Let's obtain the username that was previously placed here by someone else -
+// for instance a login Action
+$username = $us-&gt;getAttribute('username');
+
+// If this user hasn't been seen for more than an hour, we'll log him out
+if ( (time() - $us-&gt;getAttribute('last_seen_at')) &gt; 3600 )
+{
+  $us-&gt;setAuthenticated(false);
+  return;
+}
+
+// Let's refresh the timestamp on the user 
+$us-&gt;setAttribute('last_seen_at', time());
+
+// If it's suddenly Christmas, allow the user to see Christmas-only pages
+if (isItChristmas()) $us-&gt;addCredential('christmas');
+</codeblock>
+<codeblock id="output-types-simple-example">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configurations xmlns=&quot;http://agavi.org/agavi/1.0/config&quot;&gt;
+   &lt;configuration&gt;
+	&lt;output_types default=&quot;html&quot;&gt;
+	    &lt;output_type name=&quot;html&quot;&gt;
+		&lt;renderers default=&quot;php&quot;&gt;
+		   &lt;renderer name=&quot;php&quot; class=&quot;AgaviPhpRenderer&quot;&gt;
+			&lt;parameter name=&quot;assigns&quot;&gt;
+			   &lt;parameter name=&quot;routing&quot;&gt;ro&lt;/parameter&gt;
+			   &lt;parameter name=&quot;request&quot;&gt;rq&lt;/parameter&gt;
+			   &lt;parameter name=&quot;controller&quot;&gt;ct&lt;/parameter&gt;
+			   &lt;parameter name=&quot;user&quot;&gt;us&lt;/parameter&gt;
+			   &lt;parameter name=&quot;translation_manager&quot;&gt;tm&lt;/parameter&gt;
+			   &lt;parameter name=&quot;request_data&quot;&gt;rd&lt;/parameter&gt;
+			   &lt;/parameter&gt;
+		   &lt;/renderer&gt;
+		&lt;/renderers&gt;
+				
+		&lt;layouts default=&quot;default&quot;&gt;
+			&lt;layout name=&quot;default&quot;&gt;
+				&lt;layer name=&quot;content&quot; /&gt;
+			&lt;/layout&gt;
+		&lt;/layouts&gt;
+				
+		&lt;parameter name=&quot;http_headers&quot;&gt;
+			&lt;parameter name=&quot;Content-Type&quot;&gt;text/html; charset=UTF-8&lt;/parameter&gt;
+		&lt;/parameter&gt;
+	&lt;/output_type&gt;
+      &lt;/output_types&gt;
+&lt;/configuration&gt;
+</codeblock>
+   </body>
+</topic>

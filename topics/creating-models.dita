@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-creating-models">
+  <title>Using Models</title>
+
+  <body>
+    <section><title>What are Models?</title><p>Models are where your
+    application's logic is contained. Models access databases, send e-mails,
+    render images, converse with captcha libraries and facilitate the
+    processing of any other data that an application needs. Models are
+    completely disconnected from the user interface of your
+    applications.</p><p>Actions manipulate your Models using outside data to
+    perform changes to your application state. Views question the Models for
+    relevant data and display it.</p><p>When you remove the user interface
+    layer (Actions and Views) all that remains is Models—your application
+    expressed as an API. When your application is available as an API, you can
+    write automated tests to make sure it doesn't break throughout its
+    development. </p></section>
+
+    <p>You should often revisit your Model APIs to make sure the interfaces
+    don't intrude into each other's areas of concern. An automated
+    documentation tool helps tremendously when executed against the Models of
+    your application.</p>
+
+    <section><title>Creating Models for Bloggie</title><p>Bloggie has two
+    pages—two Actions—one for the front page and one for specific blog post,
+    so you can safely assume that we need our application to have at least two
+    methods: one to return the contents of the front page (a list of the most
+    recent posts) and one to find a specific post given its ID. To do this,
+    you need to create a new Model! The project configuration system eases
+    your job immensely:</p><p><screen>bloggie$ <userinput>agavi project-model-create</userinput>
+
+Model name: <userinput>Posts</userinput>
+     [copy] Copying 1 file to /home/nfontes/bloggie/app/models</screen>You now
+    have an empty Posts Model class ready to be populated with application
+    logic:</p>
+      <codeblock conref="examples.xml#stage2-posts-model" class="php"/>
+      <p>The Posts Model contains two very simple methods. The first
+    is <apiname>findPostById</apiname>, which accepts an ID parameter
+    and returns corresponding post data as a single dimensional
+    associative array. The second
+    is <apiname>findIndexPosts</apiname>, which returns a list of the
+    most recent posts from the database, not including the body of the
+    posts themselves. Both methods obtain the connection from Agavi's
+    database manager, perform an SQL query against it and return the
+    results.</p><p><note type="important">We will soon discover that
+    we need more than one Model to handle posts!</note></p><p>As we
+    already have some dummy data in the database, we can now proceed
+    to make working pages that utilize our new Model.</p></section>
+  </body>
+</topic>

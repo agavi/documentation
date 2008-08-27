@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="configuring-example-app">
+  <title>Configuring Bloggie</title>
+
+  <body>
+    <p>Your application keeps the blog posts and other items in a database.
+    Agavi provides flexible database connection management facilities,
+    allowing you to access a number of connections over different adapters or
+    database libraries. For the sake of simplicity, this tutorial will assume
+    that you are using a MySQL database and PDO for connectivity.</p>
+
+    <p>First, you should enable the database manager in the global
+    configuration. Open <filepath>app/config/settings.xml</filepath> and flip
+    the corresponding switch: change the value of the setting
+    <varname>use_database</varname> from <keyword>false</keyword> to
+    <keyword>true</keyword>.</p>
+
+    <p>Now you need to create a database and configure the application's
+    connection. Using the MySQL administration tools, create an empty database
+    called blog_dev which can be accessed locally with username blog_dev and
+    password password. You can then define your new connection in
+    <filepath>app/config/databases.xml</filepath>:</p>
+
+    <codeblock class="xml" conref="examples.xml#configuration-database"/>
+
+    <p>This configuration will create a connection object that is available to
+    your application's code. The connection will be managed by the
+    <apiname>AgaviPdoDatabase</apiname> adapter, as specified by the class
+    attribute of the <codeph>&lt;database&gt;</codeph> element. Notice the
+    environment attribute of the <codeph>&lt;configuration&gt;</codeph>
+    element: this tells Agavi that this configuration item is only valid for
+    configuration environment called "development".</p>
+
+    <p>The connection object can be obtained and used like this:</p>
+
+    <codeblock conref="examples.xml#services-example-database" class="php"/>
+    
+    <p>You are free to manipulate the connection object as you please,
+    just as if you had created it manually; however, you now have the
+    advantage of the framework's management capabilities to govern the
+    creation and delegation of the database objects. When you add
+    additional environments, this will become particularly useful.</p>
+  </body>
+</topic>

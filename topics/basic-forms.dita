@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basic-forms">
+  <title>Basic use of forms</title>
+  <body>
+  <p>As we've seen before, Agavi
+    Actions support multiple executeXXX() methods. Each such method
+    corresponds to a HTTP (or other protocol's) request verb. HTTP GET by
+    default maps to executeRead() and POST to executeWrite(). You can also
+    define custom executeXXX() methods and use Routing to have Agavi execute
+    them instead. </p><p>What this means in practice is that an Action can be
+    used to implement UI procedures that consist of a number of steps. Let's
+    develop the Login action to see this capacity in action. We'll need a
+    Model method to find an admin account with the given username and
+    password. </p><codeblock>class Admin_LoginAction extends BlogBaseAction
+{
+ public function executeRead(AgaviRequestData $rd)
+ {
+   return 'Form';
+ }
+
+ public function executeWrite(AgaviRequestData $rd)
+ {
+   $um = $this-&gt;getModel('Users', 'Admin');
+
+   if ($user = $um-&gt;findUserForAuthentication($rd-&gt;getParameter('username'), $rd-&gt;getParameter('password')))
+   {
+     $us = $this-&gt;context-&gt;getUser();
+     $us-&gt;clearCredentials();
+     $us-&gt;setAuthenticated(true);
+
+
+     $us-&gt;setAttribute('record', $user);
+
+     return 'Forward';
+   }
+
+   return 'InvalidLogin';
+ }
+}</codeblock><p>As you can see, this Action has three different Views which
+    represent different steps of the Action. When you access the Action with
+    HTTP GET, it does nothing and just returns the login form. When you use
+    the login form clicking its submit button, the username and password that
+    you entered will be submitted back to the same Action over HTTP POST. This
+    is when executeWrite() is called and the login procedure is performed. If
+    the login is successful, the "Forward" View will redirect the user's
+    browser to the proper start page. If the login fails, an error message is
+    shown instead.</p><p>Forms and links cause the user to invoke your
+    application's actions. So, a combination of executeXXX() methods in the
+    Action and links/forms produced by its Views together can define the flow
+    of an Action with several steps.</p><p>Here's the source code for the
+    Views and their templates. Since we still don't have a shared template, we
+    will have to temporarily write complete HTML again.
+    </p><p>(codez)</p><p>We already have some users in the database, so the
+    login system is ready. Next time, we'll deal with form validation and
+    population, when we add visitor comments to our blog post pages.
+    Meanwhile, we should dress our application so that we don't have to redo
+    all our Actions' templates in the future.</p>
+  </body>
+</topic>

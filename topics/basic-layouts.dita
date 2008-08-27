@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basic-layouts">
+  <title>Basics of output types and rendering</title>
+  <body>
+    <p>A basic HTML template consists of a header, a footer and a stylesheet.
+      A simple PHP application would have separate script files which all
+      include the header and the footer individually. In Agavi this is almost
+      never done because the output rendering system gives you a better way to
+      control your templating.</p>
+
+    <p>So far we've only seen Views that output the complete web page
+      and every template we used contained the full HTML header and
+      footer. Obviously, this is no way to maintain templates in a
+      serious application. In this chapter, we will use Agavi's
+      rendering mechanism to set up proper templating.</p>
+
+    <note type="tip">
+      In general, dressing up the application after it's been
+      developed is a tedious and error prone procedure even though
+      Agavi makes it significantly easier. Going backwards to undo
+      previous work is a tedious waste of time and its best to
+      prepare everything beforehand.
+    </note>
+
+    <section>
+      <title>Output types</title>
+      <p>An output type is a configuration item that describes how
+	various components behave when Agavi is composing a response
+	in given output mode. Output types are configured
+	in <filepath>app/config/output_types.xml</filepath>. An
+	application may define any output type, e.g. HTML, JSON, plain
+	text, CSV, XLS files, PDF files, dynamically generated
+	stylesheets or Javascript and so on.</p>
+      <note type="tip">A stock Agavi application comes preconfigured
+	with a default output type "html". Examine the output type
+	configuration file to see what kind of settings can be
+	defined.</note>
+      <p>Output type configuration defines various details of the
+	output composition process, from desired HTTP response headers
+	to the names of adapter classes that perform rendering. For
+	now, we will keep working with our HTML output type, and later
+	we'll add an RSS output type to export our blog post
+	feeds. Here's an example output type configuration from stage
+	2:</p>
+	<codeblock conref="examples.xml#output-types-simple-example"
+	class="xml"/>
+      <p>Output type configuration contains <keyword>layouts</keyword>
+	which define how a View's output is treated.</p>
+    </section>
+    <section>
+      <title>Layered output</title>
+      <p>Sometimes, a View needs to compose the output directly,
+	without relying on Agavi's rendering mechanism. In such cases,
+	View's <apiname>executeXXX</apiname> method simply returns the
+	response body as a string. When you don't do that, Agavi assumes
+	that the rendering mechanism should be applied and its output
+	will become the response body instead.</p>
+
+      <p>The output rendering mechanism works with Layers. Layers are
+	Agavi objects that act as information containers for Renderers
+	as well as output buffers. Views create and configure the Layers
+	inside their <apiname>executeXXX</apiname> method. Layers are
+	stored alongside the View in an ordered array. When a View
+	finishes executing, rendering of the Layers begins.</p>
+
+      <p>The rendering process treats the Layer array as if it was a
+	vertical stack of Layers on top of each other. Layers are
+	processed from top to bottom. Rendering applies an appropriate
+	Renderer class to a Layer and collects the resulting output.</p>
+
+      <p>Every time a Layer is rendered, the output of its preceding
+	Layer becomes available to the current Renderer. This makes it
+	possible to include output of previous Layers in your
+	template. Output of the last Layer becomes the output of the View
+	- the Action's response content.</p>
+    </section>
+    <section>
+      <title>Using Layout configuration</title>
+      <p>Obviously, Bloggie is very ugly. We need to pick up a pretty
+	template and dress our application. Since we're going to
+	create more Bloggie Actions/pages in the future, it makes
+	sense to have a shared template that all Views could use.</p>
+      <p>A View can manipulate its Layer array using a number of
+	methods: <apiname>getLayer()</apiname>, <apiname>setLayer()</apiname>
+	and some others. The configured set of Layers is called a
+	"layout". Normally, you do not manipulate the Layers directly
+	and instead use <apiname>loadLayout()</apiname> which loads
+	the whole layout from configuration instead of setting it up
+	manually with <apiname>setLayer()</apiname> calls. For
+	example, a stock Agavi application has
+	a <apiname>setupHtml()</apiname> method, which
+	every <apiname>executeHtml()</apiname> method calls to set up
+	the rendering mechanism for rendering HTML
+	output. <apiname>setupHtml()</apiname>
+	calls <apiname>loadLayout()</apiname> to load the default
+	layout for HTML output type.
+      </p>
+    </section>
+    <section>
+      <title>Defining a shared template</title>
+      
+      <p>Since we need to skin the application, it makes sense to have
+	our HTML header and footer wrap around the output of any
+	Action. Of course, since the template is shared between Views,
+	it also makes sense to keep the header and footer HTML code in a
+	separate file.</p>
+
+      <p>This tutorial comes with two design templates for the public
+	and admin part of the site respectively. We'll cut them up and
+	configure Agavi to use them; we'll also remove the old HTML
+	which doesn't suit us anymore.</p>
+      
+
+      <note type="tip">A major template that wraps around other
+	content and defines the structure of resulting HTML document
+	is called a "decorator" template in Agavi slang since it
+	decorates output of our Actions.</note>
+      <p>Since Agavi exposes the rendered contents of a preceding
+	Layer to the one that's currently being rendered, we'll
+	configure the rendering mechanism so that the output of any
+	View is passed to the decorator template. Thus, every View
+	will receive two Layers, one for View's own use (to render the
+	specific Action's output) and another one preconfigured with
+	the decorator.
+      </p>
+      <p>In this configuration, the View renders its own output in the
+	top Layer, and the decorator in the bottom Layer includes this
+	output, forming a full HTML document that becomes the Action's
+	response.</p>
+    </section>
+  </body>
+</topic>

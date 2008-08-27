@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="introduction">
+  <title>Introduction to Agavi</title>
+
+  <body>
+    <p>Agavi is a general purpose application framework built around the
+    Model-View-Controller architecture originally based on the Mojavi 3 Web
+    application framework written by Sean Kerr. It provides a rich toolset
+    that solves most of the routine problems in Web application
+    development.</p>
+
+    <p>Agavi is designed for serious development. It is not a complete website
+    construction kit but rather a skeleton over which you build your
+    application. The architecture of Agavi allows developers to retain very
+    fine control over their code. Agavi itself is written to be clean,
+    understandable, extensible, and powerful. Whereas this documentation
+    serves is an important resource, many developers are comfortable learning
+    from Agavi's source code.</p>
+
+    <p>Agavi strives to leave most implementational choices to the developers.
+    Agavi's components are inherently extensible, and the framework itself is
+    designed around a XML-based configuration system that provides a very
+    flexible environment. For you — as a developer — this architectural style
+    means that you are required to perform less hacking (or, in most cases,
+    none at all!) at the framework level and therefore have more time to get
+    your application written.</p>
+
+    <p>The framework works for almost all kinds of applications but excels
+    most in large codebases, long-term projects and extreme cases such as
+    incremental refactoring of live legacy systems, integration with poorly
+    designed vendor backends and other special situations.</p>
+  </body>
+</topic>

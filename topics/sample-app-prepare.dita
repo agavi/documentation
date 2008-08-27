@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="sample-app-stage1-preparation">
+  <title>Preparation</title>
+
+  <body>
+    <section><title>Populating your database</title><p>You have already
+	configured the database connection settings (in
+	<filepath>app/config/databases.xml</filepath>) in the previous chapter.
+	Now you need to initialize the database itself. Create four tables in your
+	database:</p><dl>
+        <dlentry>
+          <dt><apiname>authors</apiname></dt>
+
+          <dd><codeblock>CREATE TABLE authors (
+	      id int(11) NOT NULL auto_increment,
+	      username varchar(32) collate utf8_unicode_ci NOT NULL,
+	      password char(32) collate utf8_unicode_ci NOT NULL,
+	      screen_name varchar(64) collate utf8_unicode_ci NOT NULL,
+	      PRIMARY KEY (id),
+	      UNIQUE KEY username (username, screen_name)
+	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+	      COMMENT='Contains administrator identities';</codeblock></dd>
+        </dlentry>
+
+        <dlentry>
+          <dt><apiname>categories</apiname></dt>
+
+          <dd><codeblock>CREATE TABLE categories (
+	      id int(11) NOT NULL auto_increment,
+	      name varchar(128) collate utf8_unicode_ci NOT NULL,
+	      PRIMARY KEY (id),
+	      UNIQUE KEY name (name)
+	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+	      COMMENT='Contains post categories';</codeblock></dd>
+        </dlentry>
+
+        <dlentry>
+          <dt><apiname>posts</apiname></dt>
+
+          <dd><codeblock>CREATE TABLE posts (
+	      id int(11) NOT NULL auto_increment,
+	      title varchar(256) collate utf8_unicode_ci NOT NULL,
+	      category_id int(11) NOT NULL,
+	      content text collate utf8_unicode_ci NOT NULL,
+	      posted datetime NOT NULL,
+	      author_id int(11) NOT NULL,
+	      PRIMARY KEY (id),
+	      UNIQUE KEY title (title),
+	      KEY category_id (category_id, posted, author_id),
+	      FOREIGN KEY category_id REFERENCES categories (id) ON DELETE CASCADE ON UPDATE CASCADE,
+	      FOREIGN KEY author_id REFERENCES author (id) ON DELETE CASCADE ON UPDATE CASCADE
+	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+	      COMMENT='Contains post bodies';</codeblock></dd>
+        </dlentry>
+
+        <dlentry>
+          <dt><apiname>comments</apiname></dt>
+
+          <dd><codeblock>CREATE TABLE comments (
+	      id int(11) NOT NULL auto_increment,
+	      post_id int(11) NOT NULL,
+	      name varchar(64) collate utf8_unicode_ci NOT NULL,
+	      email varchar(256) collate utf8_unicode_ci NOT NULL,
+	      content text collate utf8_unicode_ci NOT NULL,
+	      posted datetime NOT NULL,
+	      PRIMARY KEY (id),
+	      FOREIGN KEY post_id REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
+	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+	      COMMENT='Contains post comments';</codeblock></dd>
+        </dlentry>
+      </dl><p>Populate your new tables with some dummy data before you
+	continue.</p>
+      <p>
+	<note type="tip">It's always a good idea to have dummy data
+	  available before you start writing code! You can find some sample data
+	  file in the <filepath>stage2</filepath> tarball (in
+	  <filepath>mock-data.sql</filepath>) for your convenience. After you
+	  execute this SQL code in your development database, you will have some
+	  posts and categories and an author.</note>
+      </p>
+    </section>
+
+    <section>
+      <title>Removing the welcome Action</title>
+      <p>An Agavi application created using <userinput>agavi
+	  project</userinput> comes with a "welcome" Action. It should
+	make you feel warm and fuzzy whenever you see it;
+	unfortunately, this Action isn't needed in your production
+	code and should be removed. To do this, delete the files that
+	we left behind to demonstrate the typical files involved in a
+	single action:
+	<ul>
+	  <li><filepath>app/modules/Public/actions/WelcomeAction.class.php</filepath></li>
+	  <li><filepath>app/modules/Public/views/WelcomeSuccessView.class.php</filepath></li>
+	  <li><filepath>app/modules/Public/templates/WelcomeSuccess.php</filepath></li>
+	  <li><filepath>app/modules/Public/cache/Welcome.xml</filepath></li>
+	  <li><filepath>app/modules/Public/validate/Welcome.xml</filepath></li>
+	</ul>
+      </p>
+      <p>The corresponding route in <filepath>app/config/routing.xml</filepath> also should be removed:
+	<codeblock>&lt;route pattern="" module="%actions.default_module%" action="Welcome" /&gt;</codeblock>
+	You will learn more about how the routing subsystem works later in the following chapters.</p>
+    </section>
+  </body>
+</topic>

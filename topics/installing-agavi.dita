@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="installing-agavi">
+  <title>Installing Agavi</title>
+
+  <body>
+    <p>Agavi can be installed in several ways. The recommended way is to use
+    PEAR, as it performs a complete setup for your system.</p>
+
+    <p>If you wish, you can install Agavi (and the Phing package on which the
+    project configuration system depends) manually. A Subversion repository is
+    also available. For full details on installation using these methods,
+    please see (manual).</p>
+
+    <section>
+      <title>From PEAR</title>
+      Installation with PEAR is relatively simple. Discover the
+    Agavi PEAR channel and then install Agavi using the PEAR command
+    line interface:
+	<screen>$ <userinput>pear channel-discover pear.agavi.org</userinput>
+
+Adding Channel "pear.agavi.org" succeeded
+Discovery of channel "pear.agavi.org" succeeded
+
+$ <userinput>pear install -a agavi/agavi</userinput>.
+	</screen> 
+
+	<p>
+	  <note type="tip">Since Agavi 1.0.0 is still in a beta state,
+	    you may have to set your PEAR preferred package state to
+	    beta before installing Agavi:
+	    <screen>
+$ <userinput>pear config-set preferred_state  beta</userinput>
+	    </screen>
+	  </note>
+	</p>
+    </section>
+      
+    <section><title>Testing your installation</title><p>A properly deployed
+    Agavi installation enables the Agavi project configuration script,
+    <cmdname>agavi</cmdname>. You should test that the installation worked
+    correctly by executing <userinput>agavi</userinput> from the command line.
+    This should provide some basic information about your current
+    environment:</p>
+      <p>
+	<screen>
+$ <userinput>agavi</userinput>
+     Agavi &gt; status:
+
+     [echo] PHP:
+     [echo]   Version: 5.2.6-2
+     [echo]   Include path: .:/usr/share/php:/usr/share/pear
+     [echo]
+     [echo] Phing:
+     [echo]   Version: Phing version 2.3.1RC1
+     [echo]
+     [echo] Agavi:
+     [echo]   Installation directory: /usr/share/php/agavi
+     [echo]   Version: 1.0.0-beta1
+     [echo]   URL: http://www.agavi.org
+     [echo]
+     [echo] Project:
+     [echo]   (not found)
+     [echo]
+     [echo] For a list of possible build targets, call this script with the -l argument.
+</screen>
+(Note
+    that version information may differ slightly.) If you are getting errors
+    instead, Agavi isn't installed or configured correctly. Since this often
+    happens in broken and mishandled PHP installations, feel free to bug some
+    other Agavi developers about it (see (getting help) for more
+    details).</p></section>
+  </body>
+</topic>

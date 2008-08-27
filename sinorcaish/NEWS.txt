@@ -1,0 +1,40 @@
+**************************************************************************
+*                                                                        *
+*                       The Sinorcaish Stylesheet                        *
+*                   Copyright (C) 2004, John Zaitseff                    *
+*                                                                        *
+**************************************************************************
+
+The Sinorcaish stylesheet project gives any web site an attractive, clean-
+look interface while maintaining a  separation of style and content to the
+greatest possible  extent.  This allows  the web author to  concentrate on
+the structure  and content of his  or her documents, rather  than on their
+presentation.
+
+The following history is presented in reverse chronological order.  If you
+would like to  see a list of detailed changes to  this project, you should
+consult the CVS repository for "sinorcaish" on The ZAP Group web server at
+http://www.zap.org.au/services/cvs/.
+
+
+Version 1.0 (1st December, 2004)
+--------------------------------
+
+Needed an attractive, clean-look web  site design for a particular project
+in November,  2004.  Looked at  a number of  styles available on  the Open
+Source Web Design web  site (http://www.oswd.org/) and elsewhere.  Sinorca
+(http://www.oswd.org/design/1165/sinorca/) by  Haran Sivakumaran seemed to
+be a good starting point.  Sinorca,  in its turn, was based on the Acronis
+company web site (http://www.acronis.com/).
+
+Although the Sinorca stylesheet was  quite good, it seemed rather limited:
+it did not  allow floating text boxes, did not  really cater for computer-
+oriented  documentation (which requires  appropriate styling  for elements
+like <code>,  <kbd> and <pre>),  and completely ignored (data)  tables and
+many other XHTML elements.
+
+These limitations,  along with  the desire to  update parts of  the visual
+interface, led to Sinorcaish:  a complete redesign and reimplementation of
+the Acronis look-and-feel.  Wrote  a comprehensive "How to Use Sinorcaish"
+sample  document, created  template files  and images,  and  submitted the
+result to the Open Source Web Design group in December, 2004.
