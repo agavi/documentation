@@ -66,9 +66,10 @@
 	<filepath>app/modules/Public/actions/IndexAction.class.php</filepath>.  Open this
 	file in your favorite editor and take a look at it:</p>
       <codeblock conref="examples.xml#stage2-index-action" class="php"/>
-      <note type="remember">Newly created actions in the Public
-	Module extend <apiname>BlogPublicBaseAction</apiname>. The inheritance
-	chair for Actions in the Public Module is
+      <note type="remember">Newly created actions in Module XXX
+	extend <apiname>YYYXXXBaseAction</apiname>, where YYY is the
+	application's class prefix. The inheritance chain for Actions
+	in Bloggie's Public Module is thus
 	<codeph>Public_<varname>Name</varname>Action</codeph> ←
 	<apiname>BlogPublicBaseAction</apiname> ←
 	<apiname>BlogBaseAction</apiname>
@@ -146,14 +147,15 @@
     </section>
     <section>
       <title>Templates</title>
-      <p>The setAttribute() calls in the view are used to export data
-	into the template. An Action-View chain (that is, Action and
-	the View it appoints) is executed in an isolated space called
+      <p>An Action-View chain (that is, Action and the View it
+	appoints) is executed in an isolated space called
 	the <keyword>Execution Container</keyword>. Performing
 	$this-&gt;setAttribute()/$this-&gt;getAttribute() inside an
 	Action or a View actually reads or sets the attributes on the
 	enclosing Execution Container. The template (or technically
-	the Renderer) also has access to this container.</p>
+	the Renderer class that handles it) also has access to this
+	container. So, a View uses setAttribute() calls to export data
+	into the template. </p>
 
       <p>The output rendering begins after the View finishes
       executing. A default Agavi application is configured to render a

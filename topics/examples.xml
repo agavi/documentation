@@ -43,6 +43,12 @@ environment is set. --&gt;
 </codeblock>
 <codeblock id="stage2-posts-model">
   /**
+   * This Model is used to retrieve posts and their contents
+   */
+
+class Public_PostsModel extends BlogBaseModel
+{
+  /**
    * Retrieve 20 last posts.
    *
    * Selects the post summary, category name and author's screen name
@@ -86,7 +92,7 @@ environment is set. --&gt;
     
     return $sth->fetch(PDO::FETCH_ASSOC);
   }
-
+}
 </codeblock>
 <codeblock id="stage2-index-action">/**
    * This Action doesn't change anything in the application state, so
