@@ -46,7 +46,7 @@
 
   <chapter href="topics/advanced-facilities.dita" collection-type="sequence"> 
     <topicref href="topics/basic-layouts.dita"/>
-    <topicref href="topics/creating-decorator.dita"/>
+<!--    <topicref href="topics/creating-decorator.dita"/> -->
     <topicref href="topics/basic-forms.dita"/> 
     <topicref href="topics/basics-authentication-security.dita"/>
     <topicref href="topics/securing-admin-actions.dita"/>

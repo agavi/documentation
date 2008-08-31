@@ -1,3 +1,9 @@
-1) Command line examples should be wrapped in <screen>. The parts that are typed by the user are highlighted in the output and should be wrapped in <userinput>
-2) Side notes should be placed in <note>
+1) Command line examples should be wrapped in <screen>. The parts that are typed by the user are highlighted 
+   in the output and should be wrapped in <userinput>
+2) Side notes should be placed in <note> and in general avoided
 3) Tips should be placed in <note type="tip">
+4) Example code should be <codeblock class="php"> or <codeblock class="xml">. This prepares the syntax highlighting.
+5) Method names are to be wrapped in <apiname>
+6) Newly introduced concepts should be wrapped in <keyword>
+7) Example code that is whitespace sensitive should be kept in a separate file so that editors don't munch on it when 
+   formatting XML.

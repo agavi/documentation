@@ -46,8 +46,11 @@
 	2:</p>
 	<codeblock conref="examples.xml#output-types-simple-example"
 	class="xml"/>
-      <p>Output type configuration contains <keyword>layouts</keyword>
-	which define how a View's output is treated.</p>
+	<p>This example shows a configuration with a single output
+	type for HTML that has only one layout. In this layout, a
+	single Layer is declared. All views that use this
+	configuration when composing HTML output will thus have a
+	single Layer at their disposal.</p>
     </section>
     <section>
       <title>Layered output</title>
