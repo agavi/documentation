@@ -24,15 +24,14 @@
     </section>
     <section>
       <title>Application configuration</title>
-      <p>Agavi configuration system is a general purpose service that
-	is used both by Agavi applications and the framework itself. The
+      <p>Agavi configuration system is a general purpose service is
+	used both by Agavi applications and the framework itself. The
 	configuration system compiles XML configuration files into
 	executable PHP code. Here's some example code:
       </p>
       <codeblock class="php" conref="examples.xml#services-example-config"/>
       <p>Your application can access the configuration through the
-      global <apiname>AgaviConfig</apiname> service. Your application
-      can access the configuration at run time. The configuration
+      global <apiname>AgaviConfig</apiname> interface. The configuration
       system supports namespaces, arrays, value interpolation and
       advanced XML processing features. 
       </p>
@@ -55,21 +54,22 @@
     <section>
       <title>Request dispatcher and execution flow</title>
       <p>Agavi applications are exposed to the Web server through the
-      front end dispatcher script. The dispatcher reads the requests
-      and starts Agavi execution. Agavi routes the request to the
-      appropriate place in your application.</p>
-      <p>Several major things happen behind the scenes before the execution
-      is turned over to your application. Various Agavi components are
-      involved in the process of handling the request.</p>
+      front end dispatcher script
+      (typically <filepath>pub/index.php</filepath>). The dispatcher
+      reads the requests and starts Agavi execution. Agavi routes the
+      request to the appropriate place in your application.</p>
+      <p>Several major things happen behind the scenes before the
+      execution is turned over to your application. Various Agavi
+      components are involved in the process of handling the request
+      and composing the response.</p>
     </section>
     <section>
       <title>Routing</title>
       <p>Web applications parse request URLs and invoke certain
       application actions. Agavi applications do this by specifying a
-      routing map, which describes the URL structure of our application.</p>
+      routing map, which describes the URL structure of your application.</p>
       <p>The routing mechanism can both construct and analyze URLs. It
-      is extensible and can cope with any URL structure or site map
-      scenario.</p>
+      is extensible and can cope with any conceivable URL structure.</p>
       <codeblock class="php" conref="examples.xml#services-example-routing-gen"/>
     </section>
     <section>

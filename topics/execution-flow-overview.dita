@@ -18,22 +18,22 @@
 	boots the framework and commands the Agavi Controller to dispatch the Web request.
       </p>
       <p>The Controller looks up the request using the routing map to
-	find out the identity of the Action that is to be executed. If
-	the route doesn't match, or the specified Action can not be
-	found, a substitute system action is executed instead to
+	find out the identity of the Action that should be
+	executed. If no route matches, or the specified Action can not
+	be found, a substitute system action is executed instead to
 	indicate an error condition.</p>
-      <p>When the identity of the requested Action is discovered, the
+      <p>When the requested Action is discovered, the
 	Controller creates a special envelope object, called the
 	Execution Container. Actions and Views execute inside the
 	Execution Container which isolates them from the outside world
-	and provides them with a shared space to communicate to each
-	other.</p>
-      <p>When the initial Action is loaded into the Execution
-	Container, the Controller creates the global filter chain which
-	governs the execution of actions. The Execution Container is
-	fed into the filter chain. The filter chain executes the
-	Container, and the resulting response is returned to the
-	outside world - most often, as an HTTP response.</p>
+	and provides them with shared space.</p>
+      <p>As soon as the initial Action is loaded into the Execution
+	Container, the Controller creates the global filter chain
+	which governs the execution of actions. The Execution
+	Container is fed into the filter chain. One of the filters in
+	the chain executes the Container, and the resulting response
+	is returned to the outside world - most often as an HTTP
+	response.</p>
       <note type="tip">
 	Filter chains are configurable pipelines which execute
 	filters. A filter is a plugin-like class that accepts an
@@ -59,16 +59,23 @@
     </section>
     <section>
       <title>Running the Execution Container</title>
-      <p>The Execution Container governs execution of a single Action
-      and the View it appoints. It sets up the environment for the
-      Action-View chain, runs both Actions and Views, invokes the
-      rendering mechanism to apply templates if needed, collects the
-      output and returns it to the caller.</p>
-      <p>The Actions/Views are executed inside another filter chain,
-      which is called the "actions" filter chain. Unlike the global FC
-      which is executed once per request, the actions FC is executed
-      once for every Action. The Action itself is invoked through the
-      Execution Filter. Output caching is performed at this stage.</p>
+      <note>An Action always selects a View that is destined to
+      compose the response. A combination of such Action and View is
+      called an "Action-View chain". It has nothing to do with filter
+      chains.</note>
+      <p>The Execution Container encapsulates an Action-View chain. It
+      sets up the environment, runs both the Action and one of its
+      Views and then invokes the rendering mechanism to apply
+      templates if needed. The output of is collected and returned.</p>
+      <p>Internally, Actions/Views are executed inside another filter
+      chain, which is called the "actions" filter chain. Unlike the
+      global FC which is executed once per request, the actions FC is
+      executed once for every Action. Thus, filters of the "actions"
+      FC would be applied to every Action ever called, and the ones in
+      the "global" chain will be applied globally.</p>
+	<p>The Action itself is invoked through the Execution Filter,
+      which is the last filter in the "actions" chain. Output caching
+      is performed at this stage.</p>
       <note>Several other filters may be involved in the action
       chain: for example, the security filter would refuse to execute
       an Action that the user isn't authorized to execute.</note>
