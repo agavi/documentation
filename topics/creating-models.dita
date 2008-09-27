@@ -28,15 +28,24 @@
     so you can safely assume that we need our application to have at least two
     methods: one to return the contents of the front page (a list of the most
     recent posts) and one to find a specific post given its ID. To do this,
-    you need to create a new Model! The project configuration system eases
-    your job immensely:</p><p><screen>bloggie$ <userinput>agavi project-model-create</userinput>
+    you need to create a new Model. The project configuration system eases
+    your job immensely:</p><p>
+	<screen>bloggie$ <userinput>agavi model-create</userinput>
+
+Module name: <userinput>Public</userinput>
 
 Model name: <userinput>Posts</userinput>
-     [copy] Copying 1 file to /home/nfontes/bloggie/app/models</screen>You now
-    have an empty Posts Model class ready to be populated with application
-    logic:</p>
-      <codeblock conref="examples.xml#stage2-posts-model" class="php"/>
-      <p>The Posts Model contains two very simple methods. The first
+     [copy] Copying 1 file to [...]/app/modules/Public/models</screen>
+	</p>
+      <p>You now have an empty Posts Model class ready to be populated
+    with application logic:</p>
+    <codeblock conref="examples.xml#stage2-posts-model" class="php"/>
+    <p>Note that in the base Model class for Bloggie
+    (<filepath>app/lib/models/BlogBaseModel.class.php</filepath>) we
+    have a <apiname>getPdo()</apiname> method which we presume all of our future models
+    would want to use:</p>
+    <codeblock conref="examples.xml#stage2-base-model" class="php"/>
+    <p>The Posts Model contains two very simple methods. The first
     is <apiname>findPostById</apiname>, which accepts an ID parameter
     and returns corresponding post data as a single dimensional
     associative array. The second
@@ -44,9 +53,9 @@ Model name: <userinput>Posts</userinput>
     most recent posts from the database, not including the body of the
     posts themselves. Both methods obtain the connection from Agavi's
     database manager, perform an SQL query against it and return the
-    results.</p><p><note type="important">We will soon discover that
-    we need more than one Model to handle posts!</note></p><p>As we
-    already have some dummy data in the database, we can now proceed
-    to make working pages that utilize our new Model.</p></section>
+    results.</p>
+    <p>As we already have some dummy data in the database, we can now
+    proceed to make working pages that utilize our new
+    Model.</p></section>
   </body>
 </topic>

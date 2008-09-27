@@ -11,6 +11,7 @@ class BlogBaseModel extends AgaviModel
    */
   protected function getPdo()
   {
+    // The connection parameters are configured in app/config/databases.xml
     return $this->context->getDatabaseManager()->getDatabase()->getConnection('blog');
   }
 }

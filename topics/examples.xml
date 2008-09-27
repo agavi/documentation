@@ -41,6 +41,26 @@ environment is set. --&gt;
  &lt;/configuration&gt;
 &lt;/configurations&gt;
 </codeblock>
+<codeblock id="stage2-base-model">
+  /**
+  * The base model from which all project models inherit.
+  */
+
+class BlogBaseModel extends AgaviModel
+{
+  /**
+   * Return the PDO resource needed to access the blog database
+   * @return PDO
+   */
+  protected function getPdo()
+  {
+    // The connection parameters are configured in app/config/databases.xml
+    return $this->context->getDatabaseManager()->getDatabase()->getConnection('blog');
+  }
+}
+
+?>
+</codeblock>
 <codeblock id="stage2-posts-model">
   /**
    * This Model is used to retrieve posts and their contents
