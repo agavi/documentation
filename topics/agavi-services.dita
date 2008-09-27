@@ -16,18 +16,22 @@
       <p>Agavi applications execute inside an envelope that's called
 	the "context" of the application. This envelope is exposed to
 	your application as the global singleton <apiname>Context</apiname> object.</p>
-      <p>The Context object is available to all of your code. You use
-	the Context object to access the global framework services. For
-	example, if you want to retrieve a named database connection
-	from Agavi <apiname>DatabaseManager</apiname>, you'll do approximately the following:</p>
-      <codeblock class="php" conref="examples.xml#services-example-context"/>
+      <p>The Context object is available to all of your code. It is an
+	important object, since you use it to access
+	the global services of the framework. For example, if you wanted to
+	retrieve a named database connection from
+	Agavi <apiname>DatabaseManager</apiname>, you'd do
+	it like this:</p> <codeblock class="php"
+	conref="examples.xml#services-example-context"/>
     </section>
     <section>
       <title>Application configuration</title>
-      <p>Agavi configuration system is a general purpose service is
+      <p>Agavi configuration system stores names and their
+	corresponding values. It is a general purpose service that's
 	used both by Agavi applications and the framework itself. The
 	configuration system compiles XML configuration files into
-	executable PHP code. Here's some example code:
+	executable PHP code. Agavi defines some configuration files
+	for its own purposes. Here's some example code:
       </p>
       <codeblock class="php" conref="examples.xml#services-example-config"/>
       <p>Your application can access the configuration through the
@@ -82,10 +86,10 @@
       language, allowing you to codify the assumptions that your
       code makes.</p>
       <p>On the application level, Agavi provides a security mechanism
-      that distinguishes between users and between permissions,
-      opening a clear way to specify who is allowed to access what in
-      your application. Access security is enforced on the framework
-      level as well.</p>
+      that understands individual user permissions, allowing to
+      specify who is allowed to access what in your
+      application. Access security is enforced on the framework level
+      as well.</p>
     </section>
     <section>
       <title>Date and translation services</title>
@@ -97,10 +101,6 @@
       strong infrastructure for development of software with fully
       functional and utilized internationalization features.</p>
       <p>Agavi also ships with a date manipulation library.</p>
-    </section>
-    <section>
-      <title>
-      </title>
     </section>
   </body>
 </topic>
