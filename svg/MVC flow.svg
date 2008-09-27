@@ -286,8 +286,8 @@
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="729"
-     inkscape:window-x="0"
-     inkscape:window-y="46"
+     inkscape:window-x="-1"
+     inkscape:window-y="10"
      showguides="false"
      inkscape:guide-bbox="true">
     <sodipodi:guide
@@ -453,12 +453,12 @@
          id="text5547"
          y="129.8557"
          x="477.20255"
-         style="font-size:11px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;opacity:0.54166667000000002;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
+         style="font-size:11px;font-style:normal;font-weight:bold;text-align:center;text-anchor:middle;opacity:0.54166667;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans Bold"
          xml:space="preserve"><tspan
            y="129.8557"
            x="477.20255"
            id="tspan5549"
-           sodipodi:role="line">Request Preparation Stage</tspan></text>
+           sodipodi:role="line">Response Preparation Stage</tspan></text>
     </g>
     <g
        id="g3322"
