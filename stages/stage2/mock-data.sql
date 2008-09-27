@@ -43,7 +43,7 @@ INSERT INTO `categories` (`id`,`name`) VALUES
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL auto_increment,
-  `title` varchar(256) collate utf8_unicode_ci NOT NULL,
+  `title` varchar(255) collate utf8_unicode_ci NOT NULL,
   `category_id` int(11) NOT NULL,
   `content` text collate utf8_unicode_ci NOT NULL,
   `posted` datetime NOT NULL,

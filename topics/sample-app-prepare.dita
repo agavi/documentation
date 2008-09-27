@@ -11,9 +11,9 @@
 	Now you need to initialize the database itself. Create four tables in your
 	database:</p><dl>
         <dlentry>
-          <dt><apiname>authors</apiname></dt>
+          <dt><apiname>administrators</apiname></dt>
 
-          <dd><codeblock>CREATE TABLE authors (
+          <dd><codeblock>CREATE TABLE admin_users (
 	      id int(11) NOT NULL auto_increment,
 	      username varchar(32) collate utf8_unicode_ci NOT NULL,
 	      password char(32) collate utf8_unicode_ci NOT NULL,
