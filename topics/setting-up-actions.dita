@@ -92,9 +92,9 @@
 	Agavi to call this View (which it always does), it is
 	loaded and its <apiname>executeHtml()</apiname> is called.</p>
       <p>Inside <apiname>executeHtml()</apiname> we do two basic things. First, we call
-	<apiname>setupHtml()</apiname> which makes Agavi load the rendering configuration for
-	HTML. By default, this configuration specifies that when the View
-	is finished executing, a PHP template will an identical name will
+	<apiname>setupHtml()</apiname> which makes Agavi load the default rendering configuration for
+	HTML. This configuration specifies that when the View
+	is finished executing, a PHP template with an identical name will
 	be loaded and rendered.</p>
       <note type="tip"><apiname>executeHtml</apiname>() corresponds to an
 	output type. When the View is called for another output type, for
