@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="bloggie-stage3-skinning">
+  <title>Using templates to skin Bloggie</title>
+  <body>
+    <p>A basic HTML template consists of a header, a footer and a
+      stylesheet. Typical PHP applications include header and footer
+      template files individually. Agavi has a better way of doing
+      things through use of its layered output facility.</p>
+
+    <p>So far we've only seen Views that output the complete web page
+      and every template we used contained the full HTML header and
+      footer. Obviously, this is no way to maintain templates in a
+      serious application. To dress Bloggie in a new visual layout,
+      we'll rip out the old static templates and replace them with a
+      new skin that'll be applied to the future enhancements as
+      well.</p>
+    <p>
+      To skin Bloggie, we'll need a number of things: the design
+      templates themselves, some changes to Bloggie configuration, and
+      adjustment of the current templates to the new conventions. In
+      the following sections, we'll see how to do just that.
+    </p>
+    <note type="tip">
+      In general, dressing up the application after it's been
+      developed is a tedious and error prone procedure even though
+      Agavi makes it significantly easier. Going backwards to undo
+      previous work is a tedious waste of time and its best to
+      prepare everything beforehand.
+    </note>
+    <section>
+      <title>Notes on templates</title> 
+      <p>
+	The end result of the manipulations in this chapter is the "stage
+      3" Bloggie application. Inside the "stage 3" tarball you'll
+      find the open source Arcsin template distribution, both in an
+      unmodified version and pre-cut for integration with Bloggie. 
+      </p>
+      <p>Note that Bloggie's administrative section of our "stage 3"
+      application (contained wholly in the Admin module) uses a
+      different set of templates to show off a different skin in the
+      same application. The dressing procedure for the Admin module is
+      very similar and so isn't described in this tutorial.</p>
+      </section>
+    </body>
+</topic>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="bloggie-stage3-layout-configuration-public">
+  <title>Configuring Bloggie layouts</title>
+  <body>
+    <p>In order to dress Bloggie using the open source Arcsin template, we need to complete a number of steps:
+      <ol>
+	<li>Cut out and adjust the decorator template for all our Views and place it in the template directory</li>
+	<li>Copy all the template resources (stylesheets, images, scripts) to a webserver directory</li>
+	<li>Enable the use of the decorator template in output types configuration</li>
+	<li>If needed, adjust the existing templates to fit with the new style and conventions</li>
+      </ol>
+    </p>
+    <section>
+      <title>Preparing the template</title>
+      <p>
+      </p>
+    </section>
+    <section>
+      <title>Configuring Bloggie to use the new decorator</title>
+      <p>
+      </p>
+    </section>
+  </body>
+</topic>

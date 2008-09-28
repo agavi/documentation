@@ -45,8 +45,13 @@
   </chapter>
 
   <chapter href="topics/advanced-facilities.dita" collection-type="sequence"> 
-    <topicref href="topics/basic-layouts.dita"/>
-<!--    <topicref href="topics/creating-decorator.dita"/> -->
+    <topicref href="topics/bloggie-stage3-skinning.dita" collection-type="sequence">
+      <topicref href="topics/layers.dita"/>
+      <topicref href="topics/output-types.dita"/>
+      <topicref href="topics/bloggie-stage3-layout-configuration-public.dita"/>
+    </topicref>
+<!--    <topicref href="topics/basic-layouts.dita">
+    </topicref> -->
     <topicref href="topics/basic-forms.dita"/> 
     <topicref href="topics/basics-authentication-security.dita"/>
     <topicref href="topics/securing-admin-actions.dita"/>
