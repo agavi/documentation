@@ -4,7 +4,7 @@
 <topic id="bloggie-stage3-layout-configuration-public">
   <title>Configuring Bloggie layouts</title>
   <body>
-    <p>In order to dress Bloggie using the open source Arcsin template, we need to complete a number of steps:
+    <p>In order to dress Bloggie using a given template, we need to perform several steps:
       <ol>
 	<li>Cut out and adjust the decorator template for all our Views and place it in the template directory</li>
 	<li>Copy all the template resources (stylesheets, images, scripts) to a webserver directory</li>
@@ -12,15 +12,80 @@
 	<li>If needed, adjust the existing templates to fit with the new style and conventions</li>
       </ol>
     </p>
+    <p>Once configured, Agavi's rendering mechanism will apply the
+    templates in the proper order, and we'll be able to see our
+    Bloggie application dressed.</p>
     <section>
       <title>Preparing the template</title>
-      <p>
-      </p>
+      <p>For the purposes of this example application, we'll be using
+	the open source Blue Sky template by Arcsin. It is a simple
+      template that has a single template layout contained in <filepath>index.html</filepath>, a stylesheet and a couple of images.</p>
+      <p>First, let's copy the contents
+      of <filepath>index.html</filepath> to the application. Since
+      we're dressing a single <keyword>Module</keyword>, we'll create
+      the decorator template
+      in <filepath>app/modules/Public/templates/decorator.php</filepath></p>
+      <p>Now we have to make some edits in the original Blue Sky
+      layout to make it an appropriate decorator template.</p>
+      <p>First, we need to let the browsers know how to calculate
+      relative paths: you will see the HTML BASE element in this
+      template receiving its base value from Agavi's Routing. This is
+      a good practice.</p>
+      <p>Second, we need to remove all the "inner" content of the
+      decorator that our Actions will be filling. To substitute the
+      output, we use a special variable <varname>$inner</varname>.</p>
+      <p>We also need to copy the template's resources (images and the
+      stylesheet) to our <filepath>pub/</filepath> directory so that
+      they become available to the webserver. Since these all belong
+      to the Public <keyword>Module</keyword>, we'll create a subdirectory and copy everything template related in it:</p>
+      <ul>
+	<li><filepath>pub/public/default.css</filepath></li>
+	<li><filepath>pub/public/img/bgcode.gif</filepath></li>
+	<li><filepath>pub/public/img/bg.gif</filepath></li>
+	<li><filepath>pub/public/img/bgholder.jpg</filepath></li>
+	<li><filepath>pub/public/img/holder.jpg</filepath></li>
+	<li><filepath>pub/public/img/li.gif</filepath></li>
+	<li><filepath>pub/public/img/navhover.gif</filepath></li>
+	<li><filepath>pub/public/img/quote.gif</filepath></li>
+      </ul>
+      <p>Since we added a subdirectory for the module, we'll also need
+	to adjust paths in the stylesheet and the decorator to point
+	to the new locations of the image files.</p>
+      <p>The resulting <filepath>decorator.php</filepath> will now
+      look like this:</p>
+      <p>(example)</p>
+      <p>Now we need to remove the HTML header and footer from the
+      Action templates, because these will be provided by the decorator. Here's new code for both of our Actions:</p>
+      <p>(example)</p>
     </section>
     <section>
       <title>Configuring Bloggie to use the new decorator</title>
-      <p>
+      <p>Reconfiguring Bloggie in our case is very simple: we need to
+      add another Layer into the default layout for HTML output
+      type. Here's the changed file:
       </p>
+      <p>(example)</p>
+      <p>The View can create the layout from scratch using Agavi API,
+      or load a desired layout from the configuration. The layout configuration is then used by Agavi to perform rendering.</p>
+      <p>In our case, the following will happen in a View with our new configuration:</p>
+      <ol>
+	<li>The View's executeHtml() calls setupHtml()</li>
+	<li>setupHtml() loads the specified layout, or a default for this output type</li>
+	<li>The loaded layout defines two Layers with associated PHP
+	renderers. The top layer is for the output of this Action, and
+	the bottom one is for the decorator. The template file name
+	for the top layer is derived from the View's name. The
+	template file name for the bottom layer is fixed in the
+	configuration.</li>
+	<li>The View does whatever setup is needed for this particular View/template and finishes</li>
+	<li>Agavi grabs the layout and processes the layers
+	sequentially. The View's template in the top layer is rendered
+	and exported into the next iteration. Then, the bottom layer's
+	fixed decorator template is rendered, and the rendered result of the previous layer is inserted using <varname>$inner</varname></li>
+	<li>When the rendering process finishes, the last collected
+	output becomes the body of the Action's response.</li>
+      </ol>
+      <p>Voila! Now Bloggie has a complete look.</p>
     </section>
   </body>
 </topic>

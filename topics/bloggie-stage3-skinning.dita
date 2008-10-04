@@ -33,9 +33,8 @@
       <title>Notes on templates</title> 
       <p>
 	The end result of the manipulations in this chapter is the "stage
-      3" Bloggie application. Inside the "stage 3" tarball you'll
-      find the open source Arcsin template distribution, both in an
-      unmodified version and pre-cut for integration with Bloggie. 
+      3" Bloggie application. It uses the open source Blue Sky template by Arcsin, which can be obtained
+	from the <filepath>bluesky/</filepath> directory of this tutorial.<!-- XXX -->
       </p>
       <p>Note that Bloggie's administrative section of our "stage 3"
       application (contained wholly in the Admin module) uses a

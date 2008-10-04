@@ -15,7 +15,45 @@
       stylesheets or Javascript and so on.
     </p>
     <section>
-      <title>Output Type Configuration</title>
+      <title>How Agavi uses the output type configuration</title>
+      <p>Agavi Views use the configuration items from a specific
+      output type. For example, you could define a "pdf" output type
+      that corresponds to PDF generation. The output type
+      configuration file allows you to specify the defaults that your
+      Views will use when invoked in PDF mode (e.g. Agavi
+      calls their <apiname>executePdf</apiname>() method).</p>
+      <p>Output type configuration can be used to define the following things:</p>
+      <dl>
+	<dlentry>
+	  <dt>Layouts</dt>
+	  <dd>A View's Layout is a list of Layers, templates and
+	  renderers that Agavi should render after the View's
+	  execution. Different Layouts can be configured and a View
+	  can load any of them. You can also specify which Layout is
+	  default in this output type.</dd>
+	</dlentry>
+	<dlentry>
+	  <dt>Renderer configuration</dt>
+	  <dd>Configuration parameters for Renderer classes applied
+	  during Renderer creation in this output type. Default
+	  Renderer class is also configurable.</dd>
+	</dlentry>
+	<dlentry>
+	  <dt>Exception template</dt>
+	  <dd>You can specify the emergency template that is to be
+	  rendered if an unhandled exception occurs, substituting the
+	  output of a failed Action.</dd>
+	</dlentry>
+	<dlentry>
+	  <dt>HTTP headers</dt>
+	  <dd>You can define default HTTP headers for a given output
+	  type, so that Agavi automatically adds them to any output
+	  generated in this output type.</dd>
+	</dlentry>
+      </dl>
+    </section>
+    <section>
+      <title>XML configuration example</title>
       <note type="tip">A stock Agavi application comes preconfigured
 	with a default output type "html". Examine the output type
 	configuration file to see what kind of settings can be
