@@ -42,8 +42,15 @@
       <topicref href="topics/bloggie-stage3-layout-configuration-public.dita"/>
     </topicref>
 
-    <topicref href="topics/basic-forms.dita"/> 
-    <topicref href="topics/basics-authentication-security.dita"/>
-    <topicref href="topics/securing-admin-actions.dita"/>
-  </chapter>
+    <topicref href="topics/bloggie-stage3-creating-comment-system.dita"> 
+      <topicref href="topics/slots.dita"/>
+      <topicref href="topics/validation.dita"/>
+      <topicref href="topics/action-methods.dita"/>
+    </topicref>
+
+    <topicref href="topics/agavi-security.dita">
+      <topicref href="topics/basics-authentication-security.dita"/>
+      <topicref href="topics/securing-admin-actions.dita"/>
+    </topicref>
+    </chapter>
 </bookmap>
