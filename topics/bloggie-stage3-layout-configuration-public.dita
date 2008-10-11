@@ -13,78 +13,86 @@
       </ol>
     </p>
     <p>Once configured, Agavi's rendering mechanism will apply the
-    templates in the proper order, and we'll be able to see our
-    Bloggie application dressed.</p>
+      templates in the proper order, and we'll be able to see our
+      Bloggie application dressed.</p>
     <section>
       <title>Preparing the template</title>
       <p>For the purposes of this example application, we'll be using
 	the open source Blue Sky template by Arcsin. It is a simple
-      template that has a single template layout contained in <filepath>index.html</filepath>, a stylesheet and a couple of images.</p>
+	template that has a single template layout contained in <filepath>index.html</filepath>, a stylesheet and a couple of images.</p>
       <p>First, let's copy the contents
-      of <filepath>index.html</filepath> to the application. Since
-      we're dressing a single <keyword>Module</keyword>, we'll create
-      the decorator template
-      in <filepath>app/modules/Public/templates/decorator.php</filepath></p>
+	of <filepath>index.html</filepath> to the application. Since
+	we're dressing a single <keyword>Module</keyword>, we'll create
+	the decorator template
+	in <filepath>app/modules/Public/templates/decorator.php</filepath></p>
       <p>Now we have to make some edits in the original Blue Sky
-      layout to make it an appropriate decorator template.</p>
-      <p>First, we need to let the browsers know how to calculate
-      relative paths: you will see the HTML BASE element in this
-      template receiving its base value from Agavi's Routing. This is
-      a good practice.</p>
-      <p>Second, we need to remove all the "inner" content of the
-      decorator that our Actions will be filling. To substitute the
-      output, we use a special variable <varname>$inner</varname>.</p>
-      <p>We also need to copy the template's resources (images and the
-      stylesheet) to our <filepath>pub/</filepath> directory so that
-      they become available to the webserver. Since these all belong
-      to the Public <keyword>Module</keyword>, we'll create a subdirectory and copy everything template related in it:</p>
-      <ul>
-	<li><filepath>pub/public/default.css</filepath></li>
-	<li><filepath>pub/public/img/bgcode.gif</filepath></li>
-	<li><filepath>pub/public/img/bg.gif</filepath></li>
-	<li><filepath>pub/public/img/bgholder.jpg</filepath></li>
-	<li><filepath>pub/public/img/holder.jpg</filepath></li>
-	<li><filepath>pub/public/img/li.gif</filepath></li>
-	<li><filepath>pub/public/img/navhover.gif</filepath></li>
-	<li><filepath>pub/public/img/quote.gif</filepath></li>
-      </ul>
-      <p>Since we added a subdirectory for the module, we'll also need
-	to adjust paths in the stylesheet and the decorator to point
-	to the new locations of the image files.</p>
+	layout to make it an appropriate decorator template:
+	<ul>
+	  <li>We need to let the browsers know how to calculate
+	    relative paths: you will see the HTML BASE element in this
+	    template receiving its base value from Agavi's Routing. This is
+	    a good practice.</li>
+	  <li>The document's title varies from page to page, so we
+	  should export it into the template.</li>
+	  <li>We need to remove all the "inner" content of the
+	    decorator that our Actions will be filling. To substitute the
+	    output, we use a special variable <varname>$inner</varname>.</li>
+	  <li>We also need to copy the template's resources (images and the
+	    stylesheet) to our <filepath>pub/</filepath> directory so that
+	    they become available to the webserver. Since these all belong
+	    to the Public <keyword>Module</keyword>, we'll create a subdirectory and copy everything template related in it:
+	    <ul>
+	      <li><filepath>pub/public/default.css</filepath></li>
+	      <li><filepath>pub/public/img/bgcode.gif</filepath></li>
+	      <li><filepath>pub/public/img/bg.gif</filepath></li>
+	      <li><filepath>pub/public/img/bgholder.jpg</filepath></li>
+	      <li><filepath>pub/public/img/holder.jpg</filepath></li>
+	      <li><filepath>pub/public/img/li.gif</filepath></li>
+	      <li><filepath>pub/public/img/navhover.gif</filepath></li>
+	      <li><filepath>pub/public/img/quote.gif</filepath></li>
+	    </ul>
+	  </li>
+	  <li>Since we added a subdirectory for the module, we'll also need
+	    to adjust paths in the stylesheet and the decorator to point
+	    to the new locations of the image files.</li>
+	</ul>
+      </p>
+      
       <p>The resulting <filepath>decorator.php</filepath> will now
-      look like this:</p>
-      <p>(example)</p>
+	look like this:</p>
+      <codeblock conref="examples.xml#layouts-complete-stage3-decorator-public" class="xml"/>
+      <p>Note that the navigation section is filled with dummy content.</p>
       <p>Now we need to remove the HTML header and footer from the
-      Action templates, because these will be provided by the decorator. Here's new code for both of our Actions:</p>
-      <p>(example)</p>
+	Action templates, because these will be provided by the
+	decorator. Here's new code
+	for <filepath>app/modules/Public/templates/IndexSuccess.php:</filepath>:
+	<codeblock conref="examples.xml#stage3-index-modified-template"
+	class="xml"/>
+      </p>
+      <p>Our other Action's template code also changes (<filepath>app/modules/Public/templates/ShowPostSuccess.php</filepath>):
+      <codeblock conref="examples.xml#stage3-showpost-modified-template" class="xml"/>
+      </p>
     </section>
     <section>
       <title>Configuring Bloggie to use the new decorator</title>
       <p>Reconfiguring Bloggie in our case is very simple: we need to
-      add another Layer into the default layout for HTML output
-      type. Here's the changed file:
+	add another Layer into the default layout for HTML output
+	type. This is achieved by adjusting the &lt;layouts&gt;
+	element of <filepath>app/config/output_types.xml</filepath>, under the "HTML" output type.
+	You need to add a single layer definition:
+	<codeblock conref="examples.xml#stage3-modified-output-types" class="xml"/>
       </p>
-      <p>(example)</p>
       <p>The View can create the layout from scratch using Agavi API,
-      or load a desired layout from the configuration. The layout configuration is then used by Agavi to perform rendering.</p>
-      <p>In our case, the following will happen in a View with our new configuration:</p>
-      <ol>
-	<li>The View's executeHtml() calls setupHtml()</li>
-	<li>setupHtml() loads the specified layout, or a default for this output type</li>
-	<li>The loaded layout defines two Layers with associated PHP
-	renderers. The top layer is for the output of this Action, and
-	the bottom one is for the decorator. The template file name
-	for the top layer is derived from the View's name. The
-	template file name for the bottom layer is fixed in the
-	configuration.</li>
-	<li>The View does whatever setup is needed for this particular View/template and finishes</li>
-	<li>Agavi grabs the layout and processes the layers
-	sequentially. The View's template in the top layer is rendered
-	and exported into the next iteration. Then, the bottom layer's
-	fixed decorator template is rendered, and the rendered result of the previous layer is inserted using <varname>$inner</varname></li>
-	<li>When the rendering process finishes, the last collected
-	output becomes the body of the Action's response.</li>
-      </ol>
+	or load a desired layout from the configuration. The layout configuration is then used by Agavi to perform rendering.</p>
+      <p>What happens when the new configuration is in place? Every
+      View that uses the default layout (most Views achieve this by
+      calling setupXXX where XXX is output type name) will now have
+      access to two Layers. The View's own template (which matches the
+      name of the View) will be loaded into the "content" Layer, and
+      the fixed decorator template will be loaded into the "decorator"
+      Layer. The rendered contents of the former would be inserted
+      into the specially reserved spot of the latter, creating a
+      consistent visual decoration on every page.</p>
       <p>Voila! Now Bloggie has a complete look.</p>
     </section>
   </body>

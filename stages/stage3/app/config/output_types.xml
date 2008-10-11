@@ -41,8 +41,8 @@
 	    <layer name="content" />
 
 	    <!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
-	    to render the decorator template. The content of the output becomes available to us here
-	    through $index (app/modules/Public/templates/decorator.php) -->
+	    to render the decorator template. The content of the previous layer becomes available to us here
+	    through $inner (see app/modules/Public/templates/decorator.php) -->
 	    <layer name="decorator">
 	      <parameter name="template">decorator</parameter>
 	      <parameter name="directory">%core.module_dir%/Public/templates</parameter>

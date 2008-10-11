@@ -343,5 +343,103 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');
 <codeblock id="layouts-agavi-html-view-template">
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;</codeblock>
+<codeblock id="layouts-complete-stage3-decorator-public">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=iso-8859-1&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/public/default.css&quot; media=&quot;screen&quot;/&gt;
+&lt;base href=&quot;&lt;?php print $ro-&gt;getBaseHref(); ?&gt;&quot;/&gt;
+&lt;title&gt;&lt;?php print $template['_title'];?&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+	&lt;div class=&quot;title&quot;&gt;
+        &lt;h1 id=&quot;title&quot;&gt;&lt;?php print $template['_title']; ?&gt;&lt;/h1&gt;
+		&lt;h2&gt;Bloggie at work&lt;/h2&gt;
+	&lt;/div&gt;
+
+	&lt;div class=&quot;navigation&quot;&gt;
+		&lt;a href=&quot;index.html&quot;&gt;Foo&lt;/a&gt;
+		&lt;a href=&quot;index.html&quot;&gt;Bar&lt;/a&gt;
+		&lt;a href=&quot;index.html&quot;&gt;Fish&lt;/a&gt;
+		&lt;a href=&quot;index.html&quot;&gt;Cat&lt;/a&gt;
+		&lt;div class=&quot;clearer&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div class=&quot;holder_top&quot;&gt;&lt;/div&gt;
+	&lt;div class=&quot;holder&quot;&gt;
+   &lt;?php
+
+   /* Print whatever is in the layer above this - typically an Action's output */
+   print $inner; 
+   
+   ?&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;holder_bottom&quot;&gt;&lt;/div&gt;
+
+	&lt;div class=&quot;holder_top&quot;&gt;&lt;/div&gt;
+	&lt;div class=&quot;holder&quot;&gt;
+		&lt;div class=&quot;footer&quot;&gt;&amp;copy; 2008 &lt;a href=&quot;index.html&quot;&gt;bloggie.dev&lt;/a&gt;. Valid &lt;a href=&quot;http://jigsaw.w3.org/css-validator/check/referer&quot;&gt;CSS&lt;/a&gt; &amp;amp; &lt;a href=&quot;http://validator.w3.org/check?uri=referer&quot;&gt;XHTML&lt;/a&gt;. Template design by &lt;a href=&quot;http://arcsin.se&quot;&gt;Arcsin&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;holder_bottom&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</codeblock>
+<codeblock id="stage3-showpost-modified-template">
+&lt;?php
+
+ // For convenience, import the post contents into a local variable
+ $post = $template['post']; 
+?&gt;
+
+ &lt;h1&gt;&lt;?php print $post['title']; ?&gt;&lt;sub &gt;by &lt;?php print $post['author_name']; ?&gt;&lt;/sub&gt;&lt;/h1&gt;
+ &lt;h4&gt;in &lt;?php print $post['category_name']; ?&gt;
+ &lt;h5&gt;&lt;?php print $post['posted']; ?&gt;&lt;/h5&gt;
+ &lt;div&gt;
+  &lt;?php print $post['content']; ?&gt;
+ &lt;/div&gt;
+</codeblock>
+<codeblock id="stage3-index-modified-template">
+ &lt;h1&gt;Latest posts&lt;/h1&gt;
+ &lt;!-- Loop over the posts exported by the View --&gt;
+ &lt;?php if (! empty($template['posts'])) foreach($template['posts'] as $post):?&gt;
+ &lt;hr/&gt;
+ &lt;h3&gt;
+   &lt;!-- Generate a link to the post, using its title as the caption --&gt;
+   &lt;a href=&quot;&lt;?php print $ro-&gt;gen('ShowPost', array('post_id' =&gt; $post['id'])); ?&gt;&quot;&gt;&lt;?php print $post['title']; ?&gt;&lt;/a&gt;
+ &lt;/h3&gt;
+   &lt;!-- the summary line with author name, posting date and category name --&gt;
+by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; ?&gt; in &lt;strong&gt;&lt;?php print $post['category_name']; ?&gt;&lt;/strong&gt;
+
+ &lt;?php endforeach; ?&gt;
+</codeblock>
+<codeblock id="stage3-modified-output-types">
+	&lt;layouts default=&quot;default&quot;&gt;
+
+	  &lt;!-- The default layout for HTML includes two layers: the
+	       &quot;content&quot; layer is used by the View to render its
+	       output, and the &quot;decorator&quot; layer is preconfigured with
+	       the decorator template of the Public module --&gt;
+
+	  &lt;layout name=&quot;default&quot;&gt;
+
+	    &lt;!-- This is the topmost layer. Views would render their output here, using a default
+	    template name that matches the name of the View. --&gt;
+	    &lt;layer name=&quot;content&quot; /&gt;
+
+	    &lt;!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
+	    to render the decorator template. The content of the output becomes available to us here
+	    through $inner (see app/modules/Public/templates/decorator.php) --&gt;
+	    &lt;layer name=&quot;decorator&quot;&gt;
+	      &lt;parameter name=&quot;template&quot;&gt;decorator&lt;/parameter&gt;
+	      &lt;parameter name=&quot;directory&quot;&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
+	    &lt;/layer&gt;
+	  &lt;/layout&gt;
+	&lt;/layouts&gt;
+</codeblock>
 </body>
 </topic>
