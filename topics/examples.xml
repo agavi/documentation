@@ -15,7 +15,7 @@ $val = AgaviConfig::get('example_value', null, 'org.mycompany.myapp');
     </codeblock>
     <codeblock id="services-example-database">
 $dbm = $this->context->getDatabaseManager();
-$db = $dbm->getDatabase('mydb');
+$db = $dbm->getDatabase('blog');
 $conn = $db->getConnection();
     </codeblock>
    <codeblock id="services-example-routing-gen">
