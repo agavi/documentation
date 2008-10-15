@@ -6,7 +6,7 @@
 
   <body>
     <p>In this chapter we will go through the more advanced features of Agavi:
-    <keyword>authentication</keyword>, <keyword>security</keyword>,
+    <keyword>authentication</keyword>, <keyword>security</keyword>, <keyword>validation</keyword>, 
     <keyword>Action methods</keyword>, <keyword>Layers</keyword> and
     <keyword>Layout configuration</keyword>. This example is a slightly more
     detailed and complicated than what we saw on the previous stage.</p>

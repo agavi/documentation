@@ -19,8 +19,8 @@
 
     <p>Now you need to create a database and configure the application's
     connection. Using the MySQL administration tools, create an empty database
-    called blog_dev which can be accessed locally with username blog_dev and
-    password password. You can then define your new connection in
+    called blog_dev which can be accessed locally with username <varname>blog_dev</varname> and
+    password <varname>password</varname>. You can then define your new connection in
     <filepath>app/config/databases.xml</filepath>:</p>
 
     <codeblock class="xml" conref="examples.xml#configuration-database"/>
