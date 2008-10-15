@@ -13,62 +13,64 @@
         <dlentry>
           <dt><apiname>administrators</apiname></dt>
 
-          <dd><codeblock>CREATE TABLE admin_users (
-	      id int(11) NOT NULL auto_increment,
-	      username varchar(32) collate utf8_unicode_ci NOT NULL,
-	      password char(32) collate utf8_unicode_ci NOT NULL,
-	      screen_name varchar(64) collate utf8_unicode_ci NOT NULL,
-	      PRIMARY KEY (id),
-	      UNIQUE KEY username (username, screen_name)
-	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-	      COMMENT='Contains administrator identities';</codeblock></dd>
+          <dd><codeblock>CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL auto_increment,
+  `username` varchar(32) collate utf8_unicode_ci NOT NULL,
+  `password` char(32) collate utf8_unicode_ci NOT NULL,
+  `screen_name` varchar(64) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci 
+ COMMENT='Contains the administrator identities';
+</codeblock></dd>
         </dlentry>
 
         <dlentry>
           <dt><apiname>categories</apiname></dt>
 
-          <dd><codeblock>CREATE TABLE categories (
-	      id int(11) NOT NULL auto_increment,
-	      name varchar(128) collate utf8_unicode_ci NOT NULL,
-	      PRIMARY KEY (id),
-	      UNIQUE KEY name (name)
-	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-	      COMMENT='Contains post categories';</codeblock></dd>
+          <dd><codeblock>CREATE TABLE `categories` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+ COMMENT='Contains the post categories';
+	  </codeblock></dd>
         </dlentry>
 
         <dlentry>
           <dt><apiname>posts</apiname></dt>
 
-          <dd><codeblock>CREATE TABLE posts (
-	      id int(11) NOT NULL auto_increment,
-	      title varchar(256) collate utf8_unicode_ci NOT NULL,
-	      category_id int(11) NOT NULL,
-	      content text collate utf8_unicode_ci NOT NULL,
-	      posted datetime NOT NULL,
-	      author_id int(11) NOT NULL,
-	      PRIMARY KEY (id),
-	      UNIQUE KEY title (title),
-	      KEY category_id (category_id, posted, author_id),
-	      FOREIGN KEY category_id REFERENCES categories (id) ON DELETE CASCADE ON UPDATE CASCADE,
-	      FOREIGN KEY author_id REFERENCES author (id) ON DELETE CASCADE ON UPDATE CASCADE
-	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-	      COMMENT='Contains post bodies';</codeblock></dd>
+          <dd><codeblock>CREATE TABLE `posts` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) collate utf8_unicode_ci NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `content` text collate utf8_unicode_ci NOT NULL,
+  `posted` datetime NOT NULL,
+  `author_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `title` (`title`),
+  KEY `category_id` (`category_id`),
+  FOREIGN KEY (`author_id`) REFERENCES `admin_users` (`id`) ON UPDATE CASCADE 
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+ COMMENT='Contains the post bodies';
+</codeblock></dd>
         </dlentry>
 
         <dlentry>
           <dt><apiname>comments</apiname></dt>
 
-          <dd><codeblock>CREATE TABLE comments (
-	      id int(11) NOT NULL auto_increment,
-	      post_id int(11) NOT NULL,
-	      name varchar(64) collate utf8_unicode_ci NOT NULL,
-	      email varchar(256) collate utf8_unicode_ci NOT NULL,
-	      content text collate utf8_unicode_ci NOT NULL,
-	      posted datetime NOT NULL,
-	      PRIMARY KEY (id),
-	      FOREIGN KEY post_id REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
-	      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
-	      COMMENT='Contains post comments';</codeblock></dd>
+          <dd><codeblock>CREATE TABLE `comments` (
+  `id` int(11) NOT NULL auto_increment,
+  `post_id` int(11) NOT NULL,
+  `name` varchar(64) collate utf8_unicode_ci NOT NULL,
+  `email` varchar(256) collate utf8_unicode_ci NOT NULL,
+  `content` text collate utf8_unicode_ci NOT NULL,
+  `posted` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON UPDATE CASCADE
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+ COMMENT='Contains post comments';</codeblock></dd>
         </dlentry>
       </dl><p>Populate your new tables with some dummy data before you
 	continue.</p>
