@@ -12,6 +12,10 @@ class Public_ShowPostSuccessView extends BlogPublicBaseView
 
     $post = $m->findPostById($rd->getParameter('post_id'));
     $this->setAttribute('post', $post);
+
+    // Set up a slot for the comments
+    $layer = $this->getLayer('content');
+    $layer->setSlot('comments', $this->createSlotContainer('Public', 'PostComments'));
   }
 }
 

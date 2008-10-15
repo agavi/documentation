@@ -10,3 +10,8 @@
  <div>
   <?php print $post['content']; ?>
  </div>
+
+ <h3>Comments</h3>
+ <div>
+ <?php print $slots['comments']; ?>
+ </div>

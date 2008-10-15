@@ -48,6 +48,14 @@
 	      <parameter name="directory">%core.module_dir%/Public/templates</parameter>
 	    </layer>
 	  </layout>
+
+	  <!-- This is a slot layout. It doesn't have a decorator
+	       layer. Slotted Views use this layout to output their content -->
+
+	  <layout name="slot">
+	    <layer name="content"/>
+	  </layout>
+	    
 	</layouts>
 	
 	<!-- Agavi can attach HTTP headers automatically when a given output type is activated -->
