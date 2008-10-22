@@ -38,7 +38,7 @@
 
 	<div class="holder_top"></div>
 	<div class="holder">
-		<div class="footer">&copy; 2008 <a href="index.html">bloggie.dev</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. Template design by <a href="http://arcsin.se">Arcsin</a>
+		<div class="footer">&#169; 2008 <a href="index.html">bloggie.dev</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. Template design by <a href="http://arcsin.se">Arcsin</a>
 		</div>
 	</div>
 	<div class="holder_bottom"></div>
