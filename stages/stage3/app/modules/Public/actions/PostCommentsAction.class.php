@@ -8,7 +8,7 @@ class Public_PostCommentsAction extends BlogPublicBaseAction
   public function executeRead(AgaviRequestDataHolder $rd)
   {
     $pm = $this->context->getModel('Comments', 'Public');
-
+    
     // Load the comments for the given post ID
     $this->setAttribute('comments',
 			$pm->getRecentCommentsForPost($rd->getParameter('post_id'), 20));
@@ -28,7 +28,6 @@ class Public_PostCommentsAction extends BlogPublicBaseAction
 			 $rd->getParameter('author_name'),
 			 $rd->getParameter('email'),
 			 $rd->getParameter('body')))
-      
       // If saving was successful, forward the browser to the post
       // page
       return 'ForwardToPost';
