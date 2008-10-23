@@ -24,6 +24,10 @@
 	it like this:</p> <codeblock class="php"
 	conref="examples/examples.xml#services-example-context"/>
     </section>
+    <section><title>MVC execution</title>
+    <p>Developers implement the target applications using the MVC architecture, 
+      spending most of their time working with Models, Actions and Views. This tutorial takes a look at these components in great detail.</p>
+    </section>
     <section>
       <title>Application configuration</title>
       <p>Agavi configuration system stores names and their
@@ -90,6 +94,13 @@
       specify who is allowed to access what in your
       application. Access security is enforced on the framework level
       as well.</p>
+    </section>
+    <section>
+      <title>Caching</title>
+      <p>Agavi has a special caching facility which can spare the
+      execution of unneeded code by reusing data that's already been
+      processed. This gives a great performance boost to real world
+      applications.</p>
     </section>
     <section>
       <title>Date and translation services</title>
