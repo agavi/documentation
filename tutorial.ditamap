@@ -44,8 +44,8 @@
 
     <topicref href="topics/bloggie-stage3-creating-comment-system.dita"> 
       <topicref href="topics/slots.dita"/>
+<!--      <topicref href="topics/concepts/slots.dita"/> -->
       <topicref href="topics/validation.dita"/>
-      <topicref href="topics/action-methods.dita"/>
     </topicref>
 
     <topicref href="topics/agavi-security.dita">

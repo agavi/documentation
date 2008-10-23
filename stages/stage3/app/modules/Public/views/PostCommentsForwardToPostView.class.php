@@ -7,10 +7,13 @@ class Public_PostCommentsForwardToPostView extends BlogPublicBaseView
 {
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
+    // The post ID was passed to us from the comment submission form
     $post_id = $rd->getParameter('post_id');
 
+    // Generate the URL to ShowPost action
     $url = $this->context->getRouting()->gen('ShowPost', array('post_id' => $post_id));
     
+    // Tell Agavi to redirect there
     $this->getResponse()->setRedirect($url);
   }
 }

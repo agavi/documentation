@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
-	<configuration>
-		<validators>
-		</validators>
-	</configuration>
+  <configuration>
+    <!-- This validator set is for comment submission only -->
+    <validators method="write">
+      <!-- email field is limited to 255 characters, and must be a valid email -->
+      <!-- author name can only contain alphanumeric characters,
+           dashes and spaces. If it's empty, it has to be replaced with "Anonymous" -->
+      <!-- the content body is limited to 2000 characters, and must be encoded with htmlentities() -->
+    </validators>
+  </configuration>
 </configurations>
