@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="slots">
+  <title>Action Methods</title>
+  <conbody>
+    <section id="what-are-action-methods">
+      <title>What are Action methods?</title>
+      <p>Agavi Actions can be executed in different modes. Every such
+      mode has a corresponding <apiname>executeXXX</apiname> method,
+      where "xxx" matches the mode name. This allows the developer to
+      create Actions that implement complicated user interface:
+      widgets, multi-page wizards, Actions that can both display and
+      handle forms and so on.</p>
+      <p>A default Agavi application is configured so that Action
+      methods are mapped to HTTP verbs. So, HTTP GET becomes "read",
+      HTTP POST "write" and so on. To change this map (for example, to
+      map HTTP POST to 'create' or allow handling of additional
+      methods), see the global configuration for class
+      <apiname>AgaviWebRequest</apiname>.</p>
+      <p>The routing map also allows you to specify the mode for the
+      action. When you execute Actions in containers, you can request
+      a specific <apiname>executeXXX</apiname> Action method as
+      well.</p>
+    </section>
+    <example>
+    </example>
+  </conbody>
+</concept>

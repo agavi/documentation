@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="examples">
+  <title>Slots examples</title>
+  <body>
+<codeblock id="concepts-slots-example1"><![CDATA[
+<!-- This blank slot layout consists of a single Layer -->
+<output_type name="html">
+ ...
+ <layouts>
+  <layout name="slot">
+    <layer name="content"/>
+  </layout>
+ ...
+ </layouts>
+ ...
+</output_type>
+]]>
+</codeblock>
+<codeblock id="concepts-slots-example2"><![CDATA[
+public function executeHtml(AgaviRequestDataHolder $rd)
+{ 
+  // Detect if the action is executed as slot, and 
+  // only render to a single layer if its the case
+  if ($this->container->getParameter('is_slot')
+    $this->loadLayout('slot');
+  else
+    $this->setupHtml($rd);
+}
+]]></codeblock>
+<codeblock id="concepts-slots-example3"><![CDATA[
+<layout name="someLayout"> 
+   <layers>
+      <layer name="content"> 
+       <slot name="my_slot" module="SomeModule" action="SomeAction"/>
+      </layer>
+   </layers> 
+</layout>
+]]>
+</codeblock>
+<codeblock id="concepts-slots-example4"><![CDATA[
+public function executeHtml(AgaviRequestDataHolder $rd)
+{ 
+  $this->loadLayout('someLayout');
+  
+  // Output of SomeAction/SomeModule will be available in the
+  // template as $slots['my_slot']
+}
+]]></codeblock>
+<codeblock id="concepts-slots-example5"><![CDATA[
+<h1>A page</h1>
+<p>Some page contents</p>
+<p>Output of SomeAction:</p>
+<?php print $slots['my_slot']; ?>
+]]>
+</codeblock>
+<codeblock id="concepts-slots-example6"><![CDATA[ 
+ public function executeHtml(AgaviRequestDataHolder $rd)
+  { 
+    // Note that this View doesn't use loadable layouts, so it doesn't 
+    // call setupHtml() which internally uses loadLayout()
+    $this->clearLayers();
+
+    // Note the use of $rd. A slotted Action doesn't have to receive
+    // the same parameters as the calling one. The last parameter is
+    // the requested output type.
+
+    $container = $this->createSlotContainer('SomeModule', 'SomeAction', $rd, 'html');
+    $this->setSlot('my_slot', $container);
+
+    // Output of SomeAction/SomeModule will be available in the
+    // template as $slots['my_slot']
+  }
+]]></codeblock>
+<codeblock id="bloggie-comments-model"><![CDATA[
+  /**
+   * Locate recent comments for this post
+   *
+   * Look up the most recent comments made on this post. Comments are
+   * sorted by their timestamp in the descending order
+   **/
+  public function getRecentCommentsForPost($post_id, $count = 20)
+  {
+    $pdo = $this->getPdo();
+    $sql = "SELECT name, email, content, posted FROM comments WHERE post_id = ? ORDER BY posted DESC LIMIT " . (int) $count;
+
+    $sth = $pdo->prepare($sql);
+    $sth->execute(array($post_id));
+    
+    while ($row = $sth->fetch(PDO::FETCH_ASSOC))
+      $results[] = $row;
+
+    return $results;
+  }
+
+  /**
+   * Save a comment
+   *
+   * Save a comment to the database, attaching it to specified post
+   * ID. The comment will be timestamped automatically.
+   * 
+   * @param integer $post_id ID of the parent post for this comment
+   * @param string $name Name of the submitter
+   * @param string $email E-mail address of the submitter
+   * @param string $body Contents of the post
+   */
+  public function saveComment($post_id, $name, $email, $body)
+  {
+    $sql = "INSERT INTO comments SET post_id = ?, name = ?, email = ?, content = ?, posted = NOW()";
+    
+    $pdo = $this->getPdo();
+    $sth = $pdo->prepare($sql);
+    $sth->execute(array($post_id, $name, $email, $body));
+
+    return true;
+  }
+]]></codeblock>
+<codeblock id="bloggie-comments-action"><![CDATA[  // The "read" method of the Action retrieves the comments for the
+  // given post. 
+
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
+    $pm = $this->context->getModel('Comments', 'Public');
+    
+    // Load the comments for the given post ID
+    $this->setAttribute('comments',
+			$pm->getRecentCommentsForPost($rd->getParameter('post_id'), 20));
+
+    return 'Success';
+  }
+
+  // The "write" method, on the other hand, is responsible for saving
+  // a comment into the database. 
+
+  public function executeWrite(AgaviRequestDataHolder $rd)
+  {
+    $pm = $this->context->getModel('Comments', 'Public');
+
+    if ($pm->saveComment(
+			 $rd->getParameter('post_id'),
+			 $rd->getParameter('author_name'),
+			 $rd->getParameter('email'),
+			 $rd->getParameter('body')))
+      // If saving was successful, forward the browser to the post
+      // page
+      return 'ForwardToPost';
+    else
+      // There was a problem with saving the comment. Show an error
+      // screen. 
+      return 'Error';
+  }]]>
+</codeblock>
+<codeblock id="bloggie-comments-success-view"><![CDATA[
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // This Action is meant to be executed in a slot, so it just loads
+    // the slot layout. If we wanted this action to be able to execute
+    // it normally, we'd have a check here that'd load the normal layout
+
+    $this->loadLayout('slot');
+  }
+]]></codeblock>
+<codeblock id="bloggie-comments-error-view"><![CDATA[
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // This is a normal View. Nothing special is done here.
+    $this->setupHtml($rd);
+  }
+]]></codeblock>
+<codeblock id="bloggie-comments-forward-view"><![CDATA[
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // The post ID was passed to us from the comment submission form
+    $post_id = $rd->getParameter('post_id');
+
+    // Generate the URL to ShowPost action
+    $url = $this->context->getRouting()->gen('ShowPost', array('post_id' => $post_id));
+    
+    // Tell Agavi to redirect there
+    $this->getResponse()->setRedirect($url);
+  }
+]]></codeblock>
+<codeblock id="bloggie-layouts"><![CDATA[
+  <layout name="default">
+
+    <!-- This is the topmost layer. Views would render their output here, using a default
+    template name that matches the name of the View. -->
+    <layer name="content" />
+
+    <!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
+    to render the decorator template. The content of the previous layer becomes available to us here
+    through $inner (see app/modules/Public/templates/decorator.php) -->
+    <layer name="decorator">
+      <parameter name="template">decorator</parameter>
+      <parameter name="directory">%core.module_dir%/Public/templates</parameter>
+    </layer>
+  </layout>
+
+  <!-- This is a slot layout. It doesn't have a decorator
+       layer. Slotted Views use this layout to output their content -->
+
+  <layout name="slot">
+    <layer name="content"/>
+  </lapyout>
+]]></codeblock>
+<codeblock id="bloggie-comments-success-template"><![CDATA[
+<!-- The PostComments Action is meant to display the new comment form and any comments 
+associated with a given blog post -->
+
+<div>
+<h3>Post your opinion!</h3>
+<form method="POST" action="<?php print $ro->gen('submit_comment', array('post_id' => $rd->getParameter('post_id'))); ?>">
+   <ul>
+   <li>E-mail: <input type="text" name="email"/></li>
+   <li>Name: <input type="text" name="author_name" value="Anonymous"/></li>
+   <li>Your comment: <textarea name="body"></textarea></li>
+   <li><input type="submit" value="Post your comment"/></li>
+   </ul>
+</form>
+</div>
+<div>
+<h3>Latest comments</h3>
+   <!-- Iterate over the comments and draw them -->
+   <?php if ($template['comments']) foreach ($template['comments'] as $item): ?>
+    <hr/>				      
+    <div class="post-comment">
+     <div><strong>By: <?php print $item['name']; ?></strong> @ <?php print $item['posted']; ?></div>
+     <br/>
+     <div><?php print $item['content']; ?></div>
+    </div>
+   <?php endforeach; ?>				     
+</div>]]></codeblock>
+
+<codeblock id="bloggie-post-success-view"><![CDATA[
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    // Load the rendering configuration. This is the same as calling loadLayout()
+    $this->setupHtml($rd);
+
+    // Obtain the requested post from the model
+    $m = $this->context->getModel('Posts', 'Public');
+    $post = $m->findPostById($rd->getParameter('post_id'));
+
+    // Export the post contents to the template, for rendering
+    $this->setAttribute('post', $post);
+
+    // Set up a slot for the comments. Notice that PostComments action
+    // needs parameter "post_id" to operate. This parameter was
+    // already given to ShowPost and so it's available in $rd, which
+    // is implicitly passed to the slotted Action unless you tell it otherwise.
+
+    $layer = $this->getLayer('content');
+    $layer->setSlot('comments', $this->createSlotContainer('Public', 'PostComments'));
+  }
+]]></codeblock>
+<codeblock id="bloggie-post-success-template"><![CDATA[
+<!-- Display the post itself -->
+<?php
+$post = $template['post']; 
+?>
+
+<h1><?php print $post['title']; ?><sub >by <?php print $post['author_name']; ?></sub></h1>
+<h4>in <?php print $post['category_name']; ?>
+<h5><?php print $post['posted']; ?></h5>
+<div>
+  <?php print $post['content']; ?>
+</div>
+
+<!-- Display the comments slot -->
+<h2>Comments</h2>
+<div>
+  <?php print $slots['comments']; ?>
+</div>
+]]></codeblock>
+
+<!--
+
+<codeblock id=""><![CDATA[
+]]></codeblock>
+
+-->
+</body>
+</topic>

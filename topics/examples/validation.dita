@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="examples">
+  <title>Validation source code examples</title>
+  <body>
+<codeblock id="bloggie-comment-validation"><![CDATA[
+(xml)
+]]></codeblock>
+<!--
+
+<codeblock id=""><![CDATA[
+]]></codeblock>
+
+-->
+
+  </body>
+</topic>	    
+  

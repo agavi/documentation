@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="slots">
+  <title>Slots</title>
+  <conbody>
+    <section id="what-are-slots">
+      <title>What are Slots?</title>
+      
+    <p>Slots are named locations on a template Layer which store
+    Actions. When the Layer is rendered, every action in its slots is
+    executed and its output is made available to the template. In
+    other words, slots allow you to embed output of Actions into other
+    Actions. Together with Agavi output types and layout management,
+    slots allow your application to compose output in any conceivable
+    way.</p>
+
+    <p>A View can load slots from the output type configuration using
+    the normal <apiname>loadLayout</apiname>() method, or compose the
+    configuration on the fly dynamically if such need
+    arises. Typically, a slotted View would only use a single Layer
+    for its own output, skipping the decoration that's needed around
+    the normal Action output.</p>
+
+    <note type="tip">You should use a
+    View's <apiname>createSlotContainer()</apiname>. This method sets
+    an attribute called "is_slot" on the Execution Container that it
+    creates. This also happens for slots which are loaded from the
+    layout configuration. The View can then check the flag to see
+    whether it is being executed in slot mode or not.</note>
+    </section>
+    <example>
+      <p>Configuring a View to be used as a slot in <filepath>output_types.xml</filepath>:</p>
+      <ul>
+	<li><filepath>output_types.xml</filepath>:
+	<codeblock conref="../examples/slots.dita#concepts-slots-example1" class="xml"/>
+	</li>
+	<li>View's <apiname>executeHtml</apiname>():
+	  <codeblock conref="../examples/slots.dita#concepts-slots-example2" class="php"/>
+	</li>
+	</ul>
+    </example>
+    <example>
+      <p>Using a slot:</p>
+      <ul>
+	<li><filepath>output_types.xml</filepath>: <codeblock conref="../examples/slots.dita#concepts-slots-example3" class="xml"/></li>
+	<li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example4" class="xml"/></li>
+	<li>Template: <codeblock conref="../examples/slots.dita#concepts-slots-example5" class="xml"/></li>
+      </ul>
+    </example>
+    <example><p>Using the slot API to create slots on the fly (<filepath>output_types.xml</filepath> layouts aren't used):</p>
+      <ul>
+	<li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example6"/></li>
+      </ul>
+    </example>
+    
+  </conbody>
+</concept>

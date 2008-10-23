@@ -67,7 +67,7 @@
 	feeds. Here's an example output type configuration from stage
 	2:
       </p>
-      <codeblock conref="examples.xml#output-types-simple-example"
+      <codeblock conref="examples/examples.xml#output-types-simple-example"
       class="xml"/>
       <p>
 	This example shows a configuration with a single output type

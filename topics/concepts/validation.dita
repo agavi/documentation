@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="slots">
+  <title>Validation</title>
+  <conbody>
+    <section id="what-is-validation">
+    <title>What is validation?</title>
+    <p>Validation is a process of making sure that the user-supplied
+    data is consistent and obeys predetermined rules. Data that passes
+    the validation process is considered safe to use by your
+    application.</p>
+    <p>In Agavi, validation is done using the
+    <apiname>ValidationManager</apiname> class. Validation is
+    integrated into the execution flow, and all you need to do to set
+    up validation is to specify the validation rules in an XML file
+    that corresponds to a given Action. The XML files can be found
+    under <filepath>validate/</filepath> directory in every
+    module. When you create an Action using the project management
+    system, a blank validation file is created by Agavi for you to
+    fill later.</p>
+    <p>The validator XML configuration allows you to specify all the
+    parameters to be validated and validator classes that apply to
+    them. Agavi ships with many validator classes, and you can easily
+    write a custom one when you need to validate some special type of
+    input (think barcodes, chemical formulae and so on).</p>
+    <p>The validation system is versatile. In the simplest case, when
+    the validation fails (some input data is missing or violates the
+    validation rules), Agavi refuses to execute the Action because
+    that may be dangerous. Instead, the Action is asked to handle the
+    error and tell the framework which View is to be executed to let
+    the user know about the error. Typically, this would be the
+    "Error" view for that Action.</p> 
+    <p>Validators can also modify the input parameters of the
+    Action. It is possible, for example, to write a validator that
+    maps HTML &lt;select&gt; options' values to database objects, or
+    turns pretty URL partials into object IDs. Using these techniques,
+    it's possible to create Actions that receive PHP objects as
+    parameters, and not just primitive types.</p>
+    </section>
+  </conbody>
+</concept>

@@ -2,8 +2,28 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="validation">
-  <title>Using validation</title>
+  <title>Adding validation to sanitize user input</title>
   <body>
-  
+    <section conref="concepts/validation.dita#what-is-validation"/>
+    <section>
+      <title>Using validators to sanitize user-submitted comments</title>
+      <p>The comments that our users submit are stored in our
+      database. We have to make sure these comments follow certain rules and do not include
+      hostile content. Let's define our demands that the comments would have to follow:
+      <ol>
+	<li>The email field must carry a consistent email address. It should be no longer than 255 characters.</li>
+	<li>The name must not be empty. If it is, "Anonymous" should be substituted for it before the Action is executed.</li>
+	<li>The body of the comment must be no longer than 2000
+	characters and only carry plain text with no HTML/Javascript
+	allowed, so we have to encode it
+	with <apiname>htmlentities()</apiname></li>
+      </ol>
+      </p>
+      <p>Any comment that follows these rules can be stored and
+      displayed safely. If the comment doesn't follow the rules, we
+      have to reject it.</p>
+      <p>To enforce these rules, we describe them in <filepath>app/modules/Public/validate/PostComments.xml</filepath>:</p>
+      <codeblock conref="examples/validation.dita#bloggie-comment-validation"/>
+    </section>
   </body>
 </topic>

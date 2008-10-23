@@ -60,17 +60,17 @@
       
       <p>The resulting <filepath>decorator.php</filepath> will now
 	look like this:</p>
-      <codeblock conref="examples.xml#layouts-complete-stage3-decorator-public" class="xml"/>
+      <codeblock conref="examples/examples.xml#layouts-complete-stage3-decorator-public" class="xml"/>
       <p>Note that the navigation section is filled with dummy content.</p>
       <p>Now we need to remove the HTML header and footer from the
 	Action templates, because these will be provided by the
 	decorator. Here's new code
 	for <filepath>app/modules/Public/templates/IndexSuccess.php:</filepath>:
-	<codeblock conref="examples.xml#stage3-index-modified-template"
+	<codeblock conref="examples/examples.xml#stage3-index-modified-template"
 	class="xml"/>
       </p>
       <p>Our other Action's template code also changes (<filepath>app/modules/Public/templates/ShowPostSuccess.php</filepath>):
-      <codeblock conref="examples.xml#stage3-showpost-modified-template" class="xml"/>
+      <codeblock conref="examples/examples.xml#stage3-showpost-modified-template" class="xml"/>
       </p>
     </section>
     <section>
@@ -80,7 +80,7 @@
 	type. This is achieved by adjusting the &lt;layouts&gt;
 	element of <filepath>app/config/output_types.xml</filepath>, under the "HTML" output type.
 	You need to add a single layer definition:
-	<codeblock conref="examples.xml#stage3-modified-output-types" class="xml"/>
+	<codeblock conref="examples/examples.xml#stage3-modified-output-types" class="xml"/>
       </p>
       <p>The View can create the layout from scratch using Agavi API,
 	or load a desired layout from the configuration. The layout configuration is then used by Agavi to perform rendering.</p>

@@ -441,5 +441,6 @@ by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; 
 	  &lt;/layout&gt;
 	&lt;/layouts&gt;
 </codeblock>
+
 </body>
 </topic>
