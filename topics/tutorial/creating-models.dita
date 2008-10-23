@@ -5,7 +5,7 @@
   <title>Using Models</title>
 
   <body>
-    <section conref="concepts/models.dita#what-are-models">
+    <section conref="../concepts/models.dita#what-are-models">
     </section>
     <section>
       <title>Creating Models for Bloggie</title>
@@ -26,12 +26,12 @@ Model name: <userinput>Posts</userinput>
 	</p>
       <p>You now have an empty Posts Model class ready to be populated
     with application logic:</p>
-    <codeblock conref="examples/examples.xml#stage2-posts-model" class="php"/>
+    <codeblock conref="../examples/examples.xml#stage2-posts-model" class="php"/>
     <p>Note that in the base Model class for Bloggie
     (<filepath>app/lib/models/BlogBaseModel.class.php</filepath>) we
     have a <apiname>getPdo()</apiname> method which we presume all of our future models
     would want to use:</p>
-    <codeblock conref="examples/examples.xml#stage2-base-model" class="php"/>
+    <codeblock conref="../examples/examples.xml#stage2-base-model" class="php"/>
     <p>The Posts Model contains two very simple methods. The first
     is <apiname>findPostById</apiname>, which accepts an ID parameter
     and returns corresponding post data as a single dimensional

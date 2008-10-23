@@ -22,7 +22,7 @@
 	retrieve a named database connection from
 	Agavi <apiname>DatabaseManager</apiname>, you'd do
 	it like this:</p> <codeblock class="php"
-	conref="examples/examples.xml#services-example-context"/>
+	conref="../examples/examples.xml#services-example-context"/>
     </section>
     <section><title>MVC execution</title>
     <p>Developers implement the target applications using the MVC architecture, 
@@ -37,7 +37,7 @@
 	executable PHP code. Agavi defines some configuration files
 	for its own purposes. Here's some example code:
       </p>
-      <codeblock class="php" conref="examples/examples.xml#services-example-config"/>
+      <codeblock class="php" conref="../examples/examples.xml#services-example-config"/>
       <p>Your application can access the configuration through the
       global <apiname>AgaviConfig</apiname> interface. The configuration
       system supports namespaces, arrays, value interpolation and
@@ -57,7 +57,7 @@
       level third party database libraries. Agavi ships with a number
       of adapters for most popular APIs, and you can easily write your
       own adapter if you work with a custom database backend.</p>
-      <codeblock class="php" conref="examples/examples.xml#services-example-database"/>
+      <codeblock class="php" conref="../examples/examples.xml#services-example-database"/>
     </section>
     <section>
       <title>Request dispatcher and execution flow</title>
@@ -78,7 +78,7 @@
       routing map, which describes the URL structure of your application.</p>
       <p>The routing mechanism can both construct and analyze URLs. It
       is extensible and can cope with any conceivable URL structure.</p>
-      <codeblock class="php" conref="examples/examples.xml#services-example-routing-gen"/>
+      <codeblock class="php" conref="../examples/examples.xml#services-example-routing-gen"/>
     </section>
     <section>
       <title>Security and Validation</title>

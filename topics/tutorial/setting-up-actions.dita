@@ -65,7 +65,7 @@
       <p>The Index Action that you created resides at
 	<filepath>app/modules/Public/actions/IndexAction.class.php</filepath>.  Open this
 	file in your favorite editor and take a look at it:</p>
-      <codeblock conref="examples/examples.xml#stage2-index-action" class="php"/>
+      <codeblock conref="../examples/examples.xml#stage2-index-action" class="php"/>
       <note type="remember">Newly created actions in Module XXX
 	extend <apiname>YYYXXXBaseAction</apiname>, where YYY is the
 	application's class prefix. The inheritance chain for Actions
@@ -85,7 +85,7 @@
       one View called "Success" which is appointed every time the
       Action is called. This is its source code
       (<filepath>app/modules/Public/views/IndexSuccessView.class.php</filepath>):</p>
-      <codeblock conref="examples/examples.xml#stage2-index-success-view" class="php"/>
+      <codeblock conref="../examples/examples.xml#stage2-index-success-view" class="php"/>
 
       <p>The <apiname>executeHtml()</apiname> method will be called by
 	Agavi when this View is started. So, when our Index Action tells
@@ -114,13 +114,13 @@
       is where the Action's main logic goes and it corresponds to HTTP
       GET. The return value of such a method is the name of the View
       to be executed next. Read the comments too (<filepath>app/modules/Public/actions/ShowPostAction.class.php</filepath>):</p>
-      <codeblock conref="examples/examples.xml#stage2-showpost-action" class="php"/>
+      <codeblock conref="../examples/examples.xml#stage2-showpost-action" class="php"/>
 
       <note type="tip">It is possible to declare your own request
       verbs which will cause Agavi to call, for instance, executeStep1() and
       executeStep2(). This makes Actions a powerful skeleton for stateful UI widgets of any complexity.
       </note>
-      <codeblock conref="examples/examples.xml#stage2-showpost-success-view" class="php"/>
+      <codeblock conref="../examples/examples.xml#stage2-showpost-success-view" class="php"/>
       
       <p>The View's executeHtml() method talks to the Posts model to
 	obtain data from the application. In order to fetch a post, it
@@ -164,9 +164,9 @@
 
       <p>This is the template code for our index page
       (<filepath>app/modules/Public/templates/IndexSuccess.php</filepath>):</p>
-      <codeblock conref="examples/examples.xml#stage2-index-template" class="xml"/>
+      <codeblock conref="../examples/examples.xml#stage2-index-template" class="xml"/>
       <p>And this is the template code for our blog post page (<filepath>app/modules/Public/templates/ShowPostSuccess.php</filepath>):</p>
-      <codeblock conref="examples/examples.xml#stage2-showpost-template" class="xml"/>
+      <codeblock conref="../examples/examples.xml#stage2-showpost-template" class="xml"/>
 
       <p>Anything that's been exported using an Action's or View's
 	setAttribute() method will be available in the template's

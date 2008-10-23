@@ -4,8 +4,8 @@
 <topic id="slots">
   <title>Implementing the comments Action in a slot</title>
   <body>
-    <section conref="concepts/slots.dita#what-are-slots"/>
-    <section conref="concepts/action-methods.dita#what-are-action-methods"/>
+    <section conref="../concepts/slots.dita#what-are-slots"/>
+    <section conref="../concepts/action-methods.dita#what-are-action-methods"/>
     <section>
       <title>Using slots and Action methods in Bloggie</title>
       <p>In our Bloggie application, slots are used in two different places:
@@ -36,11 +36,11 @@
       database in the comments. Let's create the <apiname>Comments</apiname> model and
       then the Action itself.</p>
       <p>Layouts in <filepath>output_types.xml</filepath>:</p>
-      <codeblock conref="examples/slots.dita#bloggie-layouts"/>
+      <codeblock conref="../examples/slots.dita#bloggie-layouts"/>
       <p>The <apiname>Comments</apiname> Model:</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-model"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-model"/>
       <p>The <apiname>PostComments</apiname> Action:</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-action"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-action"/>
       <p>As you see, this Action has both read and write methods. The
 	read method is used to render the comments for a given post ID,
 	and the write method is used to handle comment submission. You
@@ -54,20 +54,20 @@
 	behave quite differently. The "Success" View is meant to be used
 	in a slot on the post page, and thus it uses the "slot"
 	layout in which there is no regular decorator:</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-success-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-success-view"/>
       <note type="important">It is possible to create an infinite loop
       if one of your slots loads a layout that specifies that same
       slot (which, in turn, will cause that slot to load the layout
       again and so on). If this happens, Agavi will inform you that
       there is an infinite loop.</note>
       <p>The corresponding template for this view draws the comments themselves and the new comment submission form:</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-success-template"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-success-template"/>
       <p>The "Error" View, on the other hand, is only invoked after a
 	failed comment submission, so whenever it is executed, the
 	PostComments action is running as the primary Action, and not as a
 	slot on top of another Action. Thus, the normal decorator is
 	needed and so the "Error" View uses the default layout:</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-error-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-error-view"/>
       <note type="tip">What we're doing here isn't quite perfect. There
 	are in fact two distinct error conditions possible: failed comment
 	submission, and failure to specify a valid post ID. When we add
@@ -84,7 +84,7 @@
 	as if it was its own. This is slightly incorrect, because we'll be
 	displaying content of the post under the submission URL as opposed
 	to the post's original URL.</p>
-      <codeblock conref="examples/slots.dita#bloggie-comments-forward-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-forward-view"/>
     </section>
     <section>
     <title>Displaying an Action in a slot</title>
@@ -95,12 +95,12 @@
     <p>Since we're not going to use this slot configuration anywhere
     else, it makes sense to set up the slot in our code instead of
     configuring it in XML. The "Success" View of <apiname>ShowPost</apiname> does exactly that:</p>
-    <codeblock conref="examples/slots.dita#bloggie-post-success-view"/>
+    <codeblock conref="../examples/slots.dita#bloggie-post-success-view"/>
     <p>This makes the "comments" slot available to the template in the
     "content" layer, which is the own template of this View. The
     template makes use of the <varname>$slots</varname> to access the
     slot:</p>
-    <codeblock conref="examples/slots.dita#bloggie-post-success-template"/>
+    <codeblock conref="../examples/slots.dita#bloggie-post-success-template"/>
     <p>Now you can open any Bloggie post in the browser, and you'll
     see the comment submission form (and comments, if any) displayed below the main post contents.</p>
     </section>

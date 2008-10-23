@@ -62,18 +62,18 @@
       </p>
       <p>Let's imagine that we're making a simple page with a header
 	and a footer. The complete HTML output may look something like this:</p>
-      <codeblock conref="examples/examples.xml#layouts-full-html-example" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-full-html-example" class="xml"/>
       <p>
 	In a traditionally organized
 	templating system, the View's template would include a header
 	and a footer, like in the example below.
       </p>
       <p>Header:</p>
-      <codeblock conref="examples/examples.xml#layouts-classic-html-header" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-classic-html-header" class="xml"/>
       <p>Footer:</p>
-      <codeblock conref="examples/examples.xml#layouts-classic-html-footer" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-classic-html-footer" class="xml"/>
       <p>Page contents:</p>
-      <codeblock conref="examples/examples.xml#layouts-classic-html-page" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-classic-html-page" class="xml"/>
       <p>In Agavi you do the exact opposite: create a template with
 	header, footer and a special space to include the contents of
 	another "inner" template. In Agavi slang, such a template is
@@ -85,9 +85,9 @@
 	resulting in a full HTML page. 
       </p>
       <p>Decorator template:</p>
-      <codeblock conref="examples/examples.xml#layouts-agavi-html-decorator" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-agavi-html-decorator" class="xml"/>
       <p>View's content template:</p>
-      <codeblock conref="examples/examples.xml#layouts-agavi-html-view-template" class="xml"/>
+      <codeblock conref="../examples/examples.xml#layouts-agavi-html-view-template" class="xml"/>
       <p>As you can see in the decorator, a special variable called
 	<varname>$inner</varname> contains the value of the "inner"
 	layer - in this case, the second template. The rendered output

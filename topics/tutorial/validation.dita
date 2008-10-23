@@ -4,7 +4,7 @@
 <topic id="validation">
   <title>Adding validation to sanitize user input</title>
   <body>
-    <section conref="concepts/validation.dita#what-is-validation"/>
+    <section conref="../concepts/validation.dita#what-is-validation"/>
     <section>
       <title>Using validators to sanitize user-submitted comments</title>
       <p>The comments that our users submit are stored in our
@@ -23,7 +23,7 @@
       displayed safely. If the comment doesn't follow the rules, we
       have to reject it.</p>
       <p>To enforce these rules, we describe them in <filepath>app/modules/Public/validate/PostComments.xml</filepath>:</p>
-      <codeblock conref="examples/validation.dita#bloggie-comment-validation"/>
+      <codeblock conref="../examples/validation.dita#bloggie-comment-validation"/>
     </section>
   </body>
 </topic>

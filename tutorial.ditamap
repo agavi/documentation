@@ -9,48 +9,47 @@
     <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
   </bookmeta>
 
-  <chapter href="topics/introduction.dita" collection-type="sequence">
-    <topicref href="topics/introduction-agavi.dita"/>
+  <chapter href="topics/tutorial/introduction.dita" collection-type="sequence">
+    <topicref href="topics/tutorial/introduction-agavi.dita"/>
 
-    <topicref href="topics/mvc-in-agavi.dita"/>
-    <topicref href="topics/agavi-services.dita"/>
-    <topicref href="topics/execution-flow-overview.dita"/>
-    <topicref href="topics/filesystem-layout.dita"/>
-    <topicref href="topics/configuration-overview.dita"/>
+    <topicref href="topics/tutorial/mvc-in-agavi.dita"/>
+    <topicref href="topics/tutorial/agavi-services.dita"/>
+    <topicref href="topics/tutorial/execution-flow-overview.dita"/>
+    <topicref href="topics/tutorial/filesystem-layout.dita"/>
+    <topicref href="topics/tutorial/configuration-overview.dita"/>
   </chapter>
 
-  <chapter href="topics/setting-up-initial-application.dita" collection-type="sequence">
-    <topicref href="topics/installing-agavi.dita"/>
-    <topicref href="topics/creating-agavi-project.dita"/>
-    <topicref href="topics/configuring-example-application.dita"/>
-    <topicref href="topics/configuring-webserver.dita"/>
+  <chapter href="topics/tutorial/setting-up-initial-application.dita" collection-type="sequence">
+    <topicref href="topics/tutorial/installing-agavi.dita"/>
+    <topicref href="topics/tutorial/creating-agavi-project.dita"/>
+    <topicref href="topics/tutorial/configuring-example-application.dita"/>
+    <topicref href="topics/tutorial/configuring-webserver.dita"/>
   </chapter>
 
-  <chapter href="topics/basics.dita" collection-type="sequence">
-    <topicref href="topics/sample-app-about.dita"/>
-    <topicref href="topics/sample-app-prepare.dita"/>
-    <topicref href="topics/creating-models.dita"/>
-    <topicref href="topics/setting-up-actions.dita"/>
-    <topicref href="topics/basics-routing.dita"/>
-    <topicref href="topics/basics-running.dita"/>
+  <chapter href="topics/tutorial/basics.dita" collection-type="sequence">
+    <topicref href="topics/tutorial/sample-app-about.dita"/>
+    <topicref href="topics/tutorial/sample-app-prepare.dita"/>
+    <topicref href="topics/tutorial/creating-models.dita"/>
+    <topicref href="topics/tutorial/setting-up-actions.dita"/>
+    <topicref href="topics/tutorial/basics-routing.dita"/>
+    <topicref href="topics/tutorial/basics-running.dita"/>
   </chapter>
 
-  <chapter href="topics/advanced-facilities.dita" collection-type="sequence"> 
-    <topicref href="topics/bloggie-stage3-skinning.dita" collection-type="sequence">
-      <topicref href="topics/layers.dita"/>
-      <topicref href="topics/output-types.dita"/>
-      <topicref href="topics/bloggie-stage3-layout-configuration-public.dita"/>
+  <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence"> 
+    <topicref href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
+      <topicref href="topics/tutorial/layers.dita"/>
+      <topicref href="topics/tutorial/output-types.dita"/>
+      <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
     </topicref>
 
-    <topicref href="topics/bloggie-stage3-creating-comment-system.dita"> 
-      <topicref href="topics/slots.dita"/>
-<!--      <topicref href="topics/concepts/slots.dita"/> -->
-      <topicref href="topics/validation.dita"/>
+    <topicref href="topics/tutorial/bloggie-stage3-creating-comment-system.dita"> 
+      <topicref href="topics/tutorial/slots.dita"/>
+      <topicref href="topics/tutorial/validation.dita"/>
     </topicref>
 
-    <topicref href="topics/agavi-security.dita">
-      <topicref href="topics/basics-authentication-security.dita"/>
-      <topicref href="topics/securing-admin-actions.dita"/>
+    <topicref href="topics/tutorial/agavi-security.dita">
+      <topicref href="topics/tutorial/basics-authentication-security.dita"/>
+      <topicref href="topics/tutorial/securing-admin-actions.dita"/>
     </topicref>
     </chapter>
 </bookmap>

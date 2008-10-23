@@ -23,7 +23,7 @@
     password <varname>password</varname>. You can then define your new connection in
     <filepath>app/config/databases.xml</filepath>:</p>
 
-    <codeblock class="xml" conref="examples/examples.xml#configuration-database"/>
+    <codeblock class="xml" conref="../examples/examples.xml#configuration-database"/>
 
     <p>This configuration will create a connection object that is available to
     your application's code. The connection will be managed by the
@@ -35,7 +35,7 @@
 
     <p>The connection object can be obtained and used like this:</p>
 
-    <codeblock conref="examples/examples.xml#services-example-database" class="php"/>
+    <codeblock conref="../examples/examples.xml#services-example-database" class="php"/>
     
     <p>You are free to manipulate the connection object as you please,
     just as if you had created it manually; however, you now have the

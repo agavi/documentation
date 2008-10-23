@@ -118,7 +118,7 @@ class Module_SomeAction extends SomeBaseAction
 	an Action's execute() method to show you how to manipulate the
 	user object. The correct way to use these methods will be shown
 	soon - the code below is just to give you the general idea:</p>
-      <codeblock conref="examples/examples.xml#user-object-example" class="php"/>
+      <codeblock conref="../examples/examples.xml#user-object-example" class="php"/>
     </section>
   </body>
 </topic>
