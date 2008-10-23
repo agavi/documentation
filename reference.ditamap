@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN"
+"http://docs.oasis-open.org/dita/dtd/bookmap.dtd">
+<bookmap>
+  <title>Agavi reference manual</title>
+
+  <bookmeta>
+    <author>Mike Seth &lt;me@mikeseth.com&gt;</author>
+    <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
+  </bookmeta>
+
+  <chapter href="topics/reference/introduction.dita" collection-type="sequence">
+    <topicref href="topics/reference/why-frameworks.dita"/>
+    <topicref href="topics/reference/about-agavi.dita"/>
+    <topicref href="topics/reference/agavi-installation.dita"/>
+    <topicref href="topics/reference/architecture.dita"/>
+    <topicref href="topics/reference/execution-flow.dita"/>
+    <topicref href="topics/reference/see-also.dita"/>
+  </chapter>		
+
+  <chapter href="topics/reference/core-features.dita" collection-type="sequence">
+    <topicref href="topics/reference/naming-conventions.dita"/>
+    <topicref href="topics/reference/build-system.dita"/>
+    <topicref href="topics/reference/class-autoloading.dita"/>
+    <topicref href="topics/reference/configuration.dita">
+      <topicref href="topics/reference/configuration-environments.dita"/>
+      <topicref href="topics/reference/configuration-contexts.dita"/>
+      <topicref href="topics/reference/configuration-reuse.dita"/>
+    </topicref>
+
+    <topicref href="topics/reference/context.dita"/>
+
+    <topicref href="topics/reference/routing.dita">
+      <topicref href="topics/reference/routing-map.dita"/>
+      <topicref href="topics/reference/routing-url-generation.dita"/>
+      <topicref href="topics/reference/routing-callbacks.dita"/>
+    </topicref>
+
+    <topicref href="topics/reference/execution-containers.dita">
+      <topicref href="topics/reference/forward-containers.dita"/>
+      <topicref href="topics/reference/slot-containers.dita"/>
+    </topicref>
+
+    <topicref href="topics/reference/databases.dita"/>
+    <topicref href="topics/reference/validation.dita">
+      <topicref href="topics/reference/compound-validators.dita"/>
+    </topicref>
+    <topicref href="topics/reference/session-security.dita">
+      <topicref href="topics/reference/user-object.dita"/>
+      <topicref href="topics/reference/alternate-security-models.dita"/>
+    </topicref>
+
+    <topicref href="topics/reference/caching.dita"/>
+    <topicref href="topics/reference/actions.dita">
+      <topicref href="topics/reference/subactions.dita">
+	<topicref href="topics/reference/action-methods.dita"/>
+	<topicref href="topics/reference/custom-action-execution.dita"/>
+	<topicref href="topics/reference/system-actions.dita"/>
+	<topicref href="topics/reference/action-security.dita"/>
+      </topicref>
+    </topicref>
+    <topicref href="topics/reference/output-types.dita"/>
+    <topicref href="topics/reference/views.dita">
+      <topicref href="topics/reference/default-rendering.dita">
+	<topicref href="topics/reference/layers.dita"/>
+	<topicref href="topics/reference/slots.dita"/>
+      </topicref>
+      <topicref href="topics/reference/custom-rendering.dita"/>
+    </topicref>
+    <topicref href="topics/reference/i18n.dita"/>
+    <topicref href="topics/reference/logging.dita"/>
+    <topicref href="topics/reference/storage.dita"/>
+    <topicref href="topics/reference/using-fpf.dita"/>
+  </chapter>
+
+  <chapter href="topics/reference/advanced-features.dita" collection-type="sequence">
+    <topicref href="topics/reference/third-party-integration.dita"/>
+    <topicref href="topics/reference/component-customization.dita">
+      <topicref href="topics/reference/actions-customization.dita"/>
+      <topicref href="topics/reference/views-customization.dita"/>
+      <topicref href="topics/reference/configuration-handlers-customization.dita"/>
+      <topicref href="topics/reference/filters-customization.dita"/>
+      <topicref href="topics/reference/adapters-customization.dita"/>
+    </topicref>
+    <topicref href="topics/reference/nonweb-invocations.dita"/>
+    <topicref href="topics/reference/server-configuration.dita"/>
+    <topicref href="topics/reference/testing-applications.dita"/>
+  </chapter>
+</bookmap>
