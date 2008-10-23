@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="models">
+  <title>Models</title>
+  <conbody>
+    <section id="what-are-models">
+      <title>What are Models?</title>
+      <p>Models are classes that contain your application logic. They
+      access databases, send e-mails, render images, converse with
+      captcha libraries and facilitate the processing of any other
+      data that an application needs. Models are completely
+      disconnected from the user interface of your applications, and
+      Agavi never interacts with them directly.</p>
+      <p>Actions manipulate your Models using outside data to perform
+      changes to your application state. Views question the Models for
+      relevant data and display it.</p>
+      <p>When you remove the user interface layer (Actions and Views)
+      all that remains is Models — your application expressed as an
+      API. When your application is available as an API, you can write
+      automated tests to make sure it doesn't break throughout its
+      development.</p>
+      <p>A newly created Agavi Model is a blank class file. You fill
+      it with code that is specific to your situation and the Model
+      you're creating.</p>
+
+      <note type="tip">You should often revisit your Model APIs to make sure the interfaces
+    don't intrude into each other's areas of concern. An automated
+    documentation tool helps tremendously when executed against the Models of
+      your application.</note>
+    </section>
+  </conbody>
+</concept>
