@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="basic-auth-security">
-  <title>Using Action security</title>
+  <title>Creating secure Actions</title>
   <body>
     <section>
       <title>Login action</title>

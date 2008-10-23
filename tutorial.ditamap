@@ -47,8 +47,8 @@
       <topicref href="topics/tutorial/validation.dita"/>
     </topicref>
 
-    <topicref href="topics/tutorial/agavi-security.dita">
-      <topicref href="topics/tutorial/basics-authentication-security.dita"/>
+    <topicref href="topics/tutorial/using-security.dita">
+      <topicref href="topics/concepts/security-primer.dita"/>
       <topicref href="topics/tutorial/securing-admin-actions.dita"/>
     </topicref>
     </chapter>

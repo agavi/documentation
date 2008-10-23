@@ -6,40 +6,6 @@
 
   <body>
     <section>
-      <title>How web application sessions work</title>
-      <p>HTTP is a stateless protocol that does not provide a way to
-	maintain a relationship between requests, thus making it hard
-	to produce personalized pages and restricted access
-	areas. Without special means, a web application is unable to
-	distinguish requests made by user A and user B. This problem
-	is solved by using cookies and cookie-based <keyword>session
-	  management</keyword>. A web application session is a data
-	container that stores user-specific data such as the identity
-	of the current user. A session is associated with a cookie or
-	another session token. When a request arrives, the session is
-	resurrected from storage according to the session key stored
-	in the cookie. The application is thus able to behave towards
-	its user in a personalized way.
-      </p>
-      <p>Use of a session container creates an illusion that some
-	data persists across requests. Agavi provides skeleton
-	session-based services to authenticate users and ensure that
-	security policies are enforced. 
-      </p>
-      <p>The session container is implemented in a
-	singleton <apiname>User</apiname> object. We will use its
-	facilities to create the administrative part of our blog which
-	require authentication and authorization.
-      </p>
-      <note type="tip">You should distinguish between authentication
-	and authorization. <keyword>Authentication</keyword> is a
-	procedure of establishing the identity of an user,
-	wherease <keyword>authorization</keyword> is the procedure of
-	verifying a given authenticated user's permission to perform a
-	certain action.</note>
-    </section>
-
-    <section>
       <title>User authentication</title>
       <p>A stock Agavi configuration uses a simple authorization check
 	before Actions are executed. Actions specify their security
@@ -49,7 +15,7 @@
       <p>Agavi Actions can be <keyword>secure</keyword>
 	and <keyword>non-secure</keyword>. An Action specifies whether
 	it's secure or not by the return value of
-	its <apiname>isSecure</apiname>() method:</p>
+	its <apiname>isSecure</apiname>() method:
       <codeblock class="php">
 class Module_SomeAction extends SomeBaseAction
 {
@@ -62,6 +28,7 @@ class Module_SomeAction extends SomeBaseAction
    }
 }
       </codeblock>
+      </p>
       <p>A <keyword>non-secure</keyword> Action is public and is not subjected to any
 	security checks.</p>
 
@@ -70,25 +37,41 @@ class Module_SomeAction extends SomeBaseAction
 	access a secure Action, Agavi will divert execution, instead
 	calling a special system Action (called the "Login Action") to
 	give the user an opportunity to authenticate.</p>
-
-      <note type="tip">In the Admin module that we're about to create, all Actions
-	will be labelled as secure, except the Login action which must
-	be accessible by everyone.</note>
     </section>
     <section>
       <title>Access authorization</title>
       <p>On top of the authentication check, Agavi provides a
 	credential-based mechanism to allow better control over who
 	can do what.</p>
-      <p>Your application assigns named access credentials to the User
-	object (typically during the login procedure). Actions that need
-	access restrictions specify which credentials must be present in
-	the User object to allow execution of the Action.</p>
+      <p>Your application assigns named access credentials to the <apiname>User</apiname>
+	object (typically during the login procedure). The <apiname>User</apiname> object
+	persists these permissions in the session:
+	<codeblock class="php"><![CDATA[
+	$us = $this->context->getUser();
+	$us->addCredential('site_admin');
+	// You can also pass an array:
+	$us->addCredentials(array('content_editor', 'image_uploader'));
+	]]></codeblock></p>
       <p>An Action declares which credentials are required from the
-	User object through its <apiname>getCredentials</apiname>()
+	<apiname>User</apiname> object through its <apiname>getCredentials</apiname>()
 	method. If this method doesn't return anything, credentials
 	aren't required and anyone authenticated may call the
-	Action.</p>
+	Action:
+	<codeblock class="php"><![CDATA[
+class Module_SomeAction extends SomeBaseAction
+{
+   /* .... */
+
+   public function isSecure() { return true; }
+   public function getCredentials()
+   {
+     // The user must have these two privileges to execute this Action
+     // You can also pass a string if it's a single credential
+     return array('content_editor, 'image_uploader');
+   }
+}
+	]]></codeblock>
+      </p>
       <p>If the authorization check discovers that the user doesn't
 	have all the credentials required to execute the Action,
 	execution is diverted to a system action called the "Secure
@@ -98,27 +81,26 @@ class Module_SomeAction extends SomeBaseAction
 
     <section>
       <title>Using the User object</title>
-      <p>Agavi User object is the persistent session container -
+      <p>Agavi <apiname>User</apiname> object is the persistent session container -
 	anything you store in it will be automatically restored on the
 	next request in the same session.  The object is accessed
 	through the getUser() method of the global Context object.</p>
-      <p>To read and store values in the User object, use the standard Agavi attribute container methods
+      <p>To read and store values in the <apiname>User</apiname>, use the standard Agavi attribute container methods
 	<apiname>getAttribute()</apiname> and <apiname>setAttribute()</apiname></p>
-      <p>The User object can be in either authenticated or
+      <p>The <apiname>User</apiname> object can be in either authenticated or
 	non-authenticated state. When it's in the authenticated state, the
 	identity of the user is known and they are considered logged in.
 	Otherwise, the User object is in non-authenticated
 	state.</p>
-      <p>The User object also carries the credential
+      <p>The <apiname>User</apiname> object also carries the credential
 	information. When a secure Action is executed, Agavi reads the
 	User object to see whether it is authenticated at all, and if the
 	Action required any special permissions, whether these permissions
 	are seen in the User object.</p>
-      <p>Here's some sample code inside
-	an Action's execute() method to show you how to manipulate the
-	user object. The correct way to use these methods will be shown
-	soon - the code below is just to give you the general idea:</p>
-      <codeblock conref="../examples/examples.xml#user-object-example" class="php"/>
+      <p>Here's some general example code to show you how to manipulate the
+	user object:
+	<codeblock conref="../examples/examples.xml#user-object-example" class="php"/>
+      </p>
     </section>
   </body>
 </topic>
