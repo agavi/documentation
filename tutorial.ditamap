@@ -38,7 +38,7 @@
   <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence"> 
     <topicref href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
       <topicref href="topics/tutorial/layers.dita"/>
-      <topicref href="topics/tutorial/output-types.dita"/>
+      <topicref href="topics/concepts/output-types.dita"/>
       <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
     </topicref>
 
