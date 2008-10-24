@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="bloggie-stage3-createing-comment-system">
+  <title>Creating the comment system (using slots, validation and Action methods)</title>
+  <body>
+    <p>At this point, Bloggie can display posts from the database, but
+    can't yet allow the blog readers to submit their own comments.</p>
+    <p>To achieve this, we're going to use various Agavi techniques:
+      <ul>
+	<li><keyword>Slots</keyword> are used to embed an Action's
+	  output in a template that belongs to another Action. We're going to use
+	  them to display the comments inside a post page, and to
+	  display the form used to submit these comments.</li>
+	<li><keyword>Validation</keyword> is used to ensure that
+	user-submitted data obeys specified laws. Using validation,
+	we'll ensure that the comments our readers submit are
+	safe.</li>
+	<li><keyword>Action methods</keyword> specify how an Action
+	  responds to a certain HTTP verb. We'll see how to implement HTTP POST handling.</li>
+      </ul>
+    </p>
+  </body>
+</topic>
