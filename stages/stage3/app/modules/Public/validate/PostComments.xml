@@ -71,6 +71,11 @@ see an empty error message on the error page.
 	    
 This is just to demonstrate the use of the required attribute; the
 correct solution would be seen in later versions of Bloggie
+
+DO NOT USE THIS VALIDATOR IN YOUR APPLICATIONS. IT EXISTS FOR
+DEMONSTRATIONAL PURPOSE ONLY. IT IS WRONG AND HARMFUL TO STORE HTML
+ENTITIES IN THE DATABASE.
+
       -->
       <validator class="BloggieHtmlSanitizationValidator" name="body_sanitizer" required="false">
 	<argument>body</argument>

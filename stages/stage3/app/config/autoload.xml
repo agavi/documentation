@@ -6,6 +6,11 @@
 		<autoload name="BlogBaseModel">%core.lib_dir%/model/BlogBaseModel.class.php</autoload>
 		<autoload name="BlogBaseView">%core.lib_dir%/view/BlogBaseView.class.php</autoload>
 
+		<!-- DO NOT USE THIS VALIDATOR IN YOUR
+		     APPLICATIONS. IT EXISTS FOR DEMONSTRATIONAL
+		     PURPOSE ONLY. IT IS WRONG AND HARMFUL TO STORE
+		     HTML ENTITIES IN THE DATABASE. -->
+
 		<autoload name="BloggieHtmlSanitizationValidator">%core.lib_dir%/validator/BloggieHtmlSanitizationValidator.class.php</autoload>
 	</configuration>
 </configurations>
