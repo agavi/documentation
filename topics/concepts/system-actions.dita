@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="system-actions">
+  <title>System Actions</title>
+  <conbody>
+    <section id="what-are-system-actions">
+      <title>What are system Actions?</title>
+      <p>Sometimes Agavi is unable to execute the requested Action:
+      for instance, the user may not have necessary permissions, or
+      input validation failed with an error. In these cases, Agavi
+      <keyword>diverts</keyword> execution and instead one of the
+      <keyword>system Actions</keyword> is called.</p>
+      <p>A system Action is an Action with a predetermined purpose
+      that is invoked by the framework when a certain condition
+      occurs. System Actions are assigned in
+      <filepath>app/config/settings.xml</filepath>. When you create a
+      new Agavi project, some system Actions are precreated for you.</p>
+      <p>Agavi has the following system Actions:
+      <ol>
+	<li>"error_404" - called when the requested Action doesn't exist</li>
+	<li>"default" - used by routing as fallback when the request doesn't match anything</li>
+	<li>"unavailable" - executed instead of all other actions when
+	the "application unavailable" flag is set in the
+	configuration. This is useful for maintenance etc.</li>
+	<li>"module_disabled" - executed instead of all Actions in a
+	given Module, if that module is marked disabled in its
+	configuration</li>
+	<li>"secure" - executed when an authenticated user doesn't
+	have credentials necessary to access a secure Action</li>
+	<li>"login" - executed when an unauthenticated user requests a secure Action</li>
+      </ol>
+      </p>
+    </section>
+    <example>
+    </example>
+  </conbody>
+</concept>
