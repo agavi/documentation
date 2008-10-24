@@ -35,24 +35,24 @@
     <topicref href="topics/tutorial/basics-running.dita"/>
   </chapter>
 
-  <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence"> 
-    <topicref href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
-      <topicref href="topics/tutorial/layers.dita"/>
-      <!-- recreate own page -->
-      <topicref href="topics/concepts/output-types.dita"/>
-      <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
-    </topicref>
+  <chapter href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
+    <topicref href="topics/tutorial/layers.dita"/>
+    <!-- recreate own page -->
+    <topicref href="topics/concepts/output-types.dita"/>
+    <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
+  </chapter>
+  
+  <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  -->
 
-    <topicref href="topics/tutorial/creating-comment-system.dita" collection-type="sequence"> 
-      <topicref href="topics/tutorial/slots.dita"/>
-      <topicref href="topics/tutorial/system-actions.dita"/>
-      <topicref href="topics/tutorial/validation.dita"/>
-    </topicref>
+  <chapter href="topics/tutorial/creating-comment-system.dita" collection-type="sequence"> 
+    <topicref href="topics/tutorial/slots.dita"/>
+    <topicref href="topics/tutorial/system-actions.dita"/>
+    <topicref href="topics/tutorial/validation.dita"/>
+  </chapter>
 
-    <topicref href="topics/tutorial/using-security.dita" collection-type="sequence">
-      <!-- recreate own page -->
-      <topicref href="topics/concepts/security-primer.dita"/>
-      <topicref href="topics/tutorial/securing-admin-actions.dita"/>
-    </topicref>
-    </chapter>
+  <chapter href="topics/tutorial/using-security.dita" collection-type="sequence">
+    <!-- recreate own page -->
+    <topicref href="topics/concepts/security-primer.dita"/>
+    <topicref href="topics/tutorial/securing-admin-actions.dita"/>
+  </chapter>
 </bookmap>

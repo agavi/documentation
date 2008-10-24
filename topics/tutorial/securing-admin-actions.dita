@@ -5,13 +5,41 @@
   <title>Creating secure Actions</title>
   <body>
     <section>
-      <title>Login action</title>
-    </section>
-    <section>
-      <title>User model</title>
+      <title>Login action &amp; backend Model</title>
+      <p>If we want to enforce security restrictions, we need to
+      authenticate the users first. Let's implement a simple login
+      procedure first. To look up users in the database, we'll need a
+      Model, and to implement the actual Login process, we need an Action.</p>
+      <p>Users Model:
+      <codeblock conref="../examples/security.dita#bloggie-users-model"/>
+      </p>
+      <p>The Model has a single method which takes an username and a
+      password and returns an array containing the user details if the
+      login is valid. This is a very primitive security scheme which
+      works well on small scale.</p>
+      <p>Login Action:
+      <codeblock conref="../examples/security.dita#bloggie-login-action"/>
+      </p>
+      <p>The Login action's "write" method grabs the supplied username
+      and password and asks the Model to verify the credentials. If
+      there is a match, the <apiname>User</apiname> object is set to
+      the authenticated state.</p>
     </section>
     <section>
       <title>Making Admin Actions secure</title>
+      <p>There are already some admin Actions in the applications, and
+      this tutorial doesn't bother to describe them, as they don't
+      make use of any features that weren't covered previously. We
+      want to make sure that none of these Actions, except for the
+      Login action, can be accessed by an user who hasn't
+      authenticated. Thus, we place a <apiname>isSecure</apiname>()
+      callback in every Action:
+      (code)
+      </p>
+      <p>When an unauthenticated user attempts to access a restricted
+      action, Agavi looks in the application's configuration and finds
+      the Action that serves as the login Action. The login Action is
+      then executed, showing the login window to the user.</p>
     </section>
   </body>
 </topic>
