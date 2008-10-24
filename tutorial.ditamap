@@ -44,6 +44,7 @@
 
     <topicref href="topics/tutorial/creating-comment-system.dita" collection-type="sequence"> 
       <topicref href="topics/tutorial/slots.dita"/>
+      <topicref href="topics/tutorial/system-actions.dita"/>
       <topicref href="topics/tutorial/validation.dita"/>
     </topicref>
 
