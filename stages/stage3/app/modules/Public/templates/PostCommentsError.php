@@ -1,2 +1,7 @@
 <h1>Error</h1>
-<p>There was an error while saving your comment</p>
+<p>Error(s) while saving your comment:</p>
+<?php 
+foreach ($template['errors'] as $field => $e)
+foreach ($e['messages'] as $error)
+print "<li>In field <strong>$field</strong>: $error</li>";
+?>

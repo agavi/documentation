@@ -7,6 +7,9 @@ class Public_CommentsModel extends BlogPublicBaseModel
    *
    * Look up the most recent comments made on this post. Comments are
    * sorted by their timestamp in the descending order
+   *
+   * @param integer $post_id ID of the parent post for this comment
+   * @param integer $count How many items to return
    **/
   public function getRecentCommentsForPost($post_id, $count = 20)
   {

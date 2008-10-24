@@ -18,10 +18,7 @@
 	</div>
 
 	<div class="navigation">
-		<a href="index.html">Foo</a>
-		<a href="index.html">Bar</a>
-		<a href="index.html">Fish</a>
-		<a href="index.html">Cat</a>
+                <?php print $slots['navigation']; ?>
 		<div class="clearer"><span></span></div>
 	</div>
 
