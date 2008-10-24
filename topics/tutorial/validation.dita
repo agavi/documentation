@@ -11,12 +11,16 @@
       database. We have to make sure these comments follow certain rules and do not include
       hostile content. Let's define our demands that the comments would have to follow:
       <ol>
-	<li>The email field must carry a consistent email address. It should be no longer than 255 characters.</li>
-	<li>The name must not be empty. If it is, "Anonymous" should be substituted for it before the Action is executed.</li>
+	<li>The email field must carry a correct email address. It
+	should be no longer than 255 characters, and it can't be
+	empty.</li>
+	<li>The author name must not be empty, it must contain
+	alphanumeric characters, dashes and spaces only. It should not
+	be longer than 255 characters.</li>
 	<li>The body of the comment must be no longer than 2000
 	characters and only carry plain text with no HTML/Javascript
-	allowed, so we have to encode it
-	with <apiname>htmlentities()</apiname></li>
+	allowed, so we have to encode it with
+	<apiname>htmlentities()</apiname></li>
       </ol>
       </p>
       <p>Any comment that follows these rules can be stored and
@@ -24,6 +28,26 @@
       have to reject it.</p>
       <p>To enforce these rules, we describe them in <filepath>app/modules/Public/validate/PostComments.xml</filepath>:</p>
       <codeblock conref="../examples/validation.dita#bloggie-comment-validation"/>
+      <note type="important">Validation is only executed if the Action
+      has an <apiname>executeXXX</apiname> method that matches the
+      request. If the Action does NOT have such a method, then the validators wouldn't run.
+      </note>
+    </section>
+    <section>
+      <title>Writing a custom validator</title>
+      <p>Sometimes, you have to write a custom validator class. The
+      validation system is nontrivial and has conditional execution,
+      trees of validators and dependencies. In this tutorial, we'll
+      look at a simple customvalidator that doesn't actually validate
+      anything but rather sanitizes input text by running it through
+      htmlentities():
+      <codeblock conref="../examples/validation.dita#html-sanitizer"/>
+      </p>
+      <p>As any custom class, this validator has to be registered in
+      <filepath>autoload.xml</filepath>. Whenever adding third party
+      libraries, helper classes and framework extensions, register the
+      new components in that file. 
+      </p>
     </section>
   </body>
 </topic>

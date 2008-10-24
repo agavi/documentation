@@ -38,6 +38,7 @@
   <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence"> 
     <topicref href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
       <topicref href="topics/tutorial/layers.dita"/>
+      <!-- recreate own page -->
       <topicref href="topics/concepts/output-types.dita"/>
       <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
     </topicref>
@@ -49,6 +50,7 @@
     </topicref>
 
     <topicref href="topics/tutorial/using-security.dita" collection-type="sequence">
+      <!-- recreate own page -->
       <topicref href="topics/concepts/security-primer.dita"/>
       <topicref href="topics/tutorial/securing-admin-actions.dita"/>
     </topicref>

@@ -52,6 +52,6 @@ CREATE TABLE `comments` (
   `content` text collate utf8_unicode_ci NOT NULL,
   `posted` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON UPDATE CASCADE
+  FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) 
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
  COMMENT='Contains post comments';

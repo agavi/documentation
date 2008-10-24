@@ -8,7 +8,6 @@ class Public_PostCommentsErrorView extends BlogPublicBaseView
 
     $vm = $this->container->getValidationManager();
     $errors = $vm->getErrors();
-    print '<pre>'; var_dump($errors);die;
     $this->setAttribute('errors', $errors);
   }
 }

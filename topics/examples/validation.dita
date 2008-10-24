@@ -5,8 +5,108 @@
   <title>Validation source code examples</title>
   <body>
 <codeblock id="bloggie-comment-validation"><![CDATA[
-(xml)
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+  <configuration>
+    <!-- This validator set is for comment submission only -->
+    <validators method="write">
+      <validator class="number">
+	<argument>post_id</argument>
+	<error>Invalid post ID</error>
+      </validator>
+
+      <!-- email field is limited to 255 characters -->
+      <validator class="string" name="email_length">
+	<argument>email</argument>
+	<parameter name="max">255</parameter>
+	<error>The email address can't be empty</error>
+	<errors>
+	  <error for="max">The supplied email address is too long</error>
+	</errors>
+	<!-- If the argument isn't supplied, fail the validnnation
+	     without executing the validator at all --> 
+      </validator>
+
+      <!-- accept only valid email addresses -->
+     <validator class="email" name="email_validity">
+	<argument>email</argument>
+	<error>This doesn't look like a valid email address</error>
+      </validator>
+
+      <!-- Author name is limited to 255 characters -->
+      <validator class="string" name="author_name_length">
+	<argument>author_name</argument>
+	<parameter name="min">5</parameter>
+	<parameter name="max">255</parameter>
+	<error>Author name is too short</error>
+	<errors>
+	  <error for="max">Author name is too long</error>
+	</errors>
+      </validator>
+
+      <!-- Author name must consist of alphanumeric characters,
+           whitespace and dashes only -->
+      <validator class="regex" name="author_name_validity">
+	<argument>author_name</argument>
+	<!-- The ``U'' option is to allow UTF-8 -->
+	<parameter name="pattern">#^[\w\s\d -]+$#U</parameter>
+	<parameter name="match">true</parameter>
+	<error>Author name can contain alphanumeric characters, dashes and whitespace only</error>
+      </validator>
+
+      <!-- the content body is limited to 2000 characters -->
+      <validator class="string" name="body_length">
+	<argument>body</argument>
+	<parameter name="max">2000</parameter>
+	<error>The comment can not be empty</error>
+	<errors>
+	  <error for="max">The comment can not be longer than 2000 characters  </error>
+	</errors>
+      </validator>
+
+      <!--
+	 
+The content body must be encoded with htmlentities(), we use a custom
+validator class for that
+
+Note that this validator is set to required="false" (the default is
+true) this is because when required is set to true, the validator
+won't be executed if the argument parameter isn't supplied at all, and
+an error will be thrown with the default error message, which this
+validator doesn't have. So, if you set required to true here, you will
+see an empty error message on the error page.
+	    
+This is just to demonstrate the use of the required attribute; the
+correct solution would be seen in later versions of Bloggie
+      -->
+      <validator class="BloggieHtmlSanitizationValidator" name="body_sanitizer" required="false">
+	<argument>body</argument>
+	<!-- overwrite the original argument with the modified one -->
+	<export>body</export>
+      </validator>
+    </validators>
+  </configuration>
+</configurations>
 ]]></codeblock>
+<codeblock id="html-sanitizer"><![CDATA[
+
+  /**
+   * A very primitive validator that sanitizes given HTML by running
+   * htmlentities() over it. 
+   */
+class BloggieHtmlSanitizationValidator extends AgaviValidator
+{
+  public function validate()
+  {
+    $input =& $this->getData($this->getArgument());
+    $input = htmlentities($input);
+    
+    $this->export($input);
+
+    return true;
+  }
+}]]></codeblock>
+
 <!--
 
 <codeblock id=""><![CDATA[
