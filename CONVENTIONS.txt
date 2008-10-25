@@ -1,9 +1,25 @@
-1) Command line examples should be wrapped in <screen>. The parts that are typed by the user are highlighted 
-   in the output and should be wrapped in <userinput>
-2) Side notes should be placed in <note> and in general avoided
-3) Tips should be placed in <note type="tip">
-4) Example code should be <codeblock class="php"> or <codeblock class="xml">. This prepares the syntax highlighting.
-5) Method names are to be wrapped in <apiname>
-6) Newly introduced concepts should be wrapped in <keyword>
-7) Example code that is whitespace sensitive should be kept in a separate file so that editors don't munch on it when 
-   formatting XML.
+CLI INTERACTION
+
+Shell interaction should be wrapped in <screen>. Parts typed by the user
+should be wrapped in <userinput>
+
+NAMES
+
+Method names, class names, and partial action names should be in
+<apiname>. Method names should use () outside <apiname>: <apiname>phpinfo</apiname>()
+
+EXAMPLE CODE
+
+Use <codeblock class="foo"> element where foo can be "php" or "xml". Wrap the
+source code in <![CDATA[...]]>
+
+SIDE NOTES
+
+Use <note type="foo"> where type can be "note", "important", "caution" and "tip"
+
+CONCEPTS
+
+Agavi concepts should be wrapped in <keyword>
+Foreign concepts should be wrapped in <term>
+
+

@@ -6,6 +6,9 @@ class Public_PostCommentsErrorView extends BlogPublicBaseView
   {
     $this->setupHtml($rd);
 
+    // Ask the validation manager to supply us with a list of errors
+    // and export it
+
     $vm = $this->container->getValidationManager();
     $errors = $vm->getErrors();
     $this->setAttribute('errors', $errors);
