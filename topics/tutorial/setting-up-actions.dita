@@ -19,7 +19,7 @@
       View that will construct the response. An Action can have many
       Views to choose from.</p>
 
-    <note type="tip">This is the crucial difference between Actions
+    <note type="tip">The crucial difference between Actions
       and Views: Actions process the request and Views construct the
       response.</note>
 
@@ -38,31 +38,31 @@
     <p>The Index Action will handle Bloggie's front page, a list of
       the most recent blog posts. The ShowPost Action will take a blog
       post ID as a parameter and return the full blog post. Assuming
-      you have Bloggie running
+      we have Bloggie running
       at <filepath>http://bloggie.dev/</filepath>, the Index Action
       will be mapped to <filepath>http://bloggie.dev/</filepath> and
       ShowPost will be mapped to
-      <filepath>http://blog.dev/posts/<varname>id</varname></filepath> where
+      <filepath>http://bloggie.dev/blog/<varname>id</varname></filepath> where
       <varname>id</varname> is the post ID. The relationship between URLs and
       Actions is defined using the routing configuration.</p>
 
     <p>The routing mechanism is responsible for parsing a requested
-      URL. It selects a single Action (called the "initial" action) that
-      best matches the routing rules and executes it. After you create
-      the Actions, Views, templates and the Model code, you will update
-      the routing map to make your Actions available to the outside
-      world.</p>
+      URL. It selects a single Action (called the "initial" action)
+      that best matches the routing rules and executes it. Having
+      created the Actions, Views, templates and the Model code, you
+      update the routing map to make your Actions available to the
+      outside world.</p>
 
-    <p>When you created the Bloggie application, you explicitly
+    <p>When we created the Bloggie application, we explicitly
       requested that the Index and ShowPost Actions be created. However,
       the method for creating a new action using
       the <cmdname>agavi</cmdname> script is the same even once
       applications have been created: simply execute
-      <userinput>agavi action</userinput> inside your project.</p>
+      <userinput>agavi action</userinput> inside our project directory.</p>
 
     <section>
       <title>Creating the Index Action</title>
-      <p>The Index Action that you created resides at
+      <p>The Index Action that we created resides at
 	<filepath>app/modules/Public/actions/IndexAction.class.php</filepath>.  Open this
 	file in your favorite editor and take a look at it:</p>
       <codeblock conref="../examples/examples.xml#stage2-index-action" class="php"/>
@@ -137,13 +137,14 @@
 	the requested post is not found - this means that Actions (not
 	Views) should be retrieving data from Models or else you can't
 	decide whether it's an error condition or not. These are
-	important questions. We will solve this dilemma in the next
-	chapter when we arrive to validation. For now, bear in mind
-	that Actions and Views always go hand in hand: in principle,
-	if the sole purpose of an Action-View chain is to output
-	something, the correct place for retrieving data is the
-	Action. This mistake is being shown here deliberately and will
-	be fixed in later versions of Bloggie.</note>
+	important questions. We will solve this problem when applying
+	validation in the coming chapters. For now, bear in mind that
+	Actions and Views always go hand in hand: in principle, if the
+	sole purpose of an Action-View chain is to output something,
+	the correct place for retrieving data is the Action, even
+	though the Action doesn't change the applcation's state. This
+	mistake is being shown here deliberately and will be fixed in
+	later versions of Bloggie.</note>
     </section>
     <section>
       <title>Templates</title>
@@ -164,9 +165,9 @@
 
       <p>This is the template code for our index page
       (<filepath>app/modules/Public/templates/IndexSuccess.php</filepath>):</p>
-      <codeblock conref="../examples/examples.xml#stage2-index-template" class="xml"/>
+      <codeblock conref="../examples/actions.dita#bloggie-s2-index-template" class="xml"/>
       <p>And this is the template code for our blog post page (<filepath>app/modules/Public/templates/ShowPostSuccess.php</filepath>):</p>
-      <codeblock conref="../examples/examples.xml#stage2-showpost-template" class="xml"/>
+      <codeblock conref="../examples/actions.dita#bloggie-s2-showpost-template" class="xml"/>
 
       <p>Anything that's been exported using an Action's or View's
 	setAttribute() method will be available in the template's
