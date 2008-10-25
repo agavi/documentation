@@ -20,7 +20,7 @@
 	<li>The body of the comment must be no longer than 2000
 	characters and only carry plain text with no HTML/Javascript
 	allowed, so we have to encode it with
-	<apiname>htmlentities()</apiname></li>
+	<apiname>htmlentities</apiname>()</li>
       </ol>
       </p>
       <note type="caution">It is not a good practice to encode input
@@ -76,13 +76,13 @@
       <p>Sometimes, you have to write a custom validator class. The
       validation system is nontrivial and has conditional execution,
       trees of validators and dependencies. In this tutorial, we'll
-      look at a simple customvalidator that doesn't actually validate
+      look at a simple custom validator that doesn't actually validate
       anything but rather sanitizes input text by running it through
       htmlentities():
       <codeblock conref="../examples/validation.dita#html-sanitizer"/>
       </p>
       <p>As any custom class, this validator has to be registered in
-      <filepath>autoload.xml</filepath>. Whenever adding third party
+      <filepath>app/config/autoload.xml</filepath>. Whenever adding third party
       libraries, helper classes and framework extensions, register the
       new components in that file. 
       </p>
