@@ -23,16 +23,54 @@
 	<apiname>htmlentities()</apiname></li>
       </ol>
       </p>
+      <note type="caution">It is not a good practice to encode input
+      with htmlentities() and store it in the database. Do not use
+      this filter in your own applications.
+      </note>
+
       <p>Any comment that follows these rules can be stored and
       displayed safely. If the comment doesn't follow the rules, we
       have to reject it.</p>
       <p>To enforce these rules, we describe them in <filepath>app/modules/Public/validate/PostComments.xml</filepath>:</p>
       <codeblock conref="../examples/validation.dita#bloggie-comment-validation"/>
       <note type="important">Validation is only executed if the Action
-      has an <apiname>executeXXX</apiname> method that matches the
+      has an <apiname>executeXXX</apiname>() method that matches the
       request. If the Action does NOT have such a method, then the validators wouldn't run.
       </note>
+      <note type="important">By default, validators have their
+      "required" parameter set to true. This means that the validator
+      will NOT be executed when the argument that the validator is
+      supposed to work on is empty or missing. In this case, the
+      validation manager will use the default &lt;error&gt; element of
+      its configuration to report the error. 
+      </note>
     </section>
+    <section>
+      <title>What happens when validation fails</title>
+      <p>When validation fails, Agavi does not call
+      the <apiname>executeXXX</apiname>() method of the Action. However,
+      it still needs to know the name of the View to be executed. To
+      customize that, an Action can provide an error handler,
+      called <apiname>handleXXXError</apiname>(), which should return
+      the name of the View to be executed in case of error. If there's
+      no such method, Agavi assumes that it should execute the "Error"
+      View of the failing Action. This is exactly what happens in our
+      case.</p>
+      <p><apiname>PostComments</apiname> "Error" view asks the
+      validation manager to provide it with a list of validation
+      errors, which are then displayed to the user:
+      <codeblock conref="../examples/validation.dita#bloggie-postcomments-error-view"
+      class="php"/></p>
+      <p>The corresponding template:
+	<codeblock conref="../examples/validation.dita#bloggie-postcomments-error-template" class="php"/></p>
+      <note type="tip">There is a better way to handle form submission
+      errors. Agavi has a Form Population Filter, which can
+      automatically fill and refill forms, parse the validation errors
+      and modify the form's HTML, adding error messages and CSS
+      classes. Using this filter is out of scope of this
+      tutorial</note>
+    </section>
+
     <section>
       <title>Writing a custom validator</title>
       <p>Sometimes, you have to write a custom validator class. The

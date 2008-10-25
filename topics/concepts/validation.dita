@@ -14,13 +14,16 @@
       errorneous URL that contains unexpected parameters over
       validating form input data to preventing malicious user from
       attacking your application by using specially crafted input
-      parameters. Attacks include the full range from <term
-      >XSS-attacks</term> to <term>SQL-Injection</term>. Validation is
-      a core feature to make your application as robust and
+      parameters. Attacks include the full range from <term >XSS
+      attacks</term> to <term>SQL Injections</term>. Validation is a
+      core feature to make your application as robust and
       error-tolerant as possible. Incorrect input data may include any
       user supplied data, ranging from GET and POST parameters,
       Cookies and HTTP-Headers in the web-context over to environment
       variables and commandline arguments in console contexts.</p>
+      <p>Agavi performs validation
+      using <keyword>validators</keyword>.  A validator is a class. It
+      can accept certain parameters.</p>
       <p>Validation is applied to Actions regardless of how they're
       executed. You set up validation once and the Action is
       guaranteed to follow it, whether it runs as a slot, in a command
@@ -30,7 +33,10 @@
       them. Agavi ships with many validator classes, and you can easily
       write a custom one when you need to validate some special type of
       input (think barcodes, chemical formulae and so on).</p>
-      <p>Validators can also modify the input parameters of the
+      <p>Validation can also be controlled manually. Actions can
+      configure the validation and specify how to handle validation
+      errors.</p>
+      <p>Validators may modify the input parameters of the
       Action. It is possible, for example, to write a validator that
       maps HTML &lt;select&gt; options' values to database objects, or
       turns pretty URL partials into object IDs. Using these techniques,

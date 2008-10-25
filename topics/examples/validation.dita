@@ -111,6 +111,28 @@ class BloggieHtmlSanitizationValidator extends AgaviValidator
     return true;
   }
 }]]></codeblock>
+<codeblock id="bloggie-postcomments-error-view"><![CDATA[
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this->setupHtml($rd);
+
+    // Ask the validation manager to supply us with a list of errors
+    // and export it
+
+    $vm = $this->container->getValidationManager();
+    $errors = $vm->getErrors();
+    $this->setAttribute('errors', $errors);
+  }
+]]></codeblock>
+<codeblock id="bloggie-postcomments-error-template"><![CDATA[
+<h1>Error</h1>
+<p>Error(s) while saving your comment:</p>
+<?php 
+foreach ($template['errors'] as $field => $e)
+foreach ($e['messages'] as $error)
+print "<li>In field <strong>$field</strong>: $error</li>";
+?>
+]]></codeblock>
 
 <!--
 
