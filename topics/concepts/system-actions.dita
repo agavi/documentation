@@ -8,7 +8,7 @@
       <title>What are system Actions?</title>
       <p>Sometimes Agavi is unable to execute the requested Action:
       for instance, the user may not have necessary permissions, or
-      input validation failed with an error. In these cases, Agavi
+      the Action can't be found. In these cases, Agavi
       <keyword>diverts</keyword> execution and instead one of the
       <keyword>system Actions</keyword> is called.</p>
       <p>A system Action is an Action with a predetermined purpose

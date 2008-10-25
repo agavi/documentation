@@ -42,7 +42,7 @@
     to be executed after it finishes. After that, the
     appointed <keyword>View</keyword> performs rendering of the
     application's output.</p>
-    <image href="images/mvc-flow.png"/>
+    <image href="../images/mvc-flow.png"/>
 
       <p>Since HTTP works under the request-response model, Actions
     correspond to HTTP request handling, and Views to response

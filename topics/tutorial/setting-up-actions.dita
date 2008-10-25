@@ -34,7 +34,7 @@
       hand, HTTP POST on the same action would cause it to save the
       submitted form into the database.</p>
 
-    <image href="images/executing-actions.png"/>
+    <image href="../images/executing-actions.png"/>
     <p>The Index Action will handle Bloggie's front page, a list of
       the most recent blog posts. The ShowPost Action will take a blog
       post ID as a parameter and return the full blog post. Assuming
