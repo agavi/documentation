@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd">
+<topic id="topic-1">
+    <title>Validators</title>
+    <body>
+        <p>A validator is a piece of encapsulated reusable validation logic, such as a
+            StringValidator, an EmailValidator or a DateValidator. Agavi comes with a set of
+            standard validators for the most common validation tasks but it is easy to write your
+            own or extend an existing one. In general it is recommended to roll your own validators
+            instead of using other methods of validation. </p>
+    </body>
+    <topic id="validation-registering-validators">
+        <title>Registering Validators</title>
+        <body>
+            <p>Validators can either be registered by placing a validation config in the modules
+                validate directory or by using the Acion::register*Validator methods. </p>
+        </body>
+    </topic>
+    <topic id="validation-validation-config-xml">
+        <title>The validation config XML</title>
+        <body>
+            <p>The easiest way to register a set of validators is to place a validation config file
+                in the modules validate directory. The config must carry the actions name (FooAction
+                => Foo.xml) and can define arbitrary validators. It is possible to register
+                different validators depending on the request method, but apart from that, the set
+                of defined validators is fixed. If finer control is needed, the registerValidator()
+                methods should be used. The following code sample shows a sample validation config
+                for a login. </p>
+            <p><codeblock>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!--
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| This file is part of the Agavi package.                                    |
+| Copyright (c) 2006 the Agavi Project.                                      |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+| AGAVI VALIDATORS CONFIGURATION                                             |
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+-->
+&lt;configurations xmlns="http://agavi.org/agavi/1.0/config">
+	&lt;!-- custom validators and default parameters -->
+	&lt;configuration>
+		&lt;validators>
+
+			&lt;validator class="string" name="username_too_short" translation_domain="default.errors.Login" methods="write">
+				&lt;arguments>
+					&lt;argument>username&lt;/argument>
+				&lt;/arguments>
+				&lt;errors>
+					&lt;error>The username you supplied is fewer than 5 characters long.&lt;/error>
+				&lt;/errors>
+				&lt;parameters>
+					&lt;parameter name="min">5&lt;/parameter>
+				&lt;/parameters>
+			&lt;/validator>
+
+			&lt;validator class="string" name="password_non_existant" translation_domain="default.errors.Login" methods="write">
+				&lt;arguments>
+					&lt;argument>password&lt;/argument>
+				&lt;/arguments>
+				&lt;errors>
+					&lt;error>Please supply a password.&lt;/error>
+				&lt;/errors>
+				&lt;parameters>
+					&lt;parameter name="min">1&lt;/parameter>
+				&lt;/parameters>
+			&lt;/validator>
+			
+			&lt;validator class="isset" name="remember" required="false" methods="write">
+				&lt;arguments>
+					&lt;argument>remember&lt;/argument>
+				&lt;/arguments>
+			&lt;/validator>
+
+		&lt;/validators>
+	&lt;/configuration>
+&lt;/configurations></codeblock>Each
+                &lt;validator> block registers a single validator. A &lt;validator> tag can carry
+                the following attributes:<dl>
+                    <dlentry>
+                        <dt>class (required)</dt>
+                        <dd>The type of validator to use. The class can either be a shortname for
+                            AgaviValidators or a fully qualified classname for both AgaviValidators
+                            and custom validators. When using a custom validator, the class must
+                            either be included in the autoload config or loaded before the
+                            validation config is parsed.</dd>
+                    </dlentry>
+                </dl></p>
+        </body>
+    </topic>
+    <topic id="validation-register-validators-methods">
+        <title>Action::registerValidators(), Action::registerReadValidators(),
+            Action::registerWriteValidators()</title>
+        <body>
+            <p>If declared, the <indexterm>Action::registerValidators()</indexterm>, <indexterm
+                    >Action::registerReadValidators()</indexterm> and <indexterm
+                    >Action::registerWriteValidators()</indexterm>
+                <fn>The correct name for the request method dependent methods is
+                    register&lt;RequestMethod>Validators(), so a request method named foo would
+                    trigger Action::registerFooValidators()</fn>methods get called before the
+                validation process itself is started. Unlike the validation config file, they can be
+                used to register validators based on information that need to determined at runtime.
+                Action::registerValidators() is only called if no request method specific method
+                exists.</p>
+            <codeblock class="+ topic/pre pr-d/codeblock "/>
+        </body>
+    </topic>
+</topic>
