@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/dtd/reference.dtd">
+<reference id="validation-methods">
+  <title>Validation Methods</title>
+  <body>
+    <p>There are two methods of validation, one using the
+    <indexterm>ValidationManager</indexterm> and various
+    <indexterm>Validators</indexterm> and for more fine grained
+    control the validate*() methods. Both methods can be combined, it
+    is a common use-case to first validate parameters for formal
+    correctness with a validator and then perform additional checks
+    with a validate method.</p>
+
+    <section>
+      <title>validateXXX() methods in Actions</title>
+      <p>The <indexterm>Action::validate()</indexterm>
+      <indexterm>Action::validateRead()</indexterm>
+      <indexterm>Action::validateWrite()</indexterm>
+      <fn>Actually, the correct name is validate&lt;RequestMethod>, so if the application uses
+      custom request methods (foo for example), the validate method would be called
+      Action::validateFoo()</fn> methods are called in addition to the defined validators
+      for a given request method. Action::validate() is called on any request method. These
+      methods can be used to perform complex custom validation that only happens in one place.
+      If you have any need to reuse that validation code you should consider writing your own
+      validator. </p>
+      <p>These methods can perform arbitrary validation logic, if they return true, the validation
+      is successfull, if the method returns false, validation failed. The validated parameters
+      still need to be marked as validated on the ValidationManager.</p>
+      </section>
+  </body>
+</reference>

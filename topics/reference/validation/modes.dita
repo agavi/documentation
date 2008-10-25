@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/dtd/reference.dtd">
+<reference id="validation-modes">
+  <title>Validation modes</title>
+  <body>
+      <p>Agavi supports three validation modes: <dl>
+      <dlentry>
+	<dt>STRICT</dt>
+	<dd>Strict validation requires every piece of input data to be validated.
+	Input data that is not validated will not be available to the business
+	logic in actions. This is the recommended mode as it is the most secure
+	and robust. </dd>
+      </dlentry>
+      <dlentry>
+	<dt>RELAXED</dt>
+	<dd>Relaxed validation uses any defined validators but passes any
+	unvalidated parameter as well.</dd>
+      </dlentry>
+      <dlentry>
+	<dt>CONDITIONAL</dt>
+	<dd>Conditional validation acts like relaxed validation as long as no
+	validator is registered. When a single validator is defined, it acts
+	like strict validation.</dd>
+      </dlentry>
+      </dl>The validation mode can be by calling AgaviValidationManager::setMode() or in
+      the factories.xml via the parameter 'mode'. The default for production envirnoments
+      is 'strict', for dev environments 'conditional'.</p>
+      <codeblock>		&lt;validation_manager class="AgaviValidationManager">
+      &lt;ae:parameter name="mode">strict&lt;/ae:parameter>
+      &lt;/validation_manager></codeblock>
+  </body>
+</reference>

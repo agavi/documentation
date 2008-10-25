@@ -8,8 +8,9 @@
   </booktitle>
 
   <bookmeta>
-    <author>Mike Seth &lt;me@mikeseth.com&gt;</author>
+    <author>Michael Stolovitzsky &lt;michael.stolovitzsky@bitextender.com&gt;</author>
     <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
+    <author>Felix Gilcher &lt;felix.gilcher@bitextender.com&gt;</author>
   </bookmeta>
 
   <chapter href="topics/reference/chapters/introduction.dita" collection-type="sequence">
@@ -66,7 +67,10 @@
   <chapter href="topics/reference/chapters/response.dita"/>
 
   <chapter href="topics/reference/chapters/validation.dita">
-    <topicref href="topics/reference/compound-validators.dita"/>
+    <topicref href="topics/reference/validation/validation-manager.dita"/>
+    <topicref href="topics/reference/validation/methods.dita"/>
+    <topicref href="topics/reference/validation/modes.dita"/>
+    <topicref href="topics/reference/validation/other-features.dita"/>
     <!-- insert validator dox here -->
   </chapter>
 
@@ -108,9 +112,10 @@
     <topicref href="topics/reference/adapters-customization.dita"/>
   </chapter>
 
+  <appendix href="topics/reference/chapters/caveats.dita"/>
   <appendix href="topics/reference/chapters/third-party-integration.dita"/>
-  <appendix href="topics/reference/nonweb-invocations.dita"/>
-  <appendix href="topics/reference/server-configuration.dita"/>
-  <appendix href="topics/reference/testing-applications.dita"/>
-  <appendix href="topics/reference/soap.dita"/>
+  <appendix href="topics/reference/chapters/nonweb-invocations.dita"/>
+  <appendix href="topics/reference/chapters/server-configuration.dita"/>
+  <appendix href="topics/reference/chapters/testing-applications.dita"/>
+  <appendix href="topics/reference/chapters/soap.dita"/>
 </bookmap>
