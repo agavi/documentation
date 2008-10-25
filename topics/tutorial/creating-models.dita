@@ -8,7 +8,7 @@
     <section conref="../concepts/models.dita#what-are-models">
     </section>
     <section>
-      <title>Creating Models for Bloggie</title>
+      <title>Creating Models</title>
       <p>Bloggie has two
     pages—two Actions—one for the front page and one for specific blog post,
     so you can safely assume that we need our application to have at least two
@@ -29,14 +29,14 @@ Model name: <userinput>Posts</userinput>
     <codeblock conref="../examples/examples.xml#stage2-posts-model" class="php"/>
     <p>Note that in the base Model class for Bloggie
     (<filepath>app/lib/models/BlogBaseModel.class.php</filepath>) we
-    have a <apiname>getPdo()</apiname> method which we presume all of our future models
+    have a <apiname>getPdo</apiname>() method which we presume all of our future models
     would want to use:</p>
     <codeblock conref="../examples/examples.xml#stage2-base-model" class="php"/>
     <p>The Posts Model contains two very simple methods. The first
-    is <apiname>findPostById</apiname>, which accepts an ID parameter
+    is <apiname>findPostById</apiname>(), which accepts an ID parameter
     and returns corresponding post data as a single dimensional
     associative array. The second
-    is <apiname>findIndexPosts</apiname>, which returns a list of the
+    is <apiname>findIndexPosts</apiname>(), which returns a list of the
     most recent posts from the database, not including the body of the
     posts themselves. Both methods obtain the connection from Agavi's
     database manager, perform an SQL query against it and return the

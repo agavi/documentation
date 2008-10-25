@@ -87,12 +87,12 @@
       (<filepath>app/modules/Public/views/IndexSuccessView.class.php</filepath>):</p>
       <codeblock conref="../examples/examples.xml#stage2-index-success-view" class="php"/>
 
-      <p>The <apiname>executeHtml()</apiname> method will be called by
+      <p>The <apiname>executeHtml</apiname>() method will be called by
 	Agavi when this View is started. So, when our Index Action tells
 	Agavi to call this View (which it always does), it is
-	loaded and its <apiname>executeHtml()</apiname> is called.</p>
-      <p>Inside <apiname>executeHtml()</apiname> we do two basic things. First, we call
-	<apiname>setupHtml()</apiname> which makes Agavi load the default rendering configuration for
+	loaded and its <apiname>executeHtml</apiname>() is called.</p>
+      <p>Inside <apiname>executeHtml</apiname>() we do two basic things. First, we call
+	<apiname>setupHtml</apiname>() which makes Agavi load the default rendering configuration for
 	HTML. This configuration specifies that when the View
 	is finished executing, a PHP template with an identical name will
 	be loaded and rendered.</p>
