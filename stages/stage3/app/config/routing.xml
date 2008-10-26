@@ -6,16 +6,18 @@
       <route pattern="^/blog/(post_id:\d+)/submit$" name="submit_comment" module="Public" action="PostComments"/>
       <route pattern="^/blog/(post_id:\d+)$" module="Public" action="ShowPost" name="ShowPost"/>
 
-      <!-- The Action below doesn't exist in Bloggie. Clicking on the navigation links will cause a 404 error -->
+      <!-- The Action below doesn't exist in Bloggie. Clicking on the
+           navigation links will cause a 404 error -->
       <route pattern="^/category/(category_id:\d+)$" module="Public" action="ShowCategory" name="show_category"/>
 
-      <!-- The administrative actions. This section shows
-	   off some advanced routing map techniques -->
+      <!-- The administrative actions. This section shows off some
+           advanced routing map techniques -->
 
-      <!-- This is a nested route. Everything under
-	   /admin belongs to module Admin, so there's no
-	   need to specify the module in the inner rules -->
+      <!-- This is a nested route. Everything under /admin belongs to
+           module Admin, so there's no need to specify the module in
+           the inner rules -->
       <route pattern="^/admin" module="Admin" name="admin">
+	<!-- /admin and /admin/ leads to the admin home page -->
 	<route pattern="^(/)?$" action="Index" name=".home"/>
 
 	<!-- to generate an URL to this and other actions,
@@ -23,7 +25,7 @@
 	     the Login action below, for instance, you'd
 	     do $ro->gen('admin.login') -->
 
-	<route pattern="^login$" action="Login" name=".login"/>
+	<route pattern="^/login$" action="Login" name=".login"/>
 
 	<route pattern="^/posts" name=".posts">
 	  <!-- The following rules refer to
