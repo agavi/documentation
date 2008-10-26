@@ -2,12 +2,14 @@
 
 class Admin_Posts_ListSuccessView extends BlogAdminBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this->setupHtml($rd);
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this->setupHtml($rd);
 
-		$this->setAttribute('title', 'Posts.List');
-	}
+    $pm = $this->context->getModel('Posts', 'Admin');
+
+    $this->setAttribute('posts', $pm->getPostList());
+  }
 }
 
 ?>
