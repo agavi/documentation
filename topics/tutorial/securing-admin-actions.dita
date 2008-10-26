@@ -32,14 +32,12 @@
       make use of any features that weren't covered previously. We
       want to make sure that none of these Actions, except for the
       Login action, can be accessed by an user who hasn't
-      authenticated. Thus, we place a <apiname>isSecure</apiname>()
-      callback in every Action:
-      (code)
+      authenticated. Thus, we make all other Actions secure by defining <apiname>isSecure</apiname>(), for example:
+	<codeblock conref="../examples/security.dita#bloggie-secure-action"/>
       </p>
-      <p>When an unauthenticated user attempts to access a restricted
-      action, Agavi looks in the application's configuration and finds
-      the Action that serves as the login Action. The login Action is
-      then executed, showing the login window to the user.</p>
+      <p>When an unauthenticated user attempts to access a secure
+      Action, Agavi looks up the system login Action, which is then
+      executed instead, showing the login window to the user.</p>
     </section>
   </body>
 </topic>

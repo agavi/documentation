@@ -7,11 +7,17 @@
     <codeblock id="services-example-context">
 $db_conn = $this->context->getDatabaseManager()->getDatabase('mydb');
     </codeblock>
-    <codeblock id="services-example-config">
-// Retrieve a configuration value at org.mycompany.myapp.example_value
+    <codeblock id="services-example-config"><![CDATA[
+// Retrieve a configuration value for item "meaning_of_life" and prefix "org.mycompany.myapp"
+// In settings.xml this would be:
+//
+// <settings prefix="org.mycompany.myapp">
+//  <setting name="meaning_of_life">24</setting>
+// </setting>
+//
 // The second parameter is the value that should be returned instead of null
 
-$val = AgaviConfig::get('example_value', null, 'org.mycompany.myapp');
+$val = AgaviConfig::get('org.mycompany.myapp.meaning_of_life', 42);]]>
     </codeblock>
     <codeblock id="services-example-database">
 $dbm = $this->context->getDatabaseManager();
@@ -211,38 +217,39 @@ $us-&gt;setAttribute('last_seen_at', time());
 // If it's suddenly Christmas, allow the user to see Christmas-only pages
 if (isItChristmas()) $us-&gt;addCredential('christmas');
 </codeblock>
-<codeblock id="output-types-simple-example">
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;configurations xmlns=&quot;http://agavi.org/agavi/1.0/config&quot;&gt;
-   &lt;configuration&gt;
-	&lt;output_types default=&quot;html&quot;&gt;
-	    &lt;output_type name=&quot;html&quot;&gt;
-		&lt;renderers default=&quot;php&quot;&gt;
-		   &lt;renderer name=&quot;php&quot; class=&quot;AgaviPhpRenderer&quot;&gt;
-			&lt;parameter name=&quot;assigns&quot;&gt;
-			   &lt;parameter name=&quot;routing&quot;&gt;ro&lt;/parameter&gt;
-			   &lt;parameter name=&quot;request&quot;&gt;rq&lt;/parameter&gt;
-			   &lt;parameter name=&quot;controller&quot;&gt;ct&lt;/parameter&gt;
-			   &lt;parameter name=&quot;user&quot;&gt;us&lt;/parameter&gt;
-			   &lt;parameter name=&quot;translation_manager&quot;&gt;tm&lt;/parameter&gt;
-			   &lt;parameter name=&quot;request_data&quot;&gt;rd&lt;/parameter&gt;
-			   &lt;/parameter&gt;
-		   &lt;/renderer&gt;
-		&lt;/renderers&gt;
-				
-		&lt;layouts default=&quot;default&quot;&gt;
-			&lt;layout name=&quot;default&quot;&gt;
-				&lt;layer name=&quot;content&quot; /&gt;
-			&lt;/layout&gt;
-		&lt;/layouts&gt;
-				
-		&lt;parameter name=&quot;http_headers&quot;&gt;
-			&lt;parameter name=&quot;Content-Type&quot;&gt;text/html; charset=UTF-8&lt;/parameter&gt;
-		&lt;/parameter&gt;
-	&lt;/output_type&gt;
-      &lt;/output_types&gt;
-&lt;/configuration&gt;
-</codeblock>
+<codeblock id="output-types-simple-example"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+  <configuration>
+    <output_types default="html">
+      <output_type name="html">
+	<renderers default="php">
+	  <renderer name="php" class="AgaviPhpRenderer">
+	    <parameter name="assigns">
+	      <parameter name="routing">ro</parameter>
+	      <parameter name="request">rq</parameter>
+	      <parameter name="controller">ct</parameter>
+	      <parameter name="user">us</parameter>
+	      <parameter name="translation_manager">tm</parameter>
+	      <parameter name="request_data">rd</parameter>
+	    </parameter>
+	  </renderer>
+	</renderers>
+
+	<layouts default="default">
+	  <layout name="default">
+	    <layer name="content" />
+	  </layout>
+	</layouts>
+
+	<parameter name="http_headers">
+	  <parameter name="Content-Type">text/html; charset=UTF-8</parameter>
+	</parameter>
+      </output_type>
+    </output_types>
+  </configuration>
+</configurations>
+]]></codeblock>
 <codeblock id="layouts-full-html-example">
 &lt;html&gt;
 &lt;head&gt;
@@ -295,51 +302,63 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');
 <codeblock id="layouts-agavi-html-view-template">
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;</codeblock>
-<codeblock id="layouts-complete-stage3-decorator-public">
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=iso-8859-1&quot;/&gt;
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/public/default.css&quot; media=&quot;screen&quot;/&gt;
-&lt;base href=&quot;&lt;?php print $ro-&gt;getBaseHref(); ?&gt;&quot;/&gt;
-&lt;title&gt;&lt;?php print $template['_title'];?&gt;&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class=&quot;container&quot;&gt;
-	&lt;div class=&quot;title&quot;&gt;
-        &lt;h1 id=&quot;title&quot;&gt;&lt;?php print $template['_title']; ?&gt;&lt;/h1&gt;
-		&lt;h2&gt;Bloggie at work&lt;/h2&gt;
-	&lt;/div&gt;
+<codeblock id="layouts-complete-stage3-decorator-public"><![CDATA[
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="description" content="Agavi Demo Blog Application"/>
+<meta name="keywords" content="agavi, demo, win, god"/> 
+<meta name="author" content="Agavi Development Team"/> 
+<link rel="stylesheet" type="text/css" href="/public/default.css" media="screen"/>
+<base href="<?php print $ro->getBaseHref(); ?>"/>
+<title><?php print $template['title'];?></title>
+</head>
+<body>
+<div class="container">
+<div class="title" style="background: url(/agavi.png) no-repeat; padding-left: 64px; "/>
+  <h1 id="title"><a href="<?php print $ro->gen('home'); ?>">Agavi Demo Blog</a></h1>
+  <?php if ($template['title']): ?><h2><?php print $template['title'];?></h2><?php endif;?>
+</div>
 
-	&lt;div class=&quot;navigation&quot;&gt;
-		&lt;a href=&quot;index.html&quot;&gt;Foo&lt;/a&gt;
-		&lt;a href=&quot;index.html&quot;&gt;Bar&lt;/a&gt;
-		&lt;a href=&quot;index.html&quot;&gt;Fish&lt;/a&gt;
-		&lt;a href=&quot;index.html&quot;&gt;Cat&lt;/a&gt;
-		&lt;div class=&quot;clearer&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
-	&lt;/div&gt;
+<div class="navigation">
+  
+  <?php
 
-	&lt;div class=&quot;holder_top&quot;&gt;&lt;/div&gt;
-	&lt;div class=&quot;holder&quot;&gt;
-   &lt;?php
+  /* Print a slot. The layout configuration specifies which Action
+  goes into this slot - the default layout loads ShowNavigation. Admin
+  module has its own ShowNavigation, and the base View class for the
+  Admin module is instructed to load the admin layout by default, in
+  which the Public ShowNavigation is overridden with Admin
+  ShowNavigation */
 
-   /* Print whatever is in the layer above this - typically an Action's output */
-   print $inner; 
-   
-   ?&gt;
-	&lt;/div&gt;
-	&lt;div class=&quot;holder_bottom&quot;&gt;&lt;/div&gt;
+  print $slots['navigation'];
 
-	&lt;div class=&quot;holder_top&quot;&gt;&lt;/div&gt;
-	&lt;div class=&quot;holder&quot;&gt;
-		&lt;div class=&quot;footer&quot;&gt;&amp;copy; 2008 &lt;a href=&quot;index.html&quot;&gt;bloggie.dev&lt;/a&gt;. Valid &lt;a href=&quot;http://jigsaw.w3.org/css-validator/check/referer&quot;&gt;CSS&lt;/a&gt; &amp;amp; &lt;a href=&quot;http://validator.w3.org/check?uri=referer&quot;&gt;XHTML&lt;/a&gt;. Template design by &lt;a href=&quot;http://arcsin.se&quot;&gt;Arcsin&lt;/a&gt;
-		&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div class=&quot;holder_bottom&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+  ?>
+<div class="clearer"><span></span></div>
+</div>
+
+<div class="holder_top"></div>
+<div class="holder">
+  <?php
+
+  /* Print whatever is in the layer above this - normally an Action's output */
+  print $inner; 
+  
+  ?>
+</div>
+<div class="holder_bottom"></div>
+
+<div class="holder_top"></div>
+<div class="holder">
+<div class="footer">&#169; 2008 <a href="index.html">bloggie.dev</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. Template design by <a href="http://arcsin.se">Arcsin</a>
+</div>
+</div>
+<div class="holder_bottom"></div>
+</div>
+</body>
+</html>]]>
 </codeblock>
 <codeblock id="stage3-showpost-modified-template">
 &lt;?php
