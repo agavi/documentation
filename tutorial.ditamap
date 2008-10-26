@@ -39,7 +39,7 @@
     <topicref href="topics/tutorial/layers.dita"/>
     <!-- recreate own page -->
     <topicref href="topics/concepts/output-types.dita"/>
-    <topicref href="topics/tutorial/bloggie-stage3-layout-configuration-public.dita"/>
+    <topicref href="topics/tutorial/layouts.dita"/>
   </chapter>
   
   <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  -->
