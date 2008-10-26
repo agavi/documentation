@@ -59,7 +59,7 @@
 	    <layer name="decorator">
 	      <parameter name="template">decorator</parameter>
 	      <parameter name="directory">%core.module_dir%/Public/templates</parameter>
-	      <slot name="navigation" module="Admin" action="ShowNavigation"/>
+	      <slot name="navigation" module="Admin" action="ShowNavigation"/> 
 	    </layer>
 	  </layout>
 	  

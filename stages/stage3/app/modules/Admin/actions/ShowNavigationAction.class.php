@@ -9,7 +9,7 @@ class Admin_ShowNavigationAction extends BlogAdminBaseAction
 
   public function isSecure()
   {
-    return true;
+    return false;
   }
 }
 

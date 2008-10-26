@@ -36,7 +36,7 @@ class BlogBaseView extends AgaviView
 	 */
 	public function setupHtml(AgaviRequestDataHolder $rd, $layoutName = null)
 	{
-		$this->loadLayout($layoutName);
+	  $this->loadLayout($layoutName);
 	}
 }
 

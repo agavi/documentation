@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-<div class="title" style="background: url(/agavi.png) no-repeat; padding-left: 64px; "/>
+<div class="title" style="background: url(/agavi.png) no-repeat; padding-left: 64px; ">
   <h1 id="title"><a href="<?php print $ro->gen('home'); ?>">Agavi Demo Blog</a></h1>
   <?php if ($template['title']): ?><h2><?php print $template['title'];?></h2><?php endif;?>
 </div>
@@ -31,6 +31,7 @@
   print $slots['navigation'];
 
   ?>
+
 <div class="clearer"><span></span></div>
 </div>
 
