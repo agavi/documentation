@@ -35,7 +35,7 @@
     <topicref href="topics/tutorial/basics-running.dita"/>
   </chapter>
 
-  <chapter href="topics/tutorial/bloggie-stage3-skinning.dita" collection-type="sequence">
+  <chapter href="topics/tutorial/skinning.dita" collection-type="sequence">
     <topicref href="topics/tutorial/layers.dita"/>
     <!-- recreate own page -->
     <topicref href="topics/concepts/output-types.dita"/>
