@@ -8,13 +8,13 @@
 <meta name="author" content="author"/> 
 <link rel="stylesheet" type="text/css" href="/public/default.css" media="screen"/>
 <base href="<?php print $ro->getBaseHref(); ?>"/>
-<title><?php print $template['_title'];?></title>
+<title><?php print $template['title'];?></title>
 </head>
 <body>
 <div class="container">
 	<div class="title">
-        <h1 id="title"><?php print $template['_title']; ?></h1>
-		<h2>Bloggie at work</h2>
+   <h1 id="title"><a href="<?php print $ro->gen('home'); ?>">Agavi Demo Blog</a></h1>
+   <?php if ($template['title']): ?><h2><?php print $template['title'];?></h2><?php endif;?>
 	</div>
 
 	<div class="navigation">

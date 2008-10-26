@@ -5,7 +5,10 @@
  */
 class BlogAdminBaseView extends BlogBaseView
 {
-
+  public function setupHtml(AgaviRequestDataHolder $rd, $layoutName = 'admin')
+  {
+    parent::setupHtml($rd, $layoutName);
+  }
 }
 
 ?>

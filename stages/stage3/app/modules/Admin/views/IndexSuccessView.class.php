@@ -2,12 +2,12 @@
 
 class Admin_IndexSuccessView extends BlogAdminBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this->setupHtml($rd);
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this->setupHtml($rd);
 
-		$this->setAttribute('title', 'Index');
-	}
+    $this->setAttribute('title', 'Bloggie Administration Interface');
+  }
 }
 
 ?>

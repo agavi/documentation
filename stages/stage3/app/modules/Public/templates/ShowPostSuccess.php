@@ -3,15 +3,16 @@
 $post = $template['post']; 
 ?>
 
-<h1><?php print $post['title']; ?><sub >by <?php print $post['author_name']; ?></sub></h1>
-<h4>in <?php print $post['category_name']; ?>
-<h5><?php print $post['posted']; ?></h5>
+<h1><?php print $post['title']; ?></h1>
 <div>
+  Posted by <strong><?php print $post['author_name']; ?></strong> at <?php print $post['posted']; ?> (<?php print $post['category_name']; ?>)
+</div>
+
+<div style="padding: 2em; background: #ffd; font-size: 10pt">
   <?php print $post['content']; ?>
 </div>
 
 <!-- Display the comments slot -->
-<h2>Comments</h2>
-<div>
+<div style="background: #eee; padding: 1em;">
   <?php print $slots['comments']; ?>
 </div>

@@ -12,6 +12,9 @@ class Admin_LoginAction extends BlogAdminBaseAction
       $us->setAuthenticated(true);
       $us->clearCredentials();
 
+      // This is used when saving blog posts
+      $us->setAttribute('author_id', $urec['id']);
+
       return 'ForwardToMain';
     }
     

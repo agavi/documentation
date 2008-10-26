@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
-	<configuration>
-		<routes>
-		  <route pattern="^/$" module="Public" action="Index" name="home"/>
-		  <route pattern="^/blog/(post_id:\d+)/submit$" name="submit_comment" module="Public" action="PostComments"/>
-		  <route pattern="^/blog/(post_id:\d+)$" module="Public" action="ShowPost" name="ShowPost"/>
-		  <!-- The Action below doesn't exist in Bloggie. Clicking on the navigation links will cause a 404 error -->
-		  <route pattern="^/category/(category_id:\d+)$" module="Public" action="ShowCategory" name="show_category"/>
+  <configuration>
+    <routes>
+      <route pattern="^/$" module="Public" action="Index" name="home"/>
+      <route pattern="^/blog/(post_id:\d+)/submit$" name="submit_comment" module="Public" action="PostComments"/>
+      <route pattern="^/blog/(post_id:\d+)$" module="Public" action="ShowPost" name="ShowPost"/>
 
-		  <!-- The administrative actions. This section shows
-		       off some advanced routing map techniques -->
+      <!-- The Action below doesn't exist in Bloggie. Clicking on the navigation links will cause a 404 error -->
+      <route pattern="^/category/(category_id:\d+)$" module="Public" action="ShowCategory" name="show_category"/>
 
-		  <!-- This is a nested route. Everything under
-		       /admin/ belongs to module Admin, so there's no
-		       need to specify the module in the inner rules -->
-		  <route pattern="^/admin/" module="Admin" name="admin" action="Index">
+      <!-- The administrative actions. This section shows
+	   off some advanced routing map techniques -->
 
-		    <!-- to generate an URL to this and other actions,
-		         you compose the route names with period; for
-		         the Login action below, for instance, you'd
-		         do $ro->gen('admin.login') -->
+      <!-- This is a nested route. Everything under
+	   /admin belongs to module Admin, so there's no
+	   need to specify the module in the inner rules -->
+      <route pattern="^/admin" module="Admin" name="admin">
+	<route pattern="^(/)?$" action="Index" name=".home"/>
 
-		    <route pattern="login$" action="Login" name=".login"/>
+	<!-- to generate an URL to this and other actions,
+	     you compose the route names with period; for
+	     the Login action below, for instance, you'd
+	     do $ro->gen('admin.login') -->
 
-		    <route pattern="posts/" name="posts.">
-		      <!-- The following rules refer to
-		           subactions. Action Foo.Bar.Fish translates
-		           to actions/Foo/Bar/FishAction.class.php;
-		           Agavi and the build system understand this
-		           naming convention and it can be used
-		           everywhere.-->
-		      <route pattern="^$" action="Posts.List" name="list"/>
-		      <route pattern="edit/(post_id:\d*)$" action="Posts.Edit" name="edit"/>
-		    </route>
-		  </route>
-		</routes>
-	</configuration>
+	<route pattern="^login$" action="Login" name=".login"/>
+
+	<route pattern="^/posts" name=".posts">
+	  <!-- The following rules refer to
+	       subactions. Action Foo.Bar.Fish translates
+	       to actions/Foo/Bar/FishAction.class.php;
+	       Agavi and the build system understand this
+	       naming convention and it can be used
+	       everywhere.-->
+
+	  <route pattern="^/create" action="Posts.Edit" name=".create"/>
+	  <!-- e.g. /admin/posts/3/edit -->
+	  <route pattern="^/(post_id:\d+)/edit$" action="Posts.Edit" name=".edit"/>
+	  <!-- e.g. /admin/posts -->
+	  <route pattern="^(/)?$" action="Posts.List" name=".list"/>
+	</route>
+      </route>
+    </routes>
+  </configuration>
 </configurations>

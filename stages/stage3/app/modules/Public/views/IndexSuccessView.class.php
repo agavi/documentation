@@ -15,7 +15,7 @@ class Public_IndexSuccessView extends BlogPublicBaseView
     $this->setAttribute('posts', $m->findFrontpagePosts());
 
     // Set the page title
-    $this->setAttribute('_title', 'A Bloggie blog!');
+    $this->setAttribute('title', 'A Bloggie blog!');
   }
 }
 

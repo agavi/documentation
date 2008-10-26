@@ -50,6 +50,19 @@
 	    </layer>
 	  </layout>
 
+	  <!-- The same as above, but the navigation slot contains navigation specific to the Admin module. -->
+
+	  <layout name="admin">
+
+	    <layer name="content" />
+
+	    <layer name="decorator">
+	      <parameter name="template">decorator</parameter>
+	      <parameter name="directory">%core.module_dir%/Public/templates</parameter>
+	      <slot name="navigation" module="Admin" action="ShowNavigation"/>
+	    </layer>
+	  </layout>
+	  
 	  <!-- This is a slot layout. It doesn't have a decorator
 	       layer. Slotted Views use this layout to output their content -->
 

@@ -9,6 +9,7 @@ class Admin_Posts_ListSuccessView extends BlogAdminBaseView
     $pm = $this->context->getModel('Posts', 'Admin');
 
     $this->setAttribute('posts', $pm->getPostList());
+    $this->setAttribute('title', 'Post manager');
   }
 }
 

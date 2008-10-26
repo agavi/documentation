@@ -2,6 +2,14 @@
 
 class Admin_UsersModel extends BlogAdminBaseModel
 {
+  /**
+   * Attempt to find an user account with these credentials
+   *
+   * @param string $username Login username
+   * @param string $password Password for this account
+   * @return User's record array, or false if not found
+   */
+
   public function authenticateAccount($username, $password)
   {
     $pdo = $this->getPdo();
