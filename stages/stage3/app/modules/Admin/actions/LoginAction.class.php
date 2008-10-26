@@ -2,17 +2,26 @@
 
 class Admin_LoginAction extends BlogAdminBaseAction
 {
-	public function execute(AgaviRequestDataHolder $rd)
-	{
-		// remove this execute() method and create executeRead() and executeWrite() methods or equivalents
-		throw new Exception('Admin_LoginAction is not yet implemented. ' .
-			'This is only a stub that serves as a reminder for you to do this.');
-	}
+  public function executeWrite(AgaviRequestDataHolder $rd)
+  {
+    $um = $this->context->getModel('Users', 'Admin');
 
-	public function getDefaultViewName()
-	{
-		return 'Success';
-	}
+    if ($urec = $um->authenticateAccount($rd->getParameter('username'), $rd->getParameter('password')))
+    {
+      $us = $this->context->getUser();
+      $us->setAuthenticated(true);
+      $us->clearCredentials();
+
+      return 'ForwardToMain';
+    }
+    
+    return 'Error';
+  }
+
+  public function getDefaultViewName()
+  {
+    return 'Success';
+  }
 }
 
 ?>
