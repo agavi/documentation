@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="about-agavio">
+  <title>About Agavi</title>
+  <body>
+      <p>The Agavi project was started in early 2005 as a fork of the then
+      well-known Mojavi framework for PHP. Mojavi had gathered a pretty large
+      community over the years, but the new version 3 didn't see overly active
+      development and was, despite the open source license, not developed in a
+      typically open source manner, i.e. with active involvement of and
+      feedback from the community, or access to the main development
+      repository, issue tracker and so on.</p>
+
+      <p>As a result, a couple of guys from Keller, Texas (namely Mike
+      Vincent and Bob Zoller) forked Mojavi and labeled it Agavi (after the
+      Agave plant which grows in the Mojave desert), with the main goal of
+      creating a community-driven project with an open and transparent
+      development process. A message with the fork announcement was posted on
+      the Internet and in the Mojavi forums, and Agavi quickly gathered a
+      small but loyal user base and more contributors.</p>
+
+      <p>The first version released to the public was 0.9.0, and as the
+      version number implies, it was believed that a final 1.0 release could
+      follow soon after that. It turned out, however, that there were other
+      unresolved issues that had to be addressed, and so it wasn't until the
+      end of 2005 that a new 0.10.0 version was released to the public.</p>
+
+      <p>While Agavi never had any official structure to its development
+      team initially, the founders had less and less free time to spend on the
+      project, and Bob ultimately made David Zülke "captain of the ship" as he
+      put it in early 2006, and the decision was made to adjust the roadmap a
+      bit, putting important features such as a routing and
+      internationalization on the schedule for 1.0, since other frameworks,
+      mostly inspired by Ruby on Rails, had begun to offer such functionality.
+      A 0.11 release before a final 1.0 was planned in order to be able to
+      make any changes, should they be necessary, before releasing a final 1.0
+      version to the general public.</p>
+
+      <p>In the end, 0.11 implemented a great many more features than
+      originally planned, and as time went on, many of the core aspects of the
+      framework, which was still heavily based on Mojavi 3, were changed
+      drastically (so much in fact that at the time of this writing, many
+      parts of Agavi do not resemble Mojavi much anymore). A lot of this work
+      was necessary to prepare Agavi for the challenges frameworks face today
+      and in the future; a solid, structured foundation is very important in
+      order to be able to adapt to new developments and grow without having to
+      introduce hacks or workarounds that would otherwise be necessary to
+      introduce new functionality without breaking backwards
+      compatibility.</p>
+
+      <p>Agavi 1.0 is what you see today. Soon after work on 0.11
+      commenced, it was decided that version 1.0 should be pretty much
+      identical in terms of features, but with comprehensive documentation and
+      everything a community would need after the launch. This "pre-1.0
+      release" was deliberately flown "below radar" in order to keep Agavi
+      from getting wide public attention before the documentation was fully up
+      to scale with the framework itself - everything else would have scared
+      off a lot of people very quickly and thus possibly ruined the chances of
+      ever getting a large user base.</p>
+  </body>
+</topic>

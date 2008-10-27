@@ -16,10 +16,10 @@
   <chapter href="topics/reference/chapters/introduction.dita" collection-type="sequence">
     <topicref href="topics/reference/frameworks-dos.dita"/>
     <topicref href="topics/reference/frameworks-donts.dita"/>
+    <topicref href="topics/reference/about-agavi.dita"/>
   </chapter>
 
 <!--
-    <topicref href="topics/reference/about-agavi.dita"/>
     <topicref href="topics/reference/agavi-installation.dita"/>
     <topicref href="topics/reference/architecture.dita"/>
     <topicref href="topics/reference/execution-flow.dita"/>
