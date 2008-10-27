@@ -2,9 +2,8 @@
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/dtd/reference.dtd">
 <reference id="validation-other-features">
   <title>Other validation features</title>
-  <body>
-    <title>Other Validation Features</title>
-    <body>
+  <refbody>
+    <section>
       <p>Validation can perform other duties than just checking whether input data conforms to
       a given set of rules. Validation can take care of normalizing the input data if
       multiple formats are allowed. Date formats usually are locale specific and even
@@ -13,6 +12,6 @@
       DateTime object or any other defined format. The same idea can be applied to number
       formats and even to custom validators that can transform an ID into an object
       retrieved from the database.</p>
-    </body>
-  </body>
+    </section>
+  </refbody>
 </reference>

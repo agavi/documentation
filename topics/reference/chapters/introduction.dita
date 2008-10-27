@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="introduction">
+  <title>Introduction</title>
+  <body>
+      <p>A framework is a tool that takes the pain out of building
+      software. It should implement all the things that are common to
+      most applications: the things that otherwise would have to be
+      re-done for each new software project. That way, it prevents you
+      from having to "re-invent the wheel" each and every time, while at
+      the same time providing shortcuts for common problems and tasks.</p>
+
+      <p>While Agavi can, in theory, be used to build any type of
+      application, its main focus lies in Web-based applications and Web
+      services rather than standalone rich-client applications or
+      daemons. That's because the internal execution flow is modeled
+      around a typical HTTP request/response scenario, where an action
+      is invoked upon a request, and the resulting response is built and
+      returned before execution ends, just like any other PHP
+      application.</p>
+
+      <p>Besides "doing the dishes" for you, a framework should also
+      offer a very important factor during development: guidance. Agavi
+      will, where necessary, actively prevent you from making the worst
+      mistakes, keeping your code maintainable and giving you the
+      comforting feeling that you're doing things the "right way."</p>
+  </body>
+</topic>

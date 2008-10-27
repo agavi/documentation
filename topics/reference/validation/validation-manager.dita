@@ -2,11 +2,13 @@
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/dtd/reference.dtd">
 <reference id="validation-manager">
   <title>Validation Manager</title>
-  <body>
+  <refbody>
+    <section>
         <p>The ValidationManager takes care of the whole process of validating input data. Each
             ExecutionContainer has it's own instance, so that the validation process is completely
             isolated. The ValidationMananger collects the validation failures and decides whether
             the whole process is marked as failed or not, depending on the severity of the
             individual incidents.</p>
-  </body>
+    </section>
+  </refbody>
 </reference>

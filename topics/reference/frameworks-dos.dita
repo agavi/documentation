@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="what-a-framework-should-do">
+  <title>What a Framework Should Do</title>
+  <body>
+    <section id="invent-the-wheel-only-once">
+      <title>Invent The Wheel Only Once</title>
+
+      <p>Agavi abstracts solutions to common problems, and
+      provides you, the developer, with a central, flexible
+      solution that has evolved from the experiences and input of
+      many users and developers, as well as a single point of implementation you
+      can comfortably override with custom code to create
+      application-specific behavior.</p>
+
+      <p>As a result, you'll find yourself in the relaxing situation of
+      not having to hack the framework core to achieve a certain goal.
+      Often, a configuration pmeter is all you need. And if not, the
+      system's extreme extensibility guarantees that your custom
+      implementation is only a couple of lines of code away - an important
+      factor in the maintainability of an application, as it is not
+      necessary to apply custom patches to the framework after each
+      update.</p>
+    </section>
+
+    <section id="address-common-concerns">
+      <title>Address Common Concerns</title>
+
+      <p>Agavi comes with smart and versatile solutions to a great deal
+      of problems that are often very difficult, time-consuming, or simply
+      annoying to solve. Some of these include:</p>
+
+      <dl>
+	<dlentry>
+	  <dt>It helps you build and maintain clean URLs.</dt>
+	  <dd>Agavi's routing implementation can not only map
+	  request URLs to actions, but also handles your web service
+	  requests, generates URLs for you, and much more. Read the
+	  chapter on routing for more information on advanced
+	  features such as route callbacks or how to read an HTTP
+	  Accept header and set an output type accordingly.</dd>
+	</dlentry>
+	<dlentry>
+	  <dt>It validates your data and helps
+	  secure your code.</dt>
+	  <dd> Agavi can validate input submitted
+	  by the user, filter and normalize values, and make your
+	  application totally bullet-proof by only exposing validated data
+	  to your code, greatly lowering the risks of you or one of your
+	  developers using potentially unsafe data in your code. This
+	  applies to any potentially unsafe input, not just GET or POST
+	  data - files, cookies, and HTTP headers, among other input
+	  sources, will all be run through the validation system, and the
+	  single point of access to such data guarantees that you really
+	  only process data you have validated.</dd>
+	</dlentry>
+
+	<dlentry>
+	  <dt>It takes the pain out of HTML forms</dt>
+	  <dd>Agavi features a very clever approach to
+	  handling forms for you that does not rely on helpers or a
+	  specific template language to work. Not only will it
+	  re-populate the information the user entered when a form is
+	  shown again after submission, it also assigns classes to
+	  erroneous fields and their labels, and can even insert error
+	  messages into your form without any placeholders in the
+	  markup. Of course, you have full control over all aspects at
+	  any time, allowing you to pre-populate forms with
+	  information from your database or other sources.</dd>
+	</dlentry>
+	
+	<dlentry>
+	  <dt>It offers powerful features for
+	  globalization</dt>
+	  <dd>Besides support for translating
+	  strings in different languages, Agavi comes with the ability to
+	  format and parse numbers, dates and currencies in over 250
+	  different locales. It is aware of time zones, has extensive
+	  support for calendars and calendar operations, can give you a
+	  list of country names in the language (and script!) you like,
+	and much, much more.</dd></dlentry>
+      </dl>
+    </section>
+
+    <section id="encourage-clean-pragmatic-design">
+      <title>Encourage Clean, Pragmatic Design</title>
+
+      <p>Agavi's whole structure helps you a lot with designing and
+      structuring your applications so that you get things right from the
+      beginning. It encourages loose coupling, making it easy to hide
+      implementational details from the parts of your code that should not
+      have to worry about the "inner workings" of things, which also means
+      that your code becomes very forward-compatible: whether you just
+      want to modify the way your code talks to the database, or add a web
+      service interface to your existing application, you will notice that
+      your project already is structured in such a way that you do not
+      have to go back and change existing things to make it happen.</p>
+
+      <p>Also, you'll be presented with certain best practices from the
+      beginning, as Agavi's project skeletons are structured to help you
+      avoid mistakes in the critical early phase of development where you
+      build the foundation for your software. This ensures that you can
+      fully benefit from all the features that made you choose Agavi in
+      the first place.</p>
+
+      <p>And because Agavi follows the Model-View-Controller (MVC)
+      architecture, your code automatically becomes highly efficient as
+      the various parts are cleanly separated, making your application
+      easily maintainable:</p>
+
+      <ul>
+	<li>The <keyword>Model</keyword> accesses your
+	data. It might talk to a database, or to a web service, or use
+	smoke signals to acquire the information it returns to you; the
+	essential point is that the way the data is retrieved is
+	absolutely irrelevant to the code that uses the model. So in the
+	beginning, your application would use models that return "fake"
+	dummy test data for rapid prototyping, and later, you will write
+	the actual code that talks to a database.</li>
+	<li>The <keyword>View</keyword> presents your
+	data. For Web sites, that typically means it renders an HTML
+	document from one or more templates. But it could also build an
+	RSS feed from the data it was given, or create a JSON data
+	structure for the Ajax functionality of your application - it's
+	all up to you!</li>
+
+	<li>The <keyword>Controller</keyword> contains
+	the business logic: the code that talks to the model, transforms
+	the data, performs necessary tasks and then prepares data for
+	the View. In Agavi, we call this the
+	<keyword>Action</keyword>. After it has finished its task,
+	it tells the system which View to use to generate the
+	output. </li>
+      </ul>
+    </section>
+  </body>
+</topic>

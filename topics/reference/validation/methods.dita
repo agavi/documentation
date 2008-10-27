@@ -2,7 +2,8 @@
 <!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "http://docs.oasis-open.org/dita/dtd/reference.dtd">
 <reference id="validation-methods">
   <title>Validation Methods</title>
-  <body>
+  <refbody>
+    <section>
     <p>There are two methods of validation, one using the
     <indexterm>ValidationManager</indexterm> and various
     <indexterm>Validators</indexterm> and for more fine grained
@@ -10,7 +11,7 @@
     is a common use-case to first validate parameters for formal
     correctness with a validator and then perform additional checks
     with a validate method.</p>
-
+    </section>
     <section>
       <title>validateXXX() methods in Actions</title>
       <p>The <indexterm>Action::validate()</indexterm>
@@ -27,5 +28,5 @@
       is successfull, if the method returns false, validation failed. The validated parameters
       still need to be marked as validated on the ValidationManager.</p>
       </section>
-  </body>
+  </refbody>
 </reference>

@@ -14,7 +14,11 @@
   </bookmeta>
 
   <chapter href="topics/reference/chapters/introduction.dita" collection-type="sequence">
-    <topicref href="topics/reference/why-frameworks.dita"/>
+    <topicref href="topics/reference/frameworks-dos.dita"/>
+    <topicref href="topics/reference/frameworks-donts.dita"/>
+  </chapter>
+
+<!--
     <topicref href="topics/reference/about-agavi.dita"/>
     <topicref href="topics/reference/agavi-installation.dita"/>
     <topicref href="topics/reference/architecture.dita"/>
@@ -65,15 +69,15 @@
   <chapter href="topics/reference/chapters/models.dita"/>
   <chapter href="topics/reference/chapters/request.dita"/>
   <chapter href="topics/reference/chapters/response.dita"/>
-
+-->
   <chapter href="topics/reference/chapters/validation.dita">
     <topicref href="topics/reference/validation/validation-manager.dita"/>
+    <topicref href="topics/reference/validation/validators-overview.dita"/>
     <topicref href="topics/reference/validation/methods.dita"/>
     <topicref href="topics/reference/validation/modes.dita"/>
     <topicref href="topics/reference/validation/other-features.dita"/>
-    <!-- insert validator dox here -->
   </chapter>
-
+<!--
   <chapter href="topics/reference/chapters/session-security.dita">
     <topicref href="topics/reference/authentication.dita"/>
     <topicref href="topics/reference/authorization.dita"/>
@@ -118,4 +122,5 @@
   <appendix href="topics/reference/chapters/server-configuration.dita"/>
   <appendix href="topics/reference/chapters/testing-applications.dita"/>
   <appendix href="topics/reference/chapters/soap.dita"/>
+-->
 </bookmap>

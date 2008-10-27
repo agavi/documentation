@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="why-frameworks">
+  <title>What a Framework Shouldn't Do</title>
+  <body>
+  <section id="lock-you-in">
+    <title>Lock You In</title>
+
+    <p>This is the most important point about a framework. It should
+      not lock you into a certain way of building your HTML output, or the
+      way you deal with your database.</p>
+
+    <note type="note">
+      Of course, this is a bit of a moot point. You might argue
+      that by using a framework in the first place, you're locking
+      yourself in already - and you'd be right to insist! There is no
+      doubt that by choosing a framework, you have to stick to it -
+      not forever, of course, but you cannot simply cut and paste your
+      code to port a project to a different framework. If a framework
+      promises you that, they're either lying, or they don't deserve
+      the label "framework" because their implementations are so
+      low-level they provide only a simple toolkit (or, as they're
+      called these days, a component library).</note>
+
+    <p>A framework can lock you in in many ways, like:</p>
+
+    <ul>
+      <li>Require you to use some object relational mapper tool to
+	leverage the full potential of the framework. Many frameworks
+	out there do this, and some people like that, while others
+	don't. A good example is the infamous Ruby on Rails - a lot of
+	it's glamour is due to it being strongly tied to the
+	ActiveRecord ORM layer, and if you wish to use something else,
+	some of the "Rails feeling" gets lost.</li>
+
+      <li>Force you to use a certain template language in order to
+	be able to use all features. Many, many, many frameworks come
+	with helpers for everything you could possibly imagine, from
+	creating an opening &lt;form&gt; tag to inserting
+	stylesheets or even javascript effects. If you try to use the
+	template language of your choice, you have to replicate all this
+	stuff if you want to use it. And what's more, all these helpers
+	often do only 95% of what you want them to do, but not quite the
+	thing you had in mind. (Besides the obvious fact, of course,
+	that you might just outright hate the template language the
+	framework authors think is best for everyone, and that can ruin
+	the whole experience.)</li>
+    </ul>
+
+    <p>As you have probably guessed by now, Agavi tries hard not to
+      lock you in to any of the above. You can use the template language
+      you like, and everything just works - particularly the entire form
+      handling system that was deliberately built in such a way that it is
+      fully independent of any template language implementation.</p>
+
+    <p>And while Agavi offers integration for database object layers
+      like Propel, you do not have to use such a layer. If you like, you
+      may use AdoDB for database access, or the now common PDO, or even
+      vanilla pgsql_* functions - it's all up to you. And if there is no
+      adapter for your favorite layer bundled in the source distribution,
+      chances are that someone has written one and shared it somewhere.
+      And if not, (e.g., if it's your home-made database wrapper you have
+      learned to love over the years), you can easily write a custom
+      driver for it (and even that is not necessary, but of course highly
+      recommended).</p>
+  </section>
+
+  <section id="do-everything-to-please-people">
+    <title>Do Everything To Please People, No Matter How Stupid It
+      Is</title>
+
+    <p>Sometimes, it's necessary to say "no." Many projects, over
+      time, develop what's commonly known as "feature creep" or
+      "featuritis". There are many things in the area of frameworks where
+      you ask a thousand people for their opinion, just to get a thousand
+      (or, in the worst case, even more) different answers. Not only must
+      a framework decide not to implement a thousand different approaches
+      in such a case, it's also very important to balance out precisely
+      how much of a specific feature the framework should implement, or if
+      it's better to leave it entirely up to the users.</p>
+
+    <p>A good example of this is any feature that is not within the
+      scope of a framework, or that can work perfectly fine without being
+      tied to the framework. A common feature is the ability to send
+      e-mail. Smart frameworks don't have such a feature, because there
+      already are many, many different libraries to choose from, many of
+      which have matured over the course of years and as such are very
+      stable and comfortable to use. There is simply no reason why a
+      framework should be able to send e-mail, rotate image files, or come
+      with a pre-made shopping cart module. Besides locking people in,
+      every new feature that others solve better means increased activity
+      on the support channels, derogating the quality of support for all
+      users.</p>
+  </section>
+
+  <section id="making-you-forget-what-programming-is-about">
+    <title>Making You Forget What Programming Is About</title>
+
+    <p>Many frameworks have so many helpers for so many things that
+      do stuff in certain ways that people might easily become totally
+      immersed in them. Users start to neglect what programming is really
+      about: using one's own imagination and ingenuity. A framework should
+      fuel the human thirst for knowledge and excellence, and not bury it
+      under a pile of stuff targeted mainly at people who are too lazy to
+      learn how things work - and learning how things work is an important
+      factor in enabling people to leverage a tool's full potential.
+      That's why this manual will, from time to time, delve into
+      explaining the inner workings of Agavi, in case you're
+      interested.</p>
+  </section>
+  </body>
+</topic>
