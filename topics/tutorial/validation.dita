@@ -35,7 +35,7 @@
       <codeblock conref="../examples/validation.dita#bloggie-comment-validation"/>
       <note type="important">Validation is only executed if the Action
       has an <apiname>executeXXX</apiname>() method that matches the
-      request. If the Action does NOT have such a method, then the validators wouldn't run.
+      request or a general <apiname>execute</apiname>(). If the Action does NOT have such a method, then the validators wouldn't run.
       </note>
       <note type="important">By default, validators have their
       "required" parameter set to true. This means that the validator

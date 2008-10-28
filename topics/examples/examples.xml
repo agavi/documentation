@@ -107,7 +107,7 @@ class Public_PostsModel extends BlogBaseModel
 
   public function findPostById($id)
   {
-    $conn = $this->getPdo();
+    $conn = $this->getPdo(); //getPdo() is defined in the base model
     
     $sth = $conn->prepare('SELECT p.*, a.screen_name AS author_name, c.name AS category_name
            FROM posts p

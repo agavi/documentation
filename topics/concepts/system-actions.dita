@@ -19,7 +19,6 @@
       <p>Agavi has the following system Actions:
       <ol>
 	<li>"error_404" - called when the requested Action doesn't exist</li>
-	<li>"default" - used by routing as fallback when the request doesn't match anything</li>
 	<li>"unavailable" - executed instead of all other actions when
 	the "application unavailable" flag is set in the
 	configuration. This is useful for maintenance etc.</li>

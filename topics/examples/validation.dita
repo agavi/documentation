@@ -103,9 +103,12 @@ class BloggieHtmlSanitizationValidator extends AgaviValidator
 {
   public function validate()
   {
-    $input =& $this->getData($this->getArgument());
+    $input = $this->getData($this->getArgument());
     $input = htmlentities($input);
     
+    // Export the modified value to the request data holder.
+    // The exported parameter name is controlled by the 'export' parameter
+    // in validation configuration XML
     $this->export($input);
 
     return true;
