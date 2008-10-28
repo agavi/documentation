@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="contexts">
+  <title>Contexts</title>
+  <body>
+    <p>A Context in an Agavi object that encapsulates a running instance of the framework. While
+    any aspect of the framework, even system settings and autoloads may be
+    configured per Environment, you're a bit more restricted in Context
+    configuration, and that's intentional. A Context's job is to hold the
+    proper implementations that are needed to execute the application in the
+    current <i>context</i> (therefore the name), such as "web"
+    for normal requests to an application through a browser, "xmlrpc" for an
+    XMLRPC interface of an application, or "console" for a Context that
+    exposes the application to the command line.</p>
+
+    <p>On the configuration's side, a Context corresponds to the
+    outside world that is invoking your application. On the
+    application's side, the Context is a global object through which
+    you access the main services of the framework. Consider this
+    imaginary example (Agavi does not actually have a telnet routing
+    class, though nothing prevents you from writing one):
+    </p>
+    <codeblock class="php"><![CDATA[
+    /* We've previously bootstrapped Agavi in some Environment */
+
+    // This time, $ro will contain an instance of AgaviWebRouting
+    $ctx = AgaviContext::getInstance('web');
+    $ro = $ctx->getRouting();
+
+    // And this time, it will contain an instance of AgaviTelnetRouting
+    $ctx = AgaviContext::getInstance('telnet');
+    $ro = $ctx->getRouting();
+    ]]>
+    </codeblock>
+
+    <p>This is possible because the factory configuration would
+    specify that in Web context, the "routing" position is occupied by
+    class <apiname>AgaviWebRouting</apiname>, whereas in the imaginary
+    telnet context, the same slot is occupied by class
+    <apiname>AgaviTelnetRouting</apiname>. This is indirection: the
+    application's code doesn't care about the specifics of the
+    conditions in which it is called, and can work without
+    modifications under conditions that are radically different.</p>
+
+    <p>All configuration files support the configuration per Environment and Context (if
+    applicable) without any performance disadvantage - Agavi compiles
+    them into highly optimized variants for each Environment and
+    Context when needed for minimum overhead.</p>
+  </body>
+</topic>

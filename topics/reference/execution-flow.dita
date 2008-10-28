@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="execution-flow">
+  <title>Global Execution Flow</title>
+  <body>
+      <p>If you call an URL that is handled by
+      <filepath>pub/index.php</filepath>, Agavi will bootstrap the
+      framework with the specified (or default) Environment and then
+      create an instance of the specified (or default) Context (this
+      instantiation sets up all of the core components of the
+      framework). Finally, the request is dispatched from the
+      Context's Controller instance.</p>
+
+      <note type="tip"><keyword>Dispatching</keyword> is the
+      processing of the request necessary to produce a response. In
+      Agavi, it means executing one or more Actions, or failing with
+      an error.</note>
+
+      <p>First, the Controller needs to identify the <keyword>initial
+      Action</keyword> to be called. If Routing is enabled, the
+      Controller asks it to analyze the request URL and other possible
+      conditions to answer that question. This maps URLs, HTTP
+      headers, phase of the moon etc to a specific feature of your
+      application.</p>
+
+      <p>The Routing returns a special Agavi object called the
+      <xref href="execution-containers.dita"><keyword>Execution Container</keyword></xref> which is preloaded with
+      the Action that needs to be executed. This container serves as
+      an isolated environment in which the Action and its chosen View
+      would be executed.</p>
+
+      <p>The Controller now creates a filter chain, which is preloaded
+      with filters that are specified in the global filter
+      configuration. Agavi filter chains are designed to consume an
+      Execution Container, process it sequentially and yield a
+      response. A filter chain is essentially a list of plugins; each
+      plugin take an Execution Container, do something with it and
+      pass it on to the next filter.</p>
+
+      <p>At the end of the global filter chain is the dispatch
+      filter. It commands the Execution Container to
+      execute the Action and returns its response, which is then sent
+      to the user's browser. </p>
+      
+      <p>Execution of the initial Action is the point of entry into
+      your application. Many things happen inside the Execution
+      Container, and the rest of the execution flow is documented in <xref href="execution-containers.dita">its own chapter</xref></p>
+  </body>
+</topic>

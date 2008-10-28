@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="environments">
+  <title>Environments</title>
+  <body>
+      <p>When the framework is started, it receives the name of the
+      active <keyword>Environment</keyword> from outside
+      world. Typical Environments would be "development", "testing" or
+      "production". You may configure any number of environments, but
+      only one of them is used during execution:</p>
+      <codeblock class="php"><![CDATA[
+
+/* Typical framework initialization code. Your pub/index.php looks
+like this, for example*/
+
+require 'agavi/agavi.php';
+require '../app/config.php';
+
+// Bootstrap Agavi in the "development" Environment
+Agavi::bootstrap('development');
+
+]]></codeblock>
+      <p>Environments allow for extremely fine-grained settings for
+      each machine (server or workstation) and situation your application encounters. The
+      various Environments may have different database configurations,
+      logging settings and levels, debug settings and even filters or
+      factories. Any aspect of Agavi configuration can be bound to a
+      specific Environment. Each developer in a team may have his own
+      Environments for development and testing, with his or her own database
+      settings, tools etc which eliminates the need for people constantly
+      having to change their settings, accidentally committing changed
+      files to source code repositories or missing changes because
+      configuration files were masked or set to ignore so that remote
+      changes by other developers don't break locally unique
+      settings.</p>
+      
+      <p>Environments add a dimension to Agavi configuration,
+      preventing conflicts and eliminating the need to modify
+      code.</p>
+
+      <p>
+	Here's an example of Agavi configuration. It is written in the
+	database connection description sublanguage. Two
+	configurations are specified, one for a developer called David
+	and the other for his cat Mudkips:
+      </p>
+      <codeblock class="php"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<configurations xmlns="http://agavi.org/agavi/1.0/config">
+	<configuration environment="development-joe">
+	 <databases default="project">
+	  <database name="project" class="AgaviPdoDatabase">
+	   <parameter name="dsn">mysql:host=db.dev.office;dbname=david_dev</parameter>
+	   <parameter name="username">david</parameter>
+	   <parameter name="password">Sa3q@sAf</parameter>
+	  </database>
+	 </databases>
+	</configuration>	
+
+	<configuration environment="development-mudkips">
+	 <databases default="project">
+	  <database name="project" class="AgaviPdoDatabase">
+	   <parameter name="dsn">mysql:host=localhost;dbname=MEOW</parameter>
+	   <parameter name="username">mudkips</parameter>
+	   <parameter name="password">OMNOMNOM</parameter>
+	  </database>
+	 </databases>
+	</configuration>	
+</configurations>]]>
+      </codeblock>
+      <p>Subsequently, the application that David and Mudkips are
+      developing would attempt to access a named database connection
+      called "project", and Agavi will return a database object that's
+      configured according to the Environment (that is, developer
+      workstation) in which it's being executed.</p>
+  </body>
+</topic>

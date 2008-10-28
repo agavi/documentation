@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN"
-"http://docs.oasis-open.org/dita/dtd/bookmap.dtd">
+	  "http://docs.oasis-open.org/dita/dtd/bookmap.dtd">
 <bookmap>
   <booktitle>
     <mainbooktitle>Agavi Reference Manual</mainbooktitle>
@@ -16,59 +16,65 @@
   <chapter href="topics/reference/chapters/introduction.dita" collection-type="sequence">
     <topicref href="topics/reference/frameworks-dos.dita"/>
     <topicref href="topics/reference/frameworks-donts.dita"/>
-    <topicref href="topics/reference/about-agavi.dita"/>
-  </chapter>
-
-<!--
+    <topicref href="topics/reference/about-agavi.dita"/> 
     <topicref href="topics/reference/agavi-installation.dita"/>
-    <topicref href="topics/reference/architecture.dita"/>
     <topicref href="topics/reference/execution-flow.dita"/>
-    <topicref href="topics/reference/see-also.dita"/>
-  </chapter>		
-
-  <chapter href="topics/reference/chapters/core-features.dita" collection-type="sequence">
-    <topicref href="topics/reference/naming-conventions.dita"/>
-    <topicref href="topics/reference/context.dita"/>
-    <topicref href="topics/reference/controller.dita"/>
-    <topicref href="topics/reference/class-autoloading.dita"/>
-    <topicref href="topics/reference/object-instantiation.dita"/>
-    <topicref href="topics/reference/build-system.dita"/>
-    <topicref href="topics/reference/execution-containers.dita"/>
-    <topicref href="topics/reference/exceptions.dita"/>
   </chapter>
+
+
+  <!--
+     <topicref href="topics/reference/architecture.dita"/> -->
+  <!--
+     <topicref href="topics/reference/see-also.dita"/>
+</chapter>		
+-->
+<chapter href="topics/reference/chapters/core-features.dita" collection-type="sequence">
+<!--
+  <topicref href="topics/reference/naming-conventions.dita"/>
+  <topicref href="topics/reference/context.dita"/>
+  <topicref href="topics/reference/controller.dita"/>
+  <topicref href="topics/reference/class-autoloading.dita"/>
+  <topicref href="topics/reference/object-instantiation.dita"/>
+  <topicref href="topics/reference/build-system.dita"/> -->
+  <topicref href="topics/reference/execution-containers.dita"/>
+  <!-- 
+  <topicref href="topics/reference/exceptions.dita"/> -->
+</chapter>
 
   <chapter href="topics/reference/chapters/configuration.dita">
     <topicref href="topics/reference/configuration-environments.dita"/>
     <topicref href="topics/reference/configuration-contexts.dita"/>
-    <topicref href="topics/reference/configuration-reuse.dita"/>
   </chapter>
-  
-  <chapter href="topics/reference/chapters/routing.dita">
-    <topicref href="topics/reference/routing-map.dita"/>
-    <topicref href="topics/reference/routing-url-generation.dita"/>
-    <topicref href="topics/reference/routing-callbacks.dita"/>
-  </chapter>
+  <!--
+     <topicref href="topics/reference/configuration-reuse.dita"/>
+</chapter>
 
-  <chapter href="topics/reference/chapter/actions.dita">
-    <topicref href="topics/reference/subactions.dita"/>
-    <topicref href="topics/reference/action-methods.dita"/>
-    <topicref href="topics/reference/custom-action-execution.dita"/>
-    <topicref href="topics/reference/system-actions.dita"/>
-    <topicref href="topics/reference/action-security.dita"/>
-  </chapter>
+<chapter href="topics/reference/chapters/routing.dita">
+  <topicref href="topics/reference/routing-map.dita"/>
+  <topicref href="topics/reference/routing-url-generation.dita"/>
+  <topicref href="topics/reference/routing-callbacks.dita"/>
+</chapter>
 
-  <chapter href="topics/reference/chapter/views.dita">
-    <topicref href="topics/reference/output-types.dita"/>
-    <topicref href="topics/reference/layers.dita"/>
-    <topicref href="topics/reference/slots.dita"/>
-    <topicref href="topics/reference/custom-rendering.dita"/>
-  </chapter>
+<chapter href="topics/reference/chapter/actions.dita">
+  <topicref href="topics/reference/subactions.dita"/>
+  <topicref href="topics/reference/action-methods.dita"/>
+  <topicref href="topics/reference/custom-action-execution.dita"/>
+  <topicref href="topics/reference/system-actions.dita"/>
+  <topicref href="topics/reference/action-security.dita"/>
+</chapter>
 
-  <chapter href="topics/reference/chapter/renderers.dita"/>
+<chapter href="topics/reference/chapter/views.dita">
+  <topicref href="topics/reference/output-types.dita"/>
+  <topicref href="topics/reference/layers.dita"/>
+  <topicref href="topics/reference/slots.dita"/>
+  <topicref href="topics/reference/custom-rendering.dita"/>
+</chapter>
 
-  <chapter href="topics/reference/chapters/models.dita"/>
-  <chapter href="topics/reference/chapters/request.dita"/>
-  <chapter href="topics/reference/chapters/response.dita"/>
+<chapter href="topics/reference/chapter/renderers.dita"/>
+
+<chapter href="topics/reference/chapters/models.dita"/>
+<chapter href="topics/reference/chapters/request.dita"/>
+<chapter href="topics/reference/chapters/response.dita"/>
 -->
   <chapter href="topics/reference/chapters/validation.dita">
     <topicref href="topics/reference/validation/validation-manager.dita"/>
@@ -77,50 +83,50 @@
     <topicref href="topics/reference/validation/modes.dita"/>
     <topicref href="topics/reference/validation/other-features.dita"/>
   </chapter>
-<!--
-  <chapter href="topics/reference/chapters/session-security.dita">
-    <topicref href="topics/reference/authentication.dita"/>
-    <topicref href="topics/reference/authorization.dita"/>
-    <topicref href="topics/reference/storage.dita"/>
-    <topicref href="topics/reference/alternate-security-models.dita"/>
-  </chapter>
+  <!--
+     <chapter href="topics/reference/chapters/session-security.dita">
+       <topicref href="topics/reference/authentication.dita"/>
+       <topicref href="topics/reference/authorization.dita"/>
+       <topicref href="topics/reference/storage.dita"/>
+       <topicref href="topics/reference/alternate-security-models.dita"/>
+     </chapter>
 
-  <chapter href="topics/reference/chapters/databases.dita">
-    <topicref href="topics/reference/db-mysql.dita"/>
-    <topicref href="topics/reference/db-pdo.dita"/>
-    <topicref href="topics/reference/db-doctrine.dita"/>
-    <topicref href="topics/reference/db-mysqli.dita"/>
-    <topicref href="topics/reference/db-postgresql.dita"/>
-    <topicref href="topics/reference/db-propel.dita"/>
-    <topicref href="topics/reference/db-creole.dita"/>
-  </chapter>
+     <chapter href="topics/reference/chapters/databases.dita">
+       <topicref href="topics/reference/db-mysql.dita"/>
+       <topicref href="topics/reference/db-pdo.dita"/>
+       <topicref href="topics/reference/db-doctrine.dita"/>
+       <topicref href="topics/reference/db-mysqli.dita"/>
+       <topicref href="topics/reference/db-postgresql.dita"/>
+       <topicref href="topics/reference/db-propel.dita"/>
+       <topicref href="topics/reference/db-creole.dita"/>
+     </chapter>
 
-  <chapter href="topics/reference/chapters/caching.dita"/>
-  <chapter href="topics/reference/chapters/logging.dita"/>
-  <chapter href="topics/reference/chapters/filters.dita">
-    <topicref href="topics/reference/fpf.dita"/>
-    <topicref href="topics/reference/dispatch-filter.dita"/>
-    <topicref href="topics/reference/security-filter.dita"/>
-    <topicref href="topics/reference/execution-filter.dita"/>
-    <topicref href="topics/reference/tidy-filter.dita"/>
-  </chapter>
+     <chapter href="topics/reference/chapters/caching.dita"/>
+     <chapter href="topics/reference/chapters/logging.dita"/>
+     <chapter href="topics/reference/chapters/filters.dita">
+       <topicref href="topics/reference/fpf.dita"/>
+       <topicref href="topics/reference/dispatch-filter.dita"/>
+       <topicref href="topics/reference/security-filter.dita"/>
+       <topicref href="topics/reference/execution-filter.dita"/>
+       <topicref href="topics/reference/tidy-filter.dita"/>
+     </chapter>
 
-  <chapter href="topics/reference/chapters/i18n.dita"/>
-  <chapter href="topics/reference/chapters/date.dita"/>
+     <chapter href="topics/reference/chapters/i18n.dita"/>
+     <chapter href="topics/reference/chapters/date.dita"/>
 
-  <chapter href="topics/reference/chapters/component-customization.dita">
-    <topicref href="topics/reference/actions-customization.dita"/>
-    <topicref href="topics/reference/views-customization.dita"/>
-    <topicref href="topics/reference/configuration-handlers-customization.dita"/>
-    <topicref href="topics/reference/filters-customization.dita"/>
-    <topicref href="topics/reference/adapters-customization.dita"/>
-  </chapter>
+     <chapter href="topics/reference/chapters/component-customization.dita">
+       <topicref href="topics/reference/actions-customization.dita"/>
+       <topicref href="topics/reference/views-customization.dita"/>
+       <topicref href="topics/reference/configuration-handlers-customization.dita"/>
+       <topicref href="topics/reference/filters-customization.dita"/>
+       <topicref href="topics/reference/adapters-customization.dita"/>
+     </chapter>
 
-  <appendix href="topics/reference/chapters/caveats.dita"/>
-  <appendix href="topics/reference/chapters/third-party-integration.dita"/>
-  <appendix href="topics/reference/chapters/nonweb-invocations.dita"/>
-  <appendix href="topics/reference/chapters/server-configuration.dita"/>
-  <appendix href="topics/reference/chapters/testing-applications.dita"/>
-  <appendix href="topics/reference/chapters/soap.dita"/>
--->
+     <appendix href="topics/reference/chapters/caveats.dita"/>
+     <appendix href="topics/reference/chapters/third-party-integration.dita"/>
+     <appendix href="topics/reference/chapters/nonweb-invocations.dita"/>
+     <appendix href="topics/reference/chapters/server-configuration.dita"/>
+     <appendix href="topics/reference/chapters/testing-applications.dita"/>
+     <appendix href="topics/reference/chapters/soap.dita"/>
+     -->
 </bookmap>

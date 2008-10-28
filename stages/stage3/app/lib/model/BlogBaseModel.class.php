@@ -7,6 +7,7 @@ class BlogBaseModel extends AgaviModel
 {
   /**
    * Return the PDO resource needed to access the blog database
+   *
    * @return PDO
    */
   protected function getPdo()

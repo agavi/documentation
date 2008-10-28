@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="configuration">
+  <title>Configuration</title>
+  <body>
+    <p>The configuration engine is at the center of everything
+    Agavi. It is used by both the framework itself and any
+    applications developed with it. Configuration encompasses every
+    dynamic aspect of an application: individual settings, groups of
+    settings, describing relationship between objects or concepts, and more.</p>
+    <p>Agavi configuration literally glues the framework and the
+    application together, since it defines, among other things, which
+    components are loaded into the core functional positions. This
+    allows you to extend the framework and reuse code without
+    cluttering up either your application or the framework source. In
+    plain words, you can tell the framework to conditionally load a
+    certain class instead of another using configuration only, without
+    having to touch the source code anywhere.</p>
+    <p>The configuration engine reads XML configuration files that
+    belong to the framework and its applications, applies requested
+    transformations and compiles the configuration data into PHP
+    code. This compilation is only performed when needed - in
+    production, for example, your application would never actually
+    access or parse the configuration XML files after they've been
+    compiled once.</p>
+    <p>The compiled configuration code is used to inject configuration
+    data into various components of the framework in the format that
+    all Agavi objects natively understand. This means that every
+    aspect of the framework's operation is exposed into XML
+    configuration, and you can literally override built-in defaults
+    and behaviours everywhere.</p> 
+    <p>On top of that, the configuration system is extended with a
+    large number of XML sublanguages, which allow rich, precise yet
+    clear description of many of the features that your application
+    uses: for example, the routing map that connects between HTTP URLs
+    and Agavi Actions is built using a specialized XML sublanguage,
+    which allows the developers to express very complicated URL
+    construction. Moreover, developers can easily create their own XML
+    sublanguages for their own specific tasks and custom PHP
+    classes and instantly harness the full power of Agavi.</p>
+    <p>All configuration XML is subject to validation. This prevents
+    most of inconsistencies and eliminates syntactic mistakes.</p>
+    <p>Using XML as configuration source (as opposed to, say, YAML or
+    plain PHP) has an additional serious advantage: the standard
+    technologies such as XPath, XInclude, XPointer and XSLT are
+    available to the developer, ensuring that the framework can cope
+    with any conceivable business scenario, without having to degrade
+    consistency and quality of the target application.</p>
+  </body> 
+</topic>

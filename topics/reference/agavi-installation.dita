@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="installation">
+  <title>Installing Agavi</title>
+  <body>
+    <section>
+      <title>Prerequisites</title>
+      <p>Agavi's minimum requirement is PHP version 5.1.3 or newer. DOM,
+      Reflection and SPL extensions are required, but these are always enabled
+      by default, unless you're using one of these weird Linux distributions made by
+      "smart" people who think they know better.</p>
+
+      <note>
+	It should be pointed out that Agavi is not a framework for
+	beginners. To leverage the functionality and the advantages of
+	it's structure and philosophy, a good knowledge of PHP is
+	required, and it's highly recommended that you are familiar
+	with concepts such as MVC, and (web) application development
+	in general.
+      </note>
+
+      <p>Also, you usually need a web server, such as Apache, unless
+      you only want to write a console application. Agavi should
+      work fine with all web servers that support PHP. Apache
+      versions 1 and 2, LightTPD and Microsoft Internet Information
+      Server have been tested and verified to be compatible with the
+      framework and it's components, such as the routing. Other web
+      servers are likely to work as well, with some minor
+      extensions to the framework.</p>
+
+      <p>Installation via PEAR requires the PEAR client, which comes
+      with most PHP distributions. Installation from Subversion
+      repository requires a Subversion client.  grab it straight from
+      the SVN repository, you'll need a Subversion client
+      installed. The project manager system requires Phing, which is a
+      PHP based clone of Java Ant.</p>
+    </section>
+
+    <section id="installing-from-pear">
+      <title>Installation From PEAR</title>
+
+      <p>Installation with PEAR is relatively simple. Discover the
+      Agavi PEAR channel and then install Agavi using the PEAR command
+      line interface:</p>
+
+      <screen>$ <userinput>pear channel-discover pear.agavi.org</userinput>
+
+      Adding Channel "pear.agavi.org" succeeded
+      Discovery of channel "pear.agavi.org" succeeded
+
+      $ <userinput>pear config-set auto_discover 1</userinput>
+      $ <userinput>pear install -a agavi/agavi</userinput>.
+      </screen> 
+
+      <note type="tip">Since Agavi 1.0.0 is still in a beta state,
+      you may have to set your PEAR preferred package state to
+      beta before installing Agavi:
+      <screen>
+	$ <userinput>pear config-set preferred_state beta</userinput>
+      </screen>
+      </note>
+      <p>It is also possible to obtain a specific version of
+      Agavi:</p>
+      <screen>
+	$ <userinput>pear install agavi/agavi-0.11.0</userinput>
+      </screen>
+
+      <note type="tip">
+	Depending on your system configuration, you might need to
+	run these commands with superuser rights. This is, for instance,
+	often the case with PEAR installs on Mac OS X.
+      </note>
+    </section>
+
+    <section id="testing-installation">
+
+      <title>Testing your installation</title>
+
+      <p>A properly deployed Agavi installation enables the Agavi
+      project configuration script, <cmdname>agavi</cmdname>. You should
+      test that the installation worked correctly by executing
+      <userinput>agavi</userinput> from the command line.  This should
+      provide some basic information about your current environment:</p>
+
+      <p>
+	<screen>
+	  $ <userinput>agavi</userinput>
+	  Agavi &gt; status:
+
+	  [echo] PHP:
+	  [echo]   Version: 5.2.6-2
+	  [echo]   Include path: .:/usr/share/php:/usr/share/pear
+	  [echo]
+	  [echo] Phing:
+	  [echo]   Version: Phing version 2.3.1RC1
+	  [echo]
+	  [echo] Agavi:
+	  [echo]   Installation directory: /usr/share/php/agavi
+	  [echo]   Version: 1.0.0
+	  [echo]   URL: http://www.agavi.org
+	  [echo]
+	  [echo] Project:
+	  [echo]   (not found)
+	  [echo]
+	  [echo] For a list of possible build targets, call this script with the -l argument.
+	</screen>
+	(Note that version information may differ slightly.) If you
+	are getting errors instead, Agavi isn't installed
+	correctly. If you can't figure out the problem yourself, don't
+	hesitate to ask the core developers.</p>
+    </section>
+
+    <section id="installation-by-hand">
+      <title>Installation by hand</title>
+
+      <p>Installing Agavi by hand is the logical choice if you can't
+      use PEAR, or if you seek to bundle Agavi with your application
+      so that your users or customers do not have to install it
+      separately. Download a release tarball from the Agavi website,
+      unpack it somewhere and move the contents of the
+      <filepath>src</filepath> folder to a location of your
+      choice. Make sure to adjust PHP's include path to cover this
+      location. Don't forget to copy
+      <filepath>etc/agavi-dist</filepath> or
+      <filepath>etc/agavi.bat-dist</filepath> script to an
+      <filepath>agavi</filepath> or <filepath>agavi.bat</filepath>
+      executable into a convenient location so you can use the shell
+      commands for creating projects, modules, actions etc. Keep in
+      mind that you must edit the script and enter the path to your
+      Agavi installation (that's the <filepath>src</filepath> folder
+      you copied earlier) so everything works as intended. 
+      </p> 
+
+      <p>The more usual case, however, will be that you're shipping
+      Agavi together with your application, either because you can't
+      use PEAR/Phing to install Agavi in the production environment,
+      or because you want total control over what version of Agavi is
+      used. In this case, copy the <filepath>src</filepath> folder to
+      somewhere inside your application's directory structure (we
+      recommend a <filepath>libs</filepath> folder that holds all
+      libraries your app uses and that sits on the same level as the
+      <filepath>app</filepath> and <filepath>pub</filepath>
+      directories) and give it a different name,
+      <filepath>agavi</filepath> would stand to reason. For that
+      little extra something, copy the agavi-dist or agavi.bat-dist
+      script again, maybe to your application root. Then, your
+      application's<filepath>pub/index.php</filepath> should be
+      changed to use a relative path for including
+      <filepath>agavi.php</filepath>, such as
+      <filepath>../libs/agavi/agavi.php</filepath>. Agavi will
+      auto-determine and remember the path where it was loaded from,
+      and will work without any changes to your environment's include
+      path.</p>
+    </section>
+
+    <section id="installation-svn">
+      <title>From SVN</title>
+
+      <p>Public access to the Subversion repository is possible via
+      <filepath>http://svn.agavi.org/</filepath>.  Specific releases
+      are available through
+      <filepath>/agavi/tags</filepath>. Development usually occurs in
+      <filepath>/branches</filepath>, so if you're looking for a
+      latest useful version, look there. <filepath>/trunk</filepath>
+      contains the bleeding edge version that the core developers are
+      working on at the moment. It is more likely than not to be
+      broken at any given point of time, so don't use it unless you
+      know what you're doing.</p>
+
+      <p>You can either perform an <userinput>svn checkout</userinput>,
+      which creates <filepath>.svn</filepath> folders that allow you
+      to stay up to date on changes in the repository via <userinput>svn
+      update</userinput>, or you can simply <userinput>svn
+      export</userinput> the contents of the repository without
+      Subversion control folders, which is a good idea for example
+      when you want to export a specific release into your own
+      versioning control system.</p>
+
+      <p>Once you have obtained a copy from the repository, you can
+      either follow the manual installation procedure, or generate your own PEAR package
+      to be installed by PEAR locally by doing:</p>
+      <screen>
+	$ <userinput>cd (agavi checkout path)</userinput>
+	$ <userinput>pear channel-discover pear.agavi.org</userinput>
+	$ <userinput>phing package-pear</userinput>
+	$ <userinput>cd build/</userinput>
+	$ <userinput>pear package</userinput>
+      </screen>
+
+      <p>This will create a <filepath>.tgz</filepath> file which
+      can be installed using PEAR. If you already have Agavi installed it
+      might be a good idea to remove it first by running <userinput>pear uninstall
+      agavi/agavi</userinput>.
+      </p>
+    </section>
+    
+  </body>
+</topic>
