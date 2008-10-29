@@ -92,7 +92,7 @@
 	unfortunately, this Action isn't needed in your production
 	code and should be removed. To do this, delete the files that
 	we left behind to demonstrate the typical files involved in a
-	single action:
+	single action:</p>
 	<ul>
 	  <li><filepath>app/modules/Public/actions/WelcomeAction.class.php</filepath></li>
 	  <li><filepath>app/modules/Public/views/WelcomeSuccessView.class.php</filepath></li>
@@ -100,7 +100,6 @@
 	  <li><filepath>app/modules/Public/cache/Welcome.xml</filepath></li>
 	  <li><filepath>app/modules/Public/validate/Welcome.xml</filepath></li>
 	</ul>
-      </p>
       <p>The corresponding route in <filepath>app/config/routing.xml</filepath> also should be removed:
 	<codeblock>&lt;route pattern="" module="%actions.default_module%" action="Welcome" /&gt;</codeblock>
 	You will learn more about how the routing subsystem works later in the following chapters.</p>

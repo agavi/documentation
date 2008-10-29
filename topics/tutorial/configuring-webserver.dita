@@ -39,16 +39,21 @@
     <section><title>Apache</title><p>Below is a minimum example
     configuration for Apache assuming that you have name-based virtual
     hosting enabled for this host
-    name:</p><p><codeblock>&lt;VirtualHost *&gt; ServerName
-    bloggie.dev DocumentRoot /srv/applications/bloggie/pub
-    &lt;/VirtualHost&gt;</codeblock>Bear in mind that changing Apache
-    configuration requires a reload of the Web
-    server.</p><p><note type="tip">You don't need a full-fledged DNS
-    system under your control in order to use virtual host names. It's
-    enough to add a hostname using your operating system's hosts file
-    (<filepath>/etc/hosts</filepath> on UNIX-like or Linux systems and
-    <filepath><varname>%SystemRoot%</varname>\system32\drivers\etc\HOSTS</filepath>
-    on Windows).</note></p></section>
+    name:</p>
+<codeblock>&lt;VirtualHost *&gt; 
+ServerName bloggie.dev
+DocumentRoot /srv/applications/bloggie/pub
+&lt;/VirtualHost&gt;</codeblock>
+<p>Bear in mind that changing Apache
+  configuration requires a reload of the Web
+  server.</p>
+<note type="tip">You don't need a full-fledged DNS system under your
+control in order to use virtual host names. It's enough to add a
+hostname using your operating system's hosts file
+(<filepath>/etc/hosts</filepath> on UNIX-like or Linux systems and
+<filepath><varname>%SystemRoot%</varname>\system32\drivers\etc\HOSTS</filepath>
+on Windows).</note>
+</section>
 
     <p>If everything is configured correctly, you should now be able to see
     the default welcome screen when pointing the browser at your development

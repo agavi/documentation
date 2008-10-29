@@ -18,26 +18,41 @@
     <p>The application itself—configuration, temporary and cache directories,
       libraries and source files—are located in <filepath>app/</filepath>.</p>
 
-    <ul>
-      <li>The high-level Modules and their corresponding contents are located
-	in <filepath>app/modules/</filepath>.</li>
+    <dl>
+      <dlentry>
+	<dt><filepath>app/modules/</filepath></dt>
+	<dd>Contains application Modules and their corresponding contents</dd>
+      </dlentry>
 
-      <li>The global configuration can be found in
-	<filepath>app/config/</filepath>. (You will examine it in greater detail
-	in the next section of this chapter.)</li>
+      <dlentry>
+	<dt><filepath>app/cache/</filepath></dt>
+	<dd>Action cache and compiled configuration</dd>
+      </dlentry>
 
-      <li>The <filepath>app/models/</filepath> directory contains the global
-	Models for your application.</li>
+      <dlentry>
+	<dt><filepath>app/config/</filepath></dt>
+	<dd>Application configuration (see next chapter)</dd>
+      </dlentry>
 
-      <li>In a similar fashion, the <filepath>app/templates/</filepath>
-	directory contains the global templates for the application. Typically,
-	this directory contains templates that are used in all application
-	output: wrappers (called <keyword>decorators</keyword>), headers and
-	footers, and so forth.</li>
+      <dlentry>
+	<dt><filepath>app/lib/</filepath></dt>
+	<dd>Global framework extensions, third party libraries, etc</dd>
+      </dlentry>
 
-      <li>Third party libraries are placed in <filepath>app/lib/</filepath>.
-	Agavi is very extensible and can cooperate with virtually any foreign
-	code.</li>
-    </ul>
+      <dlentry>
+	<dt><filepath>app/models/</filepath></dt>
+	<dd>Global application Models</dd>
+      </dlentry>
+
+      <dlentry>
+	<dt><filepath>app/log/</filepath></dt>
+	<dd>Log files (if logging into files is used)</dd>
+      </dlentry>
+
+      <dlentry>
+	<dt><filepath>app/templates/</filepath></dt>
+	<dd>Global templates</dd>
+      </dlentry>
+    </dl>
   </body>
 </topic>

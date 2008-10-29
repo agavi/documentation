@@ -14,14 +14,14 @@
     have facilities to show blog posts and navigate between posts. In terms of
     a Web application, this means you should have the following pages:</p><dl>
         <dlentry>
-          <dt>Post</dt>
+          <dt><apiname>Post</apiname></dt>
 
           <dd>The post page displays a single blog post given a post ID in the
           URL.</dd>
         </dlentry>
 
         <dlentry>
-          <dt>Index</dt>
+          <dt><apiname>Index</apiname></dt>
 
           <dd>The index page displays a list of the most recent posts to the
           blog. This page contains links to blog posts.</dd>
