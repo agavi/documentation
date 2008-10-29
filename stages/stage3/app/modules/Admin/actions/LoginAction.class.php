@@ -14,13 +14,16 @@ class Admin_LoginAction extends BlogAdminBaseAction
       $us->setAuthenticated(true);
       $us->clearCredentials();
 
-      // This is the identity of the user. It persists in the session.
+      // This is the identity of the user. It persists in the
+      // session. We use it in some other places, for example, when
+      // creating a new post.
+
       $us->setAttribute('author_id', $urec['id']);
 
       // Now that we're authenticated, perform a redirect to admin
       // home page
 
-      return 'ForwardToMain';
+      return 'Success';
     }
     
     // No such user in the database, complain
@@ -30,7 +33,7 @@ class Admin_LoginAction extends BlogAdminBaseAction
   public function getDefaultViewName()
   {
     // Show the login form
-    return 'Success';
+    return 'RequireLogin';
   }
 }
 

@@ -2,12 +2,15 @@
 
 class Admin_LoginSuccessView extends BlogAdminBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this->setupHtml($rd);
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    /* Redirect to the admin index page */
 
-		$this->setAttribute('title', 'Login');
-	}
+    $url = $this->context->getRouting()->gen('admin', array(), array('relative' => false));
+    $this->container->getResponse()->setRedirect($url);
+
+    return null;
+  }
 }
 
 ?>

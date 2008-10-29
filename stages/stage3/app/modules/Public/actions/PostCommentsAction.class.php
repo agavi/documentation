@@ -13,7 +13,7 @@ class Public_PostCommentsAction extends BlogPublicBaseAction
     $this->setAttribute('comments',
 			$pm->getRecentCommentsForPost($rd->getParameter('post_id'), 20));
 
-    return 'Success';
+    return 'Comments';
   }
 
   // The "write" method, on the other hand, is responsible for saving
@@ -30,7 +30,7 @@ class Public_PostCommentsAction extends BlogPublicBaseAction
 			 $rd->getParameter('body')))
       // If saving was successful, forward the browser to the post
       // page
-      return 'ForwardToPost';
+      return 'Success';
     else
       // There was a problem with saving the comment. Show an error
       // screen. 

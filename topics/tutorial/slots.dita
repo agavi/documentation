@@ -52,14 +52,14 @@
       <p>As you see, this Action has both read and write methods. The
 	read method is used to render the comments for a given post ID,
 	and the write method is used to handle comment submission. You
-	would also note that this Action has three Views: "Success",
-	"Error" and "ForwardToPost". The "Success" View is used to draw
+	would also note that this Action has three Views: "Comments",
+	"Error" and "Success". The "Comments" View is used to draw
 	the comments, the "Error" View is used to indicate that the
-	comment can not be saved, and the "ForwardToPost" View is used to
+	comment can not be saved, and the "Success" View is used to
 	forward the browser back to the updated post page after a
 	successful comment submission.</p>
       <p>Even though these three Views belong to the same Action, they
-	behave quite differently. The "Success" View is meant to be used
+	behave quite differently. The "Comments" View is meant to be used
 	in a slot on the post page, and thus it uses the "slot"
 	layout in which there is no regular decorator:
       <codeblock conref="../examples/slots.dita#bloggie-comments-success-view" class="php"/>
@@ -80,7 +80,7 @@
 	needed and so the "Error" View uses the default layout:
       <codeblock conref="../examples/slots.dita#bloggie-comments-error-view" class="php"/>
       </p>
-      <p>The "ForwardToPost" View is different. It's invoked when a
+      <p>The "Success" View is different. It's invoked when a
 	comment submission succeeds, which means the Action is running as
 	the primary Action just like in the "Error" View. Whenever a
 	comment is submitted, the user should be forwarded back to the

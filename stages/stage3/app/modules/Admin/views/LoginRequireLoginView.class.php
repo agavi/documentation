@@ -1,6 +1,6 @@
 <?php
 
-class Admin_LoginInputView extends BlogAdminBaseView
+class Admin_LoginRequireLoginView extends BlogAdminBaseView
 {
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
