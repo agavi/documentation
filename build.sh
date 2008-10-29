@@ -31,9 +31,14 @@ rm $TEMP_DIR/foo
 
 # Flatten TOC links & cut out HTML structure
 
-tail -n+5 html-out/index.html | head -n-2 > html-out/toc.html
+echo '<ol class="thirdlevel left">' > html-out/toc.html
+tail -n+6 html-out/index.html | head -n-2 >> html-out/toc.html
 sed -i 's/href="topics\/tutorial\//href="documentation\/tutorial\//g' html-out/toc.html
 sed -i 's/href="topics\/concepts\//href="documentation\/tutorial\//g' html-out/toc.html
+
+# Correct the TOC elements
+sed -i 's/<ul>/<ol>/g' html-out/toc.html
+sed -i 's/<\/ul>/<\/ol>/g' html-out/toc.html
 
 # Correct the image links
 
