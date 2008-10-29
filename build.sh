@@ -1,6 +1,8 @@
 #!/bin/sh
 
 PROJ_DIR=`pwd`
+TEMP_DIR=/tmp
+
 cd $DITA_HOME
 
 # Get the absolute path of DITAOT's home directory
@@ -19,15 +21,32 @@ fi
 
 # Render the deliverable
 
-ant -Ddita.dir=$DITA_DIR -Dproject.dir=$PROJ_DIR -f $PROJ_DIR/build/agavitutorial_xhtml.xml -logger org.dita.dost.log.DITAOTBuildLogger $1 
+ant -Ddita.dir=$DITA_DIR -Dproject.dir=$PROJ_DIR -f $PROJ_DIR/build/agavitutorial_xhtml.xml -logger org.dita.dost.log.DITAOTBuildLogger $1 -debug
 
+# Go over the html files and cut off the doctype crap, dita XSLT processor ignores standalone attributes
+
+cd $PROJ_DIR
+for i in `find html-out -name '*.html'` ; do echo Postprocessing $i ; tail -n+3 $i > /tmp/foo ; cp $TEMP_DIR/foo $i ; done
+rm $TEMP_DIR/foo
+
+# Flatten TOC links & cut out HTML structure
+
+tail -n+5 html-out/index.html | head -n-2 > html-out/toc.html
+sed -i 's/href="topics\/tutorial\//href="documentation\/tutorial\//g' html-out/toc.html
+sed -i 's/href="topics\/concepts\//href="documentation\/tutorial\//g' html-out/toc.html
+
+# Correct the image links
+
+find html-out -name '*.html' -exec sed -i 's/src="\.\.\/images/src="images\/tutorial/g' {} \;
 # Copy javascript
+
 cp $PROJ_DIR/shjs/* $PROJ_DIR/html-out/topics
 
 # Copy images
 
 mkdir -p $PROJ_DIR/html-out/topics/images
 cp $PROJ_DIR/svg/*.png $PROJ_DIR/html-out/topics/images
+
 # Create the stage tarballs
 
 mkdir $PROJ_DIR/html-out/stages
