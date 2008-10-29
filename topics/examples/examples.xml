@@ -4,9 +4,7 @@
 <topic id="examples">
   <title>Tutorial source code examples</title>
   <body>
-    <codeblock id="services-example-context">
-$db_conn = $this->context->getDatabaseManager()->getDatabase('mydb');
-    </codeblock>
+    <codeblock id="services-example-context">$db_conn = $this->context->getDatabaseManager()->getDatabase('mydb');</codeblock>
     <codeblock id="services-example-config"><![CDATA[
 // Retrieve a configuration value for item "meaning_of_life" and prefix "org.mycompany.myapp"
 // In settings.xml this would be:
@@ -28,8 +26,7 @@ $conn = $db->getConnection();
 $ro = $this->context->getRouting();
 
 // Generate an absolute URL to a named route 
-$url = $ro->gen('posts.edit', array('id' => $post->id), array('relative' => false));
-    </codeblock>
+$url = $ro->gen('posts.edit', array('id' => $post->id), array('relative' => false));</codeblock>
     <codeblock class="e1" id="configuration-database">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;configurations xmlns="http://agavi.org/agavi/1.0/config"&gt;
  &lt;!-- The "development" attribute here means that this configuration is
@@ -45,8 +42,7 @@ environment is set. --&gt;
    &lt;/database&gt;
   &lt;/databases&gt;
  &lt;/configuration&gt;
-&lt;/configurations&gt;
-</codeblock>
+&lt;/configurations&gt;</codeblock>
 <codeblock id="stage2-base-model">
   /**
   * The base model from which all project models inherit.
@@ -63,10 +59,7 @@ class BlogBaseModel extends AgaviModel
     // The connection parameters are configured in app/config/databases.xml
     return $this->context->getDatabaseManager()->getDatabase()->getConnection('blog');
   }
-}
-
-?>
-</codeblock>
+}</codeblock>
 <codeblock id="stage2-posts-model">
   /**
    * This Model is used to retrieve posts and their contents
@@ -118,8 +111,7 @@ class Public_PostsModel extends BlogBaseModel
     
     return $sth->fetch(PDO::FETCH_ASSOC);
   }
-}
-</codeblock>
+}</codeblock>
 <codeblock id="stage2-index-action">/**
    * This Action doesn't change anything in the application state, so
    * it has no execute() methods. 
@@ -191,8 +183,7 @@ class Public_ShowPostSuccessView extends BlogPublicBaseView
     $post = $m->findPostById($rd->getParameter('post_id'));
     $this->setAttribute('post', $post);
   }
-}
-      </codeblock>
+}</codeblock>
 
 <codeblock id="user-object-example">// Obtain the current User object
 $us = $this-&gt;context-&gt;getUser();
@@ -215,8 +206,7 @@ if ( (time() - $us-&gt;getAttribute('last_seen_at')) &gt; 3600 )
 $us-&gt;setAttribute('last_seen_at', time());
 
 // If it's suddenly Christmas, allow the user to see Christmas-only pages
-if (isItChristmas()) $us-&gt;addCredential('christmas');
-</codeblock>
+if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
 <codeblock id="output-types-simple-example"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">

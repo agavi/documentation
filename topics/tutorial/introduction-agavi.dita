@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="introduction-to-agavi">
-  <title>Introduction</title>
+  <title>About Agavi</title>
   <body>
   <section conref="../reference/about-agavi.dita#agavi-at-glance"/>
   </body>

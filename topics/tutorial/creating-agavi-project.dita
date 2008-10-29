@@ -9,15 +9,20 @@
     configuration system to manage your projects. This system can be accessed
     using the <filepath><cmdname>agavi</cmdname></filepath> shell script.</p>
 
-    <section><title>Creating Bloggie</title><p>This means that you are ready
-    to create the structure for your new blog application, affectionately
-    called "Bloggie" (feel free to give it a less cuddly name if you can't
-    stand it; the developers recommend "Incredible Scorpion-Powered Blog
-    Application of Doom").</p><p>To create a project, first create an empty
-    directory and enter it. Then invoke <userinput>agavi project</userinput>
-    (some of the prompts may seem confusing at first—don't worry, you will
-    have a chance to explore their meaning in more depth after your project is
-    created):</p><p><screen>applications$ <userinput>mkdir bloggie</userinput>
+    <section>
+      <title>Creating Bloggie</title>
+      <p>This means that you are ready to create the structure for
+    your new blog application, affectionately called "Bloggie" (feel
+    free to give it a less cuddly name if you can't stand it; the
+    developers recommend "Incredible Scorpion-Powered Blog Application
+    of Doom").</p>
+      <p>To create a project, first create an empty directory and
+    enter it. Then invoke <userinput>agavi project</userinput> (some
+    of the prompts may seem confusing at first—don't worry, you will
+    have a chance to explore their meaning in more depth after your
+    project is created):</p>
+<screen>
+applications$ <userinput>mkdir bloggie</userinput>
 applications$ <userinput>cd bloggie</userinput>
 bloggie$ <userinput>agavi project</userinput>
 
@@ -51,29 +56,39 @@ Module for module_disabled system action [Public]:
 
 Module for secure system action [Public]: <userinput>Admin</userinput>
 
-Module for login system action [Admin]:</screen>Congratulations! You have now
-    created a brand new Agavi application.</p><p>You now have a project with
-    two Modules: Public and Admin. In the Public Module, you have two Actions:
-    Index and ShowPost. The Index action will serve as the front page for your
-    blog. The ShowPost action will implement a page for showing a specific
-    blog post.</p><p><note>The Admin module is empty for now. When security
-    features are covered, you will create its Actions.</note></p><p>When Agavi
-    creates a project, it includes some skeleton classes from which your
-    actions, views and models inherit. The project prefix parameter requested
-    from you during the project creation is the prefix that will be prepended
-    to the name of the base classes. Actions, Views and Models are PHP
-    classes. They are not inherited directly from Agavi classes, but from
-    these base project-specific classes (which in turn inherit from Agavi
-    classes directly). This is done so that you can add functionality to all
-    Actions, Views, and Models later without having to edit your application's
-    or Agavi's source code. The base classes are located in
+Module for login system action [Admin]:
+</screen>
+
+<p>Congratulations! You have created a brand new Agavi application.</p>
+<p>You now have a project with two Modules: Public and Admin. In the
+    Public Module, you have two Actions: Index and ShowPost. The Index
+    action will serve as the front page for your blog. The ShowPost
+    action will implement a page for showing a specific blog post.</p>
+
+<note>The Admin module is empty for now. We'll fill it with code in
+the security feature chapters.</note>
+
+<p>When Agavi creates a project, it includes some skeleton classes
+    from which your actions, views and models inherit. The project
+    prefix parameter requested from you during the project creation is
+    the prefix that will be prepended to the name of the base
+    classes. Actions, Views and Models are PHP classes. They are not
+    inherited directly from Agavi classes, but from these base
+    project-specific classes (which in turn inherit from Agavi classes
+    directly). This is done so that you can add functionality to all
+    Actions, Views, and Models later without having to edit your
+    application's or Agavi's source code. The base classes are located
+    in
     <filepath>app/lib/action/</filepath>, <filepath>app/lib/view/</filepath>
-    and <filepath>app/lib/model/</filepath>.</p><p>The template extension
-    parameter is required to help Agavi configure the default settings for
-    your application's output rendering. The default value is sufficient for
-    our application.</p><p><note type="tip">The template extension parameter
-    value does not select a templating system; it merely tells the project
-    configuration script about the default template extension, which is used
-    when you create a new template.</note></p></section>
+    and <filepath>app/lib/model/</filepath>.</p>
+<p>The template extension parameter is required to help Agavi
+    configure the default settings for your application's output
+    rendering. The default value is sufficient for our
+    application.</p>
+<note type="tip">The template extension parameter value does not
+    select a templating system; it merely tells the project
+    configuration script about the default template extension, which
+    is used when you create a new template.</note>
+    </section>
   </body>
 </topic>

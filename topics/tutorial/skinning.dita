@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="bloggie-stage3-skinning">
-  <title>Applying a skin to Bloggie (using layers and output types)</title>
+  <title>Styling Bloggie with templates</title>
   <body>
     <p>A basic HTML template consists of a header, a footer and a
       stylesheet. Typical PHP applications include header and footer

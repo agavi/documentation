@@ -2,7 +2,7 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="bloggie-stage3-createing-comment-system">
-  <title>Creating the comment system (using slots, validation and Action methods)</title>
+  <title>Creating the comment system</title>
   <body>
     <p>At this point, Bloggie can display posts from the database, but
     can't yet allow the blog readers to submit their own comments.</p>
