@@ -41,13 +41,13 @@
       database in the comments. Let's create the <apiname>Comments</apiname> model and
       then the Action itself.</p>
       <p>Layouts in <filepath>output_types.xml</filepath>:
-      <codeblock conref="../examples/slots.dita#bloggie-layouts"/>
+      <codeblock conref="../examples/slots.dita#bloggie-layouts" class="xml"/>
       </p>
       <p>The <apiname>Comments</apiname> Model:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-model"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-model" class="php"/>
       </p>
       <p>The <apiname>PostComments</apiname> Action:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-action"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-action" class="php"/>
       </p>
       <p>As you see, this Action has both read and write methods. The
 	read method is used to render the comments for a given post ID,
@@ -62,7 +62,7 @@
 	behave quite differently. The "Success" View is meant to be used
 	in a slot on the post page, and thus it uses the "slot"
 	layout in which there is no regular decorator:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-success-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-success-view" class="php"/>
       </p>
       <note type="important">It is possible to create an infinite loop
       if one of your slots loads a layout that specifies that same
@@ -71,21 +71,21 @@
       there is an infinite loop.</note>
       <p>The corresponding template for this view draws the comments
       themselves and the new comment submission form:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-success-template"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-success-template" class="php"/>
       </p>
       <p>The "Error" View, on the other hand, is only invoked after a
 	failed comment submission, so whenever it is executed, the
 	PostComments action is running as the primary Action, and not as a
 	slot on top of another Action. Thus, the normal decorator is
 	needed and so the "Error" View uses the default layout:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-error-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-error-view" class="php"/>
       </p>
       <p>The "ForwardToPost" View is different. It's invoked when a
 	comment submission succeeds, which means the Action is running as
 	the primary Action just like in the "Error" View. Whenever a
 	comment is submitted, the user should be forwarded back to the
 	post page, which is now updated with his comment. We'll use an HTTP redirect:
-      <codeblock conref="../examples/slots.dita#bloggie-comments-forward-view"/>
+      <codeblock conref="../examples/slots.dita#bloggie-comments-forward-view" class="php"/>
       </p>
     </section>
     <section>
@@ -97,12 +97,12 @@
     <p>Since we're not going to use this slot configuration anywhere
     else, it makes sense to set up the slot in our code instead of
     configuring it in XML. The "Success" View of <apiname>ShowPost</apiname> does exactly that:</p>
-    <codeblock conref="../examples/slots.dita#bloggie-post-success-view"/>
+    <codeblock conref="../examples/slots.dita#bloggie-post-success-view" class="php"/>
     <p>This makes the "comments" slot available to the template in the
     "content" layer, which is the own template of this View. The
     template makes use of the <varname>$slots</varname> to access the
     slot:</p>
-    <codeblock conref="../examples/slots.dita#bloggie-post-success-template"/>
+    <codeblock conref="../examples/slots.dita#bloggie-post-success-template" class="php"/>
     <p>Now you can open any Bloggie post in the browser, and you'll
     see the comment submission form (and comments, if any) displayed below the main post contents.</p>
     </section>
