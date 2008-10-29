@@ -45,25 +45,23 @@
 
       <screen>$ <userinput>pear channel-discover pear.agavi.org</userinput>
 
-      Adding Channel "pear.agavi.org" succeeded
-      Discovery of channel "pear.agavi.org" succeeded
+Adding Channel "pear.agavi.org" succeeded
+Discovery of channel "pear.agavi.org" succeeded
 
-      $ <userinput>pear config-set auto_discover 1</userinput>
-      $ <userinput>pear install -a agavi/agavi</userinput>.
-      </screen> 
+$ <userinput>pear config-set auto_discover 1</userinput>
+$ <userinput>pear install -a agavi/agavi</userinput>.
+</screen> 
 
       <note type="tip">Since Agavi 1.0.0 is still in a beta state,
       you may have to set your PEAR preferred package state to
       beta before installing Agavi:
       <screen>
-	$ <userinput>pear config-set preferred_state beta</userinput>
-      </screen>
+	$ <userinput>pear config-set preferred_state beta</userinput></screen>
       </note>
       <p>It is also possible to obtain a specific version of
       Agavi:</p>
       <screen>
-	$ <userinput>pear install agavi/agavi-0.11.0</userinput>
-      </screen>
+	$ <userinput>pear install agavi/agavi-0.11.0</userinput></screen>
 
       <note type="tip">
 	Depending on your system configuration, you might need to
@@ -83,27 +81,25 @@
       provide some basic information about your current environment:</p>
 
       <p>
-	<screen>
-	  $ <userinput>agavi</userinput>
-	  Agavi &gt; status:
+	<screen>$ <userinput>agavi</userinput>
+Agavi &gt; status:
 
-	  [echo] PHP:
-	  [echo]   Version: 5.2.6-2
-	  [echo]   Include path: .:/usr/share/php:/usr/share/pear
-	  [echo]
-	  [echo] Phing:
-	  [echo]   Version: Phing version 2.3.1RC1
-	  [echo]
-	  [echo] Agavi:
-	  [echo]   Installation directory: /usr/share/php/agavi
-	  [echo]   Version: 1.0.0
-	  [echo]   URL: http://www.agavi.org
-	  [echo]
-	  [echo] Project:
-	  [echo]   (not found)
-	  [echo]
-	  [echo] For a list of possible build targets, call this script with the -l argument.
-	</screen>
+[echo] PHP:
+[echo]   Version: 5.2.6-2
+[echo]   Include path: .:/usr/share/php:/usr/share/pear
+[echo]
+[echo] Phing:
+[echo]   Version: Phing version 2.3.1RC1
+[echo]
+[echo] Agavi:
+[echo]   Installation directory: /usr/share/php/agavi
+[echo]   Version: 1.0.0
+[echo]   URL: http://www.agavi.org
+[echo]
+[echo] Project:
+[echo]   (not found)
+[echo]
+[echo] For a list of possible build targets, call this script with the -l argument.</screen>
 	(Note that version information may differ slightly.) If you
 	are getting errors instead, Agavi isn't installed
 	correctly. If you can't figure out the problem yourself, don't

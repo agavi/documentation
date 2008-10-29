@@ -84,7 +84,6 @@ public function executeHtml(AgaviRequestDataHolder $rd)
    * @param integer $count How many items to return
    **/
 
-   **/
   public function getRecentCommentsForPost($post_id, $count = 20)
   {
     $pdo = $this->getPdo();
@@ -110,6 +109,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
    * @param string $email E-mail address of the submitter
    * @param string $body Contents of the post
    */
+
   public function saveComment($post_id, $name, $email, $body)
   {
     $sql = "INSERT INTO comments SET post_id = ?, name = ?, email = ?, content = ?, posted = NOW()";
@@ -154,8 +154,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
       // There was a problem with saving the comment. Show an error
       // screen. 
       return 'Error';
-  }]]>
-</codeblock>
+  }]]></codeblock>
 <codeblock id="bloggie-comments-success-view"><![CDATA[
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
@@ -164,8 +163,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
     // it normally, we'd have a check here that'd load the normal layout
 
     $this->loadLayout('slot');
-  }
-]]></codeblock>
+  }]]></codeblock>
 <codeblock id="bloggie-comments-error-view"><![CDATA[
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
@@ -184,8 +182,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
     
     // Tell Agavi to redirect there
     $this->getResponse()->setRedirect($url);
-  }
-]]></codeblock>
+  }]]></codeblock>
 <codeblock id="bloggie-layouts"><![CDATA[
   <layout name="default">
 
@@ -207,8 +204,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
 
   <layout name="slot">
     <layer name="content"/>
-  </lapyout>
-]]></codeblock>
+  </layout>]]></codeblock>
 <codeblock id="bloggie-comments-success-template"><![CDATA[
 <!-- The PostComments Action is meant to display the new comment form and any comments 
 associated with a given blog post -->
@@ -276,8 +272,7 @@ $post = $template['post'];
 <h2>Comments</h2>
 <div>
   <?php print $slots['comments']; ?>
-</div>
-]]></codeblock>
+</div>]]></codeblock>
 
 <!--
 

@@ -20,8 +20,7 @@ $val = AgaviConfig::get('org.mycompany.myapp.meaning_of_life', 42);]]>
     <codeblock id="services-example-database">
 $dbm = $this->context->getDatabaseManager();
 $db = $dbm->getDatabase('blog');
-$conn = $db->getConnection();
-    </codeblock>
+$conn = $db->getConnection();</codeblock>
    <codeblock id="services-example-routing-gen">
 $ro = $this->context->getRouting();
 
@@ -145,8 +144,7 @@ class Public_IndexSuccessView extends BlogPublicBaseView
     // it so that templates can access it
     $this->setAttribute('posts', $m->findFrontpagePosts());
   }
-}
-      </codeblock>
+}</codeblock>
       <codeblock id="stage2-showpost-action">
 class Public_ShowPostAction extends BlogPublicBaseAction
 {
@@ -253,8 +251,7 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
   &lt;h1&gt;My content page&lt;/h1&gt;
   &lt;p&gt;Blah blah&lt;/p&gt;
 &lt;/div&gt;
-&lt;/body&gt;
-</codeblock>
+&lt;/body&gt;</codeblock>
 <codeblock id="layouts-classic-html-header">
 &lt;html&gt;
 &lt;head&gt;
@@ -264,18 +261,15 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
 &lt;div class=&quot;navigation&quot;&gt;
 &lt;!--- navigation stuff here --&gt;
 &lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-</codeblock>
+&lt;div class=&quot;content&quot;&gt;</codeblock>
 <codeblock id="layouts-classic-html-page">
 &lt;?php require_once 'header.inc.php'; ?&gt;
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;
-&lt;?php require_once 'footer.inc.php'; ?&gt;
-</codeblock>
+&lt;?php require_once 'footer.inc.php'; ?&gt;</codeblock>
 <codeblock id="layouts-classic-html-footer">
 &lt;/div&gt;
-&lt;/body&gt;
-</codeblock>
+&lt;/body&gt;</codeblock>
 <codeblock id="layouts-agavi-html-decorator">
 &lt;html&gt;
 &lt;head&gt;
@@ -287,8 +281,7 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
 &lt;div class=&quot;content&quot;&gt;
 &lt;?php print $inner; ?&gt;
 &lt;/div&gt;
-&lt;/body&gt;
-</codeblock>
+&lt;/body&gt;</codeblock>
 <codeblock id="layouts-agavi-html-view-template">
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;</codeblock>
@@ -348,8 +341,7 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
 <div class="holder_bottom"></div>
 </div>
 </body>
-</html>]]>
-</codeblock>
+</html>]]></codeblock>
 <codeblock id="stage3-showpost-modified-template">
 &lt;?php
 
@@ -362,8 +354,7 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
  &lt;h5&gt;&lt;?php print $post['posted']; ?&gt;&lt;/h5&gt;
  &lt;div&gt;
   &lt;?php print $post['content']; ?&gt;
- &lt;/div&gt;
-</codeblock>
+ &lt;/div&gt;</codeblock>
 <codeblock id="stage3-index-modified-template">
  &lt;h1&gt;Latest posts&lt;/h1&gt;
  &lt;!-- Loop over the posts exported by the View --&gt;
@@ -376,8 +367,7 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
    &lt;!-- the summary line with author name, posting date and category name --&gt;
 by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; ?&gt; in &lt;strong&gt;&lt;?php print $post['category_name']; ?&gt;&lt;/strong&gt;
 
- &lt;?php endforeach; ?&gt;
-</codeblock>
+ &lt;?php endforeach; ?&gt;</codeblock>
 <codeblock id="stage3-modified-output-types">
 	&lt;layouts default=&quot;default&quot;&gt;
 
@@ -400,8 +390,7 @@ by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; 
 	      &lt;parameter name=&quot;directory&quot;&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
 	    &lt;/layer&gt;
 	  &lt;/layout&gt;
-	&lt;/layouts&gt;
-</codeblock>
+	&lt;/layouts&gt;</codeblock>
 
 </body>
 </topic>
