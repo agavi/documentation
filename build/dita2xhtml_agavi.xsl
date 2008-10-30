@@ -369,13 +369,14 @@ applicable licenses.-->
 
       <xsl:call-template name="next-prev-parent-links"/>
 -->
-      <div id="footer">
-<!--	<hr />
+<!--      <div id="footer">
+	<hr />
 	Copyright (c) 2008 Bitextender GmbH
 	<br />
 
-	OSWD Design by John Zaitseff -->
+	OSWD Design by John Zaitseff 
       </div>
+-->
       <xsl:value-of select="$newline"/>
   </xsl:template>
 
