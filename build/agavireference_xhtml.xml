@@ -14,8 +14,8 @@
 
       <property name="args.copycss" value="yes"/>
       <property name="args.css" value="${project.dir}${file.separator}sinorcaish${file.separator}agavi${file.separator}sinorcaish-screen.css"/>
-<!--      <property name="args.xsl"
-		value="${dita.dir}${file.separator}xsl${file.separator}dita2xhtml_custom.xsl" /> -->
+      <property name="args.xsl"
+		value="${dita.dir}${file.separator}xsl${file.separator}dita2xhtml_custom.xsl" /> 
       <property name="args.csspath" value="css/"/>
       <property name="output.dir" value="html-out-reference" />
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="routing">
+  <title>Routing</title>
+  <body>
+    <p>Agavi Routing is a generalized rule engine that maps
+    foreign request formats (such as URLs or HTTP headers, for
+    example) to Agavi Actions and their parameters. In Web context,
+    Routing is responsible for parsing URLs and other parts of an HTTP
+    request and generation of HTTP links.</p>
+    <p>URLs are an extremely important part of modern Web
+    applications. A correctly organized URL structure improves search
+    engine rankings, allows people to access parts of your website
+    quickly, and enables the developers to expose application services
+    and APIs to the outside world in a consistent and clear fashion.</p>
+    <p>In Agavi, Routing serves as a layer of indirection between your
+    application and outside world. This means that the internal
+    organization and structure of your application has no direct
+    bearing on URLs and vice versa. Even though it is often convenient
+    to structure your URLs a way that is similar to the internal layout of your
+    Modules and Actions, it is absolutely not a requirement to do
+    so.</p>
+  </body>
+</topic>

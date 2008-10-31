@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="routing-map">
+  <title>The Routing Map</title>
+  <body>
+    <p>The routing map is a collection of rules that describe how foreign requests map to Agavi Actions. When a request arrives,
+    Routing parses it according to the rules set forth in the routing map, and yields a configured <xref
+    href="execution-containers.dita">Execution Container</xref> which is then executed by Agavi.</p>
+    
+    <p>The routing map usually resides in <filepath>app/config/routing.xml</filepath>. It consists from a set of rules which obey
+    certain laws that are explained in this manual. Here's an example rule: </p>
+
+    <codeblock class="xml"><![CDATA[<route pattern="/foo" module="MyModule" action="Foo"/>]]></codeblock>
+
+    <section>
+      <title>How Routing processes the rules</title>
+
+      <p>When a request arrives, Agavi prepares a blank Execution Container and a Request object which Routing fills with
+      <keyword>target parameters</keyword>. This includes request data parameters, identity and location of the requested Action,
+      the desired <xref href="action-methods.dita">Action method</xref> and the <xref href="output-types.dita">output
+      type</xref>. All this information is needed to locate and execute the target Action.</p>
+
+      <p>Routing processes the map rules from top to bottom. When processed, every rule either matches or not. When a rule matches,
+      it may <i>elaborate</i> the target in some way or override some of the previously determined parameters. These elaborations are
+      specified using the rule's attributes.</p>
+
+      <p>It is important to point out that while most of the target parameters are overwritten by a matching rule, some specific
+      parameters can be <i>accumulated</i>. Accumulation is described in sections that pertain the specific target parameters that
+      support it.</p>
+    </section>
+
+    <section>
+      <title>Action identity</title>
+      <p>A rule may elaborate the name of the Module and the Action which is to be called. This is achieved using the
+      <varname>action</varname> and <varname>module</varname> attributes of the rule. For example, the rule below declares that if
+      the request URL is "/agavi/supremacy", then the Action to be executed is the <apiname>Supremacy</apiname> action in module
+      <apiname>Agavi</apiname>:</p>
+
+      <codeblock class="xml"><![CDATA[<route pattern="^/agavi/supremacy$" module="Agavi" action="Supremacy"/>]]></codeblock>
+
+      <p>Unlike most other rule attributes, the <varname>action</varname> attribute is subject to <i>accumulation</i>: if the value
+      of the attribute begins with a dot, then the new value is <i>appended</i> to the old value together with the dot, as opposed
+      to overriding it:</p>
+      
+      <codeblock class="xml"><![CDATA[<route pattern="^/blog$" module="Blog" action="Index">
+ <route pattern="^/most-recent.html" action=".MostRecent"/>
+</route>]]></codeblock>
+
+      <p>In this example, requesting "/blog" will cause Agavi to invoke Action <apiname>Index</apiname>, whereas requesting
+      "/blog/most-recent.html" will invoke Action <apiname>Index.MostRecent</apiname>. This gives you a nice way to compose routes
+      to <xref href="subactions.dita">sub-actions</xref>.</p>
+
+    </section>
+    <section>
+      <title>Patterns and request parameters</title>
+
+      <p>Routing uses special type of pattern matching language which is similar to PCRE regular expressions but simpler. Routing
+      patterns are optimized for URL matching so that you do not have to escape common URL parts every time.</p>
+
+      <p>Just like with PCRE, a pattern can begin with a circumflex (^) and/or end with a dollar sign ($). By default, the pattern
+      matches <i>any</i> part of the examined value. Use of these <keyword>anchors</keyword> forces the pattern to match only in the
+      beginning and the end of the examined value respectively. So, <b>"foo"</b> matches any string that contains the word "foo", <b>"^foo"</b>
+      matches only strings that <i>begin</i> with "foo" and <b>"foo$"</b> will match strings that <i>end</i> with "foo". Using both anchors
+      means that the entire examined value must match the pattern.</p>
+
+      <p>The body of the pattern is a plain string which matches the examined value literally. To match parts with a regular
+      expression, you have to enclose the relevant parts of the pattern in parens (called <keyword>capture groups</keyword>) which
+      behave almost the same way as in true PCRE. Capture groups are also used to identify the parts of URL which become Action parameters:</p>
+
+      <codeblock class="xml"><![CDATA[<route pattern="^/blog/(post_id:\d+)$" stop="false" module="Blog" action="Post" />]]></codeblock>
+      
+      <p>In the example above, the route uses the PCRE syntax to capture parameter <varname>post_id</varname>, which will be passed
+      to the <apiname>Post</apiname> Action (and the View it appoints) through an instance of
+      <apiname>AgaviRequestDataHolder</apiname> object.</p>
+      
+      <p>A rule may also specify the default values for request parameters. These defaults are used when the values for these
+      parameters are not set by the rule:</p>
+
+      <codeblock class="xml"><![CDATA[<route pattern="^/map(/{area:north|south|east|west})?$" module="Mapping" action="AreaMap" >
+ <defaults>
+  <default for="area">north</default>
+ </defaults>
+</route>
+]]></codeblock>
+      
+      <p>In this case, requesting "/map" is equivalent to requesting "/map/north".</p>
+      
+      <note type="important">Despite their appearance, routing patterns are not regular expressions. The anchors and parts inside
+      parens/curly braces are treated as regular expressions; everything beside that is a literal string, so that you do not have to escape special PCRE
+      characters like slashes which appear often in URLs.</note>
+
+      <p>Expressions in parens can not be nested. This is by design: if you find yourself attempting to write a pattern with
+      nested parens, you should break the rule apart into child rules. This is not only correct from consistency perspective, but
+      also helps Routing to maintain maximum performance, since child rules are never evaluated if their parent rule doesn't match.</p>
+
+      <p>You can use curly braces inside a capture group to specify that only a certain part of the capture group should be treated
+      as a regular expression. This allows you to apply PCRE modifiers (such as the question mark in the example below, or PCRE
+      greediness reversal etc) to the capture group without having to escape special characters inside the capture group:</p>
+
+      <codeblock class="xml"><![CDATA[<route pattern="^/products(/quality-{product_name:\w+}-pictures.html)?$" module="Blog" action="Products" />]]></codeblock>
+
+      <p>The pattern above will match both "/products" and "/products/quality-chainsaw-pictures.html", in the latter case setting
+      the <varname>product_name</varname> parameter to "chainsaw". However, it will <i>not</i> match "/products/" or
+      "/products/quality-pictures.html", because neither case satisfies the pattern. Note that both the opening slash and the dot
+      before "html" are not escaped, since these parts of the capture group are not treated as a regular expression.</p>
+
+      <p>While this approach may seem counter-intuitive, it ensures readability. For contrast, compare the previous example with how
+      it would look if you were forced to use true PCRE:</p>
+
+      <codeblock class="xml"><![CDATA[
+<!-- The Agavi way -->
+
+<route pattern="^/products(/quality-{product_name:\w+}-pictures.html)?$" module="Blog" action="Products" />
+
+<!-- The Perl way -->
+
+<route pattern="^\/products(\/quality-(?<product_name>:\w+)-pictures\.html)?$" module="Blog" action="Products" />]]></codeblock>
+
+      <p>Clearly, Agavi approach assures cleaner, more readable routing maps, which becomes especially important in huge
+      applications with many levels of rule nesting and thousands of Actions.</p>
+
+      </section>
+
+      <section id="nested-routes">
+	<title>Nested routes</title>
+	
+	<p>Rules may have child routes, in which case the whole group becomes a <keyword>nested route</keyword>.  When such a rule
+	matches, Routing dives into its children and attempts to match them as well. The rule evaluation <i>never</i> returns from a
+	matching route if it has children, <i>even</i> if none of its children match.</p>
+
+	<codeblock><![CDATA[
+<route pattern="^/foo" module="Foo">
+ <route pattern="^/a$" action="A"/>
+ <route pattern="^/b$" action="B"/>
+ <route pattern="^/c$" action="C"/>
+</route>]]></codeblock>
+
+	<p>In this example, requesting just "/foo" would cause a 404 error, because only the Module name can be established. On the
+	other hand, requesting "/foo/c" will cause execution of Action <apiname>C</apiname> in Module <apiname>Foo</apiname></p>
+      </section>
+
+
+    <section>
+      <title>Stop rules</title>
+      
+      <p>The Routing engine walks the map until it finds a matching stop rule or the map ends. Whether the rule is a stop rule is
+      controlled by the value of the rule's <varname>stop</varname> attribute. All rules are assumed to be stop rules, unless you
+      specify otherwise:</p>
+
+      <codeblock class="xml"><![CDATA[<route pattern="/foo" stop="false" module="MyModule" action="Foo"/>]]></codeblock>
+
+      <p>However, one notable exception to the above exists: rules that have children can <i>never</i> be made stop rules. It makes
+      no sense to declare a parent rule a stop rule, since that would mean its children can never be processed. For such parent
+      routes, the <varname>stop</varname> attribute is always ignored.</p>
+    </section>
+
+    <section>
+      <title>Rule sources</title>
+
+      <p>Rules can specify the <keyword>source</keyword> of the data on which Routing performs the matching. In Web context, the
+      default source is the request URL. Alternate sources can be specified through the <varname>source</varname> attribute of a rule.</p>
+
+      <p>The following example rule is commonly used in Ajax-enabled applications to detect web requests initiated with browser-side
+      XMLHttpRequest object and switch the requested <xref href="output-types.dita">output type</xref> to a suitable format such as
+      XML or JSON:</p>
+
+      <codeblock class="xml"><![CDATA[<route source="_SERVER[HTTP_X_REQUESTED_WITH]" pattern="XMLHttpRequest" stop="false" output_type="ajax"/>]]></codeblock>
+
+      <dl>
+	<dlentry>
+	  <dt><varname>_ENV</varname></dt>
+	  <dd>This source allows you to match against environment variables. It is the equivalent of PHP's <varname>$_ENV</varname></dd>
+	</dlentry>
+
+	<dlentry>
+	  <dt><varname>_SERVER</varname></dt>
+	  <dd>This source allows you to match against contents of PHP's <varname>$_SERVER</varname></dd>
+	</dlentry>
+
+	<dlentry>
+	  <dt><varname>user</varname></dt>
+	  <dd>This source allows you to match the attributes of the <xref href="session-security.dita">User</xref> object, which
+	  represents the session for the current user.</dd>
+	</dlentry>
+
+	<dlentry>
+	  <dt>Custom sources</dt>
+	  <dd>You can implement custom sources and Routing will match against them as well</dd>
+	</dlentry>
+      </dl>
+    </section>
+
+      <section>
+	<title>Cutting</title>
+
+	<p>A rule that doesn't cause a stop may be cutting or non-cutting. Cutting is removal of the matched part of the URL from
+	further evaluation, and it makes no sense for a stopping rule. To override the rule's default cutting behaviour, use the
+	<varname>cut</varname> attribute.</p>
+
+	<p>For childless routes, the default behaviour is not to cut. For routes with children, on the other hand, the opposite is
+	true. Nested routes are the most notable application of cutting. Consider the following routing map:</p>
+
+	<codeblock><![CDATA[
+<route pattern="^/blog" module="Blog" action="Index">
+ <route pattern="^/(post_id:\d+)" action="Post">
+</route>]]></codeblock>
+
+	<p>When a request for "/blog/5" arrives, the first rule matches only the "/blog" part of the URL, and it is removed from
+	further matching. If the parent rule wasn't cutting, you'd have to specify the "/blog" part in the child route's pattern as well.
+	</p>
+
+	<p>Another common use for the cutting feature is duplication of parts of the URL map. Imagine that you have routes that match
+	"/foo/a", "/foo/b" and "/foo/c". However, you want switch the output type to XML if the URL begins with "/xml", such as
+	"/xml/foo/a". In this case, without the cutting feature, you'd have to duplicate the routing map. Using the cutting feature however,
+	this costs us just a single rule:</p>
+
+	<codeblock><![CDATA[
+<route pattern="^/xml" output_type="xml" cut="true" stop="false">
+
+<route pattern="^/foo" module="Foo">
+ <route pattern="^/a$" action="A"/>
+ <route pattern="^/b$" action="B"/>
+ <route pattern="^/c$" action="C"/>
+</route>]]></codeblock>
+      </section>
+
+      
+      <section>
+	<title>Interpolation and ignoring parameters</title>
+
+	<p>Some rule attributes support <keyword>variable interpolation</keyword>: the value for the attribute is not specified
+	literally but rather can be calculated from some previously determined variable. For example, you could map a part of an URL
+	directly to a module name:</p>
+
+	<codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery" />]]></codeblock>
+	
+	<p>Naturally, requesting "/images/Chainsaws/gallery" would invoke Action <apiname>Gallery</apiname> in Module
+	<apiname>Chainsaws</apiname></p>
+
+	<p>This sometimes produces a situation when a parameter is only needed for interpolation and should not be passed down to
+	the Action. This is achieved using <varname>ignore</varname> element:</p>
+
+	<codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery">
+ <ignores>
+  <ignore>product</ignore>
+ </ignores>
+</route>]]></codeblock>
+
+	<p>You can also interpolate values from configuration using the usual configuration syntax:</p>
+
+	<codeblock class="xml"><![CDATA[<route pattern="^/todays-special-dish.html$" module="Restaurant"
+	action="%myapp.todays_special_action%"/>]]></codeblock>
+
+	<p>This interpolation is supported in the following route attributes: <varname>imply</varname>, <varname>cut</varname>,
+	<varname>stop</varname>, <varname>locale</varname>, <varname>action</varname>, <varname>method</varname>,
+	<varname>module</varname> and <varname>output_type</varname>.</p>
+
+      </section>
+      <section>
+	<title>Locales</title>
+
+	<p>A route may notify the <xref href="translation-manager.dita">translation manager</xref> directly to update the current locale
+	settings:</p>
+
+	<codeblock class="xml"><![CDATA[<route pattern="^/({locale:[a-z]{2}})/" stop="false" cut="true" locale="${locale}" />]]></codeblock>
+
+	<p>Any request that begins with a slash and two letters, such as "/es/foo" or "/en/bar" will trigger the corresponding
+	locale without interrupting the normal URL scheme, so that "foo.html" and "fr/foo.html" will eventually map to the same
+	Action, but the latter would force the locale to be set to French.</p>
+      </section>
+
+      <section>
+      <title>Action methods and output types</title>
+      <p>Routing rules may be used to override the requested <xref href="action-methods.dita">Action methods</xref> and <xref
+      href="output-types.dita">output types</xref>. This is achieved using the respective <varname>method</varname> and
+      <varname>output_type</varname> attributes of a rule:</p>
+
+      <codeblock class="xml"><![CDATA[<!-- For any URL ending in ".rss" switch the requested output type to "rss" -->
+<route pattern=".rss$" stop="false" cut="true" output_type="rss"  />
+
+<!-- Map routes to custom Action methods for a multi-page wizard-type Action -->
+
+<route pattern="^/booking" module="Tickets" action="BookingWizard">
+ <route pattern="^$" method="personalDataStep"/>
+ <route pattern="^/step2" method="flightSelectionStep"/>
+ <route pattern="^/step3" method="paymentDetailsStep"/>
+ <route pattern="^/confirmation" method="confirmationStep"/>
+</route>]]></codeblock>
+      
+      </section>
+
+      <section>
+	<title>Callbacks</title>
+	<p>Agavi Routing can be extended using callbacks. Callbacks are plug-in classes that tap into the internal stages of
+	processing routes. They allow customization beyond what Routing normally offers. For details, please see the <xref
+	href="routing-callbacks.dita">callbacks</xref> manual.</p>
+	<p>A callback is assigned to a route using the <varname>callback</varname> attribute of the rule:</p>
+
+	<codeblock class="xml"><![CDATA[<route pattern="^/objects/(magic:.+)$" stop="false" callback="MyApplicationMagicRoutingCallback" />]]></codeblock>
+      </section>
+
+      <section>
+	<title>Implied routes</title>
+
+	<p>A rule can be declared implied, which forces Routing to consider it when you generate links. This feature is used, for
+	example, when you want your application to be able to accept partial URLs, but always return canonical ones. The
+	<varname>imply</varname> attribute is used to achieve this. For details on how to use this feature, please see the <xref
+	href="routing-url-generation.dita">URL generation</xref> chapter.</p>
+      </section>
+
+      <section>
+	<title>Route names</title>
+	
+	<p>When you <xref href="routing-url-generation.dita">generate</xref> an URL, you need a way to refer to the rules that will
+	be used to compose the desired link. To make this possible, routes can have names. A route's name is specified using
+	<varname>name</varname> attribute.</p>
+
+	<p>Unlike most other attributes, name attributes are subject to accumulation using the dot notation, because constructing an URL may require
+	Routing to evaluate more than one route, so names can be used to refer to an entire family of rules, like this:</p>
+
+	<codeblock class="xml"><![CDATA[<route name="plaintext" pattern=".txt$" output_type="plaintext" stop="false" cut="true"/>
+
+<route name="blog" pattern="^/blog" module="Blog">
+ <route name=".home" pattern="^$" action="Index"/>
+ <route name=".post" pattern="/(post_id:\d+)$" action="Post"/>
+</route>]]></codeblock>
+
+	<p>Using the routing map above, we want to generate a link to a specific blog post that returns the post in text format:</p>
+
+	<codeblock class="php"><![CDATA[<?php print $ro->gen('blog.post+plaintext', array('post_id' => $template['post_id']));?>]]></codeblock>
+
+	<p>Details of this syntax are described in the <xref href="routing-url-generation.dita">URL generation</xref> chapter.</p>
+
+	<!-- XXX document the star mode as well, see #444 -->
+      </section>
+    </body>
+</topic>

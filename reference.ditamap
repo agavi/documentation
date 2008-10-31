@@ -48,13 +48,13 @@
   <!--
      <topicref href="topics/reference/configuration-reuse.dita"/>
 </chapter>
-
+-->
 <chapter href="topics/reference/chapters/routing.dita">
   <topicref href="topics/reference/routing-map.dita"/>
   <topicref href="topics/reference/routing-url-generation.dita"/>
   <topicref href="topics/reference/routing-callbacks.dita"/>
 </chapter>
-
+<!--
 <chapter href="topics/reference/chapter/actions.dita">
   <topicref href="topics/reference/subactions.dita"/>
   <topicref href="topics/reference/action-methods.dita"/>
@@ -111,7 +111,10 @@
        <topicref href="topics/reference/tidy-filter.dita"/>
      </chapter>
 
-     <chapter href="topics/reference/chapters/i18n.dita"/>
+     <chapter href="topics/reference/chapters/i18n.dita">
+       <topicref href="topics/reference/translation-manager.dita"/>
+     </topicref>
+
      <chapter href="topics/reference/chapters/date.dita"/>
 
      <chapter href="topics/reference/chapters/component-customization.dita">
