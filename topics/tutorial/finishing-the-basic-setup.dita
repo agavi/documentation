@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="finishing-the-basic-setup">
+  <title>Finishing the basic setup</title>
+
+  <body>
+    <p>Now would be a good time to perform some setup tasks that might seem a bit unnecessary 
+ at the moment but will save you a lot of time and hassle further down the road.</p>
+
+    <section>
+        <title>Getting away from pear</title>
+        <p>While using the pear install is just perfect for the basic project setup and first 
+steps, it is recommended to move away from using the pear install and bundle the agavi lib for 
+further development. This enables your fellow developers to check out your application without 
+having a full agavi install and gives you full control over which agavi version you need for your 
+application. This will come in handy the moment someone upgrades the installed agavi version
+on the server or you need to install two applications on the same server that require different 
+agavi versions.</p>
+        <p>The first step is to bundle agavi with your application by placing a copy in 
+<filepath>libs/agavi</filepath>. You can either have a full export there, use a tarball or just
+have an external point to the appropriate revision in the agavi svn repository.</p>
+        <p>Then create a copy of the agavi bin directory in dev/bin. Again you can use an export 
+or use an external, but best use the same method as you used to bundle agavi to ensure consistency. 
+Whatever method you choose, make sure you only check in a template of the agavi build script as 
+the path setup must be done manually in some cases.</p>
+
+<note type="tip">While you can bundle agavi as a svn:external as lot's of people do, we recommend 
+that you use a full export at least for deployment. While we do our very best to ensure constant
+availability, it would be a pity to have your application deployment interrupted because our 
+sysadmins choose to reboot the subversion server, taking it offline just in the right moment
+to have you in big trouble.</note>
+
+    </section>
+    <section>
+      <title>Handling environment dependent files</title>
+      <p>Some files depend on the environment you want to run the application in - mainly the server 
+you're running on, but also environments like development, testing etc. All those may have different 
+setups calling for different configurations. While the framework itself has a mechanism to handle 
+different configurations, some things cannot be handled by agavi - namely the dispatcher file 
+<filepath>pub/index.php</filepath> and the <filepath>pub/.htaccess</filepath> file created in the 
+last step. They both contain information that depends on the environment such as the rewrite base and 
+the env-name.</p>
+      <p>It is best practice not to check those files into version control, but instead check in a 
+template that each developer copies and adapts as needed. You will notice that the build system 
+created the appropriate template files in <filepath>dev/pub/index.php</filepath> and 
+<filepath>dev/pub/.htaccess</filepath>.</p>
+ 
+<note type="tip">Now would be a good time to add the files you do not want to check in (
+<filepath>pub/index.php</filepath> and <filepath>pub/.htaccess</filepath>) to your VCS ignore mechanism, 
+set the appropriate svn:ignore for svn, add those files to _darcs/prefs/boring for darcs etc. You are 
+using version control, aren't you?</note>
+
+    </section>
+  </body>
+</topic>
