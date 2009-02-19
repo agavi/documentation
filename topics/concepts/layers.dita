@@ -8,8 +8,10 @@
       <title>What are Layers?</title>
       <p>An Agavi developer has the choice of either composing the
       output directly in a View or use the built-in rendering
-      mechanism. If a View's <apiname>executeXXX</apiname> method does
-      not return anything, Agavi engages its own rendering.
+      mechanism. If a View's <apiname>executeXXX</apiname> creates
+      any layer, either directly or by loading a layout, Agavi engages 
+      its rendering. Any output returned from the view will be available
+      as $inner in the topmost <keyword>Layer</keyword>.
       </p>
       <p>To make Agavi render the output, a View configures a number
       of objects called <keyword>Layers</keyword> and
