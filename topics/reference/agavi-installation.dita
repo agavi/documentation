@@ -49,7 +49,7 @@ Adding Channel "pear.agavi.org" succeeded
 Discovery of channel "pear.agavi.org" succeeded
 
 $ <userinput>pear config-set auto_discover 1</userinput>
-$ <userinput>pear install -a agavi/agavi</userinput>.
+$ <userinput>pear install -a agavi/agavi</userinput>
 </screen> 
 
       <note type="tip">Since Agavi 1.0.0 is still in a beta state,
