@@ -32,25 +32,5 @@ sysadmins choose to reboot the subversion server, taking it offline just in the 
 to have you in big trouble.</note>
 
     </section>
-    <section>
-      <title>Handling environment dependent files</title>
-      <p>Some files depend on the environment you want to run the application in - mainly the server 
-you're running on, but also environments like development, testing etc. All those may have different 
-setups calling for different configurations. While the framework itself has a mechanism to handle 
-different configurations, some things cannot be handled by agavi - namely the dispatcher file 
-<filepath>pub/index.php</filepath> and the <filepath>pub/.htaccess</filepath> file created in the 
-last step. They both contain information that depends on the environment such as the rewrite base and 
-the env-name.</p>
-      <p>It is best practice not to check those files into version control, but instead check in a 
-template that each developer copies and adapts as needed. You will notice that the build system 
-created the appropriate template files in <filepath>dev/pub/index.php</filepath> and 
-<filepath>dev/pub/.htaccess</filepath>.</p>
- 
-<note type="tip">Now would be a good time to add the files you do not want to check in (
-<filepath>pub/index.php</filepath> and <filepath>pub/.htaccess</filepath>) to your VCS ignore mechanism, 
-set the appropriate svn:ignore for svn, add those files to _darcs/prefs/boring for darcs etc. You are 
-using version control, aren't you?</note>
-
-    </section>
   </body>
 </topic>
