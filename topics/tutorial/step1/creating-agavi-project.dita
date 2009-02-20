@@ -26,9 +26,8 @@
     Then change to that newly created directory and invoke <userinput>agavi project</userinput>.
     Some of the prompts may seem confusing at first—don't worry, you will have a chance 
     to explore their  meaning in  more depth after your project is created. For the time being 
-    only provide a name for the project, a prefix to be used for all project specific classes, 
-    the path relative to the document root and just leave the defaults for the rest, so press 
-    enter when those prompts appear.</p>
+    only provide a name for the project, a prefix to be used for all project specific classes 
+    and just leave the defaults for the rest, so press enter when those prompts appear.</p>
 <screen>
 www$ <userinput>mkdir bloggie</userinput>
 www$ <userinput>cd bloggie</userinput>
@@ -40,7 +39,7 @@ Project name [New Agavi Project]: <userinput>Bloggie</userinput>
 Project prefix (used, for example, in the project base action) [Bloggiedemo]: <userinput>Blog</userinput>
 Default template extension [php]:
 
-Document-root relative path to the Agavi script [/]: bloggie/pub/
+Should a configured .htaccess file be generated [n]? 
 
 Space-separated list of modules to create for Bloggie [Default]:
 
@@ -68,5 +67,6 @@ bloggie$
 <p>Congratulations! You have created a brand new Agavi application. Point your favorite 
 browser to http://localhost/bloggie/pub/ and you should be greeted by the agavi welcome 
 page.</p>
+    </section>
   </body>
 </topic>

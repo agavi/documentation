@@ -21,8 +21,10 @@
 
   <chapter href="topics/tutorial/setting-up-initial-application.dita" collection-type="sequence">
     <topicref href="topics/tutorial/installing-agavi.dita"/>
-    <topicref href="topics/tutorial/creating-agavi-project.dita"/>
+    <topicref href="topics/tutorial/step1/creating-agavi-project.dita"/>
+    <topicref href="topics/tutorial/step1/finishing-setup.dita"/>
     <topicref href="topics/tutorial/configuring-example-application.dita"/>
+    <topicref href="topics/tutorial/finishing-the-basic-setup.dita"/>
     <topicref href="topics/tutorial/configuring-webserver.dita"/>
   </chapter>
 
