@@ -25,7 +25,7 @@
 			</route>
 			
 			<!-- default action for "/" -->
-			<route pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
+			<route pattern="^/$" module="Posts" action="%actions.default_action%" />
 		</routes>
 	</ae:configuration>
 </ae:configurations>
