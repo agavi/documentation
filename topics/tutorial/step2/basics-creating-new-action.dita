@@ -47,6 +47,7 @@
       the body. We allow for the body to contain html, so we can format the text
       a little. So change the Posts_Post_ShowSuccessView::executeHtml() to look 
       like this.</p>
+      <p>
       <codeblock class="php">
 <![CDATA[
 	public function executeHtml(AgaviRequestDataHolder $rd)
