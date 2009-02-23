@@ -35,9 +35,9 @@
 ]]>
 </codeblock>
 
-     Done. The action "View" in the module "Posts" will now be accessible by the
+     Done. The action "Post.Show" in the module "Posts" will now be accessible by the
      url /post. Go ahead, open your browser and try it. You should see a page with
-     a big headline saying "View".</p>
+     a big headline saying "Post.Show".</p>
     </section>
     <section>
       <title>Adding content</title>
@@ -60,7 +60,8 @@
 			'posted' => '2008-07-14 00:01:07',
 			'category_name' => 'No category',
 			'author_name' => 'Admin',
-			'url' => null
+			'url' => null,
+			'content' => '<p>Terrific! This is our first post!</p><p>This is just a first post. It has no actual contents. If you are reading this, things must be working.</p>'
 		);
 
 		$this->setAttribute('post', $post);
