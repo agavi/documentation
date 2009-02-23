@@ -13,7 +13,7 @@ class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 			'category_name' => 'No category',
 			'author_name' => 'Admin',
 			'url' => null,
-			'content' => '<p>Terrific! This is our first post!</p>\r\n\r\n<p>This is just a first post. It has no actual contents. If you are reading this, things must be working.</p>'
+			'content' => '<p>Terrific! This is our first post!</p><p>This is just a first post. It has no actual contents. If you are reading this, things must be working.</p>'
 		);
 
 		$this->setAttribute('post', $post);
