@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-creating-new-action">
+  <title>Creating a new action</title>
+
+  <body>
+    <p></p>
+
+    <section>
+      <title>Creating a new action</title>
+      <p>To create a new action invoke <userinput>agavi action</userinput> and 
+      answer the questions.</p>
+      <screen>
+      bloggie$ <userinput>agavi action</userinput>
+
+      Module name: <userinput>Posts</userinput>
+
+      Action name: <userinput>Post.Show</userinput>
+
+      Space-separated list of views to create for Post.Show [Success]: 
+
+      bloggie$ 
+      </screen>
+
+      <p>We created a new action named "Post.Show" in the Posts module. The dot 
+      in the name denotes a subaction. Subactions can be nested to arbitrary depth
+      and are useful to organize your actions in a tree-like structure. Now we just
+      need to make that action accessible with an url. Once again we use a route
+      for that. Hang on a litte, we'll explain routing in a moment. For now, just
+      insert this route in the routing.xml, right after the index route:
+<codeblock class="xml">
+<![CDATA[
+	<route name="post" pattern="^/post$" module="Posts" action="Post.Show" />
+]]>
+</codeblock>
+
+     Done. The action "View" in the module "Posts" will now be accessible by the
+     url /post. Go ahead, open your browser and try it. You should see a page with
+     a big headline saying "View".</p>
+    </section>
+    <section>
+      <title>Adding content</title>
+      <p>You already learned about template variables in the last parts, so we
+      make this a quick one - we just add the information for a single post to
+      the template, containing the same information as in the list. We just add
+      the body. We allow for the body to contain html, so we can format the text
+      a little. So change the Posts_Post_ShowSuccessView::executeHtml() to look 
+      like this.</p>
+      <codeblock class="php">
+<![CDATA[
+	public function executeHtml(AgaviRequestDataHolder $rd)
+	{
+		$this->setupHtml($rd);
+	
+		$post = array(
+			'id' => 1,
+			'title' => 'First post',
+			'posted' => '2008-07-14 00:01:07',
+			'category_name' => 'No category',
+			'author_name' => 'Admin',
+			'url' => null
+		);
+
+		$this->setAttribute('post', $post);
+	
+		$this->setAttribute('_title', 'Index');
+	}
+]]></codeblock>
+
+      And we should adapt the title here as well. Change the 
+      line saying
+<codeblock class="php">
+<![CDATA[
+	$this->setAttribute('_title', 'Index');
+]]>
+</codeblock>
+
+      to
+
+<codeblock class="php">
+<![CDATA[
+	$this->setAttribute('_title', $post['title']);
+]]>
+</codeblock>
+      </p>
+      <p>An then the template:
+
+<codeblock class="php">
+<![CDATA[
+<?php
+// alias the post, to make access shorter
+$post = $t['post'];
+?>
+<span class="author">by <?php echo htmlspecialchars($post['author_name']); ?></span>
+<span class="category">in <?php echo htmlspecialchars($post['category_name']); ?></span>
+<span class="posted"><?php htmlspecialchars($post['posted']); ?></span>
+<div class="content"><?php echo $post['content']; ?></div>
+]]></codeblock>
+      
+      Open your browser and point it to http://localhost/bloggie/pub/post and you should 
+      see the stub page we just created.
+      </p>
+    </section>
+ 
+  </body>
+</topic>

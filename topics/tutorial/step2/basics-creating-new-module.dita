@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
-<topic id="finishing-setup">
-  <title>Adding a static index page</title>
+<topic id="basics-creating-new-module">
+  <title>Creating a new module</title>
 
   <body>
     <p>The index page should contain a list of posts and link to the detail 
@@ -29,7 +29,7 @@
 
       Space-separated list of actions to create for Posts: <userinput>Index</userinput>
 
-      Space-separated list of views to create for List [Index]: 
+      Space-separated list of views to create for Index [Success]: 
 
       bloggie$ 
       </screen>
@@ -180,7 +180,10 @@ foreach ($t['posts'] as $post)
       use any of the characters that are reserved in html. We don't want to 
       escape them before storing the post in a database or the like, because
       maybe we want to generate output that is not html later on and then we'd
-      have to decode them again. And we don't want to use htmlentities() as 
+      have to decode them again. Neither do we want to have the htmlspecialchars 
+      call in the view as some templating engines do that implicitly. So converting
+      the specialchars in the view would make it harder to just swap in a new
+      templating engine. And we don't want to use htmlentities() as 
       we're trying to be XML compliant at the same time. If you have any special
       characters like umlauts, just use utf8 as charset and the regular 
       character. It will save you a lot of hassle later on. If htmlspecialchars()

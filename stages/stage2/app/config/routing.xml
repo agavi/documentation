@@ -3,6 +3,11 @@
 	<ae:configuration>
 		<routes>
 			
+			<!-- default action for "/" -->
+			<route pattern="^/$" module="Posts" action="%actions.default_action%" />
+			
+			<route name="post" pattern="^/post$" module="Posts" action="Post.Show" />
+			
 			<!-- an example for a CRUD-style set of routes -->
 			<route name="products" pattern="^/products" module="Products">
 				<!-- do not put the action into the parent route, because that one is not anchored at the end of the pattern! -->
@@ -23,9 +28,7 @@
 					</route>
 				</route>
 			</route>
-			
-			<!-- default action for "/" -->
-			<route pattern="^/$" module="Posts" action="%actions.default_action%" />
+
 		</routes>
 	</ae:configuration>
 </ae:configurations>

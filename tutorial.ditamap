@@ -38,7 +38,8 @@
   </chapter>
 
   <chapter href="topics/tutorial/step2/introduction.dita" collection-type="sequence">
-    <topicref href="topics/tutorial/step2/static-index-page.dita"/>
+    <topicref href="topics/tutorial/step2/basics-creating-new-module.dita"/>
+    <topicref href="topics/tutorial/step2/basics-creating-new-action.dita"/>
   </chapter>
 
 
