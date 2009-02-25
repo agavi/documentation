@@ -57,7 +57,9 @@ cp $PROJ_DIR/svg/*.png $PROJ_DIR/html-out/topics/images
 
 # Create the stage tarballs
 
-mkdir $PROJ_DIR/html-out/stages
+if [[ ! -e $PROJ_DIR/html-out/stages ]]; then
+    mkdir $PROJ_DIR/html-out/stages
+fi
 
 cd $PROJ_DIR/stages
 
