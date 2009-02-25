@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="introduction-routing">
+  <title>Tying things together - an introduction to routing</title>
+
+  <body>
+    <p>So far we have been concerned with how to display some information to
+    the user, but not with how the user finds the content we want to show. But
+    as there are many ways to access data, there are several ways to describe
+    where to find what - Websites and REST use URLs, SOAP uses the SOAPAction
+    and so on. And then, the application itself organizes itself into modules
+    and actions. Routing ties all of this together. It maps URLs to modules
+    and actions for websites, extracting parameters as needed, handles XML-RPC
+    and SOAP and even provides a way to use agavi on the commandline.</p>
+
+    <p>For each of these tasks exists a specialized subclass of AgaviRouting,
+    this chapter will mainly explain the basics and the web-specific
+    AgaviWebRouting that maps urls to actions.</p>
+
+    <section><title>Routing basics</title> <p>Routing is executed very early
+    in the request processing and can access all data known to the process at
+    that time. The Webrouting can access headers, cookies and the url to
+    determine which action should be executed.</p> <p>The routing uses rules
+    based on regular expressions to match the input and extract parameters as
+    it finds them. For more elaborate examination of input data routing
+    callbacks can be used.</p> <p>If no appropriated action is found, the
+    configured Error404 action is set as default. The result of the routing
+    execution is a <xref href="../../reference/execution-containers.dita"> Execution
+    Container</xref> which is then executed by Agavi.</p></section>
+
+    <section><title>Routing configuration</title> <p>The routing configuration
+    is done in the <filepath>app/config/routing.xml</filepath>. Let's have a
+    look at our current routing.xml. It should look like this: <codeblock
+    class="xml">
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+	&lt;ae:configuration&gt;
+		&lt;routes&gt;
+			
+			&lt;!-- default action for "/" --&gt;
+			&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+			
+			&lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
+			
+			&lt;!-- an example for a CRUD-style set of routes --&gt;
+			&lt;route name="products" pattern="^/products" module="Products"&gt;
+				&lt;!-- do not put the action into the parent route, because that one is not anchored at the end of the pattern! --&gt;
+				&lt;route name=".index" pattern="^$" action="Index" /&gt;
+				&lt;route name=".latest" pattern="^/latest$" action="Latest" /&gt;
+				
+				&lt;route name=".create" pattern="^/add$" action="Add" /&gt;
+				&lt;!-- "Product" is not an action, but just a folder with sub-actions. if only this route, without children, matches, then the action cannot be resolved and a 404 is shown - exactly what we want! --&gt;
+				&lt;route name=".product" pattern="^/(id:\d+)" action="Product"&gt;
+					&lt;route name=".view" pattern="^$" action=".View" /&gt;
+					&lt;route name=".edit" pattern="^/edit$" action=".Edit" /&gt;
+					&lt;route name=".delete" pattern="^/delete$" action=".Delete" /&gt;
+					
+					&lt;!-- the gallery page is optional here, but the request parameter should not contain the leading slash, so our special syntax is in order --&gt;
+					&lt;route name=".gallery" pattern="^/gallery(/{page:\d+})?$" action=".Gallery"&gt;
+						&lt;!-- assume the "1" by default and tell the routing what the rest of the string will look like when generating a URL --&gt;
+						&lt;default for="page"&gt;/{1}&lt;/default&gt;
+					&lt;/route&gt;
+				&lt;/route&gt;
+			&lt;/route&gt;
+
+		&lt;/routes&gt;
+	&lt;/ae:configuration&gt;
+&lt;/ae:configurations&gt;
+
+</codeblock> The first two routes are the index route that we adapted earlier
+    on and the one we created in the last step. There's a couple of things you
+    can notice on them: </p><ul>
+        <li>Both routes have a name attribute. The name is used to reference
+        the route in your code when you need to generate a url.</li>
+
+        <li>Both routes have a pattern attribute. The pattern is applied
+        against the input to check whether the route matches.</li>
+
+        <li>Both routes have a module attribute. It controls which module is
+        selected if this route matches.</li>
+
+        <li>Both routes have an action attribute. It controls which action is
+        run if this route matches. </li>
+      </ul></section>
+
+    <p>These are a few, but probably the most important attributes for a
+    route. We'll discuss the other attributes for a route later on.</p>
+
+    <section><title>Nesting Routes</title><p>Routes can be nested as you can
+    see in the generated sample part of the routing.xml. Child-routes inherit
+    the information set by the parent route and can overwrite it or append to
+    it, depending on the type of information. It is not possible to append to
+    any attribute other than name and action. Any value that starts with a dot
+    (.) is appended to the parent value, so if the parent is named "products"
+    and the child ".index" as in our routing file, the full name for the child
+    route would be "products.index".</p><p>The input for a child-route is the
+    parent's input stripped by the part matched by the parent.</p></section>
+
+    <section><title>Routing Patterns</title><p>Routing patterns are basically
+    regular expressions with some flavour added. </p></section>
+
+    <section><title>How Routes are matched</title><p>The definitions in the
+    routing.xml are processed top to bottom, the first matching definition
+    ends the processing - so take care to place easy to match and often called
+    urls as far to the top as possible. In the ideal case, the route that
+    matches '/' is the first route in your file.</p></section>
+  </body>
+</topic>

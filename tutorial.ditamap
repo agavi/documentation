@@ -40,6 +40,7 @@
   <chapter href="topics/tutorial/step2/introduction.dita" collection-type="sequence">
     <topicref href="topics/tutorial/step2/basics-creating-new-module.dita"/>
     <topicref href="topics/tutorial/step2/basics-creating-new-action.dita"/>
+    <topicref href="topics/tutorial/step2/introduction-routing.dita"/>
   </chapter>
 
 
