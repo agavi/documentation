@@ -31,18 +31,21 @@ rm $TEMP_DIR/foo
 
 # Flatten TOC links & cut out HTML structure
 
+lines=`wc -l html-out/index.html | awk '{print $1}' `
+start=`expr $lines - 2`
+
 echo '<ol class="thirdlevel left">' > html-out/toc.html
-tail -n+6 html-out/index.html | head -n-2 >> html-out/toc.html
-sed -i 's/href="topics\/tutorial\//href="documentation\/tutorial\//g' html-out/toc.html
-sed -i 's/href="topics\/concepts\//href="documentation\/tutorial\//g' html-out/toc.html
-
-# Correct the TOC elements
-sed -i 's/<ul>/<ol>/g' html-out/toc.html
-sed -i 's/<\/ul>/<\/ol>/g' html-out/toc.html
-
+sed -e '1,5 d' \
+    -e "$start,$ d" \
+    -e 's|href="topics/tutorial|href="documentation/tutorial|g' \
+    -e 's|href="topics/concepts|href="documentation/tutorial|g' \
+    -e 's|<ul>|<ol>|g' \
+    -e 's|</ul>|</ol>|g' \
+    html-out/index.html  >> html-out/toc.html
+    
 # Correct the image links
+find html-out -name '*.html' -exec sed -i -e 's|src="\.\./images|src="images/tutorial|g' {} \;
 
-find html-out -name '*.html' -exec sed -i 's/src="\.\.\/images/src="images\/tutorial/g' {} \;
 # Copy javascript
 
 cp $PROJ_DIR/shjs/* $PROJ_DIR/html-out/topics
