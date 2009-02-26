@@ -26,8 +26,8 @@
     it finds them. For more elaborate examination of input data routing
     callbacks can be used.</p> <p>If no appropriated action is found, the
     configured Error404 action is set as default. The result of the routing
-    execution is a <xref href="../../reference/execution-containers.dita"> Execution
-    Container</xref> which is then executed by Agavi.</p></section>
+    execution is a <xref href="../../reference/execution-containers.dita">
+    Execution Container</xref> which is then executed by Agavi.</p></section>
 
     <section><title>Routing configuration</title> <p>The routing configuration
     is done in the <filepath>app/config/routing.xml</filepath>. Let's have a
@@ -53,7 +53,7 @@
 				&lt;route name=".create" pattern="^/add$" action="Add" /&gt;
 				&lt;!-- "Product" is not an action, but just a folder with sub-actions. if only this route, without children, matches, then the action cannot be resolved and a 404 is shown - exactly what we want! --&gt;
 				&lt;route name=".product" pattern="^/(id:\d+)" action="Product"&gt;
-					&lt;route name=".view" pattern="^$" action=".View" /&gt;
+					&lt;route name=".view" pattern="^$" action=".View" /&gt; 
 					&lt;route name=".edit" pattern="^/edit$" action=".Edit" /&gt;
 					&lt;route name=".delete" pattern="^/delete$" action=".Delete" /&gt;
 					
@@ -76,13 +76,20 @@
         the route in your code when you need to generate a url.</li>
 
         <li>Both routes have a pattern attribute. The pattern is applied
-        against the input to check whether the route matches.</li>
+        against the input to check whether the route matches. An empty pattern
+        always matches - to match the empty string use "^$".</li>
 
         <li>Both routes have a module attribute. It controls which module is
         selected if this route matches.</li>
 
         <li>Both routes have an action attribute. It controls which action is
-        run if this route matches. </li>
+        run if this route matches.</li>
+
+        <li>An attribute that is not used here but still important enough to
+        mention is "stop". It takes a boolean value and defaults to true. If
+        set to false, matching does not stop after the route matches, instead
+        the matched part is stripped from the input and matching
+        continues.</li>
       </ul></section>
 
     <p>These are a few, but probably the most important attributes for a
@@ -95,16 +102,106 @@
     any attribute other than name and action. Any value that starts with a dot
     (.) is appended to the parent value, so if the parent is named "products"
     and the child ".index" as in our routing file, the full name for the child
-    route would be "products.index".</p><p>The input for a child-route is the
-    parent's input stripped by the part matched by the parent.</p></section>
+    route would be "products.index". Any parent route cannot have the "stop"
+    attribute set to false.</p><p>The input for a child-route is the parent's
+    input stripped by the part matched by the parent.</p></section>
 
-    <section><title>Routing Patterns</title><p>Routing patterns are basically
-    regular expressions with some flavour added. </p></section>
+    <section><title>Routing Patterns</title><p>Routing uses special type of
+    pattern matching language which is similar to PCRE regular expressions but
+    simpler. Routing patterns are optimized for URL matching so that you do
+    not have to escape common URL parts every time.</p><p>Just like with PCRE,
+    a pattern can begin with a circumflex (^) and/or end with a dollar sign
+    ($). By default, the pattern matches <i>any</i> part of the examined
+    value. Use of these <keyword>anchors</keyword> forces the pattern to match
+    only in the beginning and the end of the examined value respectively. So,
+    <b>"foo"</b> matches any string that contains the word "foo",
+    <b>"^foo"</b> matches only strings that <i>begin</i> with "foo" and
+    <b>"foo$"</b> will match strings that <i>end</i> with "foo". Using both
+    anchors means that the entire examined value must match the
+    pattern.</p><p>The body of the pattern is a plain string which matches the
+    examined value literally. To match parts with a regular expression, you
+    have to enclose the relevant parts of the pattern in parens (called
+    <keyword>capture groups</keyword>) which behave almost the same way as in
+    true PCRE. Capture groups are also used to identify the parts of URL which
+    become Action parameters, as you can see in the products.product route. It
+    defines an Action parameter named "id" that consist of one or more digits.
+    Capture groups may contain an optional prefix and/or postfix, in that case
+    the contained regular expression must be enclosed in curly braces as seen
+    in the products.product.gallery route.</p><p>We'll get to a more detailed
+    description of routing patterns later.</p></section>
 
     <section><title>How Routes are matched</title><p>The definitions in the
-    routing.xml are processed top to bottom, the first matching definition
-    ends the processing - so take care to place easy to match and often called
-    urls as far to the top as possible. In the ideal case, the route that
-    matches '/' is the first route in your file.</p></section>
+    routing.xml are processed top to bottom, the first matching route
+    definition ends the processing unless it has its "stop" attribute set to
+    false. If a parent route is matched, matching continues until all child
+    routes have been tried and stops after that. When no matching definition
+    is found, the configured Error404 page is displayed.</p></section>
+
+    <section><title>Organizing routes for best performance</title><p>There are
+    a few things to keep in mind when organizing routes. </p><ul>
+        <li>Non-stopping routes go to the place where they are required,
+        mostly to the top.</li>
+
+        <li>Avoid routes that match partial strings of other routes at the
+        same level. This forces an order on routes that may be confusing -
+        once you start shuffling things around, other things break. It also
+        enforces an order that may be suboptimal for performance.</li>
+
+        <li>Anchor patterns. Keep in mind that patterns that are anchored are
+        way faster to match and that errors are less likely to occur.</li>
+
+        <li>Reduce the number of first level routes. The less patterns need to
+        be matched in a typical szenario, the better, so a deeper nesting is
+        better than lots of first level branches.</li>
+
+        <li>Move often calles routes to the top. The earlier a match is found,
+        the better. Keep in mind that the index route ("/") can account for
+        large percentages of your hits and is extremly fast to match. In most
+        cases, it should be the first route in your routing.xml.</li>
+
+        <li>Move routes that are quick to match to the top. This includes all
+        short and simple patterns, pure string matches with no included
+        parameters etc.</li>
+
+        <li>Take care that your routes are anchored to the right as well. This
+        prevents arbitrary urls from being matched.</li>
+      </ul></section>
+
+    <p>Let's go over the rest of the routing.xml and explain what each part
+    does. It's a sample for a CRUD-style set of routes for a fictional product
+    catalogue. The parent route is named "products" and just contains the
+    pattern "^/products" and a module defintion. If the rules are applied
+    against any url that starts with "/products", the module is set to
+    "Products" and the leading part is stripped from the input. If none of the
+    child routes matches, the 404 page is displayed, because the action is not
+    set. The products.index route has a pattern that matches the empty string
+    and sets the action to "Index", so that the url "/products" is routed to
+    the Products_IndexAction. We could achieve the same effect if we just set
+    the action to Index in the products route, but then any url starting with
+    "/products" that is not matched by a child-route would still go to the
+    Products_IndexAction and this is not what we intended - we want the url
+    "/productsfoobar" to go to the 404 page.</p>
+
+    <p>The next important thing to note is the products.product route. It sets
+    the action to "Product" but as the comment explains, this action itself
+    should not exist. It's just a folder for all the subactions for a product.
+    The pattern matches and url that contains a slash followed by an id of
+    only digits. So the url "/products/123" would first get matched by the
+    route "products" where the string "/products" is cut from the url. This
+    leaves us with "/123" which will be matched by the products.product route.
+    This would still send us to the 404 page as the Products_ProductAction
+    does not exist, but the remaining empty string will get matched by the
+    products.product.view route. So the final action is
+    Products_ProductViewAction. </p>
+
+    <p>The last interesting route is the products.product.gallery route. It
+    contains an optional paging parameter and by using the defaults tag sets a
+    default value in case it's not provided by the user. Note how the optional
+    page parameter contains a "/" as prefix and how the prefix must be placed
+    in the default as well. </p>
+
+    <p>As you can see, all routes that actually map to an existing
+    Module/Action pair are anchored on the right. That prevents that urls are
+    matched that start out with a valid part but contain trailing garbage.</p>
   </body>
 </topic>
