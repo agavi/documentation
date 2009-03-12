@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="???">
+  <title>Fixing the bloggie routing</title>
+
+  <body>
+    <p>Armed with what we learned we can now create a proper set of routing
+    rules that will remain maintainable when we go on extending the blog we're
+    building. We should create the basic layout for a CRUD-style set of routes
+    as the sample product routes.</p>
+
+    <p>So, let's reorganize our routes:</p>
+
+    <ol>
+      <li>Create a parent route for all posts that just sets the module. Name
+      it "posts", the pattern should be "^/posts" (remember the anchor on the
+      left) and it should set the module to "Posts". It should be the first
+      route after the index route.</li>
+
+      <li>As we're currently not having a page that displays all posts page by
+      page, we'll go and create the a route named "posts.post" as a child of
+      the posts route. Remember that the concatenation rules for the route
+      name allow you to leave the first part out, so the name attribute will
+      be set to ".post". The pattern should match an id, so we'll use
+      "^/(id:\d+)". Don't forget the left anchor. This route sets the action
+      to "Post", even though that action does not exist in itself. It will
+      serve as a container for all it's subactions.</li>
+
+      <li>The next route will server for displaying a single post. Create
+      "posts.post.show" as a child of "posts.post". The name attribute is
+      ".show", the pattern "^$" - we want to match the empty string only. Ste
+      the action attribute to ".Show" - it will be appended to the parents
+      route "Posts" to the fully qualified name "Post.Show".</li>
+
+      <li>Remove the old "post" route and the example routes. Your routing.xml
+      should now look like this:</li>
+    </ol>
+
+    <p><codeblock class="xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+		&lt;ae:configuration&gt;
+			&lt;routes&gt;
+
+				&lt;!-- default action for "/" --&gt;
+				&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+
+				&lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+					&lt;route name=".post" pattern="^/(id:\d+)" action="Post"&gt;
+						&lt;route name=".show" pattern="^$" action=".Show" /&gt;
+					&lt;/route&gt; 
+				&lt;/route&gt;
+
+			&lt;/routes&gt;
+		&lt;/ae:configuration&gt;
+	&lt;/ae:configurations&gt;
+
+</codeblock></p>
+
+    <p> Open your browser and point it to
+    http://localhost/bloggie/pub/posts/123 and you should see the stub post
+    page we created earlier on. Note that now you need to provide a post id to
+    access the page, if you leave it out, you'll be directed to the 404 page.
+    </p>
+  </body>
+</topic>
