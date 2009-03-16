@@ -5,13 +5,11 @@
   <title>Creating a new action</title>
 
   <body>
-    <p></p>
+    <p/>
 
-    <section>
-      <title>Creating a new action</title>
-      <p>To create a new action invoke <userinput>agavi action</userinput> and 
-      answer the questions.</p>
-      <screen>
+    <section><title>Creating a new action</title> <p>To create a new action
+    invoke <userinput>agavi action</userinput> and answer the questions.</p>
+    <screen>
       bloggie$ <userinput>agavi action</userinput>
 
       Module name: <userinput>Posts</userinput>
@@ -21,89 +19,62 @@
       Space-separated list of views to create for Post.Show [Success]: 
 
       bloggie$ 
-      </screen>
+      </screen> <p>We created a new action named "Post.Show" in the Posts
+    module. The dot in the name denotes a subaction. Subactions can be nested
+    to arbitrary depth and are useful to organize your actions in a tree-like
+    structure. Now we just need to make that action accessible with an url.
+    Once again we use a route for that. Hang on a litte, we'll explain routing
+    in a moment. For now, just insert this route in the routing.xml, right
+    after the index route: <codeblock class="xml">
 
-      <p>We created a new action named "Post.Show" in the Posts module. The dot 
-      in the name denotes a subaction. Subactions can be nested to arbitrary depth
-      and are useful to organize your actions in a tree-like structure. Now we just
-      need to make that action accessible with an url. Once again we use a route
-      for that. Hang on a litte, we'll explain routing in a moment. For now, just
-      insert this route in the routing.xml, right after the index route:
-<codeblock class="xml">
-<![CDATA[
-	<route name="post" pattern="^/post$" module="Posts" action="Post.Show" />
-]]>
-</codeblock>
+	&lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
 
-     Done. The action "Post.Show" in the module "Posts" will now be accessible by the
-     url /post. Go ahead, open your browser and try it. You should see a page with
-     a big headline saying "Post.Show".</p>
-    </section>
-    <section>
-      <title>Adding content</title>
-      <p>You already learned about template variables in the last parts, so we
-      make this a quick one - we just add the information for a single post to
-      the template, containing the same information as in the list. We just add
-      the body. We allow for the body to contain html, so we can format the text
-      a little. So change the Posts_Post_ShowSuccessView::executeHtml() to look 
-      like this.</p>
-      <p>
-      <codeblock class="php">
-<![CDATA[
-	public function executeHtml(AgaviRequestDataHolder $rd)
+</codeblock> Done. The action "Post.Show" in the module "Posts" will now be
+    accessible by the url /post. Go ahead, open your browser and try it. You
+    should see a page with a big headline saying "Post.Show".</p></section>
+
+    <section><title>Adding content</title> <p>You already learned about
+    template variables in the last parts, so we make this a quick one - we
+    just add the information for a single post to the template, containing the
+    same information as in the list plus the body. We allow for the body to
+    contain html, so we can format the text a little. Data retrieval goes in
+    the action, so add the Posts_Post_ShowAction::executeRead() to look like
+    this.</p><p><codeblock class="php">
+	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
 	
 		$post = array(
-			'id' => 1,
-			'title' => 'First post',
-			'posted' => '2008-07-14 00:01:07',
-			'category_name' => 'No category',
-			'author_name' => 'Admin',
-			'url' => null,
-			'content' => '<p>Terrific! This is our first post!</p><p>This is just a first post. It has no actual contents. If you are reading this, things must be working.</p>'
+			'id' =&gt; 1,
+			'title' =&gt; 'First post',
+			'posted' =&gt; '2008-07-14 00:01:07',
+			'category_name' =&gt; 'No category',
+			'author_name' =&gt; 'Admin',
+			'url' =&gt; null,
+			'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;'
 		);
 
-		$this->setAttribute('post', $post);
-	
-		$this->setAttribute('_title', 'Index');
+		$this-&gt;setAttribute('post', $post);
 	}
-]]></codeblock>
+</codeblock> And we should adapt the title here as well. So open the the
+    Posts_PostSuccessView and change the line saying <codeblock class="php">
+	$this-&gt;setAttribute('_title', 'Index');
 
-      And we should adapt the title here as well. Change the 
-      line saying
-<codeblock class="php">
-<![CDATA[
-	$this->setAttribute('_title', 'Index');
-]]>
-</codeblock>
+</codeblock> to <codeblock class="php">
+		$post = $this-&gt;getAttribute('post');
+		$this-&gt;setAttribute('_title', $post['title']);
 
-      to
+</codeblock></p><p>An then the template: <codeblock class="php">
 
-<codeblock class="php">
-<![CDATA[
-	$this->setAttribute('_title', $post['title']);
-]]>
-</codeblock>
-      </p>
-      <p>An then the template:
-
-<codeblock class="php">
-<![CDATA[
-<?php
+&lt;?php
 // alias the post, to make access shorter
 $post = $t['post'];
-?>
-<span class="author">by <?php echo htmlspecialchars($post['author_name']); ?></span>
-<span class="category">in <?php echo htmlspecialchars($post['category_name']); ?></span>
-<span class="posted"><?php htmlspecialchars($post['posted']); ?></span>
-<div class="content"><?php echo $post['content']; ?></div>
-]]></codeblock>
-      
-      Open your browser and point it to http://localhost/bloggie/pub/post and you should 
-      see the stub page we just created.
-      </p>
-    </section>
- 
+?&gt;
+&lt;span class="author"&gt;by &lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/span&gt;
+&lt;span class="category"&gt;in &lt;?php echo htmlspecialchars($post['category_name']); ?&gt;&lt;/span&gt;
+&lt;span class="posted"&gt;&lt;?php htmlspecialchars($post['posted']); ?&gt;&lt;/span&gt;
+&lt;div class="content"&gt;&lt;?php echo $post['content']; ?&gt;&lt;/div&gt;
+</codeblock> Open your browser and point it to
+    http://localhost/bloggie/pub/post and you should see the stub page we just
+    created. </p></section>
   </body>
 </topic>

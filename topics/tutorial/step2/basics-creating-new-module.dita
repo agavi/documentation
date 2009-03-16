@@ -5,24 +5,21 @@
   <title>Creating a new module</title>
 
   <body>
-    <p>The index page should contain a list of posts and link to the detail 
-    page - don't worry we'll add that one later. For each post, the title 
-    and the author is displayed, as well as the date it was posted and the
+    <p>The index page should contain a list of posts and link to the detail
+    page - don't worry we'll add that one later. For each post, the title and
+    the author is displayed, as well as the date it was posted and the
     category it was posted in.</p>
 
-    <section>
-      <title>Creating a new Module</title>
-      <p>A module is an organizational unit structuring your applications
-      separate areas of concern. A module structures Actions, Views, Models
-      and Templates into a common subdirectory. It can even bring it's own
-      libraries and some configs specific to this module. Handling the 
-      Post and displaying them to the user is one area of concern for our
-      blog, so code related to that should be placed in one Module.</p>
-      <p>Creating a new Module is a simple task if we use the agavi 
-      commandline script. So navigate to the directory where you created
-      your application, invoke <userinput>agavi module</userinput> and 
-      answer the questions.</p>
-      <screen>
+    <section><title>Creating a new Module</title> <p>A module is an
+    organizational unit structuring your applications separate areas of
+    concern. A module structures Actions, Views, Models and Templates into a
+    common subdirectory. It can even bring it's own libraries and some configs
+    specific to this module. Handling the Post and displaying them to the user
+    is one area of concern for our blog, so code related to that should be
+    placed in one Module.</p> <p>Creating a new Module is a simple task if we
+    use the agavi commandline script. So navigate to the directory where you
+    created your application, invoke <userinput>agavi module</userinput> and
+    answer the questions.</p> <screen>
       bloggie$ <userinput>agavi module</userinput>
 
       Module name: <userinput>Posts</userinput>
@@ -32,166 +29,153 @@
       Space-separated list of views to create for Index [Success]: 
 
       bloggie$ 
-      </screen>
+      </screen> <p>We created a new module named "Posts" which currently
+    contains a single action named "Index". However, this action is not
+    accessible as there is no route that points to it. We want the list of
+    posts to be on the front page so we just point the default index route to
+    that action. Look for the route that looks like that: <codeblock
+    class="xml">
 
-      <p>We created a new module named "Posts" which currently contains a single 
-      action named "Index". However, this action is not accessible as there is
-      no route that points to it. We want the list of posts to be on the front 
-      page so we just point the default index route to that action. Look for the
-      route that looks like that: 
-<codeblock class="xml">
-<![CDATA[
-	<!-- default action for "/" -->
-	<route pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" />
-]]>
-</codeblock>
-      
-      and change it to point to the new action:
+	&lt;!-- default action for "/" --&gt;
+	&lt;route pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" /&gt;
 
-<codeblock class="xml">
-<![CDATA[
-	<!-- default action for "/" -->
-	<route pattern="^/$" module="Posts" action="%actions.default_action%" />
-]]>
-</codeblock>
+</codeblock> and change it to point to the new action: <codeblock class="xml">
 
-     Done. The action "Index" in the module "Posts" will now be the index page.
-     We could now remove the old IndexAction, but just keep that one for 
-     later, we will need it.</p>
-    </section>
-    <section>
-      <title>Adding a template variable</title>
-      <p>We want to display a list of posts on the index page. For now, we're
-      just concerned about getting the basic html to work, so we just forget
-      about where to get the data from for the time being. We'll just pass 
-      a static array of posts to the template. A post will need the following 
-      information to be displayed:</p>
-      <dl>
-      <dlentry>
-        <dt>id</dt>
-        <dd>The posts id.</dd>
-      </dlentry>
-      <dlentry>
-        <dt>title</dt>
-        <dd>The posts title.</dd>
-      </dlentry>
-      <dlentry>
-        <dt>author_name</dt>
-        <dd>The authors name.</dd>
-      </dlentry>
-      <dlentry>
-        <dt>posted</dt>
-        <dd>The date the post was created.</dd>
-      </dlentry>
-      <dlentry>
-        <dt>category_name</dt>
-        <dd>The name of the category the post was filed under.</dd>
-      </dlentry>
-      <dlentry>
-        <dt>url</dt>
-        <dd>The url to the posts detail page. We will leave that one empty but include it so that the attributes are complete.</dd>
-      </dlentry>
-      </dl>
+	&lt;!-- default action for "/" --&gt;
+	&lt;route pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
 
-      <p>To pass the information to the template we just need to set it as an
-      attribute in the view or the action. Any attribute set in the global 
-      namespace will be available in the template array. So we change the 
-      IndexSuccessView::executeHtml() to read like this: 
-      <codeblock class="php">
-<![CDATA[
-	public function executeHtml(AgaviRequestDataHolder $rd)
+</codeblock> Done. The action "Index" in the module "Posts" will now be the
+    index page. We could now remove the old IndexAction, but just keep that
+    one for later, we will need it.</p></section>
+
+    <section><title>Adding a template variable</title> <p>We want to display a
+    list of posts on the index page. For now, we're just concerned about
+    getting the basic html to work, so we just forget about where to get the
+    data from for the time being. We'll just pass a static array of posts to
+    the template. A post will need the following information to be
+    displayed:</p> <dl>
+        <dlentry>
+          <dt>id</dt>
+
+          <dd>The posts id.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>title</dt>
+
+          <dd>The posts title.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>author_name</dt>
+
+          <dd>The authors name.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>posted</dt>
+
+          <dd>The date the post was created.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>category_name</dt>
+
+          <dd>The name of the category the post was filed under.</dd>
+        </dlentry>
+
+        <dlentry>
+          <dt>url</dt>
+
+          <dd>The url to the posts detail page. We will leave that one empty
+          but include it so that the attributes are complete.</dd>
+        </dlentry>
+      </dl> <p>To pass the information to the template we just need to set it
+    as an attribute in the view or the action. Any attribute set in the global
+    namespace will be available in the template later on. We want to serve the
+    index page on Read (GET) requests so we define the
+    <apiname>Posts_IndexAction::executeRead() </apiname>as follows - remember
+    that all data retrieval should be done in the action: <codeblock
+    class="php">
+
+	public function executeRead(AgaviRequestDataHolder $rd)
 	{
-		$this->setupHtml($rd);
-
-		$this->setAttribute('_title', 'Index');
 
 		$posts = array(
-			array(
-				'id' => 1,
-				'title' => 'First post',
-				'posted' => '2008-07-14 00:01:07',
-				'category_name' => 'No category',
-				'author_name' => 'Admin',
-				'url' => null
+			1 =&gt; array(
+				'id' =&gt; 1,
+				'title' =&gt; 'First post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'No category',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; null
 			),
-			array(
-				'id' => 2,
-				'title' => 'Second post',
-				'posted' => '2008-07-14 00:01:07',
-				'category_name' => 'Agavi',
-				'author_name' => 'Admin',
-				'url' => null
+			2 =&gt; array(
+				'id' =&gt; 2,
+				'title' =&gt; 'Second post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'Agavi',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; null
 			)
 		);
 
-		$this->setAttribute('posts', $posts);
+		$this-&gt;setAttribute('posts', $posts);
+
+return 'Success';
 	}
-]]></codeblock>
+</codeblock> And while we're at it - why don't we change the title a little.
+    Have you noted the line in the Posts_IndexSuccessView saying<codeblock
+    class="php">
 
-      And while we're at it - why don't we change the title a little. Have you
-      noted the line saying
-<codeblock class="php">
-<![CDATA[
-	$this->setAttribute('_title', 'Index');
-]]>
-</codeblock>
+	$this-&gt;setAttribute('_title', 'Index');
 
-      As you might already have suspected, it sets a template variable that
-      we use to control the displayed title. Don't worry if that seems a little
-      like magic at the moment, we'll show you how that works in a little while.
-      For now just change the line to read:
+</codeblock> As you might already have suspected, it sets a template variable
+    that we use to control the displayed title. Don't worry if that seems a
+    little like magic at the moment, we'll show you how that works in a little
+    while. For now just change the line to read: <codeblock class="php">
 
-<codeblock class="php">
-<![CDATA[
-	$this->setAttribute('_title', 'Latest Posts');
-]]>
-</codeblock>
-      Refresh the page and you should see your new title on the page and in the titlebar.
-      </p>
-      <p>Now that we passed in the information about the posts, we adapt the
-      template to make use of this information. As mentioned above, all the 
-      attributes we have set will be available in the template variable $t 
-      in the template. We want to display the posts as a list, so we change 
-      the template to look like in the following listing:
+	$this-&gt;setAttribute('_title', 'Latest Posts');
 
-<codeblock class="php">
-<![CDATA[
-<ul>
-<?php
+</codeblock> Refresh the page and you should see your new title on the page
+    and in the titlebar. </p> <p>Now that we passed in the information about
+    the posts, we adapt the template to make use of this information. As
+    mentioned above, all the attributes we have set will be available in the
+    template variable $t in the template. We want to display the posts as a
+    list, so we change the template to look like in the following listing:
+    <codeblock class="php">
+
+&lt;ul&gt;
+&lt;?php
 foreach ($t['posts'] as $post)
 {
-?>
-	<li>
-		<a href="<?php echo $post['url']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
-		by <?php echo htmlspecialchars($post['author_name']); ?> @ <?php echo $post['posted']; ?> 
-		in <?php echo htmlspecialchars($post['category_name']); ?>
-	</li>
-<?php
+?&gt;
+	&lt;li&gt;
+		&lt;a href="&lt;?php echo $post['url']; ?&gt;"&gt;&lt;?php echo htmlspecialchars($post['title']); ?&gt;&lt;/a&gt;
+		by &lt;?php echo htmlspecialchars($post['author_name']); ?&gt; @ &lt;?php echo $post['posted']; ?&gt; 
+		in &lt;?php echo htmlspecialchars($post['category_name']); ?&gt;
+	&lt;/li&gt;
+&lt;?php
 }
-?>
-</ul>]]></codeblock>
-      
-      See how we were able to access the attribute 'posts' that we set 
-      earlier on in the view by just using $t['posts']? The PHP Renderer
-      we're using just makes all the template variables available as an 
-      associative array with their names as key.</p>
-      <p>There's a few things to note about that template. See how all output is 
-      wrapped in a htmlspecialchars() call? We want valid xhtml, so we can't 
-      use any of the characters that are reserved in html. We don't want to 
-      escape them before storing the post in a database or the like, because
-      maybe we want to generate output that is not html later on and then we'd
-      have to decode them again. Neither do we want to have the htmlspecialchars 
-      call in the view as some templating engines do that implicitly. So converting
-      the specialchars in the view would make it harder to just swap in a new
-      templating engine. And we don't want to use htmlentities() as 
-      we're trying to be XML compliant at the same time. If you have any special
-      characters like umlauts, just use utf8 as charset and the regular 
-      character. It will save you a lot of hassle later on. If htmlspecialchars()
-      is too long to type for you, we recommend having a function with a shorter
-      name like h() or hss() that just wraps the call. For the tutorial, we'll
-      stick with the long version.
-      </p>
-    </section>
- 
+?&gt;
+&lt;/ul&gt;</codeblock> See how we were able to access the attribute 'posts'
+    that we set earlier on in the action by just using $t['posts']? The PHP
+    Renderer we're using just makes all the template variables available as an
+    associative array with their names as key.</p> <p>There's a few things to
+    note about that template. See how all output is wrapped in a
+    htmlspecialchars() call? We want valid xhtml, so we can't use any of the
+    characters that are reserved in html. We don't want to escape them before
+    storing the post in a database or the like, because maybe we want to
+    generate output that is not html later on and then we'd have to decode
+    them again. Neither do we want to have the htmlspecialchars call in the
+    view as some templating engines do that implicitly. So converting the
+    specialchars in the view would make it harder to just swap in a new
+    templating engine. And we don't want to use htmlentities() as we're trying
+    to be XML compliant at the same time. If you have any special characters
+    like umlauts, just use utf8 as charset and the regular character. It will
+    save you a lot of hassle later on. If htmlspecialchars() is too long to
+    type for you, we recommend having a function with a shorter name like
+    <apiname> h()</apiname> or <apiname>hss()</apiname> that just wraps the
+    call. For the tutorial, we'll stick with the long version. </p></section>
   </body>
 </topic>

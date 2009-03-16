@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-accessing-request-parameters">
+  <title>Accessing Request Parameters and Validation Basics</title>
+
+  <body>
+    <p>Now that we intruduced a parameter to pass the posts ID we could
+    display the proper post on the detail page. All incoming parameters,
+    including cookies, headers and files are passed to the view's
+    <apiname>executeHtml()</apiname> method via a container object, an
+    <apiname>AgaviRequestDataHolder()</apiname>. In the web context, a more
+    specific subclass, an <apiname>AgaviWebRequestDataHolder()</apiname> is
+    being passed. Any parameter extracted from the url, any GET or POST value
+    can be accessed via
+    <apiname>AgaviRequestDataHolder::getParameter(&lt;parametername&gt;,
+    &lt;defaultvalue&gt;)</apiname>.</p>
+
+    <section><title>Validation Basics</title><p>However, in the default setup,
+    strict validation is turned on. That means that only validated parameters
+    may be accessed, all other parameters are removed by the framework. While
+    it is possible to change that behavior, we strongly recommend keeping it
+    that way. Validation is an important part in keeping your application safe
+    from attacks of any kind or from failure due to unexpected input.
+    Validation makes you as a developer think about what input is valid.
+    Always validate as strict as possible. So let's see, what's our expected
+    input?</p><ul>
+        <li>The post-id must be an integer.</li>
+
+        <li>The post-id must be in the valid range, we have two posts with the
+        ids 1 and 2.</li>
+      </ul><p>So let's put that into code.</p></section>
+
+    <section><title>How Validation works</title><p>Validation is executed when
+    an Action responds to the incoming request type. Validation rules are per
+    action and may differ between read and write requests. While there are
+    other ways of defining validation rules, in most cases they are laid out
+    in an xml-configuration file, so that's all we'll do at this point. We'll
+    deal with the other methods later. In the default setup the xml file is
+    named like the action and placed in the folder
+    <filepath>validate/</filepath> in the corresponding module. The build
+    system created a stub file for us, it's located in
+    <filepath>app/modules/Posts/validate/Posts/Show.xml</filepath> and for now
+    only contains a stub. Let's extend it to look like that:</p><codeblock
+    class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;ae:configurations
+		xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+		xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+		parent="%core.module_dir%/Posts/config/validators.xml"
+	&gt;
+		&lt;ae:configuration&gt;
+
+			&lt;validators&gt;
+				&lt;validator class="number" name="post"&gt;
+					&lt;arguments&gt;
+						&lt;argument&gt;post&lt;/argument&gt;
+					&lt;/arguments&gt;
+					&lt;errors&gt;
+						&lt;error&gt;The parameter post must contain a number in the range of 1 - 2&lt;/error&gt;
+					&lt;/errors&gt;
+					&lt;ae:parameters&gt;
+						&lt;ae:parameter name="type"&gt;int&lt;/ae:parameter&gt;
+						&lt;ae:parameter name="min"&gt;1&lt;/ae:parameter&gt;
+						&lt;ae:parameter name="max"&gt;2&lt;/ae:parameter&gt;
+					&lt;/ae:parameters&gt; 
+				&lt;/validator&gt;
+			&lt;/validators&gt;
+
+		&lt;/ae:configuration&gt;
+	&lt;/ae:configurations&gt;
+	</codeblock><p>This defines a single validator with the name "post" and the
+    class "number". The name is optional and can be used to get detailed
+    information about where validation failed. In most cases you won't need
+    it. The class-attribute controls which validator is run. It can either be
+    a predefined shortname or real classname in case you want to use a custom
+    validator. The &lt;arguments&gt; block defines on which parameters the
+    validator is run. Some validators may work on multiple parameters, for
+    example a validator checking that two parameters are equal. In our case we
+    only need a single parameter named "post". The &lt;errors&gt; block
+    controls which error message is emitted if the validator fails. We could
+    have different messages for different errors, one if the value was not
+    provided at all, one if it was no valid integer, another one if it was out
+    of range. In this case a generic message is just fine. The parameters
+    block allows more fine-grained control over the validator behavior. The
+    parameters a validator accepts differ from validator to validator and may
+    sometimes seem a little complex, but the
+    <apiname>AgaviNumberValidator</apiname> we're using here is pretty
+    straightforward. It allows a type, a minimum value and a maximum
+    value.</p><p>With this validation file we've checked that the incoming
+    data is all fine and we can rely in the rest of the application on
+    that.</p></section>
+
+    <section><title>Displaying the right post</title><p>Now that we validated
+    the incoming post-id we can display the requested post on our detail page.
+    For the time being we just copy the static posts array that we used for
+    the list and pick the right one of the two. Change the
+    <apiname>Posts_PostShowAction::executeRead()</apiname> to look like this:
+    </p><codeblock class="php">	public function executeRead(AgaviRequestDataHolder $rd)
+	{
+
+		$posts = array(
+			1 =&gt; array(
+				'id' =&gt; 1,
+				'title' =&gt; 'First post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'No category',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; null,
+				'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
+			),
+			2 = &gt; array(
+				'id' =&gt; 2,
+				'title' =&gt; 'Second post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'Agavi',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; null,
+				'content' =&gt; '&lt;p&gt;It looks like our blog application is working, yay!&lt;/p&gt;', 
+			)
+		);
+
+		$postId = $rd-&gt;getParameter('post');
+		$post = $posts[$postId];
+		
+		$this-&gt;setAttribute('post', $post);
+
+		return 'Success';
+	}</codeblock><p>We don't have to check whether the array key exists because
+    we validated the incoming parameter and the constraints are set strict
+    enough that the valid cannot be out of range. And see how the separation
+    of display and logic already worked in our favor? There was no need to
+    adapt the view or the template even though we changed the logic reading
+    the data.</p></section>
+  </body>
+</topic>

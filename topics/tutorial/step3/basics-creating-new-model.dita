@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-creating-new-model">
+  <title>Creating a new Model</title>
+
+  <body>
+    <p>We'll use the agavi build script to generate the two models we need. As
+    they belong to the posts handling part of our application, we'll create
+    them in the in the Posts module:</p>
+
+    <screen>
+      bloggie$ <userinput>agavi model-create</userinput>
+
+      Module name: <userinput>Posts</userinput>
+
+      Model name: Post
+
+      bloggie$ 
+      </screen>
+
+    <p>This will create the Posts_PostModel in the directory
+    <filepath>app/modules/Posts/models/</filepath>. The class will be empty
+    for now, we'll add code to it in a second. First, let's repeat the same
+    steps for the PostManager model.</p>
+
+    <screen>
+      bloggie$ <userinput>agavi model-create</userinput>
+
+      Module name: <userinput>Posts</userinput>
+
+      Model name: PostManager
+
+      bloggie$ 
+      </screen>
+
+    <p>Now you should have two files in
+    <filepath>app/modules/Posts/models/</filepath>, one named
+    PostModel.class.php, one named PostManagerModel.class.php containing the
+    empty classes Posts_PostModel and Posts_PostManagerModel. Note how both
+    classnames are prefixed with the module's name and that they both end in
+    "Model". This convention is used troughout agavi. While it is possible to
+    reference models that have different naming schemes we recommend sticking
+    to this convention.</p>
+
+    <p>Both models extend the BlogPostsBaseModel class that was created when
+    we created the module.</p>
+
+    <section><title>Instantiating Models</title><p>Now that we created the
+    model classes, we need a way to create instances. We could go the long
+    route with including the class file, creating a new instance with
+    <cmdname>new Posts_PostModel</cmdname> and then calling the required
+    <cmdname>initialize()</cmdname> method. However, there is an easier way.
+    Any object with access to the <apiname>AgaviContext</apiname> (which is
+    pretty much every object in the framework) can just call
+    <cmdname>$ctx-&gt;getModel(&lt;modelname&gt;, &lt;modulename&gt;,
+    &lt;optional parameters&gt;) </cmdname>to create a fully initialized
+    instance of the given model. The context will then locate the proper class
+    file, load it if required, and return an initialized instance of the
+    requested model.</p></section>
+
+    <section><title>Fleshing out the Models</title><p>Let's add a bit of
+    functionality to the models. The Post model currently is just a container
+    for the data a Post can have, so we'll primarily add the attributes and
+    getters and setters for those attributes. Your final Posts_PostModel
+    should look like that (the comments are left out to keep it
+    short):</p><codeblock>&lt;?php
+
+class Posts_PostModel extends BlogPostsBaseModel
+{
+	private $id;
+	private $title;
+	private $posted;
+	private $categoryName;
+	private $authorName;
+	private $content;
+	
+	public function getId()
+	{
+		return $this-&gt;id;
+	}
+	
+	public function setId($id)
+	{
+		$this-&gt;id = $id;
+	}
+	
+	public function getTitle()
+	{
+		return $this-&gt;title;
+	}
+	
+	public function setTitle($title)
+	{
+		$this-&gt;title = $title;
+	}
+	
+	public function getPosted()
+	{
+		return $this-&gt;posted;
+	}
+	
+	public function setPosted($posted)
+	{
+		$this-&gt;posted = $posted;
+	}
+	
+	public function getCategoryName()
+	{
+		return $this-&gt;categoryName;
+	}
+	
+	public function setCategoryName($name)
+	{
+		$this-&gt;categoryName = $name;
+	}
+	
+	public function getAuthorName()
+	{
+		return $this-&gt;authorName;
+	}
+	
+	public function setAuthorName($name)
+	{
+		$this-&gt;authorName = $name;
+	}
+	
+	public function getContent()
+	{
+		return $this-&gt;content;
+	}
+	
+	public function setContent($content)
+	{
+		$this-&gt;content = $content;
+	}
+}
+
+?&gt;</codeblock><p>The Posts_PostManageModel is responsible for all storage
+    and retrieval operations. We currently need two operations: Retrieve a
+    single Post and retrieve the latest posts for the frontpage. As we now do
+    have a model encapsulating all the data retrieval we can move our
+    mock-data into that model. We'll throw in a little helper method to feed
+    data to a PostModel, so the endresult should look like
+    this:</p><codeblock>&lt;?php
+
+class Posts_PostManagerModel extends BlogPostsBaseModel
+{
+	private $posts = array(
+		1 =&gt; array(
+			'id' =&gt; 1,
+			'title' =&gt; 'First post',
+			'posted' =&gt; '2008-07-14 00:01:07',
+			'category_name' =&gt; 'No category',
+			'author_name' =&gt; 'Admin'
+		),
+		2 =&gt; array(
+			'id' =&gt; 2,
+			'title' =&gt; 'Second post',
+			'posted' =&gt; '2008-07-14 00:01:07',
+			'category_name' =&gt; 'Agavi',
+			'author_name' =&gt; 'Admin'
+		)
+	);
+
+	public function retrieveById($id)
+	{
+		if (isset($this-&gt;posts[$id]))
+		{
+			return $this-&gt;createPost($this-&gt;posts[$id]);
+		}
+		
+		return null;
+	}
+	
+	public function retrieveLatestPosts($limit = 5)
+	{
+		$cnt = 0;
+		reset($this-&gt;posts);
+		
+		$posts = array();
+		while (($cnt &lt; $limit) &amp;&amp; (null != ($post = each($this-&gt;posts)))
+		{
+			$posts[] = $this-&gt;createPost($post);
+			$cnt++;
+		}
+		
+		return $posts;
+	}
+	
+	protected function createPost(array $data)
+	{
+		$post = $this-&gt;getContext()-&gt;getModel('Post', 'Posts');
+	
+		$post-&gt;setId($data['id']);
+		$post-&gt;setTitle($data['title']);
+		$post-&gt;setPosted($data['posted']);
+		$post-&gt;setCategoryName($data['category_name']);
+		$post-&gt;setAuthorName($data['author_name']);
+		
+		return $post;
+	}
+
+}
+
+?&gt;</codeblock></section>
+  </body>
+</topic>

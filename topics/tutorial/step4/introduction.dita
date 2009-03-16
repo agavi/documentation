@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="tutorial-step4-introduction">
+  <title>Polishing it up</title>
+
+  <body>
+    <p>Now that we have the basics working just fine we should do some
+    polishing. We'd like the title of the post to be displayed in the url to
+    make our friends from the SEO department happy and we'll make the whole
+    blog look a little better.</p>
+  </body>
+</topic>

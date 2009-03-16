@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-custom-validators">
+  <title>Custom validators</title>
+
+  <body>
+    <p>Now that our actions dont' depend on the data retrieval any more we
+    need to tackle the validation. Currently we're doing a plain check that
+    the post-id is a valid integer in the range of 1-2 but we're depending on
+    the knowledge that the posts are stored in an array indexed by id and that
+    there's just those two ids. If we're to add a third post or change the
+    storage mechanism we'd be in trouble. So we could just relax our
+    validation to check that the id is just a valid positive integer but then
+    we'd need error handling code in the action - a user could just pass an id
+    that does not exist. However, there's an easier way. We just write our own
+    custom validator that does the job for us - don't worry it's a simple
+    thing.</p>
+
+    <p>A validator is just a class that is based on AgaviValidator. It needs
+    to implement a single method <apiname>validate()</apiname> that either
+    returns true if the validation succeeded or false if it failed. That's
+    about all we need to do, let's get to work. We'll be using the
+    PostManagerModel we created earlier to do the checks. As this validator
+    belongs to the Posts module, we'll place it in
+    <filepath>app/modules/Posts/lib/validator/PostValidator.class.php</filepath>.</p>
+
+    <codeblock class="php">&lt;?php
+
+class Posts_PostValidator extends AgaviValidator
+{
+	/**
+	 * Validates the input
+	 * 
+	 * @return     bool The input is valid number according to given parameters.
+	 */
+	protected function validate()
+	{
+		$postId = $this-&gt;getData('post');
+		
+		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+		$post = $manager-&gt;retrieveById($postId);
+		
+		if (null == $post)
+		{
+			$this-&gt;throwError();
+			return false;
+		}
+		
+		return true;
+	}
+}
+
+?&gt;</codeblock>
+
+    <p>That's all. There's three methods you don't know yet: The
+    <apiname>getArgument()</apiname> method retrieves the configured argument
+    name, the <apiname>getData()</apiname> method retrieves the request data
+    for the given argument name and the <apiname>throwError()</apiname> method
+    emits an error message. Please check the API-documentation for a more
+    detailed description.</p>
+
+    <p>But hey, wait. Now we retrieve the post twice, once in the validator to
+    check whether the id is actually valid and once in the action to actually
+    use it. That does not seem reasonable - it duplicates code and even worse,
+    if retrieving the post is a slow operation, it will cost us performance.
+    We wouldn't want that. Good for us, there is a way around that. A
+    validator may export a validated value to any parameter name we choose.
+    This can be the incoming parameter name but it is no requirement. This is
+    done by simply calling the <apiname>export()</apiname> method that's
+    defined in <apiname>AgaviValidator()</apiname>. This is how our finished
+    validator looks like.</p>
+
+    <codeblock>&lt;?php
+
+class Posts_PostValidator extends AgaviValidator
+{
+	/**
+	 * Validates the input
+	 * 
+	 * @return     bool The input is valid number according to given parameters.
+	 */
+	protected function validate()
+	{
+		$parameterName = $this-&gt;getArgument();
+		$postId = $this-&gt;getData($parameterName);
+		
+		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+		$post = $manager-&gt;retrieveById($postId);
+		
+		if (null == $post)
+		{
+			$this-&gt;throwError();
+			return false;
+		}
+		
+		$this-&gt;export($post);
+		return true;
+	}
+}
+
+?&gt;</codeblock>
+
+    <p>Now we need to make the class known to the framework. This is most
+    easily done by adding it to the autoloader config you'll find in
+    <filepath>app/modules/Posts/config/autoload.xml</filepath>. Add the
+    following line to the end of the autoload definitions:</p>
+
+    <codeblock class="xml">
+		&lt;autoload name="Posts_PostValidator"&gt;%core.module_dir%/Posts/lib/validator/PostValidator.class.php&lt;/autoload&gt;</codeblock>
+
+    <p>The complete file should look like this:</p>
+
+    <codeblock class="xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"&gt;
+	&lt;ae:configuration&gt;
+
+		&lt;autoload name="BlogPostsBaseAction"&gt;%core.module_dir%/Posts/lib/action/BlogPostsBaseAction.class.php&lt;/autoload&gt;
+		&lt;autoload name="BlogPostsBaseModel"&gt;%core.module_dir%/Posts/lib/model/BlogPostsBaseModel.class.php&lt;/autoload&gt;
+		&lt;autoload name="BlogPostsBaseView"&gt;%core.module_dir%/Posts/lib/view/BlogPostsBaseView.class.php&lt;/autoload&gt;
+		&lt;autoload name="Posts_PostValidator"&gt;%core.module_dir%/Posts/lib/validator/PostValidator.class.php&lt;/autoload&gt;
+
+	&lt;/ae:configuration&gt;
+&lt;/ae:configurations&gt;
+    </codeblock>
+
+    <p>Now that the class is known to the frameworks autoloader we need to
+    adapt our validation config to use the new validator and configure where
+    to export the post object. We'll just use "post" as name, as the incoming
+    parameter name. Adapt the
+    <filepath>app/modules/Posts/validate/Post/Show.xml</filepath> to look like
+    this:</p>
+
+    <codeblock class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ae:configurations
+	xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+	parent="%core.module_dir%/Posts/config/validators.xml"
+&gt;
+	&lt;ae:configuration&gt;
+		
+		&lt;validators&gt;
+			&lt;validator class="Posts_PostValidator" name="post"&gt;
+				&lt;arguments&gt;
+					&lt;argument&gt;post&lt;/argument&gt;
+				&lt;/arguments&gt;
+				&lt;errors&gt;
+					&lt;error&gt;The parameter post must contain a valid post id&lt;/error&gt;
+				&lt;/errors&gt;
+				&lt;ae:parameters&gt;
+					&lt;ae:parameter name="export"&gt;post&lt;/ae:parameter&gt;
+				&lt;/ae:parameters&gt; 
+			&lt;/validator&gt;
+		&lt;/validators&gt;
+		
+	&lt;/ae:configuration&gt;
+&lt;/ae:configurations&gt;
+</codeblock>
+
+    <p>So, kick out the redundant code from the action and we're done. While
+    we could just leave the
+    <apiname>Posts_Post_ShowAction::executeRead()</apiname> method empty and
+    retrieve the post in the view itself it's better practice to do it in the
+    action. If we're to change something about the logic how a post is
+    retrieved, maybe add some checks that the post may or may not be displayed
+    etc, we'd have to change the action and the view as opposed to only
+    changing the action. The
+    <apiname>Posts_Post_ShowAction::executeRead()</apiname> should now look
+    like this: </p>
+
+    <codeblock class="php">	public function executeRead(AgaviRequestDataHolder $rd)
+	{
+
+		$this-&gt;setAttribute('post', $rd-&gt;getParameter('post'));
+		return 'Success';
+	}
+</codeblock>
+  </body>
+</topic>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
-<topic id="???">
+<topic id="tutorial-fixing-bloggie-routing">
   <title>Fixing the bloggie routing</title>
 
   <body>
@@ -22,8 +22,8 @@
       page, we'll go and create the a route named "posts.post" as a child of
       the posts route. Remember that the concatenation rules for the route
       name allow you to leave the first part out, so the name attribute will
-      be set to ".post". The pattern should match an id, so we'll use
-      "^/(id:\d+)". Don't forget the left anchor. This route sets the action
+      be set to ".post". The pattern should match a post-id, so we'll use
+      "^/(post:\d+)". Don't forget the left anchor. This route sets the action
       to "Post", even though that action does not exist in itself. It will
       serve as a container for all it's subactions.</li>
 
@@ -47,7 +47,7 @@
 				&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
 
 				&lt;route name="posts" pattern="^/posts" module="Posts"&gt;
-					&lt;route name=".post" pattern="^/(id:\d+)" action="Post"&gt;
+					&lt;route name=".post" pattern="^/(post:\d+)" action="Post"&gt;
 						&lt;route name=".show" pattern="^$" action=".Show" /&gt;
 					&lt;/route&gt; 
 				&lt;/route&gt;
@@ -58,10 +58,45 @@
 
 </codeblock></p>
 
-    <p> Open your browser and point it to
+    <p>Open your browser and point it to
     http://localhost/bloggie/pub/posts/123 and you should see the stub post
     page we created earlier on. Note that now you need to provide a post id to
-    access the page, if you leave it out, you'll be directed to the 404 page.
-    </p>
+    access the page, if you leave it out, you'll be directed to the 404
+    page.</p>
+
+    <section><title>Generating URLs</title><p>So far we did not link the posts
+    on the index page to the proper detail page. Generating an url from a
+    route is a simple task, just call <apiname>AgaviRouting::gen()</apiname>
+    with the routename, add the parameters you want to set and that's it.
+    Let's fix our IndexSuccessView to generate the proper urls.</p><codeblock
+    class="php">	public function executeHtml(AgaviRequestDataHolder $rd)
+	{
+		$this-&gt;setupHtml($rd);
+		$ro = $this-&gt;getContext()-&gt;getRouting();
+
+		$this-&gt;setAttribute('_title', 'Index');
+		
+		$posts = array(
+			array(
+				'id' =&gt; 1,
+				'title' =&gt; 'First post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'No category',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; 1))
+			),
+			array(
+				'id' =&gt; 2,
+				'title' =&gt; 'Second post',
+				'posted' =&gt; '2008-07-14 00:01:07',
+				'category_name' =&gt; 'Agavi',
+				'author_name' =&gt; 'Admin',
+				'url' =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; 2))
+			)
+		);
+
+		$this-&gt;setAttribute('posts', $posts);
+	}</codeblock><p>Now all posts on the front page link to the appropriate
+    detail page. </p></section>
   </body>
 </topic>

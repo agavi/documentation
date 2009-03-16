@@ -9,6 +9,8 @@
     &lt;michael.stolovitzsky@bitextender.com&gt;</author>
 
     <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
+
+    <author>Felix Gilcher &lt;felix.gilcher@bitextender.com&gt;</author>
   </bookmeta>
 
   <chapter collection-type="sequence" href="topics/tutorial/introduction.dita">
@@ -20,6 +22,8 @@
 
     <topicref href="topics/tutorial/execution-flow-overview.dita"/>
 
+    <topicref href="topics/tutorial/a-word-about-actions.dita"/>
+
     <topicref href="topics/tutorial/filesystem-layout.dita"/>
 
     <topicref href="topics/tutorial/configuration-overview.dita"/>
@@ -27,7 +31,7 @@
 
   <chapter collection-type="sequence"
            href="topics/tutorial/setting-up-initial-application.dita">
-    <topicref format="" href="topics/reference/agavi-installation.dita"/>
+    <topicref href="topics/reference/agavi-installation.dita"/>
 
     <topicref href="topics/tutorial/step1/creating-agavi-project.dita"/>
 
@@ -45,11 +49,21 @@
     <topicref href="topics/tutorial/step2/introduction-routing.dita"/>
 
     <topicref href="topics/tutorial/step2/fixing-bloggie-routing.dita"/>
+
+    <topicref href="topics/tutorial/step2/accessing-request-parameters.dita"/>
+
+    <topicref href="topics/tutorial/step2/handling-validation-errors.dita"/>
   </chapter>
 
   <chapter href="topics/tutorial/step3/introduction.dita">
     <topicref href="topics/tutorial/step3/basics-creating-new-model.dita"/>
+
+    <topicref href="topics/tutorial/step3/adapting-actions-view.dita"/>
+
+    <topicref href="topics/tutorial/step3/custom-validators.dita"/>
   </chapter>
+
+  <chapter href="topics/tutorial/step4/introduction.dita"/>
 
   <chapter collection-type="sequence" href="topics/tutorial/skinning.dita">
     <topicref href="topics/tutorial/layers.dita"/>
