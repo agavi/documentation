@@ -5,7 +5,307 @@
   <title>Applying our Layout</title>
 
   <body>
-    <p>So let's go apply the pieces from the blue sky template to our blog.
-    </p>
+    <p>So let's go apply the pieces from the emplode template to our blog.
+    First we need to copy the ressources like images and css files to our
+    public directory. We'll just copy all images to
+    <filepath>pub/img</filepath> and the style.css to
+    <filepath>pub/css/style.css</filepath>. As we're moving the stylesheet to
+    a different location we'll need to adjust it a little, the stylesheet
+    directives referring to 'img' must be changed to '../img'.</p>
+
+    <p>Next we'll add the stylesheet to our decorator template in
+    <filepath>app/templates/Master.php</filepath>. You'll notice that the
+    master template reads the base href from the routing so that's taken care
+    of. All we need to to is insert the link tag. The Master.php should now
+    look like this:</p>
+
+    <codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;?php if(isset($t['_title'])) echo '&lt;h1&gt;' . htmlspecialchars($t['_title']) . '&lt;/h1&gt;'; ?&gt;
+	&lt;?php echo $inner; ?&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</codeblock>
+
+    <p>So let's add the required html-code. We don't have most of the elements
+    yet so for the header, navigation and all missing elements we'll keep the
+    raw html source:</p>
+
+    <codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;div id="header"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div id="toplinks"&gt;
+				&lt;div id="toplinks_inner"&gt;
+					&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;div id="site_title"&gt;
+				&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+				&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+			&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div id="navigation"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;ul&gt;
+				&lt;li class="current_page_item"&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href="blog_post.html"&gt;Blog Post&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href="style_demo.html"&gt;Style Demo&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href="archives.html"&gt;Archives&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href="empty_page.html"&gt;Empty Page&lt;/a&gt;&lt;/li&gt;
+			&lt;/ul&gt;
+
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+	
+	&lt;div id="main_wrapper_outer"&gt;
+		&lt;div id="main_wrapper_inner"&gt;
+			&lt;div class="center_wrapper"&gt;
+
+				&lt;div class="left" id="main"&gt;
+					&lt;div id="main_content"&gt;
+						
+						&lt;!-- this is where the main content will be placed --&gt;
+						&lt;?php echo $inner; ?&gt;
+						
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;div class="right" id="sidebar"&gt;
+
+					&lt;div id="sidebar_content"&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;About&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Categories&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								&lt;ul&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Resources&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								&lt;ul&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Gallery&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+
+								&lt;div class="thumbnails"&gt;
+
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+
+									&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+								&lt;/div&gt;
+
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+					&lt;/div&gt;
+
+				&lt;/div&gt;
+
+				&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div id="dashboard"&gt;
+		&lt;div id="dashboard_content"&gt;
+			&lt;div class="center_wrapper"&gt;
+
+				&lt;div class="col3 left"&gt;
+					&lt;div class="col3_content"&gt;
+
+						&lt;h4&gt;Tincidunt&lt;/h4&gt;
+						&lt;ul&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Semper eros&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Tincidunt morbi&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;div class="col3mid left"&gt;
+					&lt;div class="col3_content"&gt;
+
+						&lt;h4&gt;Fermentum&lt;/h4&gt;
+						&lt;ul&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Semper fermentum&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Tincidunt nisl&lt;/a&gt;&lt;/li&gt;						
+							&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;div class="col3 right"&gt;
+					&lt;div class="col3_content"&gt;
+
+						&lt;h4&gt;Praesent&lt;/h4&gt;
+						&lt;ul&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Semper lobortis&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;				
+							&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Sem morbi&lt;/a&gt;&lt;/li&gt;
+							&lt;li&gt;&lt;a href="#"&gt;Tincidunt sed&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;div id="footer"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div class="left"&gt;
+				&amp;copy; 2008 Website.com - Your Website Slogan
+			&lt;/div&gt;
+			&lt;div class="right"&gt;
+				&lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
+			&lt;/div&gt;
+
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</codeblock>
+
+    <p>Far better, but not perfect yet. We'll need to adapt the Index template
+    and the Post.Show template as well. The
+    <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> should
+    look like this:</p>
+
+    <codeblock>&lt;?php
+foreach ($t['posts'] as $post)
+{
+?&gt;
+&lt;div class="post"&gt;
+
+	&lt;div class="post_title"&gt;&lt;h2&gt;&lt;a href="&lt;?php echo $post['url']; ?&gt;"&gt;&lt;?php echo htmlspecialchars($post['title']); ?&gt;&lt;/a&gt;&lt;/h2&gt;&lt;/div&gt;
+	&lt;div class="post_date"&gt;Posted on &lt;?php echo $post['posted']; ?&gt; by &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/a&gt;&lt;/div&gt;
+	
+	&lt;div class="post_body"&gt;
+		&lt;?php echo $post['content']; ?&gt;
+	&lt;/div&gt;
+	
+	&lt;div class="post_meta"&gt;
+		&lt;a href="#"&gt;5 comments&lt;/a&gt; | Tagged: &lt;?php echo htmlspecialchars($post['category_name']); ?&gt;
+	&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;?php
+}
+?&gt;
+</codeblock>
+
+    <p>And for the Post.Show page we'll leave the comments out for the moment.
+    So <filepath>app/modules/Posts/templates/Posts/ShowSuccess.php</filepath>
+    should look like this: </p>
+
+    <codeblock>&lt;?php
+// alias the post, to make access shorter
+$post = $t['post'];
+?&gt;
+&lt;div class="post"&gt;
+
+	&lt;div class="post_title"&gt;&lt;h1&gt;&lt;?php echo htmlspecialchars($post['title']); ?&gt;&lt;/h1&gt;&lt;/div&gt;
+	&lt;div class="post_date"&gt;Posted on &lt;?php htmlspecialchars($post['posted']); ?&gt; by &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/a&gt;&lt;/div&gt;
+	
+	&lt;div class="post_body"&gt;
+		&lt;?php echo $post['content']; ?&gt;
+	&lt;/div&gt;
+	
+	&lt;div class="post_meta"&gt;
+		Tagged: &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['category_name']); ?&gt;&lt;/a&gt;
+	&lt;/div&gt;
+
+&lt;/div&gt;</codeblock>
+
+    <p>That's it for now.</p>
+
+    <note type="note">There's different opinions about whether it's better to
+    first skin the application and then continue building it or the other way
+    round. We'd recommend to first build major parts of the application and
+    then skin it. Just add a rough layout and then move on to implementing
+    functionality. That way you can have someone test the clickflows and the
+    overall logic while you make it look good. However, for the course of this
+    tutorial that would imply that you'd have to learn a lot of more difficult
+    things before actually returning to this point.</note>
   </body>
 </topic>
