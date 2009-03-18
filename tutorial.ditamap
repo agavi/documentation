@@ -63,12 +63,25 @@
     <topicref href="topics/tutorial/step3/custom-validators.dita"/>
   </chapter>
 
-  <chapter href="topics/tutorial/step4/introduction.dita"/>
+  <chapter href="topics/tutorial/step4/introduction.dita">
+    <topicref href="topics/tutorial/step4/layers-and-layouts.dita"/>
+
+    <topicref href="topics/tutorial/step4/dressing-up.dita"/>
+
+    <topicref href="topics/tutorial/step4/title-in-url.dita"/>
+
+    <topicref href="topics/tutorial/step4/routing-callbacks.dita"/>
+
+    <topicref href="topics/tutorial/step4/using-callback-for-title-in-url.dita"/>
+  </chapter>
+
+  <chapter href="topics/tutorial/step5/introduction.dita"/>
 
   <chapter collection-type="sequence" href="topics/tutorial/skinning.dita">
     <topicref href="topics/tutorial/layers.dita"/>
 
-    <!-- recreate own page 
+    <!--
+ recreate own page 
 -->
 
     <topicref href="topics/concepts/output-types.dita"/>

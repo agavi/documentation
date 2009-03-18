@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-layers-and-layouts">
+  <title>Layers and Layouts</title>
+
+  <body>
+    <p>Layers are templates that are organized in a matryoshka doll like
+    fashion. Each layer wraps the one a level deeper and has access to the
+    full rendered content and all it's template variables. The innermost layer
+    is the template belonging to the view that was executed. The outer layers
+    are called decorators because it wraps around the output of the inner
+    layer adding content and thus decorating it.</p>
+
+    <p>Layers can be created at runtime in the view or predefined. A
+    predefined set of layers is called a layout. Layouts are tied to an output
+    type (we'll explain later what that is) and thus defined in
+    <filepath>app/config/output_types.xml</filepath>. Let's go and have a look
+    at the relevant section of our output_types.xml:</p>
+
+    <codeblock class="xml">				&lt;layouts default="standard"&gt;
+					&lt;!-- standard layout with a content and a decorator layer --&gt;
+					&lt;layout name="standard"&gt;
+						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+						&lt;layer name="content" /&gt;
+						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;
+					
+					&lt;!-- another example layout that has an intermediate wrapper layer in between content and decorator --&gt;
+					&lt;!-- it also shows how to use slots etc --&gt;
+					&lt;layout name="wrapped"&gt;
+						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+						&lt;layer name="content" /&gt;
+						&lt;layer name="wrapper"&gt;
+							&lt;!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one --&gt;
+							&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+						&lt;/layer&gt;
+						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+							&lt;!-- an example for a slot --&gt;
+							&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;
+					
+					&lt;!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot --&gt;
+					&lt;layout name="simple"&gt;
+						&lt;layer name="content" /&gt;
+					&lt;/layout&gt;
+				&lt;/layouts&gt;
+</codeblock>
+
+    <p>Let's not be confused by the whole block and concentrate on the
+    simplest layout defined in this section. </p>
+
+    <codeblock class="xml">					&lt;layout name="simple"&gt;
+						&lt;layer name="content" /&gt;
+					&lt;/layout&gt;</codeblock>
+
+    <p>This layout defines a single layer named "content". It does not pass
+    any other parameters to the layer, most importantly no template is tied to
+    the layer. That means that the template for the current view will be used.
+    This layer would produce only the template's html code as output. We'll
+    use that later on. </p>
+
+    <p>The &lt;layouts&gt; tag defines a default layout to use, it's called
+    standard. This is the one we're currently using everywhere, so let's
+    explain what this is about.</p>
+
+    <codeblock class="xml">					&lt;layout name="standard"&gt;
+						&lt;layer name="content" /&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;</codeblock>
+
+    <p>This layout defines two layers, one named "content" that works like the
+    one in the simple layout we've seen above. In addition, it defines a
+    second layer called "decorator" that wraps around the first layer. For
+    this layer we're specifying two parameters - the template's name and the
+    directory to search the template in. The directive '%core.template_dir%'
+    resolves to <filepath>app/templates</filepath>, so let's have a look at
+    <filepath>app/templates/Master.php</filepath>. <note type="tip">Note that
+    the layer's name must be unique within the defined layout but multiple
+    layouts can use the same name. In general it's good practice to use the
+    same name for layers performing the same function.</note></p>
+
+    <codeblock class="xml">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;?php if(isset($t['_title'])) echo '&lt;h1&gt;' . htmlspecialchars($t['_title']) . '&lt;/h1&gt;'; ?&gt;
+	&lt;?php echo $inner; ?&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</codeblock>
+
+    <p>See how the decorator template accesses the variable _title that we
+    modified ealier - all outer templates can access the the template
+    variables set by the view and the action. Note the special variable $inner
+    - it contains the output of the content-layer. In general $inner contains
+    the output of the previously rendered template with a single exception:
+    for the innermost template ("content" in this case), $inner contains the
+    return value of the view's <apiname>executeHtml()</apiname> method.</p>
+
+    <p>The last defined layout is a little more complex and we'll only explain
+    it partially. Don't worry, we'll come back later to explain.</p>
+
+    <codeblock>					&lt;layout name="wrapped"&gt;
+						&lt;layer name="content" /&gt;
+						&lt;layer name="wrapper"&gt;
+							&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+						&lt;/layer&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+							&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;</codeblock>
+
+    <p>Let's forget about the &lt;slot&gt; definition and focus on the rest.
+    We've seen the content and the decorator template before, those should be
+    clear. There's a third layer called "wrapper" that uses the standard
+    template name (the view's name) but a different extension. So in case our
+    view is named PostSuccessView the layer's template will be
+    PostSuccess.wrapper.php.</p>
+
+    <section><title>Loading Layouts</title><p>Loading layouts is a simple call
+    to <apiname>AgaviView::loadLayout(&lt;layoutname&gt;)</apiname>. If you
+    pass "null" as the layoutname, the configured default layout will be used.
+    The applications baseview that was created when we first created our
+    application does this in it's setupHtml() method.</p></section>
+  </body>
+</topic>

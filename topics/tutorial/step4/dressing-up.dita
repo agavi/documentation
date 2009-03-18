@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="tutorial-dressing-up">
+  <title>Applying our Layout</title>
+
+  <body>
+    <p>So let's go apply the pieces from the blue sky template to our blog.
+    </p>
+  </body>
+</topic>
