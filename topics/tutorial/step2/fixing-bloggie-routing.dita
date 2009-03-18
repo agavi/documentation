@@ -68,35 +68,31 @@
     on the index page to the proper detail page. Generating an url from a
     route is a simple task, just call <apiname>AgaviRouting::gen()</apiname>
     with the routename, add the parameters you want to set and that's it.
-    Let's fix our IndexSuccessView to generate the proper urls.</p><codeblock
-    class="php">	public function executeHtml(AgaviRequestDataHolder $rd)
+    Let's fix our IndexSuccessView to generate the proper urls. We'll read the
+    posts attribute, modify the entries and write it back.</p><codeblock
+    class="php">&lt;?php
+
+class Posts_IndexSuccessView extends BlogPostsBaseView
+{
+	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this-&gt;setupHtml($rd);
+
 		$ro = $this-&gt;getContext()-&gt;getRouting();
-
-		$this-&gt;setAttribute('_title', 'Index');
 		
-		$posts = array(
-			array(
-				'id' =&gt; 1,
-				'title' =&gt; 'First post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'No category',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; 1))
-			),
-			array(
-				'id' =&gt; 2,
-				'title' =&gt; 'Second post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'Agavi',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; 2))
-			)
-		);
-
+		$posts = array();
+		foreach($this-&gt;getAttribute('posts') as $p) {
+			$p['url'] = $ro-&gt;gen('posts.post.show', array('post' =&gt; $p['id']));
+			$posts[] = $p;
+		}
+		
 		$this-&gt;setAttribute('posts', $posts);
-	}</codeblock><p>Now all posts on the front page link to the appropriate
+		
+		$this-&gt;setAttribute('_title', 'Latest Posts');
+	}
+}
+
+?&gt;</codeblock><p>Now all posts on the front page link to the appropriate
     detail page. </p></section>
   </body>
 </topic>

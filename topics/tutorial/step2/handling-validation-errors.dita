@@ -33,7 +33,7 @@
     We don't have that view yet, so let's go create one.</p></section>
 
     <section><title>Creating a new View</title><p>Creating a new view is most
-    easily done using the agavi build system:</p><screen>bloggie$ <userinput>agavi view-create</userinput>
+    easily done using the agavi build system:</p><screen>bloggie$ <userinput>dev/bin/agavi view-create</userinput>
 
 Module name: <userinput>Posts</userinput>
 

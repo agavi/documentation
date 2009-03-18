@@ -108,7 +108,7 @@
 				'url' =&gt; null,
 				'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
 			),
-			2 = &gt; array(
+			2 =&gt; array(
 				'id' =&gt; 2,
 				'title' =&gt; 'Second post',
 				'posted' =&gt; '2008-07-14 00:01:07',
