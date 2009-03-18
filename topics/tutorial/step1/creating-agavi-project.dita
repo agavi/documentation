@@ -9,26 +9,25 @@
     configuration system to manage your projects. This system can be accessed
     using the <filepath><cmdname>agavi</cmdname></filepath> shell script.</p>
 
-    <section>
-      <title>Creating an empty agavi application</title>
-      <p>This means that you are ready to create the structure for
-    your new blog application, affectionately called "Bloggie" (feel
-    free to give it a less cuddly name if you can't stand it; the
-    developers recommend "Incredible Scorpion-Powered Blog Application
-    of Doom").</p>
-     <p>To create a project, first create a directory in your webservers document 
-    root directory where the application will reside. For the tutorial we'll assume 
-    that you're using a server at localhost and the application directory is named 
-    "bloggie". So, if your webservers 
-    document root is located at <filepath>/srv/www</filepath>, create the directory
-    <filepath>/srv/www/bloggie</filepath>, if you're using windows and the document
-    root is at <filepath>C:\xampp\</filepath> create <filepath>C:\xampp\bloggie</filepath>.
-    Then change to that newly created directory and invoke <userinput>agavi project</userinput>.
-    Some of the prompts may seem confusing at first—don't worry, you will have a chance 
-    to explore their  meaning in  more depth after your project is created. For the time being 
-    only provide a name for the project, a prefix to be used for all project specific classes 
-    and just leave the defaults for the rest, so press enter when those prompts appear.</p>
-<screen>
+    <section><title>Creating an empty agavi application</title> <p>This means
+    that you are ready to create the structure for your new blog application,
+    affectionately called "Bloggie" (feel free to give it a less cuddly name
+    if you can't stand it; the developers recommend "Incredible
+    Scorpion-Powered Blog Application of Doom").</p> <p>To create a project,
+    first create a directory in your webservers document root directory where
+    the application will reside. For the tutorial we'll assume that you're
+    using a server at localhost and the application directory is named
+    "bloggie". So, if your webservers document root is located at
+    <filepath>/srv/www</filepath>, create the directory
+    <filepath>/srv/www/bloggie</filepath>, if you're using windows and the
+    document root is at <filepath>C:\xampp\</filepath> create
+    <filepath>C:\xampp\bloggie</filepath>. Then change to that newly created
+    directory and invoke <userinput>agavi project</userinput>. Some of the
+    prompts may seem confusing at first—don't worry, you will have a chance to
+    explore their meaning in more depth after your project is created. For the
+    time being only provide a name for the project, a prefix to be used for
+    all project specific classes and just leave the defaults for the rest, so
+    press enter when those prompts appear.</p> <screen>
 www$ <userinput>mkdir bloggie</userinput>
 www$ <userinput>cd bloggie</userinput>
 bloggie$ <userinput>agavi project</userinput>
@@ -39,7 +38,9 @@ Project name [New Agavi Project]: <userinput>Bloggie</userinput>
 Project prefix (used, for example, in the project base action) [Bloggiedemo]: <userinput>Blog</userinput>
 Default template extension [php]:
 
-Should a configured .htaccess file be generated [n]? 
+Name of the environment to bootstrap in dispatcher scripts [development]:
+
+Should an Apache .htaccess file with rewrite rules be generated (y/n) [n]?
 
 Space-separated list of modules to create for Bloggie [Default]:
 
@@ -62,11 +63,8 @@ Module for secure system action [Default]:
 Module for login system action [Default]:
 
 bloggie$
-</screen>
-
-<p>Congratulations! You have created a brand new Agavi application. Point your favorite 
-browser to http://localhost/bloggie/pub/ and you should be greeted by the agavi welcome 
-page.</p>
-    </section>
+</screen> <p>Congratulations! You have created a brand new Agavi application.
+    Point your favorite browser to http://localhost/bloggie/pub/ and you
+    should be greeted by the agavi welcome page.</p></section>
   </body>
 </topic>
