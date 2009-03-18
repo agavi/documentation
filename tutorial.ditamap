@@ -38,6 +38,8 @@
     <topicref href="topics/tutorial/step1/finishing-setup.dita"/>
 
     <topicref href="topics/tutorial/finishing-the-basic-setup.dita"/>
+
+    <topicref href="topics/tutorial/step1/getting-a-new-checkout-to-work.dita"/>
   </chapter>
 
   <chapter collection-type="sequence"
