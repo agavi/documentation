@@ -80,15 +80,11 @@
   <chapter href="topics/tutorial/step5/introduction.dita"/>
 
   <chapter collection-type="sequence" href="topics/tutorial/skinning.dita">
-    <topicref href="topics/tutorial/layers.dita"/>
-
     <!--
  recreate own page 
 -->
 
     <topicref href="topics/concepts/output-types.dita"/>
-
-    <topicref href="topics/tutorial/layouts.dita"/>
   </chapter>
 
   <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  -->
