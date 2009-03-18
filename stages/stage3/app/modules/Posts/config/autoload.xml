@@ -5,6 +5,7 @@
 		<autoload name="BlogPostsBaseAction">%core.module_dir%/Posts/lib/action/BlogPostsBaseAction.class.php</autoload>
 		<autoload name="BlogPostsBaseModel">%core.module_dir%/Posts/lib/model/BlogPostsBaseModel.class.php</autoload>
 		<autoload name="BlogPostsBaseView">%core.module_dir%/Posts/lib/view/BlogPostsBaseView.class.php</autoload>
+		<autoload name="Posts_PostValidator">%core.module_dir%/Posts/lib/validator/PostValidator.class.php</autoload>
 		
 	</ae:configuration>
 </ae:configurations>

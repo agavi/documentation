@@ -69,10 +69,8 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this-&gt;setupHtml($rd);
-		$ro = $this-&gt;getContext()-&gt;getRouting();
 
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-		
+		$ro = $this-&gt;getContext()-&gt;getRouting();
 		
 		$posts = array();
 		
@@ -84,6 +82,8 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 		}
 		
 		$this-&gt;setAttribute('posts', $posts);
+		
+		$this-&gt;setAttribute('_title', 'Latest Posts');
 	}
 }
 

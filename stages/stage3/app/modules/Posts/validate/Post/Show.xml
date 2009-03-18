@@ -5,22 +5,20 @@
 	parent="%core.module_dir%/Posts/config/validators.xml"
 >
 	<ae:configuration>
-
+		
 		<validators>
-			<validator class="number" name="post">
+			<validator class="Posts_PostValidator" name="post">
 				<arguments>
 					<argument>post</argument>
 				</arguments>
 				<errors>
-					<error>The parameter post must contain a number in the range of 1 - 2</error>
+					<error>The parameter post must contain a valid post id</error>
 				</errors>
 				<ae:parameters>
-					<ae:parameter name="type">int</ae:parameter>
-					<ae:parameter name="min">1</ae:parameter>
-					<ae:parameter name="max">2</ae:parameter>
+					<ae:parameter name="export">post</ae:parameter>
 				</ae:parameters> 
 			</validator>
 		</validators>
-
+		
 	</ae:configuration>
 </ae:configurations>
