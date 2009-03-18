@@ -5,6 +5,9 @@
   <title>Connecting to a database</title>
 
   <body>
-    <p/>
+    <p>So far we've been working with static data and it's about time we
+    change that and connect our blog to a database. Otherwise we'd have a hard
+    time giving the readers a way of commeting on our posts or creating an
+    admin page where we can add or edit posts. </p>
   </body>
 </topic>
