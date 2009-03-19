@@ -8,9 +8,9 @@
     <p/>
 
     <section><title>Creating a new action</title> <p>To create a new action
-    invoke <userinput>agavi action</userinput> and answer the questions.</p>
-    <screen>
-      bloggie$ <userinput>dev/bin/agavi action</userinput>
+    invoke <userinput>agavi action-wizard</userinput> and answer the
+    questions.</p> <screen>
+      bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
 
       Module name: <userinput>Posts</userinput>
 

@@ -22,15 +22,15 @@
     <filepath>/srv/www/bloggie</filepath>, if you're using windows and the
     document root is at <filepath>C:\xampp\</filepath> create
     <filepath>C:\xampp\bloggie</filepath>. Then change to that newly created
-    directory and invoke <userinput>agavi project</userinput>. Some of the
-    prompts may seem confusing at first—don't worry, you will have a chance to
-    explore their meaning in more depth after your project is created. For the
-    time being only provide a name for the project, a prefix to be used for
-    all project specific classes and just leave the defaults for the rest, so
-    press enter when those prompts appear.</p> <screen>
+    directory and invoke <userinput>agavi project-wizard</userinput>. Some of
+    the prompts may seem confusing at first—don't worry, you will have a
+    chance to explore their meaning in more depth after your project is
+    created. For the time being only provide a name for the project, a prefix
+    to be used for all project specific classes and just leave the defaults
+    for the rest, so press enter when those prompts appear.</p> <screen>
 www$ <userinput>mkdir bloggie</userinput>
 www$ <userinput>cd bloggie</userinput>
-bloggie$ <userinput>agavi project</userinput>
+bloggie$ <userinput>agavi project-wizard</userinput>
 
 Project base directory [/srv/applications/bloggie]:
 

@@ -18,9 +18,9 @@
     is one area of concern for our blog, so code related to that should be
     placed in one Module.</p> <p>Creating a new Module is a simple task if we
     use the agavi commandline script. So navigate to the directory where you
-    created your application, invoke <userinput>agavi module</userinput> and
-    answer the questions.</p> <screen>
-      bloggie$ <userinput>dev/bin/agavi module</userinput>
+    created your application, invoke <userinput>agavi
+    module-wizard</userinput> and answer the questions.</p> <screen>
+      bloggie$ <userinput>dev/bin/agavi module-wizard</userinput>
 
       Module name: <userinput>Posts</userinput>
 
