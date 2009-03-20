@@ -32,6 +32,13 @@
 						<layer name="decorator">
 							<ae:parameter name="directory">%core.template_dir%</ae:parameter>
 							<ae:parameter name="template">Master</ae:parameter>
+							<slots>
+								<slot name="navigation" module="Widgets" action="Navigation" />
+								<slot name="header" module="Widgets" action="Header" />
+								<slot name="footer" module="Widgets" action="Footer" />
+								<slot name="dashboard" module="Widgets" action="Dashboard" />
+								<slot name="sidebar" module="Widgets" action="Sidebar" />	
+							</slots>
 						</layer>
 					</layout>
 					
@@ -54,7 +61,7 @@
 					</layout>
 					
 					<!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot -->
-					<layout name="simple">
+					<layout name="slot">
 						<layer name="content" />
 					</layout>
 				</layouts>

@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="???">
+  <title>What are Slots</title>
+
+  <body>
+    <p>Slots are a named placeholder in your template that's tied to the
+    result of a specific action execution. Slots can be used to create
+    reusable components for your project or to split up a page into manageable
+    parts. Slots can be registered at runtime or by using a layout. Slots are
+    registered on a template layer and must have a name that's unique for this
+    layer. All slot output is collected in an associative array named
+    <varname>$slots</varname> with the slot's name as key. </p>
+
+    <p>Slots are executed after the main action's view has been executed but
+    before the template is rendered. The main action's view can feed arbitrary
+    data as parameter to the slot and the slot can access the global request
+    data. The slot's execution environment is otherwise separated from the
+    main actions or any other slots execution environment, most important is
+    that the slot has no access to the main actions template variables -
+    unlike the decorator layers.</p>
+
+    <p>Slots are often called "partials" in other frameworks</p>
+
+    <section><title>Registering a Slot in a layout.</title><p>Often slots are
+    used to structure an application and factor out common logic and html-code
+    from individual actions. A slot that should be available on all pages and
+    does not depend on input from the main action should be registered in the
+    default layout - a standard example for such a slot is the navigation - it
+    usually shares it's logic across all pages and usually only depends on the
+    matched route. Let's extract our static navigation and register it as a
+    slot for our default layout.</p><p>A slot is a regular action so we create
+    one. However it's a good idea to move your shared elements to a separate
+    module so we invoke the module wizard:</p><screen>bloggie$ <userinput>dev/bin/agavi module-wizard</userinput>
+
+Module name: <userinput>Widgets</userinput>
+
+Space-separated list of actions to create for Widgets: <userinput>Navigation</userinput>
+
+Space-separated list of views to create for Navigation [Success]: 
+
+bloggie$ 
+</screen><p>So now that we created a new action we need to register it as a
+    slot with ourstandard layout in
+    <filepath>app/config/output_types.xml</filepath>:</p><codeblock
+    class="xml">					&lt;!-- standard layout with a content and a decorator layer --&gt;
+					&lt;layout name="standard"&gt;
+						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+						&lt;layer name="content" /&gt;
+						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+							&lt;slots&gt;
+								&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+							&lt;/slots&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;</codeblock><p>The &lt;slot&gt; tag registers a slot named
+    "navigation" on the decorator layer with the action named "Navigation"
+    located in the module "Widgets". Whenever the decorator layer is rendered
+    this action is executed and the output can be inserted into the layer's
+    rendering. So now we can remove the HTML code for the navigation and place
+    it in the template for the Navigation action. The template
+    <filepath>app/modules/Widgets/templates/NavigationSuccess.php</filepath>
+    should now look like this:</p><codeblock class="xml">&lt;div id="navigation"&gt;
+	&lt;div class="center_wrapper"&gt;
+
+		&lt;ul&gt;
+			&lt;li class="current_page_item"&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="blog_post.html"&gt;Blog Post&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="style_demo.html"&gt;Style Demo&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="archives.html"&gt;Archives&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="empty_page.html"&gt;Empty Page&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+
+		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+	&lt;/div&gt;
+&lt;/div&gt;</codeblock><p>and the respective part in our decorator template
+    <filepath>app/templates/Master.php</filepath> must be replaced by the slot
+    output: </p><codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	&lt;div id="header"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div id="toplinks"&gt;
+				&lt;div id="toplinks_inner"&gt;
+					&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;div id="site_title"&gt;
+				&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+				&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+			&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+&lt;?php echo $slots['navigation']; ?&gt;
+	
+	&lt;div id="main_wrapper_outer"&gt;
+		&lt;div id="main_wrapper_inner"&gt;
+			&lt;div class="center_wrapper"&gt;
+
+...</codeblock><p>Done. Let's start and identify other commonly used elements.
+    There's the header and the footer, the sidebar column and the dashboard at
+    the bottom. Let's start extratcting those - the process is the same as
+    with the navigation, so I'll keep that short. Let's first create four
+    actions:</p><screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
+
+Module name: Widgets
+
+Action name: Header
+
+Space-separated list of views to create for Header [Success]:
+
+bloggie$
+</screen><screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
+
+Module name: Widgets
+
+Action name: Footer
+
+Space-separated list of views to create for Footer [Success]:
+
+bloggie$
+</screen><screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
+
+Module name: Widgets
+
+Action name: Dashboard
+
+Space-separated list of views to create for Dashboard [Success]:
+
+bloggie$
+</screen><screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
+
+Module name: Widgets
+
+Action name: Sidebar
+
+Space-separated list of views to create for Sidebar [Success]:
+
+bloggie$
+</screen><p>Next register the slots:</p><codeblock class="xml">					&lt;!-- standard layout with a content and a decorator layer --&gt;
+					&lt;layout name="standard"&gt;
+						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+						&lt;layer name="content" /&gt;
+						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+						&lt;layer name="decorator"&gt;
+							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+							&lt;slots&gt;
+								&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+								&lt;slot name="header" module="Widgets" action="Header" /&gt;
+								&lt;slot name="footer" module="Widgets" action="Footer" /&gt;
+								&lt;slot name="dashboard" module="Widgets" action="Dashboard" /&gt;
+								&lt;slot name="sidebar" module="Widgets" action="Sidebar" /&gt;
+							&lt;/slots&gt;
+						&lt;/layer&gt;
+					&lt;/layout&gt;</codeblock><p>and now move the HTML code to the repective
+    templates.</p><p><filepath>app/modules/Widgets/templates/HeaderSuccess.php</filepath>:</p><codeblock
+    class="xml">	&lt;div id="header"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div id="toplinks"&gt;
+				&lt;div id="toplinks_inner"&gt;
+					&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;div id="site_title"&gt;
+				&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+				&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+			&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+</codeblock><p><filepath>app/modules/Widgets/templates/FooterSuccess.php</filepath>:</p><codeblock
+    class="xml">	&lt;div id="footer"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div class="left"&gt;
+				&amp;copy; 2008 Website.com - Your Website Slogan
+			&lt;/div&gt;
+			&lt;div class="right"&gt;
+				&lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
+			&lt;/div&gt;
+
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/DashboardSuccess.php</filepath>:</p><codeblock>&lt;div id="dashboard"&gt;
+	&lt;div id="dashboard_content"&gt;
+		&lt;div class="center_wrapper"&gt;
+
+			&lt;div class="col3 left"&gt;
+				&lt;div class="col3_content"&gt;
+
+					&lt;h4&gt;Tincidunt&lt;/h4&gt;
+					&lt;ul&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Semper eros&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Tincidunt morbi&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class="col3mid left"&gt;
+				&lt;div class="col3_content"&gt;
+
+					&lt;h4&gt;Fermentum&lt;/h4&gt;
+					&lt;ul&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Semper fermentum&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Tincidunt nisl&lt;/a&gt;&lt;/li&gt;						
+						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class="col3 right"&gt;
+				&lt;div class="col3_content"&gt;
+
+					&lt;h4&gt;Praesent&lt;/h4&gt;
+					&lt;ul&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Semper lobortis&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;				
+						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Sem morbi&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="#"&gt;Tincidunt sed&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+
+				&lt;/div&gt;
+			&lt;/div&gt;
+
+			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/SidebarSuccess.php</filepath>:</p><codeblock
+    class="php">				&lt;div class="right" id="sidebar"&gt;
+
+					&lt;div id="sidebar_content"&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;About&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Categories&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								&lt;ul&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Resources&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+								&lt;ul&gt;
+									&lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
+									&lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
+								&lt;/ul&gt;
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+						&lt;div class="box"&gt;
+
+							&lt;div class="box_title"&gt;Gallery&lt;/div&gt;
+
+							&lt;div class="box_content"&gt;
+
+								&lt;div class="thumbnails"&gt;
+
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+
+									&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+								&lt;/div&gt;
+
+							&lt;/div&gt;
+
+						&lt;/div&gt;
+
+					&lt;/div&gt;
+
+				&lt;/div&gt;</codeblock><p>And finally our modified
+    <filepath>app/modules/templates/Master.php</filepath>:</p><codeblock
+    class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+&lt;?php echo $slots['header']; ?&gt;
+&lt;?php echo $slots['navigation']; ?&gt;
+	
+	&lt;div id="main_wrapper_outer"&gt;
+		&lt;div id="main_wrapper_inner"&gt;
+			&lt;div class="center_wrapper"&gt;
+
+				&lt;div class="left" id="main"&gt;
+					&lt;div id="main_content"&gt;
+						
+						&lt;!-- this is where the main content will be placed --&gt;
+						&lt;?php echo $inner; ?&gt;
+						
+					&lt;/div&gt;
+				&lt;/div&gt;
+
+				&lt;?php echo $slots['sidebar']; ?&gt;
+
+				&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+
+	&lt;?php echo $slots['dashboard']; ?&gt;
+
+	&lt;?php echo $slots['footer']; ?&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</codeblock><p>That's far shorter and nicely displays how the whole page is
+    constructed from small elements. Looks like we have everything accounted
+    for, do we? No, wait. </p></section>
+
+    <section><title>Dynamically Registering a Slot in a View</title><p>There's
+    another set of elements that are very similar. Let's have a look at the
+    display of posts on the front page and on the post's detail page. Overall,
+    they look pretty similar, however theres some minor differences: </p><ul>
+        <li>The number of comments is listed on the frontpage, on the detail
+        page we want to display the comments themselves.</li>
+
+        <li>The headline tag is h2 on the frontpage while it is h1 on the
+        detail page.</li>
+
+        <li>The headline is linked on the frontpage while it is not on the
+        detail page.</li>
+      </ul><p>Still, we'd really like to factor that out. If we could only use
+    the detail page for the list display as well. Well, it turns out we can. A
+    view can register arbitrary slots on any defined layer and pass any
+    parameter it wishes. Here's how it works. We change our
+    <filepath>app/modules/Posts/views/IndexSuccessView.class.php</filepath> to
+    register the slots on it's main layer which is named
+    "content":</p><codeblock class="php">&lt;?php
+
+class Posts_IndexSuccessView extends BlogPostsBaseView
+{
+	public function executeHtml(AgaviRequestDataHolder $rd)
+	{
+		$this-&gt;setupHtml($rd);
+		
+		$contentLayer = $this-&gt;getLayer('content');
+
+		$ro = $this-&gt;getContext()-&gt;getRouting();
+		
+		$posts = array();
+		
+		foreach($this-&gt;getAttribute('posts') as $p)
+		{
+			/* register one slot per post */
+			$contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p-&gt;getId())));
+		}
+		
+		$this-&gt;setAttribute('_title', 'Latest Posts');
+	}
+}
+
+?&gt;</codeblock><p>and then change the template in
+    <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> to just
+    display the slots:</p><codeblock>&lt;?php
+foreach ($slots as $slot)
+{
+	echo $slot;
+}
+?&gt;
+</codeblock><p>The call to <apiname>AgaviView::getLayer()</apiname> retrieves
+    the layer named 'content' from the list of configured layers. The call to
+    <apiname>AgaviView::createSlotContainer()</apiname> creates a new
+    slotcontainer that is then registered on the layer via
+    <apiname>AgaviTemplateLayer::setSlot()</apiname>. We create a unique name
+    for each slot we're creating and we're passing the post-id as parameter
+    when creating the slot.</p><p>That takes care of most of our problems - if
+    you have a look at the index page you'll see that the list of posts is
+    nicely displayed - with the mentioned drawbacks. The headline is
+    &lt;h1&gt; and not &lt;h2&gt;, the number of comments not shown. Let's
+    take care of that. </p><p>We need a way to distinguish where we are - is
+    the detail page included as a slot or is it the main action. We could
+    either pass in a new parameter or find something else. Well, there is
+    already something else. Each action execution is isolated in an
+    <apiname>AgaviExecutionContainer</apiname> and it does have access to that
+    container. Creating a slot container automagically sets a parameter on the
+    container and we can read that parameter in our view and react accordingly
+    (<filepath>app/modules/Posts/views/Post/ShowSuccessView.class.php</filepath>):</p><codeblock
+    class="php">&lt;?php
+
+class Posts_Post_ShowSuccessView extends BlogPostsBaseView
+{
+	public function executeHtml(AgaviRequestDataHolder $rd)
+	{
+		$this-&gt;setupHtml($rd);
+		
+		$p = $this-&gt;getAttribute('post');
+		$post = $p-&gt;toArray();
+		$post['url'] = $this-&gt;getContext()-&gt;getRouting()-&gt;gen('posts.post.show', array('post' =&gt; $p-&gt;getId()));
+		
+		$this-&gt;setAttribute('post', $post);
+		
+		$isList = $this-&gt;getContainer()-&gt;getParameter('is_slot', false);
+		
+		if($isList) {
+			$headlineSize = 2;
+			$linkHeadline = true;
+			$displayComments = false;
+		} else {
+			$headlineSize = 1;
+			$linkHeadline = false;
+			$displayComments = true;
+		}
+		
+		$this-&gt;setAttribute('headline_size', $headlineSize);
+		$this-&gt;setAttribute('link_headline', $linkHeadline);
+		$this-&gt;setAttribute('display_comments', $displayComments);
+		
+		$this-&gt;setAttribute('_title', $post['title']);
+	}
+}
+?&gt;</codeblock><p>Now we only need to adapt the template in
+    <filepath>app/modules/Posts/templates/Post/ShowSuccess.php</filepath>
+    accordingly and we're all set: </p><codeblock class="php">&lt;?php
+// alias the post, to make access shorter
+$post = $t['post'];
+
+$headline = htmlspecialchars($post['title']);
+
+if($t['link_headline']) {
+	$headline = sprintf(
+		'&lt;a href="%1$s"&gt;%2$s&lt;/a&gt;',
+		$post['url'],
+		$headline
+	);
+}
+
+$headline = sprintf(
+	'&lt;h%1$s&gt;%2$s&lt;/h%1$s&gt;',
+	$t['headline_size'],
+	$headline
+);
+
+?&gt;
+&lt;div class="post"&gt;
+
+	&lt;div class="post_title"&gt;&lt;?php echo $headline; ?&gt;&lt;/div&gt;
+	&lt;div class="post_date"&gt;Posted on &lt;?php htmlspecialchars($post['posted']); ?&gt; by &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/a&gt;&lt;/div&gt;
+	
+	&lt;div class="post_body"&gt;
+		&lt;?php echo $post['content']; ?&gt;
+	&lt;/div&gt;
+	
+	&lt;div class="post_meta"&gt;
+		&lt;?php
+	if(!$t['display_comments']) {
+		?&gt;
+		&lt;a href="#"&gt;5 comments&lt;/a&gt; | 
+		&lt;?php
+	}
+		?&gt;
+		Tagged: &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['category_name']); ?&gt;&lt;/a&gt;
+	&lt;/div&gt;
+
+&lt;/div&gt;</codeblock><p>Done. Fire up your browser and check - things
+    should be just fine.</p></section>
+
+    <section><title>Slots, Request Data access and Validation</title><p>The
+    usual rules for validation apply for slots as well: No access to any piece
+    of request data unless it's validated. This includes any kind of request
+    data, the global data passed by the client and the additional arguments
+    passed when registering the slot. The above piece of code only works
+    because we already have validation defined for the parameter named "post".
+    </p><p>However, there is an exception: Slots that are marked as "simple"
+    have full access to all arguments that were passed at registration time
+    even without validation. Simple slots however have no access at all to the
+    global request data passed by the client.</p></section>
+
+    <section><title>Slots and Layouts</title><p>Slots can use layouts
+    themselves. However, there's some things that you need to take into
+    account. If slot A uses a layout that includes slot B and slot B uses a
+    layout that includes slot A you'll get an infinite loop. That's called a
+    layout recusion. If you ever get an error message saying "Too many
+    execution runs detected" chances are high that you've just created a
+    layout recursion. </p><p>The generated projectspecific BaseView contains
+    some minimal protection against layout recursions: In case it detects that
+    it's run inside a slot it attempts to load a different standard layout -
+    the one named 'slot' instead of the configured default. </p></section>
+
+    <section><title>Slots and Performance</title><p>On the first sight slots
+    lower the performance. They introduce some management overhead, consume a
+    little memory for a couple of extra objects and so on. However benchmarks
+    show that the overhead is very low and is easily countered by increased
+    developer productivity (remember that developer time is way more expensive
+    than cpu time). There are also other effects that counter the overhead
+    introduced by slots. Slots can be individually cached by agavi, each one
+    with it's own set of rules and cache times. This raises performance by a
+    far larger margin than the initial overhead. Pages using slots scale far
+    better than pages without.</p><p>However, there are some things to keep in
+    mind when splitting up your layouts into slots:</p><ul>
+        <li>Often slots are used for display purposes only and have no own
+        logic. The actions belonging to those slots should be marked simple to
+        reduce the overhead to the lowest possible level. This is the case for
+        our widgets - Header, Footer, Navigation, Dashboard and Sidebar slots.
+        </li>
+
+        <li>Be careful with validation, running full validation each time you
+        call a slot may bring your page to a grinding halt, especially when
+        the validation is an expensive operation such as contacting the
+        database or a webservice.</li>
+      </ul><p>So let's check our application. We haven't marked our Widgets as
+    simple, so we should do that now but instead of implementing isSimple() on
+    all of those four classes we just go to our
+    <filepath>app/modules/Widgets/lib/action/BlogWidgetsBaseAction.class.php</filepath>
+    and implement it there. All actions in the Widgets module extend this base
+    class and we can safely assume that pretty much all Widgets are for
+    display only and thus never will contain any business logic - if an
+    exception comes along we can still overwrite the behavior in that specific
+    class.</p><codeblock class="php">&lt;?php
+
+/**
+ * The base action from which all Widgets module actions inherit.
+ */
+class BlogWidgetsBaseAction extends BlogBaseAction
+{
+
+	/**
+	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
+	 *
+	 * @return     bool true, if this action should act in simple mode, or false.
+	 */
+	public function isSimple()
+	{
+		return false;
+	}
+	
+}
+
+?&gt;</codeblock><p>That takes care of disabling all validation and action
+    execution for all Widgets. That validation topic however is a bit a tricky
+    one. Think about it: our IndexAction does a query to retrieve a list of
+    valid posts and then, when the slots are executed the validation once
+    again does a query to check each single one. We're just doing array
+    lookups so far, that's fast but what if we'd have to connect to a SOAP
+    service that needs 0.5 seconds for a reply? That would be 5 seconds
+    overhead for a list of 10 items, that's way to much and it's completely
+    wasted, we ourselves pass the post and we do know it's valid.</p><p>We
+    could perhaps implement our
+    <apiname>Posts_PostShowAction::isSimple()</apiname> in a way that returns
+    true if the action is called in a slot and false if not. Something along
+    the lines of </p><codeblock class="php">	/**
+	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
+	 *
+	 * @return     bool true, if this action should act in simple mode, or false.
+	 */
+	public function isSimple()
+	{
+		if($this-&gt;getContainer()-&gt;getParameter('is_slot', false))
+		{
+			return true;
+		}
+		return false;
+	}
+	</codeblock><p>That's a technique that works often but it's not going to help
+    us here - we do some work in our executeRead() method and marking the
+    action as "simple" would skip that. But we can change our validation. We
+    modify our validator so that if the parameter is already an object type
+    PostModel it just short-circuits and returns true. No client could ever
+    pass a valid object via GET or POST so it must have been passed from
+    within the framework. And if we ourselves pass an invalid object, well
+    then no validation is going to safe us. Let's change the validator in
+    <filepath>app/modules/Posts/lib/validator/PostValidator.class.php</filepath>:</p><codeblock
+    class="php">&lt;?php
+
+class Posts_PostValidator extends AgaviValidator
+{
+	/**
+	 * Validates the input
+	 * 
+	 * @return     bool The input is valid number according to given parameters.
+	 */
+	protected function validate()
+	{
+		$parameterName = $this-&gt;getArgument();
+		$data = $this-&gt;getData($parameterName);
+		
+		if($data instanceof Posts_PostModel) {
+			$post = $data;
+		} else {
+			$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+			$post = $manager-&gt;retrieveById($data);
+
+			if (null == $post)
+			{
+				$this-&gt;throwError();
+				return false;
+			}
+		}
+		
+		$this-&gt;export($post);
+		return true;
+	}
+}
+
+?&gt;</codeblock><p>Now we need to change the
+    <apiname>Posts_PostIndexSuccessView::executeHtml()</apiname> to pass a
+    full <apiname>Posts_PostModel</apiname> object instead of the id:
+    </p><codeblock>&lt;?php
+
+class Posts_IndexSuccessView extends BlogPostsBaseView
+{
+	public function executeHtml(AgaviRequestDataHolder $rd)
+	{
+		$this-&gt;setupHtml($rd);
+		
+		$contentLayer = $this-&gt;getLayer('content');
+
+		$ro = $this-&gt;getContext()-&gt;getRouting();
+		
+		$posts = array();
+		
+		foreach($this-&gt;getAttribute('posts') as $p)
+		{
+			/* register one slot per post */
+			$contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p)));
+		}
+		
+		$this-&gt;setAttribute('_title', 'Latest Posts');
+	}
+}
+
+?&gt;</codeblock><p>and that's it. While this does not remove the full
+    validation it still removes most of the overhead introduced by it. This
+    technique is often used on dual-purpose actions.</p></section>
+  </body>
+</topic>

@@ -70,6 +70,8 @@
 
     <topicref href="topics/tutorial/step4/dressing-up.dita"/>
 
+    <topicref href="topics/tutorial/step4/slots.dita"/>
+
     <topicref href="topics/tutorial/step4/title-in-url.dita"/>
 
     <topicref href="topics/tutorial/step4/routing-callbacks.dita"/>

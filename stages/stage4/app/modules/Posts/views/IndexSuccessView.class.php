@@ -5,6 +5,8 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 	public function executeHtml(AgaviRequestDataHolder $rd)
 	{
 		$this->setupHtml($rd);
+		
+		$contentLayer = $this->getLayer('content');
 
 		$ro = $this->getContext()->getRouting();
 		
@@ -12,12 +14,9 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 		
 		foreach($this->getAttribute('posts') as $p)
 		{
-			$post = $p->toArray();
-			$post['url'] = $ro->gen('posts.post.show', array('post' => $p->getId()));
-			$posts[] = $post;
+			/* register one slot per post */
+			$contentLayer->setSlot('post'.$p->getId(), $this->createSlotContainer('Posts', 'Post.Show', array('post' => $p)));
 		}
-		
-		$this->setAttribute('posts', $posts);
 		
 		$this->setAttribute('_title', 'Latest Posts');
 	}

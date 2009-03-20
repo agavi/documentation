@@ -10,15 +10,19 @@ class Posts_PostValidator extends AgaviValidator
 	protected function validate()
 	{
 		$parameterName = $this->getArgument();
-		$postId = $this->getData($parameterName);
+		$data = $this->getData($parameterName);
 		
-		$manager = $this->getContext()->getModel('PostManager', 'Posts');
-		$post = $manager->retrieveById($postId);
-		
-		if (null == $post)
-		{
-			$this->throwError();
-			return false;
+		if($data instanceof Posts_PostModel) {
+			$post = $data;
+		} else {
+			$manager = $this->getContext()->getModel('PostManager', 'Posts');
+			$post = $manager->retrieveById($data);
+
+			if (null == $post)
+			{
+				$this->throwError();
+				return false;
+			}
 		}
 		
 		$this->export($post);
