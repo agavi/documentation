@@ -2,30 +2,29 @@
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {
-	private $posts = array(
-		1 => array(
-			'id' => 1,
-			'title' => 'First post',
-			'posted' => '2008-07-14 00:01:07',
-			'category_name' => 'No category',
-			'author_name' => 'Admin',
-			'content' => '<p>Terrific! This is our first post!</p><p>This is just a first post. It has no actual contents. If you are reading this, things must be working.</p>',
-		),
-		2 => array(
-			'id' => 2,
-			'title' => 'Second post',
-			'posted' => '2008-07-14 00:01:07',
-			'category_name' => 'Agavi',
-			'author_name' => 'Admin',
-			'content' => '<p>It looks like our blog application is working, yay!</p>',
-		)
-	);
-
 	public function retrieveById($id)
 	{
-		if (isset($this->posts[$id]))
+		$sql = 'SELECT p.*, 
+	a.screen_name AS author_name, 
+	c.name AS category_name
+FROM 
+	posts p
+	LEFT JOIN 
+		admin_users a ON p.author_id = a.id
+	LEFT JOIN 
+		categories c ON p.category_id = c.id
+WHERE 
+	p.id = ?';
+	
+		$stmt = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection()->prepare($sql);
+		$stmt->bindValue(1, $id, PDO::PARAM_INT);
+		$stmt->execute();
+	
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if (false != $result)
 		{
-			return $this->getContext()->getModel('Post', 'Posts', array($this->posts[$id]));
+			return $this->getContext()->getModel('Post', 'Posts', array($result));
 		}
 		
 		return null;
@@ -33,17 +32,28 @@ class Posts_PostManagerModel extends BlogPostsBaseModel
 	
 	public function retrieveLatest($limit = 5)
 	{
-		$cnt = 0;
-		reset($this->posts);
+		$sql = 'SELECT 
+	p.*, 
+	a.screen_name AS author_name, 
+	c.name AS category_name
+FROM 
+	posts p
+	LEFT JOIN 
+		admin_users a ON p.author_id = a.id
+	LEFT JOIN 
+		categories c ON p.category_id = c.id
+ORDER BY 
+	posted DESC 
+LIMIT ?';
+
+		$stmt = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection()->prepare($sql);
+		$stmt->bindValue(1, $limit, PDO::PARAM_INT);
+		$stmt->execute();
 		
-		$posts = array();
-		
-		foreach($this->posts as $post) {
+	    $result = $stmt->fetchAll();
+	
+		foreach($result as $post) {
 			$posts[] = $this->getContext()->getModel('Post', 'Posts', array($post));
-			$cnt++;
-			if($cnt >= $limit) {
-				break;
-			}
 		}
 		
 		return $posts;

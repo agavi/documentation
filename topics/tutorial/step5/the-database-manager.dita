@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-the-database-manager">
+  <title>The Database Manager</title>
+
+  <body>
+    <p>All connections to databases are controlled by the database manager. It
+    establishes all connections when started and provides access to the
+    connections via
+    <apiname>AgaviDatabaseManager::getDatabase()</apiname>.</p>
+
+    <p>The database subsystem is enabled by setting "use_database" to "true"
+    in <filepath>app/config/settings.xml</filepath>:</p>
+
+    <codeblock class="xml">...
+
+		&lt;settings&gt;
+			&lt;setting name="app_name"&gt;Bloggie&lt;/setting&gt;
+
+			&lt;setting name="available"&gt;true&lt;/setting&gt;
+			&lt;setting name="debug"&gt;false&lt;/setting&gt;
+
+			&lt;setting name="use_database"&gt;true&lt;/setting&gt;
+			&lt;setting name="use_logging"&gt;false&lt;/setting&gt;
+			&lt;setting name="use_security"&gt;true&lt;/setting&gt;
+			&lt;setting name="use_translation"&gt;false&lt;/setting&gt;
+		&lt;/settings&gt;
+
+...</codeblock>
+
+    <p>The connection data is then configured in
+    <filepath>app/config/databases.xml</filepath>. We'll assume a mysql
+    database named "bloggie" on localhost with the user "bloggie" and the
+    password "bloggie".</p>
+
+    <codeblock class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/databases/1.0"&gt;
+
+		&lt;ae:configuration environment="development"&gt;
+			&lt;databases default="pdo_mysql_main"&gt;
+
+				&lt;database name="pdo_mysql_main" class="AgaviPdoDatabase"&gt;
+					&lt;ae:parameter name="dsn"&gt;mysql:host=localhost;dbname=bloggie&lt;/ae:parameter&gt;
+					&lt;ae:parameter name="username"&gt;bloggie&lt;/ae:parameter&gt;
+					&lt;ae:parameter name="password"&gt;bloggie&lt;/ae:parameter&gt;
+				&lt;/database&gt;
+
+			&lt;/databases&gt;
+		&lt;/ae:configuration&gt;
+
+	&lt;/ae:configurations&gt;
+
+</codeblock>
+
+    <p>This configures a single database connection named "pdo_mysql_main"
+    that uses the <apiname>AgaviPdoDatabase</apiname> adapter. It also sets
+    that connection as default connection.</p>
+
+    <section><title>Accessing a Database connection</title><p>A database
+    connection can be accessed via
+    <apiname>AgaviDatabaseManager::getDatabase($name)</apiname>. If "null" is
+    passed as connection name the default connection is used. </p><p>Let's
+    adapt our application to read it's data from that database. You'll see how
+    it pays off that we structured our application nicely - all we need to do
+    is adapt our <apiname>Posts_PostManager</apiname> to read it's data from
+    the appropriate tables:</p><codeblock class="php">&lt;?php
+
+class Posts_PostManagerModel extends BlogPostsBaseModel
+{
+	public function retrieveById($id)
+	{
+		$sql = 'SELECT p.*, 
+	a.screen_name AS author_name, 
+	c.name AS category_name
+FROM 
+	posts p
+	LEFT JOIN 
+		admin_users a ON p.author_id = a.id
+	LEFT JOIN 
+		categories c ON p.category_id = c.id
+WHERE 
+	p.id = ?';
+	
+		$stmt = $this-&gt;getContext()-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection()-&gt;prepare($sql);
+		$stmt-&gt;bindValue(1, $id, PDO::PARAM_INT);
+		$stmt-&gt;execute();
+	
+		$result = $stmt-&gt;fetch(PDO::FETCH_ASSOC);
+		
+		if (false != $result)
+		{
+			return $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($result));
+		}
+		
+		return null;
+	}
+	
+	public function retrieveLatest($limit = 5)
+	{
+		$sql = 'SELECT 
+	p.*, 
+	a.screen_name AS author_name, 
+	c.name AS category_name
+FROM 
+	posts p
+	LEFT JOIN 
+		admin_users a ON p.author_id = a.id
+	LEFT JOIN 
+		categories c ON p.category_id = c.id
+ORDER BY 
+	posted DESC 
+LIMIT ?';
+
+		$stmt = $this-&gt;getContext()-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection()-&gt;prepare($sql);
+		$stmt-&gt;bindValue(1, $limit, PDO::PARAM_INT);
+		$stmt-&gt;execute();
+		
+	    $result = $stmt-&gt;fetchAll();
+	
+		foreach($result as $post) {
+			$posts[] = $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($post));
+		}
+		
+		return $posts;
+	}
+	
+}
+
+?&gt;</codeblock>Well, that's it. We could certainly do a little cleanup and
+    move the lengthy call to
+    <apiname>$this-&gt;getContext()-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection()</apiname>
+    to an extra method but that won't change the principle. If you fire up
+    your browser, you'll note no difference.</section>
+  </body>
+</topic>

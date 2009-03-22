@@ -79,7 +79,9 @@
     <topicref href="topics/tutorial/step4/using-callback-for-title-in-url.dita"/>
   </chapter>
 
-  <chapter href="topics/tutorial/step5/introduction.dita"/>
+  <chapter href="topics/tutorial/step5/introduction.dita">
+    <topicref href="topics/tutorial/step5/the-database-manager.dita"/>
+  </chapter>
 
   <chapter collection-type="sequence" href="topics/tutorial/skinning.dita">
     <!--

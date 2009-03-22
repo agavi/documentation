@@ -8,6 +8,21 @@
     <p>So far we've been working with static data and it's about time we
     change that and connect our blog to a database. Otherwise we'd have a hard
     time giving the readers a way of commeting on our posts or creating an
-    admin page where we can add or edit posts. </p>
+    admin page where we can add or edit posts.</p>
+
+    <p>Unlike many other frameworks agavi does not supply a database
+    abstraction library, instead it offers you the freedom of choice. Whether
+    you prefer Propel over Doctrine, are in love with Zend_DB or
+    ez_components, Agavi provides an appropriate adapter. If your poison of
+    choice is something that agavi does not know about yet then it's easy to
+    provide an adapter. </p>
+
+    <p>For sake of simplicity we'll be using plain PDO and handwritten SQL to
+    connect to a database though in a serious project we'd be using a serious
+    ORM.</p>
+
+    <p>The data files and schema description required for this step are
+    located in the <filepath>dev/sql</filepath> directory of the stage5
+    app.</p>
   </body>
 </topic>
