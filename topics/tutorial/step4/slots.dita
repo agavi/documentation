@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
-<topic id="???">
+<topic id="basics-slots">
   <title>What are Slots</title>
 
   <body>
@@ -11,7 +11,7 @@
     parts. Slots can be registered at runtime or by using a layout. Slots are
     registered on a template layer and must have a name that's unique for this
     layer. All slot output is collected in an associative array named
-    <varname>$slots</varname> with the slot's name as key. </p>
+    <varname>$slots</varname> with the slot's name as key.</p>
 
     <p>Slots are executed after the main action's view has been executed but
     before the template is rendered. The main action's view can feed arbitrary
@@ -554,8 +554,8 @@ $headline = sprintf(
         <li>Often slots are used for display purposes only and have no own
         logic. The actions belonging to those slots should be marked simple to
         reduce the overhead to the lowest possible level. This is the case for
-        our widgets - Header, Footer, Navigation, Dashboard and Sidebar slots.
-        </li>
+        our widgets - Header, Footer, Navigation, Dashboard and Sidebar
+        slots.</li>
 
         <li>Be careful with validation, running full validation each time you
         call a slot may bring your page to a grinding halt, especially when
