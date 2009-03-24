@@ -11,7 +11,7 @@
     title for the url. Let's create a callback in
     <filepath>app/modules/Posts/lib/routing/PostRoutingCallback.class.php</filepath>.</p>
 
-    <codeblock class="php">&lt;?php
+    <codeblock outputclass="php">&lt;?php
 
 class PostRoutingCallback extends AgaviRoutingCallback
 {
@@ -43,7 +43,7 @@ class PostRoutingCallback extends AgaviRoutingCallback
     <p>The callback must be available in the global autoload file in
     <filepath>app/config/autoload.xml</filepath>:</p>
 
-    <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 	&lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
 		&lt;ae:configuration&gt;
 
@@ -57,7 +57,7 @@ class PostRoutingCallback extends AgaviRoutingCallback
 
     <p>and registered in <filepath>app/config/routing.xml</filepath>:</p>
 
-    <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
 		&lt;ae:configuration&gt;
 			&lt;routes&gt;
@@ -81,7 +81,7 @@ class PostRoutingCallback extends AgaviRoutingCallback
     <p>Now we need to pass a PostModel instead of id and title in our
     IndexSuccessView:</p>
 
-    <codeblock>&lt;?php
+    <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {

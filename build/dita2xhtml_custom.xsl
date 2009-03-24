@@ -103,14 +103,14 @@ applicable licenses.-->
 
 
   <!-- SHJS syntax highlighting -->
-  <xsl:template match="//codeblock[@class='php']">
+  <xsl:template match="//codeblock[@outputclass='php']">
     <pre class="sh_php">
       <xsl:apply-templates/>
     </pre>
   </xsl:template>
 
   <!-- SHJS syntax highlighting -->
-  <xsl:template match="//codeblock[@class='xml']">
+  <xsl:template match="//codeblock[@outputclass='xml']">
     <pre class="sh_xml">
       <xsl:apply-templates/>
     </pre>

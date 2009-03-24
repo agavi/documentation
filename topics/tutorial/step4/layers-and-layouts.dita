@@ -18,67 +18,67 @@
     <filepath>app/config/output_types.xml</filepath>. Let's go and have a look
     at the relevant section of our output_types.xml:</p>
 
-    <codeblock class="xml">				&lt;layouts default="standard"&gt;
-					&lt;!-- standard layout with a content and a decorator layer --&gt;
-					&lt;layout name="standard"&gt;
-						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-						&lt;layer name="content" /&gt;
-						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;
-					
-					&lt;!-- another example layout that has an intermediate wrapper layer in between content and decorator --&gt;
-					&lt;!-- it also shows how to use slots etc --&gt;
-					&lt;layout name="wrapped"&gt;
-						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-						&lt;layer name="content" /&gt;
-						&lt;layer name="wrapper"&gt;
-							&lt;!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one --&gt;
-							&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
-						&lt;/layer&gt;
-						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-							&lt;!-- an example for a slot --&gt;
-							&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;
-					
-					&lt;!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot --&gt;
-					&lt;layout name="simple"&gt;
-						&lt;layer name="content" /&gt;
-					&lt;/layout&gt;
-				&lt;/layouts&gt;
+    <codeblock outputclass="xml">&lt;layouts default="standard"&gt;
+	&lt;!-- standard layout with a content and a decorator layer --&gt;
+	&lt;layout name="standard"&gt;
+		&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+		&lt;layer name="content" /&gt;
+		&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+		&lt;layer name="decorator"&gt;
+			&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+			&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+		&lt;/layer&gt;
+	&lt;/layout&gt;
+	
+	&lt;!-- another example layout that has an intermediate wrapper layer in between content and decorator --&gt;
+	&lt;!-- it also shows how to use slots etc --&gt;
+	&lt;layout name="wrapped"&gt;
+		&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+		&lt;layer name="content" /&gt;
+		&lt;layer name="wrapper"&gt;
+			&lt;!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one --&gt;
+			&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+		&lt;/layer&gt;
+		&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+		&lt;layer name="decorator"&gt;
+			&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+			&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+			&lt;!-- an example for a slot --&gt;
+			&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+		&lt;/layer&gt;
+	&lt;/layout&gt;
+	
+	&lt;!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot --&gt;
+	&lt;layout name="simple"&gt;
+		&lt;layer name="content" /&gt;
+	&lt;/layout&gt;
+&lt;/layouts&gt;
 </codeblock>
 
     <p>Let's not be confused by the whole block and concentrate on the
-    simplest layout defined in this section. </p>
+    simplest layout defined in this section.</p>
 
-    <codeblock class="xml">					&lt;layout name="simple"&gt;
-						&lt;layer name="content" /&gt;
-					&lt;/layout&gt;</codeblock>
+    <codeblock outputclass="xml">&lt;layout name="simple"&gt;
+	&lt;layer name="content" /&gt;
+&lt;/layout&gt;</codeblock>
 
     <p>This layout defines a single layer named "content". It does not pass
     any other parameters to the layer, most importantly no template is tied to
     the layer. That means that the template for the current view will be used.
     This layer would produce only the template's html code as output. We'll
-    use that later on. </p>
+    use that later on.</p>
 
     <p>The &lt;layouts&gt; tag defines a default layout to use, it's called
     standard. This is the one we're currently using everywhere, so let's
     explain what this is about.</p>
 
-    <codeblock class="xml">					&lt;layout name="standard"&gt;
-						&lt;layer name="content" /&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;</codeblock>
+    <codeblock>&lt;layout name="standard"&gt;
+	&lt;layer name="content" /&gt;
+	&lt;layer name="decorator"&gt;
+		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+	&lt;/layer&gt;
+&lt;/layout&gt;</codeblock>
 
     <p>This layout defines two layers, one named "content" that works like the
     one in the simple layout we've seen above. In addition, it defines a
@@ -91,7 +91,7 @@
     layouts can use the same name. In general it's good practice to use the
     same name for layers performing the same function.</note></p>
 
-    <codeblock class="xml">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
 	&lt;head&gt;
 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
@@ -116,17 +116,17 @@
     <p>The last defined layout is a little more complex and we'll only explain
     it partially. Don't worry, we'll come back later to explain.</p>
 
-    <codeblock>					&lt;layout name="wrapped"&gt;
-						&lt;layer name="content" /&gt;
-						&lt;layer name="wrapper"&gt;
-							&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
-						&lt;/layer&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-							&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;</codeblock>
+    <codeblock outputclass="xml">&lt;layout name="wrapped"&gt;
+	&lt;layer name="content" /&gt;
+	&lt;layer name="wrapper"&gt;
+		&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+	&lt;/layer&gt;
+	&lt;layer name="decorator"&gt;
+		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+		&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+	&lt;/layer&gt;
+&lt;/layout&gt;</codeblock>
 
     <p>Let's forget about the &lt;slot&gt; definition and focus on the rest.
     We've seen the content and the decorator template before, those should be

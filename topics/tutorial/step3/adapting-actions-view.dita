@@ -15,7 +15,7 @@
     logic. Using the Posts_PostManagerModel we created in the last step this
     is very little work:</p>
 
-    <codeblock>&lt;?php
+    <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexAction extends BlogPostsBaseAction
 {
@@ -62,7 +62,7 @@ class Posts_IndexAction extends BlogPostsBaseAction
 
     <p>Now we need to adapt the view accordingly:</p>
 
-    <codeblock>&lt;?php
+    <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
@@ -102,7 +102,7 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
     <p>Let's just go over our Post.Show action and adapt that, using our
     models it will be a breeze:</p>
 
-    <codeblock class="php">class Posts_Post_ShowAction extends BlogPostsBaseAction
+    <codeblock outputclass="php">class Posts_Post_ShowAction extends BlogPostsBaseAction
 {
 
 	public function executeRead(AgaviRequestDataHolder $rd)

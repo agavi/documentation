@@ -65,7 +65,7 @@
     getters and setters for those attributes and throw in two methods to
     create a post from an array of values and reverse. Your final
     Posts_PostModel should look like that (the comments are left out to keep
-    it short):</p><codeblock>&lt;?php
+    it short):</p><codeblock outputclass="php">&lt;?php
 
 class Posts_PostModel extends BlogPostsBaseModel
 {
@@ -173,7 +173,7 @@ class Posts_PostModel extends BlogPostsBaseModel
     single Post and retrieve the latest posts for the frontpage. As we now do
     have a model encapsulating all the data retrieval we can move our
     mock-data into that model. The endresult should look like
-    this:</p><codeblock>&lt;?php
+    this:</p><codeblock outputclass="php">&lt;?php
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {

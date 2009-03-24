@@ -10,7 +10,7 @@ Method names, class names, and partial action names should be in
 
 EXAMPLE CODE
 
-Use <codeblock class="foo"> element where foo can be "php" or "xml". Wrap the
+Use <codeblock outputclass="foo"> element where foo can be "php" or "xml". Wrap the
 source code in <![CDATA[...]]>
 
 The </codeblock> closing tag must be on the same line as the last line of the code. 

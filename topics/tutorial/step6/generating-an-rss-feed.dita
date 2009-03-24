@@ -11,14 +11,14 @@
     <filepath>libs/</filepath>. This is best done by adding a line to
     <filepath>app/config.php</filepath>:</p>
 
-    <codeblock>ini_set('include_path', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'libs' . PATH_SEPARATOR . ini_get('include_path'));</codeblock>
+    <codeblock outputclass="php">ini_set('include_path', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'libs' . PATH_SEPARATOR . ini_get('include_path'));</codeblock>
 
     <p>First we need to define a suitable output type for the RSS feed. We
     don't need a renderer or a layout as we'll use a generator for the feed.
     We should provide a proper content-type header as well - we'll be using
     "text/xml". So our output type definition looks like this:</p>
 
-    <codeblock class="xml">&lt;output_type name="rss"&gt;
+    <codeblock outputclass="xml">&lt;output_type name="rss"&gt;
 	&lt;ae:parameter name="http_headers"&gt;
 		&lt;ae:parameter name="Content-Type"&gt;text/xml; charset=UTF-8&lt;/ae:parameter&gt;
 	&lt;/ae:parameter&gt;
@@ -35,7 +35,7 @@
     with the index page. All we need to do is provide a good implementation
     for <apiname>Posts_IndexSuccessView::executeRss()</apiname>:</p>
 
-    <codeblock>public function executeRss(AgaviRequestDataHolder $rd)
+    <codeblock outputclass="php">public function executeRss(AgaviRequestDataHolder $rd)
 {
 	$ro = $this-&gt;getContext()-&gt;getRouting();
 	$entries = array();

@@ -44,26 +44,26 @@ bloggie$
 </screen><p>So now that we created a new action we need to register it as a
     slot with ourstandard layout in
     <filepath>app/config/output_types.xml</filepath>:</p><codeblock
-    class="xml">					&lt;!-- standard layout with a content and a decorator layer --&gt;
-					&lt;layout name="standard"&gt;
-						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-						&lt;layer name="content" /&gt;
-						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-							&lt;slots&gt;
-								&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
-							&lt;/slots&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;</codeblock><p>The &lt;slot&gt; tag registers a slot named
+    outputclass="php">&lt;!-- standard layout with a content and a decorator layer --&gt;
+&lt;layout name="standard"&gt;
+	&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+	&lt;layer name="content" /&gt;
+	&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+	&lt;layer name="decorator"&gt;
+		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+		&lt;slots&gt;
+			&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+		&lt;/slots&gt;
+	&lt;/layer&gt;
+&lt;/layout&gt;</codeblock><p>The &lt;slot&gt; tag registers a slot named
     "navigation" on the decorator layer with the action named "Navigation"
     located in the module "Widgets". Whenever the decorator layer is rendered
     this action is executed and the output can be inserted into the layer's
     rendering. So now we can remove the HTML code for the navigation and place
     it in the template for the Navigation action. The template
     <filepath>app/modules/Widgets/templates/NavigationSuccess.php</filepath>
-    should now look like this:</p><codeblock class="xml">&lt;div id="navigation"&gt;
+    should now look like this:</p><codeblock outputclass="php">&lt;div id="navigation"&gt;
 	&lt;div class="center_wrapper"&gt;
 
 		&lt;ul&gt;
@@ -79,7 +79,7 @@ bloggie$
 	&lt;/div&gt;
 &lt;/div&gt;</codeblock><p>and the respective part in our decorator template
     <filepath>app/templates/Master.php</filepath> must be replaced by the slot
-    output: </p><codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    output: </p><codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
 	&lt;head&gt;
 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
@@ -152,56 +152,57 @@ Action name: Sidebar
 Space-separated list of views to create for Sidebar [Success]:
 
 bloggie$
-</screen><p>Next register the slots:</p><codeblock class="xml">					&lt;!-- standard layout with a content and a decorator layer --&gt;
-					&lt;layout name="standard"&gt;
-						&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-						&lt;layer name="content" /&gt;
-						&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-						&lt;layer name="decorator"&gt;
-							&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-							&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-							&lt;slots&gt;
-								&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
-								&lt;slot name="header" module="Widgets" action="Header" /&gt;
-								&lt;slot name="footer" module="Widgets" action="Footer" /&gt;
-								&lt;slot name="dashboard" module="Widgets" action="Dashboard" /&gt;
-								&lt;slot name="sidebar" module="Widgets" action="Sidebar" /&gt;
-							&lt;/slots&gt;
-						&lt;/layer&gt;
-					&lt;/layout&gt;</codeblock><p>and now move the HTML code to the repective
+</screen><p>Next register the slots:</p><codeblock outputclass="xml">&lt;!-- standard layout with a content and a decorator layer --&gt;
+&lt;layout name="standard"&gt;
+	&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+	&lt;layer name="content" /&gt;
+	&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+	&lt;layer name="decorator"&gt;
+		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+		&lt;slots&gt;
+			&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+			&lt;slot name="header" module="Widgets" action="Header" /&gt;
+			&lt;slot name="footer" module="Widgets" action="Footer" /&gt;
+			&lt;slot name="dashboard" module="Widgets" action="Dashboard" /&gt;
+			&lt;slot name="sidebar" module="Widgets" action="Sidebar" /&gt;
+		&lt;/slots&gt;
+	&lt;/layer&gt;
+&lt;/layout&gt;</codeblock><p>and now move the HTML code to the repective
     templates.</p><p><filepath>app/modules/Widgets/templates/HeaderSuccess.php</filepath>:</p><codeblock
-    class="xml">	&lt;div id="header"&gt;
-		&lt;div class="center_wrapper"&gt;
+    outputclass="php">&lt;div id="header"&gt;
+	&lt;div class="center_wrapper"&gt;
 
-			&lt;div id="toplinks"&gt;
-				&lt;div id="toplinks_inner"&gt;
-					&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
-				&lt;/div&gt;
+		&lt;div id="toplinks"&gt;
+			&lt;div id="toplinks_inner"&gt;
+				&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
 			&lt;/div&gt;
-			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
-
-			&lt;div id="site_title"&gt;
-				&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
-				&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
-			&lt;/div&gt;
-
 		&lt;/div&gt;
+		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+		&lt;div id="site_title"&gt;
+			&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+			&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+		&lt;/div&gt;
+
 	&lt;/div&gt;
+&lt;/div&gt;
 </codeblock><p><filepath>app/modules/Widgets/templates/FooterSuccess.php</filepath>:</p><codeblock
-    class="xml">	&lt;div id="footer"&gt;
-		&lt;div class="center_wrapper"&gt;
+    outputclass="php">&lt;div id="footer"&gt;
+	&lt;div class="center_wrapper"&gt;
 
-			&lt;div class="left"&gt;
-				&amp;copy; 2008 Website.com - Your Website Slogan
-			&lt;/div&gt;
-			&lt;div class="right"&gt;
-				&lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
-			&lt;/div&gt;
-
-			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
-
+		&lt;div class="left"&gt;
+			&amp;copy; 2008 Website.com - Your Website Slogan
 		&lt;/div&gt;
-	&lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/DashboardSuccess.php</filepath>:</p><codeblock>&lt;div id="dashboard"&gt;
+		&lt;div class="right"&gt;
+			&lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
+		&lt;/div&gt;
+
+		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+
+	&lt;/div&gt;
+&lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/DashboardSuccess.php</filepath>:</p><codeblock
+    outputclass="php">&lt;div id="dashboard"&gt;
 	&lt;div id="dashboard_content"&gt;
 		&lt;div class="center_wrapper"&gt;
 
@@ -255,80 +256,80 @@ bloggie$
 		&lt;/div&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/SidebarSuccess.php</filepath>:</p><codeblock
-    class="php">				&lt;div class="right" id="sidebar"&gt;
+    outputclass="php">&lt;div class="right" id="sidebar"&gt;
 
-					&lt;div id="sidebar_content"&gt;
+	&lt;div id="sidebar_content"&gt;
 
-						&lt;div class="box"&gt;
+		&lt;div class="box"&gt;
 
-							&lt;div class="box_title"&gt;About&lt;/div&gt;
+			&lt;div class="box_title"&gt;About&lt;/div&gt;
 
-							&lt;div class="box_content"&gt;
-								Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
-							&lt;/div&gt;
+			&lt;div class="box_content"&gt;
+			Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
+			&lt;/div&gt;
 
-						&lt;/div&gt;
+		&lt;/div&gt;
 
-						&lt;div class="box"&gt;
+		&lt;div class="box"&gt;
 
-							&lt;div class="box_title"&gt;Categories&lt;/div&gt;
+			&lt;div class="box_title"&gt;Categories&lt;/div&gt;
 
-							&lt;div class="box_content"&gt;
-								&lt;ul&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
-								&lt;/ul&gt;
-							&lt;/div&gt;
+			&lt;div class="box_content"&gt;
+				&lt;ul&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
 
-						&lt;/div&gt;
+		&lt;/div&gt;
 
-						&lt;div class="box"&gt;
+		&lt;div class="box"&gt;
 
-							&lt;div class="box_title"&gt;Resources&lt;/div&gt;
+			&lt;div class="box_title"&gt;Resources&lt;/div&gt;
 
-							&lt;div class="box_content"&gt;
-								&lt;ul&gt;
-									&lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
-									&lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
-								&lt;/ul&gt;
-							&lt;/div&gt;
+			&lt;div class="box_content"&gt;
+				&lt;ul&gt;
+					&lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
+					&lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
 
-						&lt;/div&gt;
+		&lt;/div&gt;
 
-						&lt;div class="box"&gt;
+		&lt;div class="box"&gt;
 
-							&lt;div class="box_title"&gt;Gallery&lt;/div&gt;
+			&lt;div class="box_title"&gt;Gallery&lt;/div&gt;
 
-							&lt;div class="box_content"&gt;
+			&lt;div class="box_content"&gt;
 
-								&lt;div class="thumbnails"&gt;
+				&lt;div class="thumbnails"&gt;
 
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-									&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
 
-									&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+					&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-								&lt;/div&gt;
+				&lt;/div&gt;
 
-							&lt;/div&gt;
+			&lt;/div&gt;
 
-						&lt;/div&gt;
+		&lt;/div&gt;
 
-					&lt;/div&gt;
+	&lt;/div&gt;
 
-				&lt;/div&gt;</codeblock><p>And finally our modified
+&lt;/div&gt;</codeblock><p>And finally our modified
     <filepath>app/modules/templates/Master.php</filepath>:</p><codeblock
-    class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
 	&lt;head&gt;
 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
@@ -389,7 +390,7 @@ bloggie$
     parameter it wishes. Here's how it works. We change our
     <filepath>app/modules/Posts/views/IndexSuccessView.class.php</filepath> to
     register the slots on it's main layer which is named
-    "content":</p><codeblock class="php">&lt;?php
+    "content":</p><codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
@@ -415,7 +416,7 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 
 ?&gt;</codeblock><p>and then change the template in
     <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> to just
-    display the slots:</p><codeblock>&lt;?php
+    display the slots:</p><codeblock outputclass="php">&lt;?php
 foreach ($slots as $slot)
 {
 	echo $slot;
@@ -439,7 +440,7 @@ foreach ($slots as $slot)
     container. Creating a slot container automagically sets a parameter on the
     container and we can read that parameter in our view and react accordingly
     (<filepath>app/modules/Posts/views/Post/ShowSuccessView.class.php</filepath>):</p><codeblock
-    class="php">&lt;?php
+    outputclass="php">&lt;?php
 
 class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 {
@@ -474,7 +475,7 @@ class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 }
 ?&gt;</codeblock><p>Now we only need to adapt the template in
     <filepath>app/modules/Posts/templates/Post/ShowSuccess.php</filepath>
-    accordingly and we're all set: </p><codeblock class="php">&lt;?php
+    accordingly and we're all set: </p><codeblock outputclass="php">&lt;?php
 // alias the post, to make access shorter
 $post = $t['post'];
 
@@ -569,7 +570,7 @@ $headline = sprintf(
     class and we can safely assume that pretty much all Widgets are for
     display only and thus never will contain any business logic - if an
     exception comes along we can still overwrite the behavior in that specific
-    class.</p><codeblock class="php">&lt;?php
+    class.</p><codeblock outputclass="php">&lt;?php
 
 /**
  * The base action from which all Widgets module actions inherit.
@@ -601,7 +602,7 @@ class BlogWidgetsBaseAction extends BlogBaseAction
     could perhaps implement our
     <apiname>Posts_PostShowAction::isSimple()</apiname> in a way that returns
     true if the action is called in a slot and false if not. Something along
-    the lines of </p><codeblock class="php">	/**
+    the lines of </p><codeblock outputclass="php">	/**
 	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
 	 *
 	 * @return     bool true, if this action should act in simple mode, or false.
@@ -623,7 +624,7 @@ class BlogWidgetsBaseAction extends BlogBaseAction
     within the framework. And if we ourselves pass an invalid object, well
     then no validation is going to safe us. Let's change the validator in
     <filepath>app/modules/Posts/lib/validator/PostValidator.class.php</filepath>:</p><codeblock
-    class="php">&lt;?php
+    outputclass="php">&lt;?php
 
 class Posts_PostValidator extends AgaviValidator
 {
@@ -658,7 +659,7 @@ class Posts_PostValidator extends AgaviValidator
 ?&gt;</codeblock><p>Now we need to change the
     <apiname>Posts_PostIndexSuccessView::executeHtml()</apiname> to pass a
     full <apiname>Posts_PostModel</apiname> object instead of the id:
-    </p><codeblock>&lt;?php
+    </p><codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {

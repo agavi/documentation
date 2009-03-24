@@ -37,7 +37,7 @@
       should now look like this:</li>
     </ol>
 
-    <p><codeblock class="xml">
+    <p><codeblock outputclass="xml">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
 		&lt;ae:configuration&gt;
@@ -70,7 +70,7 @@
     with the routename, add the parameters you want to set and that's it.
     Let's fix our IndexSuccessView to generate the proper urls. We'll read the
     posts attribute, modify the entries and write it back.</p><codeblock
-    class="php">&lt;?php
+    outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {

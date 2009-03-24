@@ -13,19 +13,19 @@
     <p>The database subsystem is enabled by setting "use_database" to "true"
     in <filepath>app/config/settings.xml</filepath>:</p>
 
-    <codeblock class="xml">...
+    <codeblock outputclass="xml">...
 
-		&lt;settings&gt;
-			&lt;setting name="app_name"&gt;Bloggie&lt;/setting&gt;
+&lt;settings&gt;
+	&lt;setting name="app_name"&gt;Bloggie&lt;/setting&gt;
 
-			&lt;setting name="available"&gt;true&lt;/setting&gt;
-			&lt;setting name="debug"&gt;false&lt;/setting&gt;
+	&lt;setting name="available"&gt;true&lt;/setting&gt;
+	&lt;setting name="debug"&gt;false&lt;/setting&gt;
 
-			&lt;setting name="use_database"&gt;true&lt;/setting&gt;
-			&lt;setting name="use_logging"&gt;false&lt;/setting&gt;
-			&lt;setting name="use_security"&gt;true&lt;/setting&gt;
-			&lt;setting name="use_translation"&gt;false&lt;/setting&gt;
-		&lt;/settings&gt;
+	&lt;setting name="use_database"&gt;true&lt;/setting&gt;
+	&lt;setting name="use_logging"&gt;false&lt;/setting&gt;
+	&lt;setting name="use_security"&gt;true&lt;/setting&gt;
+	&lt;setting name="use_translation"&gt;false&lt;/setting&gt;
+&lt;/settings&gt;
 
 ...</codeblock>
 
@@ -34,7 +34,7 @@
     database named "bloggie" on localhost with the user "bloggie" and the
     password "bloggie".</p>
 
-    <codeblock class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/databases/1.0"&gt;
 
 		&lt;ae:configuration environment="development"&gt;
@@ -64,7 +64,7 @@
     adapt our application to read it's data from that database. You'll see how
     it pays off that we structured our application nicely - all we need to do
     is adapt our <apiname>Posts_PostManager</apiname> to read it's data from
-    the appropriate tables:</p><codeblock class="php">&lt;?php
+    the appropriate tables:</p><codeblock outputclass="php">&lt;?php
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {

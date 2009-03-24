@@ -63,7 +63,7 @@ bloggie$
     method <apiname>AgaviView::createForwardContainer()</apiname>. It will
     create a new container based on the current view's container and
     initialize it properly. Please refer to the API-Documentation for further
-    details on this method.</p><codeblock class="php">&lt;?php
+    details on this method.</p><codeblock outputclass="php">&lt;?php
 
 class Posts_Post_ShowErrorView extends BlogPostsBaseView
 {

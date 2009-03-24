@@ -42,7 +42,7 @@
     system created a stub file for us, it's located in
     <filepath>app/modules/Posts/validate/Posts/Show.xml</filepath> and for now
     only contains a stub. Let's extend it to look like that:</p><codeblock
-    class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 	&lt;ae:configurations
 		xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
 		xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
@@ -95,7 +95,7 @@
     For the time being we just copy the static posts array that we used for
     the list and pick the right one of the two. Change the
     <apiname>Posts_PostShowAction::executeRead()</apiname> to look like this:
-    </p><codeblock class="php">	public function executeRead(AgaviRequestDataHolder $rd)
+    </p><codeblock outputclass="php">	public function executeRead(AgaviRequestDataHolder $rd)
 	{
 
 		$posts = array(

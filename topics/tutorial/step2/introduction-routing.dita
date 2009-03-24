@@ -32,7 +32,7 @@
     <section><title>Routing configuration</title> <p>The routing configuration
     is done in the <filepath>app/config/routing.xml</filepath>. Let's have a
     look at our current routing.xml. It should look like this: <codeblock
-    class="xml">
+    outputclass="xml">
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
@@ -192,13 +192,13 @@
     This would still send us to the 404 page as the Products_ProductAction
     does not exist, but the remaining empty string will get matched by the
     products.product.view route. So the final action is
-    Products_ProductViewAction. </p>
+    Products_ProductViewAction.</p>
 
     <p>The last interesting route is the products.product.gallery route. It
     contains an optional paging parameter and by using the defaults tag sets a
     default value in case it's not provided by the user. Note how the optional
     page parameter contains a "/" as prefix and how the prefix must be placed
-    in the default as well. </p>
+    in the default as well.</p>
 
     <p>As you can see, all routes that actually map to an existing
     Module/Action pair are anchored on the right. That prevents that urls are

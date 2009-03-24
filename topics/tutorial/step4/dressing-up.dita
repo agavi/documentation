@@ -19,7 +19,7 @@
     of. All we need to to is insert the link tag. The Master.php should now
     look like this:</p>
 
-    <codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
 	&lt;head&gt;
 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
@@ -38,7 +38,7 @@
     yet so for the header, navigation and all missing elements we'll keep the
     raw html source:</p>
 
-    <codeblock class="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
 	&lt;head&gt;
 		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
@@ -251,7 +251,7 @@
     <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> should
     look like this:</p>
 
-    <codeblock>&lt;?php
+    <codeblock outputclass="php">&lt;?php
 foreach ($t['posts'] as $post)
 {
 ?&gt;
@@ -276,9 +276,9 @@ foreach ($t['posts'] as $post)
 
     <p>And for the Post.Show page we'll leave the comments out for the moment.
     So <filepath>app/modules/Posts/templates/Posts/ShowSuccess.php</filepath>
-    should look like this: </p>
+    should look like this:</p>
 
-    <codeblock>&lt;?php
+    <codeblock outputclass="php">&lt;?php
 // alias the post, to make access shorter
 $post = $t['post'];
 ?&gt;

@@ -25,10 +25,10 @@
     in settings.xml uses a special &lt;exception_templates&gt; block. Each
     entry can contain a context name and must specify a valid path to an
     exception template. The entry with an empty name is used as default for
-    all contexts.</p><codeblock class="xml">		&lt;exception_templates&gt;
-			&lt;exception_template&gt;%core.agavi_dir%/exception/templates/shiny.php&lt;/exception_template&gt;
-			&lt;exception_template context="console"&gt;%core.agavi_dir%/exception/templates/plaintext.php&lt;/exception_template&gt;
-		&lt;/exception_templates&gt;</codeblock><note type="caution">While the shiny
+    all contexts.</p><codeblock outputclass="xml">&lt;exception_templates&gt;
+	&lt;exception_template&gt;%core.agavi_dir%/exception/templates/shiny.php&lt;/exception_template&gt;
+	&lt;exception_template context="console"&gt;%core.agavi_dir%/exception/templates/plaintext.php&lt;/exception_template&gt;
+&lt;/exception_templates&gt;</codeblock><note type="caution">While the shiny
     exception template provides a beautiful stacktrace and is very useful for
     debugging we strictly recommend against using it in production. Design
     your own error template an log the error instead of displaying it to the

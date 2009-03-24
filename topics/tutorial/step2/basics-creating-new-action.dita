@@ -25,7 +25,7 @@
     structure. Now we just need to make that action accessible with an url.
     Once again we use a route for that. Hang on a litte, we'll explain routing
     in a moment. For now, just insert this route in the routing.xml, right
-    after the index route: <codeblock class="xml">
+    after the index route: <codeblock outputclass="xml">
 
 	&lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
 
@@ -39,7 +39,7 @@
     same information as in the list plus the body. We allow for the body to
     contain html, so we can format the text a little. Data retrieval goes in
     the action, so add the Posts_Post_ShowAction::executeRead() to look like
-    this.</p><p><codeblock class="php">
+    this.</p><p><codeblock outputclass="php">
 	public function executeRead(AgaviRequestDataHolder $rd)
 	{
 	
@@ -57,14 +57,15 @@
 		
 		return 'Success';
 	}</codeblock> And we should adapt the title here as well. So open the the
-    Posts_PostSuccessView and change the line saying <codeblock class="php">
+    Posts_PostSuccessView and change the line saying <codeblock
+    outputclass="php">
 	$this-&gt;setAttribute('_title', 'Index');
 
-</codeblock> to <codeblock class="php">
+</codeblock> to <codeblock outputclass="php">
 		$post = $this-&gt;getAttribute('post');
 		$this-&gt;setAttribute('_title', $post['title']);
 
-</codeblock></p><p>An then the template: <codeblock class="php">
+</codeblock></p><p>An then the template: <codeblock outputclass="php">
 
 &lt;?php
 // alias the post, to make access shorter
