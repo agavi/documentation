@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="topics-tutorial-step6-introduction">
+  <title>Handling multiple Representations</title>
+
+  <body>
+    <p>In this chapter we'll deal with handling multiple representations of
+    the same ressource. The same list of posts or comments could be available
+    as HTML, as a printable HTML version, as a whitelabel snippet for
+    inclusion in other websites or as an rss feed. It would be annoying if we
+    had to duplicate the application logic to handle this, so the framework
+    offers a facility to deal with this exact problem. It's called "output
+    types".</p>
+  </body>
+</topic>

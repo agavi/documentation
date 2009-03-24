@@ -83,31 +83,13 @@
     <topicref href="topics/tutorial/step5/the-database-manager.dita"/>
   </chapter>
 
-  <chapter collection-type="sequence" href="topics/tutorial/skinning.dita">
-    <!--
- recreate own page 
--->
+  <chapter href="topics/tutorial/step6/introduction.dita">
+    <topicref href="topcis/tutorial/step6/basics-output-types.dita"/>
 
-    <topicref href="topics/concepts/output-types.dita"/>
+    <topicref href="topics/tutorial/step6/basics-exception-templates.dita"/>
+
+    <topicref href="topics/tutorial/step6/generating-an-rss-feed.dita"/>
   </chapter>
 
-  <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  -->
-
-  <chapter collection-type="sequence"
-           href="topics/tutorial/creating-comment-system.dita">
-    <topicref href="topics/tutorial/slots.dita"/>
-
-    <topicref href="topics/tutorial/system-actions.dita"/>
-
-    <topicref href="topics/tutorial/validation.dita"/>
-  </chapter>
-
-  <chapter collection-type="sequence"
-           href="topics/tutorial/using-security.dita">
-    <!-- recreate own page -->
-
-    <topicref href="topics/concepts/security-primer.dita"/>
-
-    <topicref href="topics/tutorial/securing-admin-actions.dita"/>
-  </chapter>
+  <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  x-->
 </bookmap>

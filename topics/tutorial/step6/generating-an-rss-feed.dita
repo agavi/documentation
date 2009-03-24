@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="tutorial-generating-rss-feed">
+  <title>Generating an RSS Feed</title>
+
+  <body>
+    <p>We'll be using Zend_Feed to generate the RSS feed, so we need the
+    relevant parts of the Zend Framework installed. Just drop the pieces you
+    need in <filepath>libs/Zend</filepath> and have an include path point at
+    <filepath>libs/</filepath>. This is best done by adding a line to
+    <filepath>app/config.php</filepath>:</p>
+
+    <codeblock>ini_set('include_path', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'libs' . PATH_SEPARATOR . ini_get('include_path'));</codeblock>
+
+    <p>First we need to define a suitable output type for the RSS feed. We
+    don't need a renderer or a layout as we'll use a generator for the feed.
+    We should provide a proper content-type header as well - we'll be using
+    "text/xml". So our output type definition looks like this:</p>
+
+    <codeblock class="xml">&lt;output_type name="rss"&gt;
+	&lt;ae:parameter name="http_headers"&gt;
+		&lt;ae:parameter name="Content-Type"&gt;text/xml; charset=UTF-8&lt;/ae:parameter&gt;
+	&lt;/ae:parameter&gt;
+&lt;/output_type&gt;</codeblock>
+
+    <p>Now we need to add a route that set's the output type. We want any url
+    that ends in ".rss" to be mapped to the "rss" output type. So we place
+    this route at the top of our routing.xml</p>
+
+    <codeblock>&lt;route name="ot_rss" pattern=".rss$" cut="true" stop="false" output_type="rss" /&gt;</codeblock>
+
+    <p>All that's left to do now is implement the appropriate executeRss()
+    method on the views where we'd like to provide an rss feed. Let's start
+    with the index page. All we need to do is provide a good implementation
+    for <apiname>Posts_IndexSuccessView::executeRss()</apiname>:</p>
+
+    <codeblock>public function executeRss(AgaviRequestDataHolder $rd)
+{
+	$ro = $this-&gt;getContext()-&gt;getRouting();
+	$entries = array();
+	
+	foreach($this-&gt;getAttribute('posts') as $p)
+	{
+		$entries[] = array(
+			'title'       =&gt; $p-&gt;getTitle(), //required
+			'lastUpdate'  =&gt; time(), // optional
+			'link'        =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; $p), array('relative' =&gt; false)), //required
+			'charset'     =&gt; 'UTF-8', // required
+			'published'   =&gt; time(), //optional
+			'description' =&gt; $p-&gt;getContent(), //optional
+			'author'      =&gt; $p-&gt;getAuthorName(), //optional
+			'language'    =&gt; 'en', // optional
+		);
+	}
+	
+	$data = array(
+		'title'       =&gt; 'Latest Posts', //required
+		'lastUpdate'  =&gt; null, // optional
+		'link'        =&gt; $ro-&gt;gen(null, array(), array('relative' =&gt; false)), //required
+		'charset'     =&gt; 'UTF-8', // required
+		'published'   =&gt; time(), //optional
+		'description' =&gt; 'The latest posts from the agavi tutorial blog application', //optional
+		'author'      =&gt; null, //optional
+		'language'    =&gt; 'en', // optional
+		'entries'     =&gt; $entries
+	);
+
+	 
+	require 'Zend/Feed.php';
+	$feed = Zend_Feed::importArray($data, 'rss');
+	
+	return $feed-&gt;saveXml();
+}</codeblock>
+
+    <p>I won't go into the details of Zend_Feed but all we did was construct
+    the proper data array and have the library construct the feed to us. The
+    <apiname>Zend_Feed_Element::saveXml()</apiname> returns the generated xml
+    which we use as return value for the <apiname>executeRss()</apiname>
+    method. As there is no renderer involved the return value gets sent
+    straight to the client. We didn't use the
+    <apiname>Zend_Feed_Abstract::send()</apiname> method as sending headers
+    and content directly would cause major problems with the framework,
+    especially with the caching mechanism.</p>
+
+    <p>Note how we did not use the post's posted date in the feed - Zend_Feed
+    expects a timestamp at this place and we're storing a string. We'll get to
+    that when we're handling the calendar library and the translation
+    subsystem.</p>
+  </body>
+</topic>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="basics-exception-templates">
+  <title>Exception Templates</title>
+
+  <conbody>
+    <p>Exception templates are rendered when an unhandled exception occurs
+    during the request processing. Exception templates can be configured in
+    <filepath>app/config/settings.xml</filepath> and overwritten in
+    <filepath>app/config/output_types.xml</filepath>. The configuration in
+    settings.xml aims at setting up a reasonable default and is used if no
+    configuration can be loaded from output_types.xml. This can happen in a
+    variety of cases:</p>
+
+    <ul>
+      <li>The error occurs before the configuration from output_types.xml is
+      loaded, i.e. during the framework bootstrap.</li>
+
+      <li>There is no specific configuration for the active output type in
+      output_type.xml</li>
+    </ul>
+
+    <section><title>Configuration in settings.xml</title><p>The configration
+    in settings.xml uses a special &lt;exception_templates&gt; block. Each
+    entry can contain a context name and must specify a valid path to an
+    exception template. The entry with an empty name is used as default for
+    all contexts.</p><codeblock class="xml">		&lt;exception_templates&gt;
+			&lt;exception_template&gt;%core.agavi_dir%/exception/templates/shiny.php&lt;/exception_template&gt;
+			&lt;exception_template context="console"&gt;%core.agavi_dir%/exception/templates/plaintext.php&lt;/exception_template&gt;
+		&lt;/exception_templates&gt;</codeblock><note type="caution">While the shiny
+    exception template provides a beautiful stacktrace and is very useful for
+    debugging we strictly recommend against using it in production. Design
+    your own error template an log the error instead of displaying it to the
+    user.</note></section>
+
+    <section><title>Configuration in output_types.xml</title><p>The
+    &lt;output_type&gt; tag can have an optional exception_template attribute.
+    It contains the path to the template to use for this specific output type.
+    The value supersedes any value from settings.xml.</p></section>
+  </conbody>
+</concept>
