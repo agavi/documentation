@@ -2,7 +2,9 @@
 <ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0">
 	<ae:configuration>
 		<routes>
-
+			<!-- matches .rss at the end of the url, strips it, sets the output type to "rss" and continues matching -->
+			<route name="ot_rss" pattern=".rss$" cut="true" stop="false" output_type="rss" />
+			
 			<!-- default action for "/" -->
 			<route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" />
 

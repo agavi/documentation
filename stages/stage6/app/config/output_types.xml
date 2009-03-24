@@ -72,6 +72,12 @@
 				
 			</output_type>
 			
+			<output_type name="rss">
+				<ae:parameter name="http_headers">
+					<ae:parameter name="Content-Type">text/xml; charset=UTF-8</ae:parameter>
+				</ae:parameter>
+			</output_type>
+			
 		</output_types>
 		
 	</ae:configuration>
