@@ -8,7 +8,7 @@ class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 		
 		$p = $this->getAttribute('post');
 		$post = $p->toArray();
-		$post['url'] = $this->getContext()->getRouting()->gen('posts.post.show', array('post' => $p->getId()));
+		$post['url'] = $this->getContext()->getRouting()->gen('posts.post.show', array('post' => $p));
 		
 		$this->setAttribute('post', $post);
 		

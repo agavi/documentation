@@ -26,6 +26,20 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 		$ro = $this->getContext()->getRouting();
 		$entries = array();
 		
+		foreach($this->getAttribute('posts') as $p)
+		{
+			$entries[] = array(
+				'title'       => $p->getTitle(), //required
+				'lastUpdate'  => time(), // optional
+				'link'        => $ro->gen('posts.post.show', array('post' => $p), array('relative' => false)), //required
+				'charset'     => 'UTF-8', // required
+				'published'   => time(), //optional
+				'description' => $p->getContent(), //optional
+				'author'      => $p->getAuthorName(), //optional
+				'language'    => 'en', // optional
+			);
+		}
+		
 		$data = array(
 			'title'       => 'Latest Posts', //required
 			'lastUpdate'  => null, // optional
@@ -37,20 +51,7 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 			'language'    => 'en', // optional
 			'entries'     => $entries
 		);
-		
-		foreach($this->getAttribute('posts') as $p)
-		{
-			$entries[] = array(
-				'title'       => $p->getTitle(), //required
-				'lastUpdate'  => $p->getPosted(), // optional
-				'link'        => $ro->gen('posts.post.show', array('post' => $p), array('relative' => false)), //required
-				'charset'     => 'UTF-8', // required
-				'published'   => $p->getPosted(), //optional
-				'description' => $p->getContents(), //optional
-				'author'      => $p->getAuthorName(), //optional
-				'language'    => 'en', // optional
-			);
-		}
+
 		 
 		require 'Zend/Feed.php';
 		$feed = Zend_Feed::importArray($data, 'rss');
