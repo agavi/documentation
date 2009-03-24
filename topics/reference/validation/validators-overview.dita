@@ -36,42 +36,42 @@
 +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
 -->
 &lt;configurations xmlns="http://agavi.org/agavi/1.0/config">
-	&lt;!-- custom validators and default parameters -->
-	&lt;configuration>
-		&lt;validators>
+  &lt;!-- custom validators and default parameters -->
+  &lt;configuration>
+    &lt;validators>
 
-			&lt;validator class="string" name="username_too_short" translation_domain="default.errors.Login" methods="write">
-				&lt;arguments>
-					&lt;argument>username&lt;/argument>
-				&lt;/arguments>
-				&lt;errors>
-					&lt;error>The username you supplied is fewer than 5 characters long.&lt;/error>
-				&lt;/errors>
-				&lt;parameters>
-					&lt;parameter name="min">5&lt;/parameter>
-				&lt;/parameters>
-			&lt;/validator>
+      &lt;validator class="string" name="username_too_short" translation_domain="default.errors.Login" methods="write">
+        &lt;arguments>
+          &lt;argument>username&lt;/argument>
+        &lt;/arguments>
+        &lt;errors>
+          &lt;error>The username you supplied is fewer than 5 characters long.&lt;/error>
+        &lt;/errors>
+        &lt;parameters>
+          &lt;parameter name="min">5&lt;/parameter>
+        &lt;/parameters>
+      &lt;/validator>
 
-			&lt;validator class="string" name="password_non_existant" translation_domain="default.errors.Login" methods="write">
-				&lt;arguments>
-					&lt;argument>password&lt;/argument>
-				&lt;/arguments>
-				&lt;errors>
-					&lt;error>Please supply a password.&lt;/error>
-				&lt;/errors>
-				&lt;parameters>
-					&lt;parameter name="min">1&lt;/parameter>
-				&lt;/parameters>
-			&lt;/validator>
-			
-			&lt;validator class="isset" name="remember" required="false" methods="write">
-				&lt;arguments>
-					&lt;argument>remember&lt;/argument>
-				&lt;/arguments>
-			&lt;/validator>
+      &lt;validator class="string" name="password_non_existant" translation_domain="default.errors.Login" methods="write">
+        &lt;arguments>
+          &lt;argument>password&lt;/argument>
+        &lt;/arguments>
+        &lt;errors>
+          &lt;error>Please supply a password.&lt;/error>
+        &lt;/errors>
+        &lt;parameters>
+          &lt;parameter name="min">1&lt;/parameter>
+        &lt;/parameters>
+      &lt;/validator>
+      
+      &lt;validator class="isset" name="remember" required="false" methods="write">
+        &lt;arguments>
+          &lt;argument>remember&lt;/argument>
+        &lt;/arguments>
+      &lt;/validator>
 
-		&lt;/validators>
-	&lt;/configuration>
+    &lt;/validators>
+  &lt;/configuration>
 &lt;/configurations></codeblock>Each
                 &lt;validator> block registers a single validator. A &lt;validator> tag can carry
                 the following attributes:<dl>

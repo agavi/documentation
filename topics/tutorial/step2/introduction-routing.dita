@@ -36,37 +36,37 @@
 
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
-	&lt;ae:configuration&gt;
-		&lt;routes&gt;
-			
-			&lt;!-- default action for "/" --&gt;
-			&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
-			
-			&lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
-			
-			&lt;!-- an example for a CRUD-style set of routes --&gt;
-			&lt;route name="products" pattern="^/products" module="Products"&gt;
-				&lt;!-- do not put the action into the parent route, because that one is not anchored at the end of the pattern! --&gt;
-				&lt;route name=".index" pattern="^$" action="Index" /&gt;
-				&lt;route name=".latest" pattern="^/latest$" action="Latest" /&gt;
-				
-				&lt;route name=".create" pattern="^/add$" action="Add" /&gt;
-				&lt;!-- "Product" is not an action, but just a folder with sub-actions. if only this route, without children, matches, then the action cannot be resolved and a 404 is shown - exactly what we want! --&gt;
-				&lt;route name=".product" pattern="^/(id:\d+)" action="Product"&gt;
-					&lt;route name=".view" pattern="^$" action=".View" /&gt; 
-					&lt;route name=".edit" pattern="^/edit$" action=".Edit" /&gt;
-					&lt;route name=".delete" pattern="^/delete$" action=".Delete" /&gt;
-					
-					&lt;!-- the gallery page is optional here, but the request parameter should not contain the leading slash, so our special syntax is in order --&gt;
-					&lt;route name=".gallery" pattern="^/gallery(/{page:\d+})?$" action=".Gallery"&gt;
-						&lt;!-- assume the "1" by default and tell the routing what the rest of the string will look like when generating a URL --&gt;
-						&lt;default for="page"&gt;/{1}&lt;/default&gt;
-					&lt;/route&gt;
-				&lt;/route&gt;
-			&lt;/route&gt;
+  &lt;ae:configuration&gt;
+    &lt;routes&gt;
+      
+      &lt;!-- default action for "/" --&gt;
+      &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+      
+      &lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
+      
+      &lt;!-- an example for a CRUD-style set of routes --&gt;
+      &lt;route name="products" pattern="^/products" module="Products"&gt;
+        &lt;!-- do not put the action into the parent route, because that one is not anchored at the end of the pattern! --&gt;
+        &lt;route name=".index" pattern="^$" action="Index" /&gt;
+        &lt;route name=".latest" pattern="^/latest$" action="Latest" /&gt;
+        
+        &lt;route name=".create" pattern="^/add$" action="Add" /&gt;
+        &lt;!-- "Product" is not an action, but just a folder with sub-actions. if only this route, without children, matches, then the action cannot be resolved and a 404 is shown - exactly what we want! --&gt;
+        &lt;route name=".product" pattern="^/(id:\d+)" action="Product"&gt;
+          &lt;route name=".view" pattern="^$" action=".View" /&gt; 
+          &lt;route name=".edit" pattern="^/edit$" action=".Edit" /&gt;
+          &lt;route name=".delete" pattern="^/delete$" action=".Delete" /&gt;
+          
+          &lt;!-- the gallery page is optional here, but the request parameter should not contain the leading slash, so our special syntax is in order --&gt;
+          &lt;route name=".gallery" pattern="^/gallery(/{page:\d+})?$" action=".Gallery"&gt;
+            &lt;!-- assume the "1" by default and tell the routing what the rest of the string will look like when generating a URL --&gt;
+            &lt;default for="page"&gt;/{1}&lt;/default&gt;
+          &lt;/route&gt;
+        &lt;/route&gt;
+      &lt;/route&gt;
 
-		&lt;/routes&gt;
-	&lt;/ae:configuration&gt;
+    &lt;/routes&gt;
+  &lt;/ae:configuration&gt;
 &lt;/ae:configurations&gt;
 
 </codeblock> The first two routes are the index route that we adapted earlier

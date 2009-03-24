@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="bloggie-stage3-skinning">
   <title>Styling Bloggie with templates</title>
   <body>
@@ -32,9 +32,9 @@
     <section>
       <title>Notes on templates</title> 
       <p>
-	The end result of the manipulations in this chapter is the "stage
+  The end result of the manipulations in this chapter is the "stage
       3" Bloggie application. It uses the open source Blue Sky template by Arcsin, which can be obtained
-	from the <filepath>bluesky/</filepath> directory of this tutorial.<!-- XXX -->
+  from the <filepath>bluesky/</filepath> directory of this tutorial.<!-- XXX -->
       </p>
       <p>Note that Bloggie's administrative section of our "stage 3"
       application (contained wholly in the Admin module) uses a

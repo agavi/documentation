@@ -29,26 +29,26 @@
 
 class Posts_PostValidator extends AgaviValidator
 {
-	/**
-	 * Validates the input
-	 * 
-	 * @return     bool The input is valid number according to given parameters.
-	 */
-	protected function validate()
-	{
-		$postId = $this-&gt;getData('post');
-		
-		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
-		$post = $manager-&gt;retrieveById($postId);
-		
-		if (null == $post)
-		{
-			$this-&gt;throwError();
-			return false;
-		}
-		
-		return true;
-	}
+  /**
+   * Validates the input
+   * 
+   * @return     bool The input is valid number according to given parameters.
+   */
+  protected function validate()
+  {
+    $postId = $this-&gt;getData('post');
+    
+    $manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+    $post = $manager-&gt;retrieveById($postId);
+    
+    if (null == $post)
+    {
+      $this-&gt;throwError();
+      return false;
+    }
+    
+    return true;
+  }
 }
 
 ?&gt;</codeblock>
@@ -75,28 +75,28 @@ class Posts_PostValidator extends AgaviValidator
 
 class Posts_PostValidator extends AgaviValidator
 {
-	/**
-	 * Validates the input
-	 * 
-	 * @return     bool The input is valid number according to given parameters.
-	 */
-	protected function validate()
-	{
-		$parameterName = $this-&gt;getArgument();
-		$postId = $this-&gt;getData($parameterName);
-		
-		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
-		$post = $manager-&gt;retrieveById($postId);
-		
-		if (null == $post)
-		{
-			$this-&gt;throwError();
-			return false;
-		}
-		
-		$this-&gt;export($post);
-		return true;
-	}
+  /**
+   * Validates the input
+   * 
+   * @return     bool The input is valid number according to given parameters.
+   */
+  protected function validate()
+  {
+    $parameterName = $this-&gt;getArgument();
+    $postId = $this-&gt;getData($parameterName);
+    
+    $manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+    $post = $manager-&gt;retrieveById($postId);
+    
+    if (null == $post)
+    {
+      $this-&gt;throwError();
+      return false;
+    }
+    
+    $this-&gt;export($post);
+    return true;
+  }
 }
 
 ?&gt;</codeblock>
@@ -114,14 +114,14 @@ class Posts_PostValidator extends AgaviValidator
     <codeblock outputclass="xml">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"&gt;
-	&lt;ae:configuration&gt;
+  &lt;ae:configuration&gt;
 
-		&lt;autoload name="BlogPostsBaseAction"&gt;%core.module_dir%/Posts/lib/action/BlogPostsBaseAction.class.php&lt;/autoload&gt;
-		&lt;autoload name="BlogPostsBaseModel"&gt;%core.module_dir%/Posts/lib/model/BlogPostsBaseModel.class.php&lt;/autoload&gt;
-		&lt;autoload name="BlogPostsBaseView"&gt;%core.module_dir%/Posts/lib/view/BlogPostsBaseView.class.php&lt;/autoload&gt;
-		&lt;autoload name="Posts_PostValidator"&gt;%core.module_dir%/Posts/lib/validator/PostValidator.class.php&lt;/autoload&gt;
+    &lt;autoload name="BlogPostsBaseAction"&gt;%core.module_dir%/Posts/lib/action/BlogPostsBaseAction.class.php&lt;/autoload&gt;
+    &lt;autoload name="BlogPostsBaseModel"&gt;%core.module_dir%/Posts/lib/model/BlogPostsBaseModel.class.php&lt;/autoload&gt;
+    &lt;autoload name="BlogPostsBaseView"&gt;%core.module_dir%/Posts/lib/view/BlogPostsBaseView.class.php&lt;/autoload&gt;
+    &lt;autoload name="Posts_PostValidator"&gt;%core.module_dir%/Posts/lib/validator/PostValidator.class.php&lt;/autoload&gt;
 
-	&lt;/ae:configuration&gt;
+  &lt;/ae:configuration&gt;
 &lt;/ae:configurations&gt;
     </codeblock>
 
@@ -134,27 +134,27 @@ class Posts_PostValidator extends AgaviValidator
 
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations
-	xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
-	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
-	parent="%core.module_dir%/Posts/config/validators.xml"
+  xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+  xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+  parent="%core.module_dir%/Posts/config/validators.xml"
 &gt;
-	&lt;ae:configuration&gt;
-		
-		&lt;validators&gt;
-			&lt;validator class="Posts_PostValidator" name="post"&gt;
-				&lt;arguments&gt;
-					&lt;argument&gt;post&lt;/argument&gt;
-				&lt;/arguments&gt;
-				&lt;errors&gt;
-					&lt;error&gt;The parameter post must contain a valid post id&lt;/error&gt;
-				&lt;/errors&gt;
-				&lt;ae:parameters&gt;
-					&lt;ae:parameter name="export"&gt;post&lt;/ae:parameter&gt;
-				&lt;/ae:parameters&gt; 
-			&lt;/validator&gt;
-		&lt;/validators&gt;
-		
-	&lt;/ae:configuration&gt;
+  &lt;ae:configuration&gt;
+    
+    &lt;validators&gt;
+      &lt;validator class="Posts_PostValidator" name="post"&gt;
+        &lt;arguments&gt;
+          &lt;argument&gt;post&lt;/argument&gt;
+        &lt;/arguments&gt;
+        &lt;errors&gt;
+          &lt;error&gt;The parameter post must contain a valid post id&lt;/error&gt;
+        &lt;/errors&gt;
+        &lt;ae:parameters&gt;
+          &lt;ae:parameter name="export"&gt;post&lt;/ae:parameter&gt;
+        &lt;/ae:parameters&gt; 
+      &lt;/validator&gt;
+    &lt;/validators&gt;
+    
+  &lt;/ae:configuration&gt;
 &lt;/ae:configurations&gt;
 </codeblock>
 
@@ -169,12 +169,12 @@ class Posts_PostValidator extends AgaviValidator
     <apiname>Posts_Post_ShowAction::executeRead()</apiname> should now look
     like this:</p>
 
-    <codeblock outputclass="php">	public function executeRead(AgaviRequestDataHolder $rd)
-	{
+    <codeblock outputclass="php">  public function executeRead(AgaviRequestDataHolder $rd)
+  {
 
-		$this-&gt;setAttribute('post', $rd-&gt;getParameter('post'));
-		return 'Success';
-	}
+    $this-&gt;setAttribute('post', $rd-&gt;getParameter('post'));
+    return 'Success';
+  }
 </codeblock>
   </body>
 </topic>

@@ -5,9 +5,9 @@
   <title>Creating protected administration Actions</title>
   <body>
     <section>
-	<p>In this chapter, I'll show you how to use Agavi security
-	facilities. Agavi's security mechanism allows you to control
-	identification and access privileges of your application's users.</p>
+  <p>In this chapter, I'll show you how to use Agavi security
+  facilities. Agavi's security mechanism allows you to control
+  identification and access privileges of your application's users.</p>
     </section>
     <section conref="../concepts/security.dita#agavi-security-features"></section>
   </body>

@@ -19,39 +19,39 @@
     at the relevant section of our output_types.xml:</p>
 
     <codeblock outputclass="xml">&lt;layouts default="standard"&gt;
-	&lt;!-- standard layout with a content and a decorator layer --&gt;
-	&lt;layout name="standard"&gt;
-		&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-		&lt;layer name="content" /&gt;
-		&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-		&lt;layer name="decorator"&gt;
-			&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-			&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-		&lt;/layer&gt;
-	&lt;/layout&gt;
-	
-	&lt;!-- another example layout that has an intermediate wrapper layer in between content and decorator --&gt;
-	&lt;!-- it also shows how to use slots etc --&gt;
-	&lt;layout name="wrapped"&gt;
-		&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-		&lt;layer name="content" /&gt;
-		&lt;layer name="wrapper"&gt;
-			&lt;!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one --&gt;
-			&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
-		&lt;/layer&gt;
-		&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-		&lt;layer name="decorator"&gt;
-			&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-			&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-			&lt;!-- an example for a slot --&gt;
-			&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
-		&lt;/layer&gt;
-	&lt;/layout&gt;
-	
-	&lt;!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot --&gt;
-	&lt;layout name="simple"&gt;
-		&lt;layer name="content" /&gt;
-	&lt;/layout&gt;
+  &lt;!-- standard layout with a content and a decorator layer --&gt;
+  &lt;layout name="standard"&gt;
+    &lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+    &lt;layer name="content" /&gt;
+    &lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+    &lt;layer name="decorator"&gt;
+      &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+      &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+    &lt;/layer&gt;
+  &lt;/layout&gt;
+  
+  &lt;!-- another example layout that has an intermediate wrapper layer in between content and decorator --&gt;
+  &lt;!-- it also shows how to use slots etc --&gt;
+  &lt;layout name="wrapped"&gt;
+    &lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+    &lt;layer name="content" /&gt;
+    &lt;layer name="wrapper"&gt;
+      &lt;!-- use CurrentView.wrapper.php instead of CurrentView.php as the template for this one --&gt;
+      &lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+    &lt;/layer&gt;
+    &lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+    &lt;layer name="decorator"&gt;
+      &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+      &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+      &lt;!-- an example for a slot --&gt;
+      &lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+    &lt;/layer&gt;
+  &lt;/layout&gt;
+  
+  &lt;!-- special layout for slots that only has a content layer to prevent the obvious infinite loop that would otherwise occur if the decorator layer has slots assigned in the layout; this is loaded automatically by ProjectBaseView::setupHtml() in case the current container is run as a slot --&gt;
+  &lt;layout name="simple"&gt;
+    &lt;layer name="content" /&gt;
+  &lt;/layout&gt;
 &lt;/layouts&gt;
 </codeblock>
 
@@ -59,7 +59,7 @@
     simplest layout defined in this section.</p>
 
     <codeblock outputclass="xml">&lt;layout name="simple"&gt;
-	&lt;layer name="content" /&gt;
+  &lt;layer name="content" /&gt;
 &lt;/layout&gt;</codeblock>
 
     <p>This layout defines a single layer named "content". It does not pass
@@ -73,11 +73,11 @@
     explain what this is about.</p>
 
     <codeblock>&lt;layout name="standard"&gt;
-	&lt;layer name="content" /&gt;
-	&lt;layer name="decorator"&gt;
-		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-	&lt;/layer&gt;
+  &lt;layer name="content" /&gt;
+  &lt;layer name="decorator"&gt;
+    &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+  &lt;/layer&gt;
 &lt;/layout&gt;</codeblock>
 
     <p>This layout defines two layers, one named "content" that works like the
@@ -93,15 +93,15 @@
 
     <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
-	&lt;head&gt;
-		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
-		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
-		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-	&lt;?php if(isset($t['_title'])) echo '&lt;h1&gt;' . htmlspecialchars($t['_title']) . '&lt;/h1&gt;'; ?&gt;
-	&lt;?php echo $inner; ?&gt;
-	&lt;/body&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+    &lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+    &lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;?php if(isset($t['_title'])) echo '&lt;h1&gt;' . htmlspecialchars($t['_title']) . '&lt;/h1&gt;'; ?&gt;
+  &lt;?php echo $inner; ?&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </codeblock>
 
@@ -117,15 +117,15 @@
     it partially. Don't worry, we'll come back later to explain.</p>
 
     <codeblock outputclass="xml">&lt;layout name="wrapped"&gt;
-	&lt;layer name="content" /&gt;
-	&lt;layer name="wrapper"&gt;
-		&lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
-	&lt;/layer&gt;
-	&lt;layer name="decorator"&gt;
-		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-		&lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
-	&lt;/layer&gt;
+  &lt;layer name="content" /&gt;
+  &lt;layer name="wrapper"&gt;
+    &lt;ae:parameter name="extension"&gt;.wrapper.php&lt;/ae:parameter&gt;
+  &lt;/layer&gt;
+  &lt;layer name="decorator"&gt;
+    &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+    &lt;slot name="nav" module="Default" action="Widgets.Navigation" /&gt;
+  &lt;/layer&gt;
 &lt;/layout&gt;</codeblock>
 
     <p>Let's forget about the &lt;slot&gt; definition and focus on the rest.

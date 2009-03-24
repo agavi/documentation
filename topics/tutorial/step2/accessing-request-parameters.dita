@@ -43,32 +43,32 @@
     <filepath>app/modules/Posts/validate/Posts/Show.xml</filepath> and for now
     only contains a stub. Let's extend it to look like that:</p><codeblock
     outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-	&lt;ae:configurations
-		xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
-		xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
-		parent="%core.module_dir%/Posts/config/validators.xml"
-	&gt;
-		&lt;ae:configuration&gt;
+  &lt;ae:configurations
+    xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+    xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+    parent="%core.module_dir%/Posts/config/validators.xml"
+  &gt;
+    &lt;ae:configuration&gt;
 
-			&lt;validators&gt;
-				&lt;validator class="number" name="post"&gt;
-					&lt;arguments&gt;
-						&lt;argument&gt;post&lt;/argument&gt;
-					&lt;/arguments&gt;
-					&lt;errors&gt;
-						&lt;error&gt;The parameter post must contain a number in the range of 1 - 2&lt;/error&gt;
-					&lt;/errors&gt;
-					&lt;ae:parameters&gt;
-						&lt;ae:parameter name="type"&gt;int&lt;/ae:parameter&gt;
-						&lt;ae:parameter name="min"&gt;1&lt;/ae:parameter&gt;
-						&lt;ae:parameter name="max"&gt;2&lt;/ae:parameter&gt;
-					&lt;/ae:parameters&gt; 
-				&lt;/validator&gt;
-			&lt;/validators&gt;
+      &lt;validators&gt;
+        &lt;validator class="number" name="post"&gt;
+          &lt;arguments&gt;
+            &lt;argument&gt;post&lt;/argument&gt;
+          &lt;/arguments&gt;
+          &lt;errors&gt;
+            &lt;error&gt;The parameter post must contain a number in the range of 1 - 2&lt;/error&gt;
+          &lt;/errors&gt;
+          &lt;ae:parameters&gt;
+            &lt;ae:parameter name="type"&gt;int&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="min"&gt;1&lt;/ae:parameter&gt;
+            &lt;ae:parameter name="max"&gt;2&lt;/ae:parameter&gt;
+          &lt;/ae:parameters&gt; 
+        &lt;/validator&gt;
+      &lt;/validators&gt;
 
-		&lt;/ae:configuration&gt;
-	&lt;/ae:configurations&gt;
-	</codeblock><p>This defines a single validator with the name "post" and the
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;
+  </codeblock><p>This defines a single validator with the name "post" and the
     class "number". The name is optional and can be used to get detailed
     information about where validation failed. In most cases you won't need
     it. The class-attribute controls which validator is run. It can either be
@@ -95,37 +95,37 @@
     For the time being we just copy the static posts array that we used for
     the list and pick the right one of the two. Change the
     <apiname>Posts_PostShowAction::executeRead()</apiname> to look like this:
-    </p><codeblock outputclass="php">	public function executeRead(AgaviRequestDataHolder $rd)
-	{
+    </p><codeblock outputclass="php">  public function executeRead(AgaviRequestDataHolder $rd)
+  {
 
-		$posts = array(
-			1 =&gt; array(
-				'id' =&gt; 1,
-				'title' =&gt; 'First post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'No category',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; null,
-				'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
-			),
-			2 =&gt; array(
-				'id' =&gt; 2,
-				'title' =&gt; 'Second post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'Agavi',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; null,
-				'content' =&gt; '&lt;p&gt;It looks like our blog application is working, yay!&lt;/p&gt;', 
-			)
-		);
+    $posts = array(
+      1 =&gt; array(
+        'id' =&gt; 1,
+        'title' =&gt; 'First post',
+        'posted' =&gt; '2008-07-14 00:01:07',
+        'category_name' =&gt; 'No category',
+        'author_name' =&gt; 'Admin',
+        'url' =&gt; null,
+        'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
+      ),
+      2 =&gt; array(
+        'id' =&gt; 2,
+        'title' =&gt; 'Second post',
+        'posted' =&gt; '2008-07-14 00:01:07',
+        'category_name' =&gt; 'Agavi',
+        'author_name' =&gt; 'Admin',
+        'url' =&gt; null,
+        'content' =&gt; '&lt;p&gt;It looks like our blog application is working, yay!&lt;/p&gt;', 
+      )
+    );
 
-		$postId = $rd-&gt;getParameter('post');
-		$post = $posts[$postId];
-		
-		$this-&gt;setAttribute('post', $post);
+    $postId = $rd-&gt;getParameter('post');
+    $post = $posts[$postId];
+    
+    $this-&gt;setAttribute('post', $post);
 
-		return 'Success';
-	}</codeblock><p>We don't have to check whether the array key exists because
+    return 'Success';
+  }</codeblock><p>We don't have to check whether the array key exists because
     we validated the incoming parameter and the constraints are set strict
     enough that the valid cannot be out of range. And see how the separation
     of display and logic already worked in our favor? There was no need to

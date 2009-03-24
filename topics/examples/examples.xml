@@ -223,28 +223,28 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
   &lt;configuration&gt;
     &lt;output_types default="html"&gt;
       &lt;output_type name="html"&gt;
-	&lt;renderers default="php"&gt;
-	  &lt;renderer name="php" class="AgaviPhpRenderer"&gt;
-	    &lt;parameter name="assigns"&gt;
-	      &lt;parameter name="routing"&gt;ro&lt;/parameter&gt;
-	      &lt;parameter name="request"&gt;rq&lt;/parameter&gt;
-	      &lt;parameter name="controller"&gt;ct&lt;/parameter&gt;
-	      &lt;parameter name="user"&gt;us&lt;/parameter&gt;
-	      &lt;parameter name="translation_manager"&gt;tm&lt;/parameter&gt;
-	      &lt;parameter name="request_data"&gt;rd&lt;/parameter&gt;
-	    &lt;/parameter&gt;
-	  &lt;/renderer&gt;
-	&lt;/renderers&gt;
+  &lt;renderers default="php"&gt;
+    &lt;renderer name="php" class="AgaviPhpRenderer"&gt;
+      &lt;parameter name="assigns"&gt;
+        &lt;parameter name="routing"&gt;ro&lt;/parameter&gt;
+        &lt;parameter name="request"&gt;rq&lt;/parameter&gt;
+        &lt;parameter name="controller"&gt;ct&lt;/parameter&gt;
+        &lt;parameter name="user"&gt;us&lt;/parameter&gt;
+        &lt;parameter name="translation_manager"&gt;tm&lt;/parameter&gt;
+        &lt;parameter name="request_data"&gt;rd&lt;/parameter&gt;
+      &lt;/parameter&gt;
+    &lt;/renderer&gt;
+  &lt;/renderers&gt;
 
-	&lt;layouts default="default"&gt;
-	  &lt;layout name="default"&gt;
-	    &lt;layer name="content" /&gt;
-	  &lt;/layout&gt;
-	&lt;/layouts&gt;
+  &lt;layouts default="default"&gt;
+    &lt;layout name="default"&gt;
+      &lt;layer name="content" /&gt;
+    &lt;/layout&gt;
+  &lt;/layouts&gt;
 
-	&lt;parameter name="http_headers"&gt;
-	  &lt;parameter name="Content-Type"&gt;text/html; charset=UTF-8&lt;/parameter&gt;
-	&lt;/parameter&gt;
+  &lt;parameter name="http_headers"&gt;
+    &lt;parameter name="Content-Type"&gt;text/html; charset=UTF-8&lt;/parameter&gt;
+  &lt;/parameter&gt;
       &lt;/output_type&gt;
     &lt;/output_types&gt;
   &lt;/configuration&gt;
@@ -391,27 +391,27 @@ by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; 
  &lt;?php endforeach; ?&gt;</codeblock>
 
     <codeblock id="stage3-modified-output-types" outputclass="xml">
-	&lt;layouts default="default"&gt;
+  &lt;layouts default="default"&gt;
 
-	  &lt;!-- The default layout for HTML includes two layers: the
-	       "content" layer is used by the View to render its
-	       output, and the "decorator" layer is preconfigured with
-	       the decorator template of the Public module --&gt;
+    &lt;!-- The default layout for HTML includes two layers: the
+         "content" layer is used by the View to render its
+         output, and the "decorator" layer is preconfigured with
+         the decorator template of the Public module --&gt;
 
-	  &lt;layout name="default"&gt;
+    &lt;layout name="default"&gt;
 
-	    &lt;!-- This is the topmost layer. Views would render their output here, using a default
-	    template name that matches the name of the View. --&gt;
-	    &lt;layer name="content" /&gt;
+      &lt;!-- This is the topmost layer. Views would render their output here, using a default
+      template name that matches the name of the View. --&gt;
+      &lt;layer name="content" /&gt;
 
-	    &lt;!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
-	    to render the decorator template. The content of the output becomes available to us here
-	    through $inner (see app/modules/Public/templates/decorator.php) --&gt;
-	    &lt;layer name="decorator"&gt;
-	      &lt;parameter name="template"&gt;decorator&lt;/parameter&gt;
-	      &lt;parameter name="directory"&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
-	    &lt;/layer&gt;
-	  &lt;/layout&gt;
-	&lt;/layouts&gt;</codeblock>
+      &lt;!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
+      to render the decorator template. The content of the output becomes available to us here
+      through $inner (see app/modules/Public/templates/decorator.php) --&gt;
+      &lt;layer name="decorator"&gt;
+        &lt;parameter name="template"&gt;decorator&lt;/parameter&gt;
+        &lt;parameter name="directory"&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
+      &lt;/layer&gt;
+    &lt;/layout&gt;
+  &lt;/layouts&gt;</codeblock>
   </body>
 </topic>

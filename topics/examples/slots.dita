@@ -130,7 +130,7 @@ public function executeHtml(AgaviRequestDataHolder $rd)
     
     // Load the comments for the given post ID
     $this->setAttribute('comments',
-			$pm->getRecentCommentsForPost($rd->getParameter('post_id'), 20));
+      $pm->getRecentCommentsForPost($rd->getParameter('post_id'), 20));
 
     return 'Comments';
   }
@@ -143,10 +143,10 @@ public function executeHtml(AgaviRequestDataHolder $rd)
     $pm = $this->context->getModel('Comments', 'Public');
 
     if ($pm->saveComment(
-			 $rd->getParameter('post_id'),
-			 $rd->getParameter('author_name'),
-			 $rd->getParameter('email'),
-			 $rd->getParameter('body')))
+       $rd->getParameter('post_id'),
+       $rd->getParameter('author_name'),
+       $rd->getParameter('email'),
+       $rd->getParameter('body')))
       // If saving was successful, forward the browser to the post
       // page
       return 'Success';
@@ -224,13 +224,13 @@ associated with a given blog post -->
 <h3>Latest comments</h3>
    <!-- Iterate over the comments and draw them -->
    <?php if ($template['comments']) foreach ($template['comments'] as $item): ?>
-    <hr/>				      
+    <hr/>              
     <div class="post-comment">
      <div><strong>By: <?php print $item['name']; ?></strong> @ <?php print $item['posted']; ?></div>
      <br/>
      <div><?php print $item['content']; ?></div>
     </div>
-   <?php endforeach; ?>				     
+   <?php endforeach; ?>             
 </div>]]></codeblock>
 
 <codeblock id="bloggie-post-success-view"><![CDATA[

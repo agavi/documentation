@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="sample-app-stage1-preparation">
   <title>Preparation</title>
 
   <body>
     <section><title>Populating your database</title><p>You have already
-	configured the database connection settings (in
-	<filepath>app/config/databases.xml</filepath>) in the previous chapter.
-	Now you need to initialize the database itself. Create four tables in your
-	database:</p><dl>
+  configured the database connection settings (in
+  <filepath>app/config/databases.xml</filepath>) in the previous chapter.
+  Now you need to initialize the database itself. Create four tables in your
+  database:</p><dl>
         <dlentry>
           <dt><apiname>administrators</apiname></dt>
 
@@ -35,7 +35,7 @@
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
  COMMENT='Contains the post categories';
-	  </codeblock></dd>
+    </codeblock></dd>
         </dlentry>
 
         <dlentry>
@@ -73,36 +73,36 @@
  COMMENT='Contains post comments';</codeblock></dd>
         </dlentry>
       </dl><p>Populate your new tables with some dummy data before you
-	continue.</p>
+  continue.</p>
       <p>
-	<note type="tip">It's always a good idea to have dummy data
-	  available before you start writing code! You can find some sample data
-	  file in the <filepath>stage2</filepath> tarball (in
-	  <filepath>mock-data.sql</filepath>) for your convenience. After you
-	  execute this SQL code in your development database, you will have some
-	  posts and categories and an author.</note>
+  <note type="tip">It's always a good idea to have dummy data
+    available before you start writing code! You can find some sample data
+    file in the <filepath>stage2</filepath> tarball (in
+    <filepath>mock-data.sql</filepath>) for your convenience. After you
+    execute this SQL code in your development database, you will have some
+    posts and categories and an author.</note>
       </p>
     </section>
 
     <section>
       <title>Removing the welcome Action</title>
       <p>An Agavi application created using <userinput>agavi
-	  project</userinput> comes with a "welcome" Action. It should
-	make you feel warm and fuzzy whenever you see it;
-	unfortunately, this Action isn't needed in your production
-	code and should be removed. To do this, delete the files that
-	we left behind to demonstrate the typical files involved in a
-	single action:</p>
-	<ul>
-	  <li><filepath>app/modules/Public/actions/WelcomeAction.class.php</filepath></li>
-	  <li><filepath>app/modules/Public/views/WelcomeSuccessView.class.php</filepath></li>
-	  <li><filepath>app/modules/Public/templates/WelcomeSuccess.php</filepath></li>
-	  <li><filepath>app/modules/Public/cache/Welcome.xml</filepath></li>
-	  <li><filepath>app/modules/Public/validate/Welcome.xml</filepath></li>
-	</ul>
+    project</userinput> comes with a "welcome" Action. It should
+  make you feel warm and fuzzy whenever you see it;
+  unfortunately, this Action isn't needed in your production
+  code and should be removed. To do this, delete the files that
+  we left behind to demonstrate the typical files involved in a
+  single action:</p>
+  <ul>
+    <li><filepath>app/modules/Public/actions/WelcomeAction.class.php</filepath></li>
+    <li><filepath>app/modules/Public/views/WelcomeSuccessView.class.php</filepath></li>
+    <li><filepath>app/modules/Public/templates/WelcomeSuccess.php</filepath></li>
+    <li><filepath>app/modules/Public/cache/Welcome.xml</filepath></li>
+    <li><filepath>app/modules/Public/validate/Welcome.xml</filepath></li>
+  </ul>
       <p>The corresponding route in <filepath>app/config/routing.xml</filepath> also should be removed:
-	<codeblock>&lt;route pattern="" module="%actions.default_module%" action="Welcome" /&gt;</codeblock>
-	You will learn more about how the routing subsystem works later in the following chapters.</p>
+  <codeblock>&lt;route pattern="" module="%actions.default_module%" action="Welcome" /&gt;</codeblock>
+  You will learn more about how the routing subsystem works later in the following chapters.</p>
     </section>
   </body>
 </topic>

@@ -57,10 +57,10 @@
     more preferably added to the global autoload definition. Any number of
     parameters may be passed to the callback by adding &lt;ae:parameter&gt;
     tags as required.</p><codeblock outputclass="xml">&lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
-	&lt;callbacks&gt;
-		&lt;callback class="PostRoutingCallback" /&gt;
-	&lt;/callbacks&gt;
-	&lt;route name=".show" pattern="^$" action=".Show" /&gt;
+  &lt;callbacks&gt;
+    &lt;callback class="PostRoutingCallback" /&gt;
+  &lt;/callbacks&gt;
+  &lt;route name=".show" pattern="^$" action=".Show" /&gt;
 &lt;/route&gt; </codeblock></section>
 
     <section><title>Routing Values</title><p>An

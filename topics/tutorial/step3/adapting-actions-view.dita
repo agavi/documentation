@@ -19,43 +19,43 @@
 
 class Posts_IndexAction extends BlogPostsBaseAction
 {
-	/**
-	 * Serves Read (GET) requests
-	 * 
-	 * @param      AgaviRequestDataHolder the incoming request data
-	 * 
-	 * @return     mixed &lt;ul&gt;
-	 *                     &lt;li&gt;A string containing the view name associated
-	 *                     with this action; or&lt;/li&gt;
-	 *                     &lt;li&gt;An array with two indices: the parent module
-	 *                     of the view to be executed and the view to be
-	 *                     executed.&lt;/li&gt;
-	 *                   &lt;/ul&gt;
-	 */
-	public function executeRead(AgaviRequestDataHolder $rd)
-	{
-		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
-		$this-&gt;setAttribute('posts', $manager-&gt;retrieveLatest(10));
-		
-		return 'Success';
-	}
-	
-	/**
-	 * Returns the default view if the action does not serve the request
-	 * method used.
-	 *
-	 * @return     mixed &lt;ul&gt;
-	 *                     &lt;li&gt;A string containing the view name associated
-	 *                     with this action; or&lt;/li&gt;
-	 *                     &lt;li&gt;An array with two indices: the parent module
-	 *                     of the view to be executed and the view to be
-	 *                     executed.&lt;/li&gt;
-	 *                   &lt;/ul&gt;
-	 */
-	public function getDefaultViewName()
-	{
-		return 'Success';
-	}
+  /**
+   * Serves Read (GET) requests
+   * 
+   * @param      AgaviRequestDataHolder the incoming request data
+   * 
+   * @return     mixed &lt;ul&gt;
+   *                     &lt;li&gt;A string containing the view name associated
+   *                     with this action; or&lt;/li&gt;
+   *                     &lt;li&gt;An array with two indices: the parent module
+   *                     of the view to be executed and the view to be
+   *                     executed.&lt;/li&gt;
+   *                   &lt;/ul&gt;
+   */
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
+    $manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+    $this-&gt;setAttribute('posts', $manager-&gt;retrieveLatest(10));
+    
+    return 'Success';
+  }
+  
+  /**
+   * Returns the default view if the action does not serve the request
+   * method used.
+   *
+   * @return     mixed &lt;ul&gt;
+   *                     &lt;li&gt;A string containing the view name associated
+   *                     with this action; or&lt;/li&gt;
+   *                     &lt;li&gt;An array with two indices: the parent module
+   *                     of the view to be executed and the view to be
+   *                     executed.&lt;/li&gt;
+   *                   &lt;/ul&gt;
+   */
+  public function getDefaultViewName()
+  {
+    return 'Success';
+  }
 }
 
 ?&gt;</codeblock>
@@ -66,25 +66,25 @@ class Posts_IndexAction extends BlogPostsBaseAction
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
 
-		$ro = $this-&gt;getContext()-&gt;getRouting();
-		
-		$posts = array();
-		
-		foreach($this-&gt;getAttribute('posts') as $p)
-		{
-			$post = $p-&gt;toArray();
-			$post['url'] = $ro-&gt;gen('posts.post.show', array('post' =&gt; $p-&gt;getId()));
-			$posts[] = $post;
-		}
-		
-		$this-&gt;setAttribute('posts', $posts);
-		
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-	}
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      $post = $p-&gt;toArray();
+      $post['url'] = $ro-&gt;gen('posts.post.show', array('post' =&gt; $p-&gt;getId()));
+      $posts[] = $post;
+    }
+    
+    $this-&gt;setAttribute('posts', $posts);
+    
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+  }
 }
 
 ?&gt;</codeblock>
@@ -105,32 +105,32 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
     <codeblock outputclass="php">class Posts_Post_ShowAction extends BlogPostsBaseAction
 {
 
-	public function executeRead(AgaviRequestDataHolder $rd)
-	{
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
 
-		$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
-		$this-&gt;setAttribute('post', $manager-&gt;retrieveById($rd-&gt;getParameter('post')));
+    $manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+    $this-&gt;setAttribute('post', $manager-&gt;retrieveById($rd-&gt;getParameter('post')));
 
-		return 'Success';
-	}
+    return 'Success';
+  }
 
-	public function getDefaultViewName()
-	{
-		return 'Success';
-	}
+  public function getDefaultViewName()
+  {
+    return 'Success';
+  }
 }
 
 class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		
-		$post = $this-&gt;getAttribute('post')-&gt;toArray();
-		$this-&gt;setAttribute('post', $post);
-		
-		$this-&gt;setAttribute('_title', $post['title']);
-	}
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    
+    $post = $this-&gt;getAttribute('post')-&gt;toArray();
+    $this-&gt;setAttribute('post', $post);
+    
+    $this-&gt;setAttribute('_title', $post['title']);
+  }
 }
 
 </codeblock>

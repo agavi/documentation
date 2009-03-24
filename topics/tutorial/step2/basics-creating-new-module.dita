@@ -36,14 +36,14 @@
     that action. Look for the route that looks like that: <codeblock
     outputclass="xml">
 
-	&lt;!-- default action for "/" --&gt;
-	&lt;route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" /&gt;
+  &lt;!-- default action for "/" --&gt;
+  &lt;route name="index" pattern="^/$" module="%actions.default_module%" action="%actions.default_action%" /&gt;
 
 </codeblock> and change it to point to the new action: <codeblock
     outputclass="xml">
 
-	&lt;!-- default action for "/" --&gt;
-	&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+  &lt;!-- default action for "/" --&gt;
+  &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
 
 </codeblock> Done. The action "Index" in the module "Posts" will now be the
     index page. We could now remove the old IndexAction, but just keep that
@@ -99,43 +99,43 @@
     that all data retrieval should be done in the action: <codeblock
     outputclass="php">
 
-	public function executeRead(AgaviRequestDataHolder $rd)
-	{
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
 
-		$posts = array(
-			1 =&gt; array(
-				'id' =&gt; 1,
-				'title' =&gt; 'First post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'No category',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; null
-			),
-			2 =&gt; array(
-				'id' =&gt; 2,
-				'title' =&gt; 'Second post',
-				'posted' =&gt; '2008-07-14 00:01:07',
-				'category_name' =&gt; 'Agavi',
-				'author_name' =&gt; 'Admin',
-				'url' =&gt; null
-			)
-		);
+    $posts = array(
+      1 =&gt; array(
+        'id' =&gt; 1,
+        'title' =&gt; 'First post',
+        'posted' =&gt; '2008-07-14 00:01:07',
+        'category_name' =&gt; 'No category',
+        'author_name' =&gt; 'Admin',
+        'url' =&gt; null
+      ),
+      2 =&gt; array(
+        'id' =&gt; 2,
+        'title' =&gt; 'Second post',
+        'posted' =&gt; '2008-07-14 00:01:07',
+        'category_name' =&gt; 'Agavi',
+        'author_name' =&gt; 'Admin',
+        'url' =&gt; null
+      )
+    );
 
-		$this-&gt;setAttribute('posts', $posts);
+    $this-&gt;setAttribute('posts', $posts);
 
-		return 'Success';
-	}</codeblock> And while we're at it - why don't we change the title a little.
+    return 'Success';
+  }</codeblock> And while we're at it - why don't we change the title a little.
     Have you noted the line in the Posts_IndexSuccessView saying<codeblock
     outputclass="php">
 
-	$this-&gt;setAttribute('_title', 'Index');
+  $this-&gt;setAttribute('_title', 'Index');
 
 </codeblock> As you might already have suspected, it sets a template variable
     that we use to control the displayed title. Don't worry if that seems a
     little like magic at the moment, we'll show you how that works in a little
     while. For now just change the line to read: <codeblock outputclass="php">
 
-	$this-&gt;setAttribute('_title', 'Latest Posts');
+  $this-&gt;setAttribute('_title', 'Latest Posts');
 
 </codeblock> Refresh the page and you should see your new title on the page
     and in the titlebar. </p> <p>Now that we passed in the information about
@@ -150,11 +150,11 @@
 foreach ($t['posts'] as $post)
 {
 ?&gt;
-	&lt;li&gt;
-		&lt;a href="&lt;?php echo $post['url']; ?&gt;"&gt;&lt;?php echo htmlspecialchars($post['title']); ?&gt;&lt;/a&gt;
-		by &lt;?php echo htmlspecialchars($post['author_name']); ?&gt; @ &lt;?php echo $post['posted']; ?&gt; 
-		in &lt;?php echo htmlspecialchars($post['category_name']); ?&gt;
-	&lt;/li&gt;
+  &lt;li&gt;
+    &lt;a href="&lt;?php echo $post['url']; ?&gt;"&gt;&lt;?php echo htmlspecialchars($post['title']); ?&gt;&lt;/a&gt;
+    by &lt;?php echo htmlspecialchars($post['author_name']); ?&gt; @ &lt;?php echo $post['posted']; ?&gt; 
+    in &lt;?php echo htmlspecialchars($post['category_name']); ?&gt;
+  &lt;/li&gt;
 &lt;?php
 }
 ?&gt;

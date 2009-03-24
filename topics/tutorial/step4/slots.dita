@@ -46,16 +46,16 @@ bloggie$
     <filepath>app/config/output_types.xml</filepath>:</p><codeblock
     outputclass="php">&lt;!-- standard layout with a content and a decorator layer --&gt;
 &lt;layout name="standard"&gt;
-	&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-	&lt;layer name="content" /&gt;
-	&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-	&lt;layer name="decorator"&gt;
-		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-		&lt;slots&gt;
-			&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
-		&lt;/slots&gt;
-	&lt;/layer&gt;
+  &lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+  &lt;layer name="content" /&gt;
+  &lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+  &lt;layer name="decorator"&gt;
+    &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+    &lt;slots&gt;
+      &lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+    &lt;/slots&gt;
+  &lt;/layer&gt;
 &lt;/layout&gt;</codeblock><p>The &lt;slot&gt; tag registers a slot named
     "navigation" on the decorator layer with the action named "Navigation"
     located in the module "Widgets". Whenever the decorator layer is rendered
@@ -64,53 +64,53 @@ bloggie$
     it in the template for the Navigation action. The template
     <filepath>app/modules/Widgets/templates/NavigationSuccess.php</filepath>
     should now look like this:</p><codeblock outputclass="php">&lt;div id="navigation"&gt;
-	&lt;div class="center_wrapper"&gt;
+  &lt;div class="center_wrapper"&gt;
 
-		&lt;ul&gt;
-			&lt;li class="current_page_item"&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
-			&lt;li&gt;&lt;a href="blog_post.html"&gt;Blog Post&lt;/a&gt;&lt;/li&gt;
-			&lt;li&gt;&lt;a href="style_demo.html"&gt;Style Demo&lt;/a&gt;&lt;/li&gt;
-			&lt;li&gt;&lt;a href="archives.html"&gt;Archives&lt;/a&gt;&lt;/li&gt;
-			&lt;li&gt;&lt;a href="empty_page.html"&gt;Empty Page&lt;/a&gt;&lt;/li&gt;
-		&lt;/ul&gt;
+    &lt;ul&gt;
+      &lt;li class="current_page_item"&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="blog_post.html"&gt;Blog Post&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="style_demo.html"&gt;Style Demo&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="archives.html"&gt;Archives&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="empty_page.html"&gt;Empty Page&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
 
-		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-	&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</codeblock><p>and the respective part in our decorator template
     <filepath>app/templates/Master.php</filepath> must be replaced by the slot
     output: </p><codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
-	&lt;head&gt;
-		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
-		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
-		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
-		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
-	&lt;div id="header"&gt;
-		&lt;div class="center_wrapper"&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+    &lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+    &lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;div id="header"&gt;
+    &lt;div class="center_wrapper"&gt;
 
-			&lt;div id="toplinks"&gt;
-				&lt;div id="toplinks_inner"&gt;
-					&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
-				&lt;/div&gt;
-			&lt;/div&gt;
-			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+      &lt;div id="toplinks"&gt;
+        &lt;div id="toplinks_inner"&gt;
+          &lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-			&lt;div id="site_title"&gt;
-				&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
-				&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
-			&lt;/div&gt;
+      &lt;div id="site_title"&gt;
+        &lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+        &lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+      &lt;/div&gt;
 
-		&lt;/div&gt;
-	&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 
 &lt;?php echo $slots['navigation']; ?&gt;
-	
-	&lt;div id="main_wrapper_outer"&gt;
-		&lt;div id="main_wrapper_inner"&gt;
-			&lt;div class="center_wrapper"&gt;
+  
+  &lt;div id="main_wrapper_outer"&gt;
+    &lt;div id="main_wrapper_inner"&gt;
+      &lt;div class="center_wrapper"&gt;
 
 ...</codeblock><p>Done. Let's start and identify other commonly used elements.
     There's the header and the footer, the sidebar column and the dashboard at
@@ -154,219 +154,219 @@ Space-separated list of views to create for Sidebar [Success]:
 bloggie$
 </screen><p>Next register the slots:</p><codeblock outputclass="xml">&lt;!-- standard layout with a content and a decorator layer --&gt;
 &lt;layout name="standard"&gt;
-	&lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
-	&lt;layer name="content" /&gt;
-	&lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
-	&lt;layer name="decorator"&gt;
-		&lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
-		&lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
-		&lt;slots&gt;
-			&lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
-			&lt;slot name="header" module="Widgets" action="Header" /&gt;
-			&lt;slot name="footer" module="Widgets" action="Footer" /&gt;
-			&lt;slot name="dashboard" module="Widgets" action="Dashboard" /&gt;
-			&lt;slot name="sidebar" module="Widgets" action="Sidebar" /&gt;
-		&lt;/slots&gt;
-	&lt;/layer&gt;
+  &lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
+  &lt;layer name="content" /&gt;
+  &lt;!-- decorator layer with the HTML skeleton, navigation etc; set to a specific template here --&gt;
+  &lt;layer name="decorator"&gt;
+    &lt;ae:parameter name="directory"&gt;%core.template_dir%&lt;/ae:parameter&gt;
+    &lt;ae:parameter name="template"&gt;Master&lt;/ae:parameter&gt;
+    &lt;slots&gt;
+      &lt;slot name="navigation" module="Widgets" action="Navigation" /&gt;
+      &lt;slot name="header" module="Widgets" action="Header" /&gt;
+      &lt;slot name="footer" module="Widgets" action="Footer" /&gt;
+      &lt;slot name="dashboard" module="Widgets" action="Dashboard" /&gt;
+      &lt;slot name="sidebar" module="Widgets" action="Sidebar" /&gt;
+    &lt;/slots&gt;
+  &lt;/layer&gt;
 &lt;/layout&gt;</codeblock><p>and now move the HTML code to the repective
     templates.</p><p><filepath>app/modules/Widgets/templates/HeaderSuccess.php</filepath>:</p><codeblock
     outputclass="php">&lt;div id="header"&gt;
-	&lt;div class="center_wrapper"&gt;
+  &lt;div class="center_wrapper"&gt;
 
-		&lt;div id="toplinks"&gt;
-			&lt;div id="toplinks_inner"&gt;
-				&lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
-			&lt;/div&gt;
-		&lt;/div&gt;
-		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;div id="toplinks"&gt;
+      &lt;div id="toplinks_inner"&gt;
+        &lt;a href="#"&gt;Sitemap&lt;/a&gt; | &lt;a href="#"&gt;Privacy Policy&lt;/a&gt; | &lt;a href="#"&gt;FAQ&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-		&lt;div id="site_title"&gt;
-			&lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
-			&lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
-		&lt;/div&gt;
+    &lt;div id="site_title"&gt;
+      &lt;h1&gt;&lt;a href="#"&gt;Bloggie&lt;/a&gt;&lt;/h1&gt;
+      &lt;p&gt;A demo blog application built on agavi&lt;/p&gt;
+    &lt;/div&gt;
 
-	&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </codeblock><p><filepath>app/modules/Widgets/templates/FooterSuccess.php</filepath>:</p><codeblock
     outputclass="php">&lt;div id="footer"&gt;
-	&lt;div class="center_wrapper"&gt;
+  &lt;div class="center_wrapper"&gt;
 
-		&lt;div class="left"&gt;
-			&amp;copy; 2008 Website.com - Your Website Slogan
-		&lt;/div&gt;
-		&lt;div class="right"&gt;
-			&lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
-		&lt;/div&gt;
+    &lt;div class="left"&gt;
+      &amp;copy; 2008 Website.com - Your Website Slogan
+    &lt;/div&gt;
+    &lt;div class="right"&gt;
+      &lt;a href="http://templates.arcsin.se/"&gt;Website template&lt;/a&gt; by &lt;a href="http://arcsin.se/"&gt;Arcsin&lt;/a&gt; 
+    &lt;/div&gt;
 
-		&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+    &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-	&lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/DashboardSuccess.php</filepath>:</p><codeblock
     outputclass="php">&lt;div id="dashboard"&gt;
-	&lt;div id="dashboard_content"&gt;
-		&lt;div class="center_wrapper"&gt;
+  &lt;div id="dashboard_content"&gt;
+    &lt;div class="center_wrapper"&gt;
 
-			&lt;div class="col3 left"&gt;
-				&lt;div class="col3_content"&gt;
+      &lt;div class="col3 left"&gt;
+        &lt;div class="col3_content"&gt;
 
-					&lt;h4&gt;Tincidunt&lt;/h4&gt;
-					&lt;ul&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Semper eros&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Tincidunt morbi&lt;/a&gt;&lt;/li&gt;
-					&lt;/ul&gt;
+          &lt;h4&gt;Tincidunt&lt;/h4&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Semper eros&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Tincidunt morbi&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
 
-				&lt;/div&gt;
-			&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
 
-			&lt;div class="col3mid left"&gt;
-				&lt;div class="col3_content"&gt;
+      &lt;div class="col3mid left"&gt;
+        &lt;div class="col3_content"&gt;
 
-					&lt;h4&gt;Fermentum&lt;/h4&gt;
-					&lt;ul&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Semper fermentum&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Tincidunt nisl&lt;/a&gt;&lt;/li&gt;						
-						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
-					&lt;/ul&gt;
+          &lt;h4&gt;Fermentum&lt;/h4&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Semper fermentum&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Sem justo&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Tincidunt nisl&lt;/a&gt;&lt;/li&gt;            
+            &lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
 
-				&lt;/div&gt;
-			&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
 
-			&lt;div class="col3 right"&gt;
-				&lt;div class="col3_content"&gt;
+      &lt;div class="col3 right"&gt;
+        &lt;div class="col3_content"&gt;
 
-					&lt;h4&gt;Praesent&lt;/h4&gt;
-					&lt;ul&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Semper lobortis&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;				
-						&lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Sem morbi&lt;/a&gt;&lt;/li&gt;
-						&lt;li&gt;&lt;a href="#"&gt;Tincidunt sed&lt;/a&gt;&lt;/li&gt;
-					&lt;/ul&gt;
+          &lt;h4&gt;Praesent&lt;/h4&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Semper lobortis&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Consequat molestie&lt;/a&gt;&lt;/li&gt;        
+            &lt;li&gt;&lt;a href="#"&gt;Magna sed purus&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Sem morbi&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Tincidunt sed&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
 
-				&lt;/div&gt;
-			&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
 
-			&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+      &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-		&lt;/div&gt;
-	&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 &lt;/div&gt;</codeblock><p><filepath>app/modules/Widgets/templates/SidebarSuccess.php</filepath>:</p><codeblock
     outputclass="php">&lt;div class="right" id="sidebar"&gt;
 
-	&lt;div id="sidebar_content"&gt;
+  &lt;div id="sidebar_content"&gt;
 
-		&lt;div class="box"&gt;
+    &lt;div class="box"&gt;
 
-			&lt;div class="box_title"&gt;About&lt;/div&gt;
+      &lt;div class="box_title"&gt;About&lt;/div&gt;
 
-			&lt;div class="box_content"&gt;
-			Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
-			&lt;/div&gt;
+      &lt;div class="box_content"&gt;
+      Aenean sit amet dui at felis lobortis dignissim. Pellentesque risus nibh, feugiat in, convallis id, congue ac, sem. Sed tempor neque in quam.
+      &lt;/div&gt;
 
-		&lt;/div&gt;
+    &lt;/div&gt;
 
-		&lt;div class="box"&gt;
+    &lt;div class="box"&gt;
 
-			&lt;div class="box_title"&gt;Categories&lt;/div&gt;
+      &lt;div class="box_title"&gt;Categories&lt;/div&gt;
 
-			&lt;div class="box_content"&gt;
-				&lt;ul&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
-				&lt;/ul&gt;
-			&lt;/div&gt;
+      &lt;div class="box_content"&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/category/website-templates/"&gt;Website Templates&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/category/wordpress-themes/"&gt;Wordpress Themes&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/professional-templates/"&gt;Professional Templates&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/category/blogger-templates/"&gt;Blogger Templates&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/category/joomla-templates/"&gt;Joomla Templates&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
 
-		&lt;/div&gt;
+    &lt;/div&gt;
 
-		&lt;div class="box"&gt;
+    &lt;div class="box"&gt;
 
-			&lt;div class="box_title"&gt;Resources&lt;/div&gt;
+      &lt;div class="box_title"&gt;Resources&lt;/div&gt;
 
-			&lt;div class="box_content"&gt;
-				&lt;ul&gt;
-					&lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
-					&lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
-				&lt;/ul&gt;
-			&lt;/div&gt;
+      &lt;div class="box_content"&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="http://templates.arcsin.se/"&gt;Arcsin Web Templates&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://www.google.com/"&gt;Google&lt;/a&gt; - Web Search&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://www.w3schools.com/"&gt;W3Schools&lt;/a&gt; - Online Web Tutorials&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://www.wordpress.org/"&gt;WordPress&lt;/a&gt; - Blog Platform&lt;/li&gt;
+          &lt;li&gt;&lt;a href="http://cakephp.org/"&gt;CakePHP&lt;/a&gt; - PHP Framework&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
 
-		&lt;/div&gt;
+    &lt;/div&gt;
 
-		&lt;div class="box"&gt;
+    &lt;div class="box"&gt;
 
-			&lt;div class="box_title"&gt;Gallery&lt;/div&gt;
+      &lt;div class="box_title"&gt;Gallery&lt;/div&gt;
 
-			&lt;div class="box_content"&gt;
+      &lt;div class="box_content"&gt;
 
-				&lt;div class="thumbnails"&gt;
+        &lt;div class="thumbnails"&gt;
 
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
-					&lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
+          &lt;a href="#" class="thumb"&gt;&lt;img src="sample-thumbnail.jpg" width="75" height="75" alt="" /&gt;&lt;/a&gt;
 
-					&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+          &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-				&lt;/div&gt;
+        &lt;/div&gt;
 
-			&lt;/div&gt;
+      &lt;/div&gt;
 
-		&lt;/div&gt;
+    &lt;/div&gt;
 
-	&lt;/div&gt;
+  &lt;/div&gt;
 
 &lt;/div&gt;</codeblock><p>And finally our modified
     <filepath>app/modules/templates/Master.php</filepath>:</p><codeblock
     outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
-	&lt;head&gt;
-		&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
-		&lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
-		&lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
-		&lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
-	&lt;/head&gt;
-	&lt;body&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;
+    &lt;base href="&lt;?php echo $ro-&gt;getBaseHref(); ?&gt;" /&gt;
+    &lt;title&gt;&lt;?php if(isset($t['_title'])) echo htmlspecialchars($t['_title']) . ' - '; echo AgaviConfig::get('core.app_name'); ?&gt;&lt;/title&gt;
+    &lt;link rel="stylesheet" type="text/css" href="css/style.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
 
 &lt;?php echo $slots['header']; ?&gt;
 &lt;?php echo $slots['navigation']; ?&gt;
-	
-	&lt;div id="main_wrapper_outer"&gt;
-		&lt;div id="main_wrapper_inner"&gt;
-			&lt;div class="center_wrapper"&gt;
+  
+  &lt;div id="main_wrapper_outer"&gt;
+    &lt;div id="main_wrapper_inner"&gt;
+      &lt;div class="center_wrapper"&gt;
 
-				&lt;div class="left" id="main"&gt;
-					&lt;div id="main_content"&gt;
-						
-						&lt;!-- this is where the main content will be placed --&gt;
-						&lt;?php echo $inner; ?&gt;
-						
-					&lt;/div&gt;
-				&lt;/div&gt;
+        &lt;div class="left" id="main"&gt;
+          &lt;div id="main_content"&gt;
+            
+            &lt;!-- this is where the main content will be placed --&gt;
+            &lt;?php echo $inner; ?&gt;
+            
+          &lt;/div&gt;
+        &lt;/div&gt;
 
-				&lt;?php echo $slots['sidebar']; ?&gt;
+        &lt;?php echo $slots['sidebar']; ?&gt;
 
-				&lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
+        &lt;div class="clearer"&gt;&amp;nbsp;&lt;/div&gt;
 
-			&lt;/div&gt;
-		&lt;/div&gt;
-	&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 
-	&lt;?php echo $slots['dashboard']; ?&gt;
+  &lt;?php echo $slots['dashboard']; ?&gt;
 
-	&lt;?php echo $slots['footer']; ?&gt;
-	&lt;/body&gt;
+  &lt;?php echo $slots['footer']; ?&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </codeblock><p>That's far shorter and nicely displays how the whole page is
     constructed from small elements. Looks like we have everything accounted
@@ -394,24 +394,24 @@ bloggie$
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		
-		$contentLayer = $this-&gt;getLayer('content');
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    
+    $contentLayer = $this-&gt;getLayer('content');
 
-		$ro = $this-&gt;getContext()-&gt;getRouting();
-		
-		$posts = array();
-		
-		foreach($this-&gt;getAttribute('posts') as $p)
-		{
-			/* register one slot per post */
-			$contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p-&gt;getId())));
-		}
-		
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-	}
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      /* register one slot per post */
+      $contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p-&gt;getId())));
+    }
+    
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+  }
 }
 
 ?&gt;</codeblock><p>and then change the template in
@@ -419,7 +419,7 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
     display the slots:</p><codeblock outputclass="php">&lt;?php
 foreach ($slots as $slot)
 {
-	echo $slot;
+  echo $slot;
 }
 ?&gt;
 </codeblock><p>The call to <apiname>AgaviView::getLayer()</apiname> retrieves
@@ -444,34 +444,34 @@ foreach ($slots as $slot)
 
 class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		
-		$p = $this-&gt;getAttribute('post');
-		$post = $p-&gt;toArray();
-		$post['url'] = $this-&gt;getContext()-&gt;getRouting()-&gt;gen('posts.post.show', array('post' =&gt; $p-&gt;getId()));
-		
-		$this-&gt;setAttribute('post', $post);
-		
-		$isList = $this-&gt;getContainer()-&gt;getParameter('is_slot', false);
-		
-		if($isList) {
-			$headlineSize = 2;
-			$linkHeadline = true;
-			$displayComments = false;
-		} else {
-			$headlineSize = 1;
-			$linkHeadline = false;
-			$displayComments = true;
-		}
-		
-		$this-&gt;setAttribute('headline_size', $headlineSize);
-		$this-&gt;setAttribute('link_headline', $linkHeadline);
-		$this-&gt;setAttribute('display_comments', $displayComments);
-		
-		$this-&gt;setAttribute('_title', $post['title']);
-	}
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    
+    $p = $this-&gt;getAttribute('post');
+    $post = $p-&gt;toArray();
+    $post['url'] = $this-&gt;getContext()-&gt;getRouting()-&gt;gen('posts.post.show', array('post' =&gt; $p-&gt;getId()));
+    
+    $this-&gt;setAttribute('post', $post);
+    
+    $isList = $this-&gt;getContainer()-&gt;getParameter('is_slot', false);
+    
+    if($isList) {
+      $headlineSize = 2;
+      $linkHeadline = true;
+      $displayComments = false;
+    } else {
+      $headlineSize = 1;
+      $linkHeadline = false;
+      $displayComments = true;
+    }
+    
+    $this-&gt;setAttribute('headline_size', $headlineSize);
+    $this-&gt;setAttribute('link_headline', $linkHeadline);
+    $this-&gt;setAttribute('display_comments', $displayComments);
+    
+    $this-&gt;setAttribute('_title', $post['title']);
+  }
 }
 ?&gt;</codeblock><p>Now we only need to adapt the template in
     <filepath>app/modules/Posts/templates/Post/ShowSuccess.php</filepath>
@@ -482,39 +482,39 @@ $post = $t['post'];
 $headline = htmlspecialchars($post['title']);
 
 if($t['link_headline']) {
-	$headline = sprintf(
-		'&lt;a href="%1$s"&gt;%2$s&lt;/a&gt;',
-		$post['url'],
-		$headline
-	);
+  $headline = sprintf(
+    '&lt;a href="%1$s"&gt;%2$s&lt;/a&gt;',
+    $post['url'],
+    $headline
+  );
 }
 
 $headline = sprintf(
-	'&lt;h%1$s&gt;%2$s&lt;/h%1$s&gt;',
-	$t['headline_size'],
-	$headline
+  '&lt;h%1$s&gt;%2$s&lt;/h%1$s&gt;',
+  $t['headline_size'],
+  $headline
 );
 
 ?&gt;
 &lt;div class="post"&gt;
 
-	&lt;div class="post_title"&gt;&lt;?php echo $headline; ?&gt;&lt;/div&gt;
-	&lt;div class="post_date"&gt;Posted on &lt;?php htmlspecialchars($post['posted']); ?&gt; by &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/a&gt;&lt;/div&gt;
-	
-	&lt;div class="post_body"&gt;
-		&lt;?php echo $post['content']; ?&gt;
-	&lt;/div&gt;
-	
-	&lt;div class="post_meta"&gt;
-		&lt;?php
-	if(!$t['display_comments']) {
-		?&gt;
-		&lt;a href="#"&gt;5 comments&lt;/a&gt; | 
-		&lt;?php
-	}
-		?&gt;
-		Tagged: &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['category_name']); ?&gt;&lt;/a&gt;
-	&lt;/div&gt;
+  &lt;div class="post_title"&gt;&lt;?php echo $headline; ?&gt;&lt;/div&gt;
+  &lt;div class="post_date"&gt;Posted on &lt;?php htmlspecialchars($post['posted']); ?&gt; by &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['author_name']); ?&gt;&lt;/a&gt;&lt;/div&gt;
+  
+  &lt;div class="post_body"&gt;
+    &lt;?php echo $post['content']; ?&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="post_meta"&gt;
+    &lt;?php
+  if(!$t['display_comments']) {
+    ?&gt;
+    &lt;a href="#"&gt;5 comments&lt;/a&gt; | 
+    &lt;?php
+  }
+    ?&gt;
+    Tagged: &lt;a href="#"&gt;&lt;?php echo htmlspecialchars($post['category_name']); ?&gt;&lt;/a&gt;
+  &lt;/div&gt;
 
 &lt;/div&gt;</codeblock><p>Done. Fire up your browser and check - things
     should be just fine.</p></section>
@@ -578,16 +578,16 @@ $headline = sprintf(
 class BlogWidgetsBaseAction extends BlogBaseAction
 {
 
-	/**
-	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
-	 *
-	 * @return     bool true, if this action should act in simple mode, or false.
-	 */
-	public function isSimple()
-	{
-		return false;
-	}
-	
+  /**
+   * Whether or not this action is "simple", i.e. doesn't use validation etc.
+   *
+   * @return     bool true, if this action should act in simple mode, or false.
+   */
+  public function isSimple()
+  {
+    return false;
+  }
+  
 }
 
 ?&gt;</codeblock><p>That takes care of disabling all validation and action
@@ -602,20 +602,20 @@ class BlogWidgetsBaseAction extends BlogBaseAction
     could perhaps implement our
     <apiname>Posts_PostShowAction::isSimple()</apiname> in a way that returns
     true if the action is called in a slot and false if not. Something along
-    the lines of </p><codeblock outputclass="php">	/**
-	 * Whether or not this action is "simple", i.e. doesn't use validation etc.
-	 *
-	 * @return     bool true, if this action should act in simple mode, or false.
-	 */
-	public function isSimple()
-	{
-		if($this-&gt;getContainer()-&gt;getParameter('is_slot', false))
-		{
-			return true;
-		}
-		return false;
-	}
-	</codeblock><p>That's a technique that works often but it's not going to help
+    the lines of </p><codeblock outputclass="php">  /**
+   * Whether or not this action is "simple", i.e. doesn't use validation etc.
+   *
+   * @return     bool true, if this action should act in simple mode, or false.
+   */
+  public function isSimple()
+  {
+    if($this-&gt;getContainer()-&gt;getParameter('is_slot', false))
+    {
+      return true;
+    }
+    return false;
+  }
+  </codeblock><p>That's a technique that works often but it's not going to help
     us here - we do some work in our executeRead() method and marking the
     action as "simple" would skip that. But we can change our validation. We
     modify our validator so that if the parameter is already an object type
@@ -628,32 +628,32 @@ class BlogWidgetsBaseAction extends BlogBaseAction
 
 class Posts_PostValidator extends AgaviValidator
 {
-	/**
-	 * Validates the input
-	 * 
-	 * @return     bool The input is valid number according to given parameters.
-	 */
-	protected function validate()
-	{
-		$parameterName = $this-&gt;getArgument();
-		$data = $this-&gt;getData($parameterName);
-		
-		if($data instanceof Posts_PostModel) {
-			$post = $data;
-		} else {
-			$manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
-			$post = $manager-&gt;retrieveById($data);
+  /**
+   * Validates the input
+   * 
+   * @return     bool The input is valid number according to given parameters.
+   */
+  protected function validate()
+  {
+    $parameterName = $this-&gt;getArgument();
+    $data = $this-&gt;getData($parameterName);
+    
+    if($data instanceof Posts_PostModel) {
+      $post = $data;
+    } else {
+      $manager = $this-&gt;getContext()-&gt;getModel('PostManager', 'Posts');
+      $post = $manager-&gt;retrieveById($data);
 
-			if (null == $post)
-			{
-				$this-&gt;throwError();
-				return false;
-			}
-		}
-		
-		$this-&gt;export($post);
-		return true;
-	}
+      if (null == $post)
+      {
+        $this-&gt;throwError();
+        return false;
+      }
+    }
+    
+    $this-&gt;export($post);
+    return true;
+  }
 }
 
 ?&gt;</codeblock><p>Now we need to change the
@@ -663,24 +663,24 @@ class Posts_PostValidator extends AgaviValidator
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		
-		$contentLayer = $this-&gt;getLayer('content');
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    
+    $contentLayer = $this-&gt;getLayer('content');
 
-		$ro = $this-&gt;getContext()-&gt;getRouting();
-		
-		$posts = array();
-		
-		foreach($this-&gt;getAttribute('posts') as $p)
-		{
-			/* register one slot per post */
-			$contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p)));
-		}
-		
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-	}
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      /* register one slot per post */
+      $contentLayer-&gt;setSlot('post'.$p-&gt;getId(), $this-&gt;createSlotContainer('Posts', 'Post.Show', array('post' =&gt; $p)));
+    }
+    
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+  }
 }
 
 ?&gt;</codeblock><p>and that's it. While this does not remove the full

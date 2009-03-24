@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="agavi-services">
   <title>Overview of Agavi services</title>
 
@@ -14,15 +14,15 @@
     <section>
       <title>Agavi execution context</title>
       <p>Agavi applications execute inside an envelope that's called
-	the "context" of the application. This envelope is exposed to
-	your application as the global singleton <apiname>Context</apiname> object.</p>
+  the "context" of the application. This envelope is exposed to
+  your application as the global singleton <apiname>Context</apiname> object.</p>
       <p>The Context object is available to all of your code. It is an
-	important object, since you use it to access
-	the global services of the framework. For example, if you wanted to
-	retrieve a named database connection from
-	Agavi <apiname>DatabaseManager</apiname>, you'd do
-	it like this:</p> <codeblock class="php"
-	conref="../examples/examples.xml#services-example-context"/>
+  important object, since you use it to access
+  the global services of the framework. For example, if you wanted to
+  retrieve a named database connection from
+  Agavi <apiname>DatabaseManager</apiname>, you'd do
+  it like this:</p> <codeblock class="php"
+  conref="../examples/examples.xml#services-example-context"/>
     </section>
     <section><title>MVC execution</title>
     <p>Developers implement the target applications using the MVC architecture, 
@@ -31,11 +31,11 @@
     <section>
       <title>Application configuration</title>
       <p>Agavi configuration system stores names and their
-	corresponding values. It is a general purpose service that's
-	used both by Agavi applications and the framework itself. The
-	configuration system compiles XML configuration files into
-	executable PHP code. Agavi defines some configuration files
-	for its own purposes. Here's some example code:
+  corresponding values. It is a general purpose service that's
+  used both by Agavi applications and the framework itself. The
+  configuration system compiles XML configuration files into
+  executable PHP code. Agavi defines some configuration files
+  for its own purposes. Here's some example code:
       </p>
       <codeblock class="php" conref="../examples/examples.xml#services-example-config"/>
       <p>Your application can access the configuration through the

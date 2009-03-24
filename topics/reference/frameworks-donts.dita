@@ -26,25 +26,25 @@
 
     <ul>
       <li>Require you to use some object relational mapper tool to
-	leverage the full potential of the framework. Many frameworks
-	out there do this, and some people like that, while others
-	don't. A good example is the infamous Ruby on Rails - a lot of
-	it's glamour is due to it being strongly tied to the
-	ActiveRecord ORM layer, and if you wish to use something else,
-	some of the "Rails feeling" gets lost.</li>
+  leverage the full potential of the framework. Many frameworks
+  out there do this, and some people like that, while others
+  don't. A good example is the infamous Ruby on Rails - a lot of
+  it's glamour is due to it being strongly tied to the
+  ActiveRecord ORM layer, and if you wish to use something else,
+  some of the "Rails feeling" gets lost.</li>
 
       <li>Force you to use a certain template language in order to
-	be able to use all features. Many, many, many frameworks come
-	with helpers for everything you could possibly imagine, from
-	creating an opening &lt;form&gt; tag to inserting
-	stylesheets or even javascript effects. If you try to use the
-	template language of your choice, you have to replicate all this
-	stuff if you want to use it. And what's more, all these helpers
-	often do only 95% of what you want them to do, but not quite the
-	thing you had in mind. (Besides the obvious fact, of course,
-	that you might just outright hate the template language the
-	framework authors think is best for everyone, and that can ruin
-	the whole experience.)</li>
+  be able to use all features. Many, many, many frameworks come
+  with helpers for everything you could possibly imagine, from
+  creating an opening &lt;form&gt; tag to inserting
+  stylesheets or even javascript effects. If you try to use the
+  template language of your choice, you have to replicate all this
+  stuff if you want to use it. And what's more, all these helpers
+  often do only 95% of what you want them to do, but not quite the
+  thing you had in mind. (Besides the obvious fact, of course,
+  that you might just outright hate the template language the
+  framework authors think is best for everyone, and that can ruin
+  the whole experience.)</li>
     </ul>
 
     <p>As you have probably guessed by now, Agavi tries hard not to

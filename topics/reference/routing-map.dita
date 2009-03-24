@@ -122,21 +122,21 @@
       </section>
 
       <section id="nested-routes">
-	<title>Nested routes</title>
-	
-	<p>Rules may have child routes, in which case the whole group becomes a <keyword>nested route</keyword>.  When such a rule
-	matches, Routing dives into its children and attempts to match them as well. The rule evaluation <i>never</i> returns from a
-	matching route if it has children, <i>even</i> if none of its children match.</p>
+  <title>Nested routes</title>
+  
+  <p>Rules may have child routes, in which case the whole group becomes a <keyword>nested route</keyword>.  When such a rule
+  matches, Routing dives into its children and attempts to match them as well. The rule evaluation <i>never</i> returns from a
+  matching route if it has children, <i>even</i> if none of its children match.</p>
 
-	<codeblock><![CDATA[
+  <codeblock><![CDATA[
 <route pattern="^/foo" module="Foo">
  <route pattern="^/a$" action="A"/>
  <route pattern="^/b$" action="B"/>
  <route pattern="^/c$" action="C"/>
 </route>]]></codeblock>
 
-	<p>In this example, requesting just "/foo" would cause a 404 error, because only the Module name can be established. On the
-	other hand, requesting "/foo/c" will cause execution of Action <apiname>C</apiname> in Module <apiname>Foo</apiname></p>
+  <p>In this example, requesting just "/foo" would cause a 404 error, because only the Module name can be established. On the
+  other hand, requesting "/foo/c" will cause execution of Action <apiname>C</apiname> in Module <apiname>Foo</apiname></p>
       </section>
 
 
@@ -167,54 +167,54 @@
       <codeblock class="xml"><![CDATA[<route source="_SERVER[HTTP_X_REQUESTED_WITH]" pattern="XMLHttpRequest" stop="false" output_type="ajax"/>]]></codeblock>
 
       <dl>
-	<dlentry>
-	  <dt><varname>_ENV</varname></dt>
-	  <dd>This source allows you to match against environment variables. It is the equivalent of PHP's <varname>$_ENV</varname></dd>
-	</dlentry>
+  <dlentry>
+    <dt><varname>_ENV</varname></dt>
+    <dd>This source allows you to match against environment variables. It is the equivalent of PHP's <varname>$_ENV</varname></dd>
+  </dlentry>
 
-	<dlentry>
-	  <dt><varname>_SERVER</varname></dt>
-	  <dd>This source allows you to match against contents of PHP's <varname>$_SERVER</varname></dd>
-	</dlentry>
+  <dlentry>
+    <dt><varname>_SERVER</varname></dt>
+    <dd>This source allows you to match against contents of PHP's <varname>$_SERVER</varname></dd>
+  </dlentry>
 
-	<dlentry>
-	  <dt><varname>user</varname></dt>
-	  <dd>This source allows you to match the attributes of the <xref href="session-security.dita">User</xref> object, which
-	  represents the session for the current user.</dd>
-	</dlentry>
+  <dlentry>
+    <dt><varname>user</varname></dt>
+    <dd>This source allows you to match the attributes of the <xref href="session-security.dita">User</xref> object, which
+    represents the session for the current user.</dd>
+  </dlentry>
 
-	<dlentry>
-	  <dt>Custom sources</dt>
-	  <dd>You can implement custom sources and Routing will match against them as well</dd>
-	</dlentry>
+  <dlentry>
+    <dt>Custom sources</dt>
+    <dd>You can implement custom sources and Routing will match against them as well</dd>
+  </dlentry>
       </dl>
     </section>
 
       <section>
-	<title>Cutting</title>
+  <title>Cutting</title>
 
-	<p>A rule that doesn't cause a stop may be cutting or non-cutting. Cutting is removal of the matched part of the URL from
-	further evaluation, and it makes no sense for a stopping rule. To override the rule's default cutting behaviour, use the
-	<varname>cut</varname> attribute.</p>
+  <p>A rule that doesn't cause a stop may be cutting or non-cutting. Cutting is removal of the matched part of the URL from
+  further evaluation, and it makes no sense for a stopping rule. To override the rule's default cutting behaviour, use the
+  <varname>cut</varname> attribute.</p>
 
-	<p>For childless routes, the default behaviour is not to cut. For routes with children, on the other hand, the opposite is
-	true. Nested routes are the most notable application of cutting. Consider the following routing map:</p>
+  <p>For childless routes, the default behaviour is not to cut. For routes with children, on the other hand, the opposite is
+  true. Nested routes are the most notable application of cutting. Consider the following routing map:</p>
 
-	<codeblock><![CDATA[
+  <codeblock><![CDATA[
 <route pattern="^/blog" module="Blog" action="Index">
  <route pattern="^/(post_id:\d+)" action="Post">
 </route>]]></codeblock>
 
-	<p>When a request for "/blog/5" arrives, the first rule matches only the "/blog" part of the URL, and it is removed from
-	further matching. If the parent rule wasn't cutting, you'd have to specify the "/blog" part in the child route's pattern as well.
-	</p>
+  <p>When a request for "/blog/5" arrives, the first rule matches only the "/blog" part of the URL, and it is removed from
+  further matching. If the parent rule wasn't cutting, you'd have to specify the "/blog" part in the child route's pattern as well.
+  </p>
 
-	<p>Another common use for the cutting feature is duplication of parts of the URL map. Imagine that you have routes that match
-	"/foo/a", "/foo/b" and "/foo/c". However, you want switch the output type to XML if the URL begins with "/xml", such as
-	"/xml/foo/a". In this case, without the cutting feature, you'd have to duplicate the routing map. Using the cutting feature however,
-	this costs us just a single rule:</p>
+  <p>Another common use for the cutting feature is duplication of parts of the URL map. Imagine that you have routes that match
+  "/foo/a", "/foo/b" and "/foo/c". However, you want switch the output type to XML if the URL begins with "/xml", such as
+  "/xml/foo/a". In this case, without the cutting feature, you'd have to duplicate the routing map. Using the cutting feature however,
+  this costs us just a single rule:</p>
 
-	<codeblock><![CDATA[
+  <codeblock><![CDATA[
 <route pattern="^/xml" output_type="xml" cut="true" stop="false">
 
 <route pattern="^/foo" module="Foo">
@@ -226,47 +226,47 @@
 
       
       <section>
-	<title>Interpolation and ignoring parameters</title>
+  <title>Interpolation and ignoring parameters</title>
 
-	<p>Some rule attributes support <keyword>variable interpolation</keyword>: the value for the attribute is not specified
-	literally but rather can be calculated from some previously determined variable. For example, you could map a part of an URL
-	directly to a module name:</p>
+  <p>Some rule attributes support <keyword>variable interpolation</keyword>: the value for the attribute is not specified
+  literally but rather can be calculated from some previously determined variable. For example, you could map a part of an URL
+  directly to a module name:</p>
 
-	<codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery" />]]></codeblock>
-	
-	<p>Naturally, requesting "/images/Chainsaws/gallery" would invoke Action <apiname>Gallery</apiname> in Module
-	<apiname>Chainsaws</apiname></p>
+  <codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery" />]]></codeblock>
+  
+  <p>Naturally, requesting "/images/Chainsaws/gallery" would invoke Action <apiname>Gallery</apiname> in Module
+  <apiname>Chainsaws</apiname></p>
 
-	<p>This sometimes produces a situation when a parameter is only needed for interpolation and should not be passed down to
-	the Action. This is achieved using <varname>ignore</varname> element:</p>
+  <p>This sometimes produces a situation when a parameter is only needed for interpolation and should not be passed down to
+  the Action. This is achieved using <varname>ignore</varname> element:</p>
 
-	<codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery">
+  <codeblock class="xml"><![CDATA[<route pattern="^/images/(product:Trolls|Separators|Chainsaws)/gallery" module="${product}" action="Gallery">
  <ignores>
   <ignore>product</ignore>
  </ignores>
 </route>]]></codeblock>
 
-	<p>You can also interpolate values from configuration using the usual configuration syntax:</p>
+  <p>You can also interpolate values from configuration using the usual configuration syntax:</p>
 
-	<codeblock class="xml"><![CDATA[<route pattern="^/todays-special-dish.html$" module="Restaurant"
-	action="%myapp.todays_special_action%"/>]]></codeblock>
+  <codeblock class="xml"><![CDATA[<route pattern="^/todays-special-dish.html$" module="Restaurant"
+  action="%myapp.todays_special_action%"/>]]></codeblock>
 
-	<p>This interpolation is supported in the following route attributes: <varname>imply</varname>, <varname>cut</varname>,
-	<varname>stop</varname>, <varname>locale</varname>, <varname>action</varname>, <varname>method</varname>,
-	<varname>module</varname> and <varname>output_type</varname>.</p>
+  <p>This interpolation is supported in the following route attributes: <varname>imply</varname>, <varname>cut</varname>,
+  <varname>stop</varname>, <varname>locale</varname>, <varname>action</varname>, <varname>method</varname>,
+  <varname>module</varname> and <varname>output_type</varname>.</p>
 
       </section>
       <section>
-	<title>Locales</title>
+  <title>Locales</title>
 
-	<p>A route may notify the <xref href="translation-manager.dita">translation manager</xref> directly to update the current locale
-	settings:</p>
+  <p>A route may notify the <xref href="translation-manager.dita">translation manager</xref> directly to update the current locale
+  settings:</p>
 
-	<codeblock class="xml"><![CDATA[<route pattern="^/({locale:[a-z]{2}})/" stop="false" cut="true" locale="${locale}" />]]></codeblock>
+  <codeblock class="xml"><![CDATA[<route pattern="^/({locale:[a-z]{2}})/" stop="false" cut="true" locale="${locale}" />]]></codeblock>
 
-	<p>Any request that begins with a slash and two letters, such as "/es/foo" or "/en/bar" will trigger the corresponding
-	locale without interrupting the normal URL scheme, so that "foo.html" and "fr/foo.html" will eventually map to the same
-	Action, but the latter would force the locale to be set to French.</p>
+  <p>Any request that begins with a slash and two letters, such as "/es/foo" or "/en/bar" will trigger the corresponding
+  locale without interrupting the normal URL scheme, so that "foo.html" and "fr/foo.html" will eventually map to the same
+  Action, but the latter would force the locale to be set to French.</p>
       </section>
 
       <section>
@@ -290,48 +290,48 @@
       </section>
 
       <section>
-	<title>Callbacks</title>
-	<p>Agavi Routing can be extended using callbacks. Callbacks are plug-in classes that tap into the internal stages of
-	processing routes. They allow customization beyond what Routing normally offers. For details, please see the <xref
-	href="routing-callbacks.dita">callbacks</xref> manual.</p>
-	<p>A callback is assigned to a route using the <varname>callback</varname> attribute of the rule:</p>
+  <title>Callbacks</title>
+  <p>Agavi Routing can be extended using callbacks. Callbacks are plug-in classes that tap into the internal stages of
+  processing routes. They allow customization beyond what Routing normally offers. For details, please see the <xref
+  href="routing-callbacks.dita">callbacks</xref> manual.</p>
+  <p>A callback is assigned to a route using the <varname>callback</varname> attribute of the rule:</p>
 
-	<codeblock class="xml"><![CDATA[<route pattern="^/objects/(magic:.+)$" stop="false" callback="MyApplicationMagicRoutingCallback" />]]></codeblock>
+  <codeblock class="xml"><![CDATA[<route pattern="^/objects/(magic:.+)$" stop="false" callback="MyApplicationMagicRoutingCallback" />]]></codeblock>
       </section>
 
       <section>
-	<title>Implied routes</title>
+  <title>Implied routes</title>
 
-	<p>A rule can be declared implied, which forces Routing to consider it when you generate links. This feature is used, for
-	example, when you want your application to be able to accept partial URLs, but always return canonical ones. The
-	<varname>imply</varname> attribute is used to achieve this. For details on how to use this feature, please see the <xref
-	href="routing-url-generation.dita">URL generation</xref> chapter.</p>
+  <p>A rule can be declared implied, which forces Routing to consider it when you generate links. This feature is used, for
+  example, when you want your application to be able to accept partial URLs, but always return canonical ones. The
+  <varname>imply</varname> attribute is used to achieve this. For details on how to use this feature, please see the <xref
+  href="routing-url-generation.dita">URL generation</xref> chapter.</p>
       </section>
 
       <section>
-	<title>Route names</title>
-	
-	<p>When you <xref href="routing-url-generation.dita">generate</xref> an URL, you need a way to refer to the rules that will
-	be used to compose the desired link. To make this possible, routes can have names. A route's name is specified using
-	<varname>name</varname> attribute.</p>
+  <title>Route names</title>
+  
+  <p>When you <xref href="routing-url-generation.dita">generate</xref> an URL, you need a way to refer to the rules that will
+  be used to compose the desired link. To make this possible, routes can have names. A route's name is specified using
+  <varname>name</varname> attribute.</p>
 
-	<p>Unlike most other attributes, name attributes are subject to accumulation using the dot notation, because constructing an URL may require
-	Routing to evaluate more than one route, so names can be used to refer to an entire family of rules, like this:</p>
+  <p>Unlike most other attributes, name attributes are subject to accumulation using the dot notation, because constructing an URL may require
+  Routing to evaluate more than one route, so names can be used to refer to an entire family of rules, like this:</p>
 
-	<codeblock class="xml"><![CDATA[<route name="plaintext" pattern=".txt$" output_type="plaintext" stop="false" cut="true"/>
+  <codeblock class="xml"><![CDATA[<route name="plaintext" pattern=".txt$" output_type="plaintext" stop="false" cut="true"/>
 
 <route name="blog" pattern="^/blog" module="Blog">
  <route name=".home" pattern="^$" action="Index"/>
  <route name=".post" pattern="/(post_id:\d+)$" action="Post"/>
 </route>]]></codeblock>
 
-	<p>Using the routing map above, we want to generate a link to a specific blog post that returns the post in text format:</p>
+  <p>Using the routing map above, we want to generate a link to a specific blog post that returns the post in text format:</p>
 
-	<codeblock class="php"><![CDATA[<?php print $ro->gen('blog.post+plaintext', array('post_id' => $template['post_id']));?>]]></codeblock>
+  <codeblock class="php"><![CDATA[<?php print $ro->gen('blog.post+plaintext', array('post_id' => $template['post_id']));?>]]></codeblock>
 
-	<p>Details of this syntax are described in the <xref href="routing-url-generation.dita">URL generation</xref> chapter.</p>
+  <p>Details of this syntax are described in the <xref href="routing-url-generation.dita">URL generation</xref> chapter.</p>
 
-	<!-- XXX document the star mode as well, see #444 -->
+  <!-- XXX document the star mode as well, see #444 -->
       </section>
     </body>
 </topic>

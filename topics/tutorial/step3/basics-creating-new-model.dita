@@ -69,103 +69,103 @@
 
 class Posts_PostModel extends BlogPostsBaseModel
 {
-	private $id;
-	private $title;
-	private $posted;
-	private $categoryName;
-	private $authorName;
-	private $content;
-	
-	public function __construct(array $data = null)
-	{
-		if(!empty($data))
-		{
-			$this-&gt;fromArray($data);
-		}
-	}
-	
-	public function getId()
-	{
-		return $this-&gt;id;
-	}
-	
-	public function setId($id)
-	{
-		$this-&gt;id = $id;
-	}
-	
-	public function getTitle()
-	{
-		return $this-&gt;title;
-	}
-	
-	public function setTitle($title)
-	{
-		$this-&gt;title = $title;
-	}
-	
-	public function getPosted()
-	{
-		return $this-&gt;posted;
-	}
-	
-	public function setPosted($posted)
-	{
-		$this-&gt;posted = $posted;
-	}
-	
-	public function getCategoryName()
-	{
-		return $this-&gt;categoryName;
-	}
-	
-	public function setCategoryName($name)
-	{
-		$this-&gt;categoryName = $name;
-	}
-	
-	public function getAuthorName()
-	{
-		return $this-&gt;authorName;
-	}
-	
-	public function setAuthorName($name)
-	{
-		$this-&gt;authorName = $name;
-	}
-	
-	public function getContent()
-	{
-		return $this-&gt;content;
-	}
-	
-	public function setContent($content)
-	{
-		$this-&gt;content = $content;
-	}
-	
-	public function fromArray(array $data)
-	{
-		$this-&gt;setId($data['id']);
-		$this-&gt;setTitle($data['title']);
-		$this-&gt;setPosted($data['posted']);
-		$this-&gt;setCategoryName($data['category_name']);
-		$this-&gt;setAuthorName($data['author_name']);
-		$this-&gt;setContent($data['content']);
-	}
-	
-	public function toArray()
-	{
-		$data = array();
-		$data['id'] = $this-&gt;getId();
-		$data['title'] = $this-&gt;getTitle();
-		$data['posted'] = $this-&gt;getPosted();
-		$data['category_name'] = $this-&gt;getCategoryName();
-		$data['author_name'] = $this-&gt;getAuthorName();
-		$data['content'] = $this-&gt;getContent();
-		
-		return $data;
-	}
+  private $id;
+  private $title;
+  private $posted;
+  private $categoryName;
+  private $authorName;
+  private $content;
+  
+  public function __construct(array $data = null)
+  {
+    if(!empty($data))
+    {
+      $this-&gt;fromArray($data);
+    }
+  }
+  
+  public function getId()
+  {
+    return $this-&gt;id;
+  }
+  
+  public function setId($id)
+  {
+    $this-&gt;id = $id;
+  }
+  
+  public function getTitle()
+  {
+    return $this-&gt;title;
+  }
+  
+  public function setTitle($title)
+  {
+    $this-&gt;title = $title;
+  }
+  
+  public function getPosted()
+  {
+    return $this-&gt;posted;
+  }
+  
+  public function setPosted($posted)
+  {
+    $this-&gt;posted = $posted;
+  }
+  
+  public function getCategoryName()
+  {
+    return $this-&gt;categoryName;
+  }
+  
+  public function setCategoryName($name)
+  {
+    $this-&gt;categoryName = $name;
+  }
+  
+  public function getAuthorName()
+  {
+    return $this-&gt;authorName;
+  }
+  
+  public function setAuthorName($name)
+  {
+    $this-&gt;authorName = $name;
+  }
+  
+  public function getContent()
+  {
+    return $this-&gt;content;
+  }
+  
+  public function setContent($content)
+  {
+    $this-&gt;content = $content;
+  }
+  
+  public function fromArray(array $data)
+  {
+    $this-&gt;setId($data['id']);
+    $this-&gt;setTitle($data['title']);
+    $this-&gt;setPosted($data['posted']);
+    $this-&gt;setCategoryName($data['category_name']);
+    $this-&gt;setAuthorName($data['author_name']);
+    $this-&gt;setContent($data['content']);
+  }
+  
+  public function toArray()
+  {
+    $data = array();
+    $data['id'] = $this-&gt;getId();
+    $data['title'] = $this-&gt;getTitle();
+    $data['posted'] = $this-&gt;getPosted();
+    $data['category_name'] = $this-&gt;getCategoryName();
+    $data['author_name'] = $this-&gt;getAuthorName();
+    $data['content'] = $this-&gt;getContent();
+    
+    return $data;
+  }
 }
 
 ?&gt;</codeblock><p>The Posts_PostManageModel is responsible for all storage
@@ -177,53 +177,53 @@ class Posts_PostModel extends BlogPostsBaseModel
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {
-	private $posts = array(
-		1 =&gt; array(
-			'id' =&gt; 1,
-			'title' =&gt; 'First post',
-			'posted' =&gt; '2008-07-14 00:01:07',
-			'category_name' =&gt; 'No category',
-			'author_name' =&gt; 'Admin',
-			'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
-		),
-		2 =&gt; array(
-			'id' =&gt; 2,
-			'title' =&gt; 'Second post',
-			'posted' =&gt; '2008-07-14 00:01:07',
-			'category_name' =&gt; 'Agavi',
-			'author_name' =&gt; 'Admin',
-			'content' =&gt; '&lt;p&gt;It looks like our blog application is working, yay!&lt;/p&gt;',
-		)
-	);
+  private $posts = array(
+    1 =&gt; array(
+      'id' =&gt; 1,
+      'title' =&gt; 'First post',
+      'posted' =&gt; '2008-07-14 00:01:07',
+      'category_name' =&gt; 'No category',
+      'author_name' =&gt; 'Admin',
+      'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;',
+    ),
+    2 =&gt; array(
+      'id' =&gt; 2,
+      'title' =&gt; 'Second post',
+      'posted' =&gt; '2008-07-14 00:01:07',
+      'category_name' =&gt; 'Agavi',
+      'author_name' =&gt; 'Admin',
+      'content' =&gt; '&lt;p&gt;It looks like our blog application is working, yay!&lt;/p&gt;',
+    )
+  );
 
-	public function retrieveById($id)
-	{
-		if (isset($this-&gt;posts[$id]))
-		{
-			return $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($this-&gt;posts[$id]));
-		}
-		
-		return null;
-	}
-	
-	public function retrieveLatest($limit = 5)
-	{
-		$cnt = 0;
-		reset($this-&gt;posts);
-		
-		$posts = array();
-		
-		foreach($this-&gt;posts as $post) {
-			$posts[] = $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($post));
-			$cnt++;
-			if($cnt &gt;= $limit) {
-				break;
-			}
-		}
-		
-		return $posts;
-	}
-	
+  public function retrieveById($id)
+  {
+    if (isset($this-&gt;posts[$id]))
+    {
+      return $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($this-&gt;posts[$id]));
+    }
+    
+    return null;
+  }
+  
+  public function retrieveLatest($limit = 5)
+  {
+    $cnt = 0;
+    reset($this-&gt;posts);
+    
+    $posts = array();
+    
+    foreach($this-&gt;posts as $post) {
+      $posts[] = $this-&gt;getContext()-&gt;getModel('Post', 'Posts', array($post));
+      $cnt++;
+      if($cnt &gt;= $limit) {
+        break;
+      }
+    }
+    
+    return $posts;
+  }
+  
 }
 
 ?&gt;</codeblock></section>

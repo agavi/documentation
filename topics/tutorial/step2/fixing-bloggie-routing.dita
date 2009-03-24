@@ -39,22 +39,22 @@
 
     <p><codeblock outputclass="xml">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
-		&lt;ae:configuration&gt;
-			&lt;routes&gt;
+  &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+    &lt;ae:configuration&gt;
+      &lt;routes&gt;
 
-				&lt;!-- default action for "/" --&gt;
-				&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+        &lt;!-- default action for "/" --&gt;
+        &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
 
-				&lt;route name="posts" pattern="^/posts" module="Posts"&gt;
-					&lt;route name=".post" pattern="^/(post:\d+)" action="Post"&gt;
-						&lt;route name=".show" pattern="^$" action=".Show" /&gt;
-					&lt;/route&gt; 
-				&lt;/route&gt;
+        &lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+          &lt;route name=".post" pattern="^/(post:\d+)" action="Post"&gt;
+            &lt;route name=".show" pattern="^$" action=".Show" /&gt;
+          &lt;/route&gt; 
+        &lt;/route&gt;
 
-			&lt;/routes&gt;
-		&lt;/ae:configuration&gt;
-	&lt;/ae:configurations&gt;
+      &lt;/routes&gt;
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;
 
 </codeblock></p>
 
@@ -74,22 +74,22 @@
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
 
-		$ro = $this-&gt;getContext()-&gt;getRouting();
-		
-		$posts = array();
-		foreach($this-&gt;getAttribute('posts') as $p) {
-			$p['url'] = $ro-&gt;gen('posts.post.show', array('post' =&gt; $p['id']));
-			$posts[] = $p;
-		}
-		
-		$this-&gt;setAttribute('posts', $posts);
-		
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-	}
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+    
+    $posts = array();
+    foreach($this-&gt;getAttribute('posts') as $p) {
+      $p['url'] = $ro-&gt;gen('posts.post.show', array('post' =&gt; $p['id']));
+      $posts[] = $p;
+    }
+    
+    $this-&gt;setAttribute('posts', $posts);
+    
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+  }
 }
 
 ?&gt;</codeblock><p>Now all posts on the front page link to the appropriate

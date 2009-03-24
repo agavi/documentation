@@ -18,16 +18,16 @@
       new Agavi project, some system Actions are precreated for you.</p>
       <p>Agavi has the following system Actions:
       <ol>
-	<li>"error_404" - called when the requested Action doesn't exist</li>
-	<li>"unavailable" - executed instead of all other actions when
-	the "application unavailable" flag is set in the
-	configuration. This is useful for maintenance etc.</li>
-	<li>"module_disabled" - executed instead of all Actions in a
-	given Module, if that module is marked disabled in its
-	configuration</li>
-	<li>"secure" - executed when an authenticated user doesn't
-	have credentials necessary to access a secure Action</li>
-	<li>"login" - executed when an unauthenticated user requests a secure Action</li>
+  <li>"error_404" - called when the requested Action doesn't exist</li>
+  <li>"unavailable" - executed instead of all other actions when
+  the "application unavailable" flag is set in the
+  configuration. This is useful for maintenance etc.</li>
+  <li>"module_disabled" - executed instead of all Actions in a
+  given Module, if that module is marked disabled in its
+  configuration</li>
+  <li>"secure" - executed when an authenticated user doesn't
+  have credentials necessary to access a secure Action</li>
+  <li>"login" - executed when an unauthenticated user requests a secure Action</li>
       </ol>
       </p>
     </section>

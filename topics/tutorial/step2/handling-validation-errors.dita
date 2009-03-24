@@ -67,10 +67,10 @@ bloggie$
 
 class Posts_Post_ShowErrorView extends BlogPostsBaseView
 {
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		return $this-&gt;createForwardContainer(AgaviConfig::get('actions.error404_module'), AgaviConfig::get('actions.error404_action'));
-	}
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    return $this-&gt;createForwardContainer(AgaviConfig::get('actions.error404_module'), AgaviConfig::get('actions.error404_action'));
+  }
 }
 
 ?&gt;</codeblock><p>The calls to <apiname>AgaviConfig::get()</apiname> just

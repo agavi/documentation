@@ -15,27 +15,27 @@
 
 class PostRoutingCallback extends AgaviRoutingCallback
 {
-	/**
-	 * Gets executed when the route of this callback is about to be reverse 
-	 * generated into an URL.
-	 *
-	 * @param      array The default parameters stored in the route.
-	 * @param      array The parameters the user supplied to AgaviRouting::gen().
-	 * @param      array The options the user supplied to AgaviRouting::gen().
-	 *
-	 * @return     bool  Whether this route part should be generated.
-	 */
-	public function onGenerate(array $defaultParameters, array &amp;$userParameters, array &amp;$userOptions)
-	{
-		$post = $userParameters['post']-&gt;getValue();
-		
-		$routing = $this-&gt;getContext()-&gt;getRouting();
-		
-		$userParameters['post'] = $routing-&gt;createValue($post-&gt;getId());
-		$userParameters['title'] = $routing-&gt;createValue(preg_replace('/\W/', '-', $post-&gt;getTitle()));
-		
-		return true;
-	}
+  /**
+   * Gets executed when the route of this callback is about to be reverse 
+   * generated into an URL.
+   *
+   * @param      array The default parameters stored in the route.
+   * @param      array The parameters the user supplied to AgaviRouting::gen().
+   * @param      array The options the user supplied to AgaviRouting::gen().
+   *
+   * @return     bool  Whether this route part should be generated.
+   */
+  public function onGenerate(array $defaultParameters, array &amp;$userParameters, array &amp;$userOptions)
+  {
+    $post = $userParameters['post']-&gt;getValue();
+    
+    $routing = $this-&gt;getContext()-&gt;getRouting();
+    
+    $userParameters['post'] = $routing-&gt;createValue($post-&gt;getId());
+    $userParameters['title'] = $routing-&gt;createValue(preg_replace('/\W/', '-', $post-&gt;getTitle()));
+    
+    return true;
+  }
 }
 
 ?&gt;</codeblock>
@@ -44,39 +44,39 @@ class PostRoutingCallback extends AgaviRoutingCallback
     <filepath>app/config/autoload.xml</filepath>:</p>
 
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-	&lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
-		&lt;ae:configuration&gt;
+  &lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
+    &lt;ae:configuration&gt;
 
-			&lt;autoload name="BlogBaseAction"&gt;%core.lib_dir%/action/BlogBaseAction.class.php&lt;/autoload&gt;
-			&lt;autoload name="BlogBaseModel"&gt;%core.lib_dir%/model/BlogBaseModel.class.php&lt;/autoload&gt;
-			&lt;autoload name="BlogBaseView"&gt;%core.lib_dir%/view/BlogBaseView.class.php&lt;/autoload&gt;
-			&lt;autoload name="PostRoutingCallback"&gt;%core.module_dir%/Posts/lib/routing/PostRoutingCallback.class.php&lt;/autoload&gt;
+      &lt;autoload name="BlogBaseAction"&gt;%core.lib_dir%/action/BlogBaseAction.class.php&lt;/autoload&gt;
+      &lt;autoload name="BlogBaseModel"&gt;%core.lib_dir%/model/BlogBaseModel.class.php&lt;/autoload&gt;
+      &lt;autoload name="BlogBaseView"&gt;%core.lib_dir%/view/BlogBaseView.class.php&lt;/autoload&gt;
+      &lt;autoload name="PostRoutingCallback"&gt;%core.module_dir%/Posts/lib/routing/PostRoutingCallback.class.php&lt;/autoload&gt;
 
-		&lt;/ae:configuration&gt;
-	&lt;/ae:configurations&gt;</codeblock>
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;</codeblock>
 
     <p>and registered in <filepath>app/config/routing.xml</filepath>:</p>
 
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
-		&lt;ae:configuration&gt;
-			&lt;routes&gt;
+  &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+    &lt;ae:configuration&gt;
+      &lt;routes&gt;
 
-				&lt;!-- default action for "/" --&gt;
-				&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+        &lt;!-- default action for "/" --&gt;
+        &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
 
-				&lt;route name="posts" pattern="^/posts" module="Posts"&gt;
-					&lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
-						&lt;callbacks&gt;
-							&lt;callback class="PostRoutingCallback" /&gt;
-						&lt;/callbacks&gt;
-						&lt;route name=".show" pattern="^$" action=".Show" /&gt;
-					&lt;/route&gt; 
-				&lt;/route&gt;
+        &lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+          &lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
+            &lt;callbacks&gt;
+              &lt;callback class="PostRoutingCallback" /&gt;
+            &lt;/callbacks&gt;
+            &lt;route name=".show" pattern="^$" action=".Show" /&gt;
+          &lt;/route&gt; 
+        &lt;/route&gt;
 
-			&lt;/routes&gt;
-		&lt;/ae:configuration&gt;
-	&lt;/ae:configurations&gt;</codeblock>
+      &lt;/routes&gt;
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;</codeblock>
 
     <p>Now we need to pass a PostModel instead of id and title in our
     IndexSuccessView:</p>
@@ -85,32 +85,32 @@ class PostRoutingCallback extends AgaviRoutingCallback
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		$ro = $this-&gt;getContext()-&gt;getRouting();
+  
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    $ro = $this-&gt;getContext()-&gt;getRouting();
 
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-		
-		
-		$posts = array();
-		
-		foreach($this-&gt;getAttribute('posts') as $p)
-		{
-			$post = $p-&gt;toArray();
-			$post['url'] = $ro-&gt;gen(
-				'posts.post.show', 
-				array(
-					'post' =&gt; $p
-				)
-			);
-			
-			$posts[] = $post;
-		}
-		
-		$this-&gt;setAttribute('posts', $posts);
-	}
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+    
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      $post = $p-&gt;toArray();
+      $post['url'] = $ro-&gt;gen(
+        'posts.post.show', 
+        array(
+          'post' =&gt; $p
+        )
+      );
+      
+      $posts[] = $post;
+    }
+    
+    $this-&gt;setAttribute('posts', $posts);
+  }
 }
 
 ?&gt;</codeblock>

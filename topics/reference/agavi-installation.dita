@@ -79,7 +79,7 @@ $ <userinput>pear config-set auto_discover 1</userinput>
 $ <userinput>pear install -a agavi/agavi</userinput>
 </screen> <p>It is also possible to obtain a specific version of Agavi:</p>
     <screen>
-	$ <userinput>pear install agavi/agavi-0.11.0</userinput></screen> <note
+  $ <userinput>pear install agavi/agavi-0.11.0</userinput></screen> <note
     type="tip"> Depending on your system configuration, you might need to run
     these commands with superuser rights. This is, for instance, often the
     case with PEAR installs on Mac OS X. </note></section>
@@ -135,11 +135,11 @@ $ <userinput>pear install -a agavi/agavi</userinput>
     repository, you can either follow the manual installation procedure, or
     generate your own PEAR package to be installed by PEAR locally by
     doing:</p> <screen>
-	$ <userinput>cd (agavi checkout path)</userinput>
-	$ <userinput>pear channel-discover pear.agavi.org</userinput>
-	$ <userinput>phing package-pear</userinput>
-	$ <userinput>cd build/</userinput>
-	$ <userinput>pear package</userinput>
+  $ <userinput>cd (agavi checkout path)</userinput>
+  $ <userinput>pear channel-discover pear.agavi.org</userinput>
+  $ <userinput>phing package-pear</userinput>
+  $ <userinput>cd build/</userinput>
+  $ <userinput>pear package</userinput>
       </screen> <p>This will create a <filepath>.tgz</filepath> file which can
     be installed using PEAR. If you already have Agavi installed it might be a
     good idea to remove it first by running <userinput>pear uninstall

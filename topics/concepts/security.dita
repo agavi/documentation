@@ -7,23 +7,23 @@
     <section id="agavi-security-features">
       <title>Agavi security features</title>
       <p>HTTP is a stateless protocol that does not provide a way to
-	maintain a relationship between requests, thus making it hard
-	to produce personalized pages and restricted access
-	areas. Without special means, a web application is unable to
-	distinguish requests made by user A and user B. This problem
-	is solved by using cookies and cookie-based <keyword>session
-	  management</keyword>. A web application session is a data
-	container that stores user-specific data such as the identity
-	of the current user. A session is associated with a cookie or
-	another session token. When a request arrives, the session is
-	resurrected from storage according to the session key stored
-	in the cookie. The application is thus able to behave towards
-	its user in a personalized way.
+  maintain a relationship between requests, thus making it hard
+  to produce personalized pages and restricted access
+  areas. Without special means, a web application is unable to
+  distinguish requests made by user A and user B. This problem
+  is solved by using cookies and cookie-based <keyword>session
+    management</keyword>. A web application session is a data
+  container that stores user-specific data such as the identity
+  of the current user. A session is associated with a cookie or
+  another session token. When a request arrives, the session is
+  resurrected from storage according to the session key stored
+  in the cookie. The application is thus able to behave towards
+  its user in a personalized way.
       </p>
       <p>Use of a session container creates an illusion that some
-	data persists across requests. Agavi provides skeleton
-	session-based services to authenticate users and ensure that
-	security policies are enforced. 
+  data persists across requests. Agavi provides skeleton
+  session-based services to authenticate users and ensure that
+  security policies are enforced. 
       </p>
       <p>The session container is implemented in a singleton
       <apiname>User</apiname> object. Your application manipulates

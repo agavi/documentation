@@ -17,24 +17,24 @@
       <p>We've already seen how to set up slots and we won't repeat
       the whole process here again in detail. To sum it up, here are the steps:
       <ol>
-	<li>Create a new Model <apiname>Categories</apiname>, which
-	has a method to obtain the list of available post
-	categories.</li>
+  <li>Create a new Model <apiname>Categories</apiname>, which
+  has a method to obtain the list of available post
+  categories.</li>
 
-	<li>Create a new Action <apiname>ShowNavigation</apiname>
-	which queries the above method and draws a list of links to a
-	non-existent Action <apiname>ShowCategory</apiname>.</li>
-	
-	<li>Make sure that <apiname>ShowNavigation</apiname>'s View
-	uses a "slot" layout instead of the default one. If a slotted
-	View tries to load a layout which includes the same slot, an
-	infinite loop occurs, resulting in a crash.</li>
+  <li>Create a new Action <apiname>ShowNavigation</apiname>
+  which queries the above method and draws a list of links to a
+  non-existent Action <apiname>ShowCategory</apiname>.</li>
+  
+  <li>Make sure that <apiname>ShowNavigation</apiname>'s View
+  uses a "slot" layout instead of the default one. If a slotted
+  View tries to load a layout which includes the same slot, an
+  infinite loop occurs, resulting in a crash.</li>
 
-	<li>Edit the decorator template to replace the old static faux
-	navigation with the slot.</li>
+  <li>Edit the decorator template to replace the old static faux
+  navigation with the slot.</li>
 
-	<li>Edit the routing map to create a route for
-	<apiname>ShowCategory</apiname>, conveniently forgetting to create the Action itself.</li>
+  <li>Edit the routing map to create a route for
+  <apiname>ShowCategory</apiname>, conveniently forgetting to create the Action itself.</li>
       </ol>
       </p>
       <p>Now that the navigation is moved into its own Action and

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="basic-auth-security">
   <title>Basics of authentication and security</title>
 
@@ -8,14 +8,14 @@
     <section>
       <title>User authentication</title>
       <p>A stock Agavi configuration uses a simple authorization check
-	before Actions are executed. Actions specify their security
-	requirements and Agavi enforces them. The security mechanism
-	is extensible and several security architectures on top of it
-	are available.</p>
+  before Actions are executed. Actions specify their security
+  requirements and Agavi enforces them. The security mechanism
+  is extensible and several security architectures on top of it
+  are available.</p>
       <p>Agavi Actions can be <keyword>secure</keyword>
-	and <keyword>non-secure</keyword>. An Action specifies whether
-	it's secure or not by the return value of
-	its <apiname>isSecure</apiname>() method:
+  and <keyword>non-secure</keyword>. An Action specifies whether
+  it's secure or not by the return value of
+  its <apiname>isSecure</apiname>() method:
       <codeblock class="php">
 class Module_SomeAction extends SomeBaseAction
 {
@@ -30,34 +30,34 @@ class Module_SomeAction extends SomeBaseAction
       </codeblock>
       </p>
       <p>A <keyword>non-secure</keyword> Action is public and is not subjected to any
-	security checks.</p>
+  security checks.</p>
 
       <p>A <keyword>secure</keyword> Action can only be executed if the user is
-	authenticated. If an unauthenticated web client attempts to
-	access a secure Action, Agavi will divert execution, instead
-	calling a special system Action (called the "Login Action") to
-	give the user an opportunity to authenticate.</p>
+  authenticated. If an unauthenticated web client attempts to
+  access a secure Action, Agavi will divert execution, instead
+  calling a special system Action (called the "Login Action") to
+  give the user an opportunity to authenticate.</p>
     </section>
     <section>
       <title>Access authorization</title>
       <p>On top of the authentication check, Agavi provides a
-	credential-based mechanism to allow better control over who
-	can do what.</p>
+  credential-based mechanism to allow better control over who
+  can do what.</p>
       <p>Your application assigns named access credentials to the <apiname>User</apiname>
-	object (typically during the login procedure). The <apiname>User</apiname> object
-	persists these permissions in the session:
-	<codeblock class="php"><![CDATA[
-	$us = $this->context->getUser();
-	$us->addCredential('site_admin');
-	// You can also pass an array:
-	$us->addCredentials(array('content_editor', 'image_uploader'));
-	]]></codeblock></p>
+  object (typically during the login procedure). The <apiname>User</apiname> object
+  persists these permissions in the session:
+  <codeblock class="php"><![CDATA[
+  $us = $this->context->getUser();
+  $us->addCredential('site_admin');
+  // You can also pass an array:
+  $us->addCredentials(array('content_editor', 'image_uploader'));
+  ]]></codeblock></p>
       <p>An Action declares which credentials are required from the
-	<apiname>User</apiname> object through its <apiname>getCredentials</apiname>()
-	method. If this method doesn't return anything, credentials
-	aren't required and anyone authenticated may call the
-	Action:
-	<codeblock class="php"><![CDATA[
+  <apiname>User</apiname> object through its <apiname>getCredentials</apiname>()
+  method. If this method doesn't return anything, credentials
+  aren't required and anyone authenticated may call the
+  Action:
+  <codeblock class="php"><![CDATA[
 class Module_SomeAction extends SomeBaseAction
 {
    /* .... */
@@ -70,36 +70,36 @@ class Module_SomeAction extends SomeBaseAction
      return array('content_editor, 'image_uploader');
    }
 }
-	]]></codeblock>
+  ]]></codeblock>
       </p>
       <p>If the authorization check discovers that the user doesn't
-	have all the credentials required to execute the Action,
-	execution is diverted to a system action called the "Secure
-	Action" which handles the attempts to access restricted
-	Actions without authorization.</p>
+  have all the credentials required to execute the Action,
+  execution is diverted to a system action called the "Secure
+  Action" which handles the attempts to access restricted
+  Actions without authorization.</p>
     </section>
 
     <section>
       <title>Using the User object</title>
       <p>Agavi <apiname>User</apiname> object is the persistent session container -
-	anything you store in it will be automatically restored on the
-	next request in the same session.  The object is accessed
-	through the getUser() method of the global Context object.</p>
+  anything you store in it will be automatically restored on the
+  next request in the same session.  The object is accessed
+  through the getUser() method of the global Context object.</p>
       <p>To read and store values in the <apiname>User</apiname>, use the standard Agavi attribute container methods
-	<apiname>getAttribute()</apiname> and <apiname>setAttribute()</apiname></p>
+  <apiname>getAttribute()</apiname> and <apiname>setAttribute()</apiname></p>
       <p>The <apiname>User</apiname> object can be in either authenticated or
-	non-authenticated state. When it's in the authenticated state, the
-	identity of the user is known and they are considered logged in.
-	Otherwise, the User object is in non-authenticated
-	state.</p>
+  non-authenticated state. When it's in the authenticated state, the
+  identity of the user is known and they are considered logged in.
+  Otherwise, the User object is in non-authenticated
+  state.</p>
       <p>The <apiname>User</apiname> object also carries the credential
-	information. When a secure Action is executed, Agavi reads the
-	User object to see whether it is authenticated at all, and if the
-	Action required any special permissions, whether these permissions
-	are seen in the User object.</p>
+  information. When a secure Action is executed, Agavi reads the
+  User object to see whether it is authenticated at all, and if the
+  Action required any special permissions, whether these permissions
+  are seen in the User object.</p>
       <p>Here's some general example code to show you how to manipulate the
-	user object:
-	<codeblock conref="../examples/examples.xml#user-object-example" class="php"/>
+  user object:
+  <codeblock conref="../examples/examples.xml#user-object-example" class="php"/>
       </p>
     </section>
   </body>

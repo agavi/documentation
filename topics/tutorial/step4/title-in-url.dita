@@ -14,7 +14,7 @@
     and we'll restrict it to word-chars and dashes only:</p>
 
     <codeblock outputclass="xml">&lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
-	&lt;route name=".show" pattern="^$" action=".Show" /&gt;
+  &lt;route name=".show" pattern="^$" action=".Show" /&gt;
 &lt;/route&gt;</codeblock>
 
     <p>Now that we made it possible to inject the title we just need to adapt
@@ -28,33 +28,33 @@
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
 {
-	
-	public function executeHtml(AgaviRequestDataHolder $rd)
-	{
-		$this-&gt;setupHtml($rd);
-		$ro = $this-&gt;getContext()-&gt;getRouting();
+  
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    $ro = $this-&gt;getContext()-&gt;getRouting();
 
-		$this-&gt;setAttribute('_title', 'Latest Posts');
-		
-		
-		$posts = array();
-		
-		foreach($this-&gt;getAttribute('posts') as $p)
-		{
-			$post = $p-&gt;toArray();
-			$post['url'] = $ro-&gt;gen(
-				'posts.post.show', 
-				array(
-					'post' =&gt; $p-&gt;getId(), 
-					'title' =&gt; preg_replace('/\W/', '-', $p-&gt;getTitle())
-				)
-			);
-			
-			$posts[] = $post;
-		}
-		
-		$this-&gt;setAttribute('posts', $posts);
-	}
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+    
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      $post = $p-&gt;toArray();
+      $post['url'] = $ro-&gt;gen(
+        'posts.post.show', 
+        array(
+          'post' =&gt; $p-&gt;getId(), 
+          'title' =&gt; preg_replace('/\W/', '-', $p-&gt;getTitle())
+        )
+      );
+      
+      $posts[] = $post;
+    }
+    
+    $this-&gt;setAttribute('posts', $posts);
+  }
 }
 
 ?&gt;</codeblock>

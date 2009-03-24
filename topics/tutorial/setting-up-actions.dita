@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="setting-up-actions">
   <title>Creating Actions and Views</title>
 
@@ -63,21 +63,21 @@
     <section>
       <title>Creating the Index Action</title>
       <p>The Index Action that we created resides at
-	<filepath>app/modules/Public/actions/IndexAction.class.php</filepath>.  Open this
-	file in your favorite editor and take a look at it:</p>
+  <filepath>app/modules/Public/actions/IndexAction.class.php</filepath>.  Open this
+  file in your favorite editor and take a look at it:</p>
       <codeblock conref="../examples/examples.xml#stage2-index-action" class="php"/>
       <note type="remember">Newly created actions in Module XXX
-	extend <apiname>YYYXXXBaseAction</apiname>, where YYY is the
-	application's class prefix. The inheritance chain for Actions
-	in Bloggie's Public Module is thus
-	<codeph>Public_<varname>Name</varname>Action</codeph> ←
-	<apiname>BlogPublicBaseAction</apiname> ←
-	<apiname>BlogBaseAction</apiname>
-	← <apiname>AgaviAction</apiname>. This allows for module- and
-	project-specific extensions to base classes, and means that
-	you have to worry less about changing code everywhere in your
-	project to reflect a necessary global change or addition (or
-	worse—changing Agavi itself).
+  extend <apiname>YYYXXXBaseAction</apiname>, where YYY is the
+  application's class prefix. The inheritance chain for Actions
+  in Bloggie's Public Module is thus
+  <codeph>Public_<varname>Name</varname>Action</codeph> ←
+  <apiname>BlogPublicBaseAction</apiname> ←
+  <apiname>BlogBaseAction</apiname>
+  ← <apiname>AgaviAction</apiname>. This allows for module- and
+  project-specific extensions to base classes, and means that
+  you have to worry less about changing code everywhere in your
+  project to reflect a necessary global change or addition (or
+  worse—changing Agavi itself).
       </note>
 
       <p>As you see, this Action does nothing at all. This is because
@@ -88,24 +88,24 @@
       <codeblock conref="../examples/examples.xml#stage2-index-success-view" class="php"/>
 
       <p>The <apiname>executeHtml</apiname>() method will be called by
-	Agavi when this View is started. So, when our Index Action tells
-	Agavi to call this View (which it always does), it is
-	loaded and its <apiname>executeHtml</apiname>() is called.</p>
+  Agavi when this View is started. So, when our Index Action tells
+  Agavi to call this View (which it always does), it is
+  loaded and its <apiname>executeHtml</apiname>() is called.</p>
       <p>Inside <apiname>executeHtml</apiname>() we do two basic things. First, we call
-	<apiname>setupHtml</apiname>() which makes Agavi load the default rendering configuration for
-	HTML. This configuration specifies that when the View
-	is finished executing, a PHP template with an identical name will
-	be loaded and rendered.</p>
+  <apiname>setupHtml</apiname>() which makes Agavi load the default rendering configuration for
+  HTML. This configuration specifies that when the View
+  is finished executing, a PHP template with an identical name will
+  be loaded and rendered.</p>
       <note type="tip"><apiname>executeHtml</apiname>() corresponds to an
-	output type. When the View is called for another output type, for
-	instance XML, respective <apiname>executeXml</apiname>() etc
-	method will be called. Output types are explained in the coming chapters.
+  output type. When the View is called for another output type, for
+  instance XML, respective <apiname>executeXml</apiname>() etc
+  method will be called. Output types are explained in the coming chapters.
       </note>
       <p>We then talk to our Posts Model, asking it for the result of
-	findFrontpagePosts(). This result is exported so that the template
-	can access it and do something with it. This result, of course,
-	contains a list of blog posts that the Model thinks should be on
-	the frontpage.</p>
+  findFrontpagePosts(). This result is exported so that the template
+  can access it and do something with it. This result, of course,
+  contains a list of blog posts that the Model thinks should be on
+  the frontpage.</p>
     </section>
     <section>
       <title>Creating the ShowPost Action</title>
@@ -123,40 +123,40 @@
       <codeblock conref="../examples/examples.xml#stage2-showpost-success-view" class="php"/>
       
       <p>The View's executeHtml() method talks to the Posts model to
-	obtain data from the application. In order to fetch a post, it
-	accesses the Request Data container that Agavi passes to your
-	Actions and Views. The parameters from outside such as the blog
-	post ID are retrieved from this container.</p>
+  obtain data from the application. In order to fetch a post, it
+  accesses the Request Data container that Agavi passes to your
+  Actions and Views. The parameters from outside such as the blog
+  post ID are retrieved from this container.</p>
 
       <p>Using the ID of the post, the View retrieves the body of the post and exports it for the template.</p>
       <note type="tip">You might immediately wonder what would happen
-	if you passed an invalid value as "post_id". It is dangerous
-	to pass unverified data into the Model, even if the database
-	code is safe from injections. Besides, an Action could have
-	two views, "Success" and "Error", and render an error page if
-	the requested post is not found - this means that Actions (not
-	Views) should be retrieving data from Models or else you can't
-	decide whether it's an error condition or not. These are
-	important questions. We will solve this problem when applying
-	validation in the coming chapters. For now, bear in mind that
-	Actions and Views always go hand in hand: in principle, if the
-	sole purpose of an Action-View chain is to output something,
-	the correct place for retrieving data is the Action, even
-	though the Action doesn't change the applcation's state. This
-	mistake is being shown here deliberately and will be fixed in
-	later versions of Bloggie.</note>
+  if you passed an invalid value as "post_id". It is dangerous
+  to pass unverified data into the Model, even if the database
+  code is safe from injections. Besides, an Action could have
+  two views, "Success" and "Error", and render an error page if
+  the requested post is not found - this means that Actions (not
+  Views) should be retrieving data from Models or else you can't
+  decide whether it's an error condition or not. These are
+  important questions. We will solve this problem when applying
+  validation in the coming chapters. For now, bear in mind that
+  Actions and Views always go hand in hand: in principle, if the
+  sole purpose of an Action-View chain is to output something,
+  the correct place for retrieving data is the Action, even
+  though the Action doesn't change the applcation's state. This
+  mistake is being shown here deliberately and will be fixed in
+  later versions of Bloggie.</note>
     </section>
     <section>
       <title>Templates</title>
       <p>An Action-View chain (that is, Action and the View it
-	appoints) is executed in an isolated space called
-	the <keyword>Execution Container</keyword>. Performing
-	$this-&gt;setAttribute()/$this-&gt;getAttribute() inside an
-	Action or a View actually reads or sets the attributes on the
-	enclosing Execution Container. The template (or technically
-	the Renderer class that handles it) also has access to this
-	container. So, a View uses setAttribute() calls to export data
-	into the template. </p>
+  appoints) is executed in an isolated space called
+  the <keyword>Execution Container</keyword>. Performing
+  $this-&gt;setAttribute()/$this-&gt;getAttribute() inside an
+  Action or a View actually reads or sets the attributes on the
+  enclosing Execution Container. The template (or technically
+  the Renderer class that handles it) also has access to this
+  container. So, a View uses setAttribute() calls to export data
+  into the template. </p>
 
       <p>The output rendering begins after the View finishes
       executing. A default Agavi application is configured to render a
@@ -170,30 +170,30 @@
       <codeblock conref="../examples/actions.dita#bloggie-s2-showpost-template" class="xml"/>
 
       <p>Anything that's been exported using an Action's or View's
-	setAttribute() method will be available in the template's
-	$template array variable. Anything that the template prints is
-	captured by the rendering mechanism into output.</p>
+  setAttribute() method will be available in the template's
+  $template array variable. Anything that the template prints is
+  captured by the rendering mechanism into output.</p>
       <note type="tip">
-	Note that this is merely the default configuration. The rendering
-	mechanism can be configured to do many things. More on this in next chapters.
+  Note that this is merely the default configuration. The rendering
+  mechanism can be configured to do many things. More on this in next chapters.
       </note>
 
       <p>We don't yet have a shared template that is used by both
-	since we don't really have a design. A shared template would
-	contain the HTML header and footer but we don't have those so
-	we're forced to write complete HTML in both actions.</p>
+  since we don't really have a design. A shared template would
+  contain the HTML header and footer but we don't have those so
+  we're forced to write complete HTML in both actions.</p>
 
       <p>The calls that look like $ro-&gt;gen() are asking the Routing
-	mechanism to generate an URL for a given named route. This
-	constructs an URL to some Action. The route names will be seen
-	in the next section where we will examine routing.xml.</p>
+  mechanism to generate an URL for a given named route. This
+  constructs an URL to some Action. The route names will be seen
+  in the next section where we will examine routing.xml.</p>
 
       <p>Another item of interest is the use of HTML &lt;base&gt;
-	element. It points to the URL root of the site telling the
-	browser to calculate all relative paths using this root
-	URL. This is a proper technique that helps maintain URL
-	structure. Routing is responsible for generating the value for
-	the base URL of the document.</p>
+  element. It points to the URL root of the site telling the
+  browser to calculate all relative paths using this root
+  URL. This is a proper technique that helps maintain URL
+  structure. Routing is responsible for generating the value for
+  the base URL of the document.</p>
 
       </section>
     <section>
@@ -209,7 +209,7 @@
       prepares data for the output. </p>
       <p>When the View is finished, rendering begins. Agavi loads the relevant template and renders it.</p>
       <p>Now that we're done with the code, we can set up Routing and give it a
-	test!</p>
+  test!</p>
     </section>
   </body>
 </topic>

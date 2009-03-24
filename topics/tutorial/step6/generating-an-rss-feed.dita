@@ -19,9 +19,9 @@
     "text/xml". So our output type definition looks like this:</p>
 
     <codeblock outputclass="xml">&lt;output_type name="rss"&gt;
-	&lt;ae:parameter name="http_headers"&gt;
-		&lt;ae:parameter name="Content-Type"&gt;text/xml; charset=UTF-8&lt;/ae:parameter&gt;
-	&lt;/ae:parameter&gt;
+  &lt;ae:parameter name="http_headers"&gt;
+    &lt;ae:parameter name="Content-Type"&gt;text/xml; charset=UTF-8&lt;/ae:parameter&gt;
+  &lt;/ae:parameter&gt;
 &lt;/output_type&gt;</codeblock>
 
     <p>Now we need to add a route that set's the output type. We want any url
@@ -37,40 +37,40 @@
 
     <codeblock outputclass="php">public function executeRss(AgaviRequestDataHolder $rd)
 {
-	$ro = $this-&gt;getContext()-&gt;getRouting();
-	$entries = array();
-	
-	foreach($this-&gt;getAttribute('posts') as $p)
-	{
-		$entries[] = array(
-			'title'       =&gt; $p-&gt;getTitle(), //required
-			'lastUpdate'  =&gt; time(), // optional
-			'link'        =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; $p), array('relative' =&gt; false)), //required
-			'charset'     =&gt; 'UTF-8', // required
-			'published'   =&gt; time(), //optional
-			'description' =&gt; $p-&gt;getContent(), //optional
-			'author'      =&gt; $p-&gt;getAuthorName(), //optional
-			'language'    =&gt; 'en', // optional
-		);
-	}
-	
-	$data = array(
-		'title'       =&gt; 'Latest Posts', //required
-		'lastUpdate'  =&gt; null, // optional
-		'link'        =&gt; $ro-&gt;gen(null, array(), array('relative' =&gt; false)), //required
-		'charset'     =&gt; 'UTF-8', // required
-		'published'   =&gt; time(), //optional
-		'description' =&gt; 'The latest posts from the agavi tutorial blog application', //optional
-		'author'      =&gt; null, //optional
-		'language'    =&gt; 'en', // optional
-		'entries'     =&gt; $entries
-	);
+  $ro = $this-&gt;getContext()-&gt;getRouting();
+  $entries = array();
+  
+  foreach($this-&gt;getAttribute('posts') as $p)
+  {
+    $entries[] = array(
+      'title'       =&gt; $p-&gt;getTitle(), //required
+      'lastUpdate'  =&gt; time(), // optional
+      'link'        =&gt; $ro-&gt;gen('posts.post.show', array('post' =&gt; $p), array('relative' =&gt; false)), //required
+      'charset'     =&gt; 'UTF-8', // required
+      'published'   =&gt; time(), //optional
+      'description' =&gt; $p-&gt;getContent(), //optional
+      'author'      =&gt; $p-&gt;getAuthorName(), //optional
+      'language'    =&gt; 'en', // optional
+    );
+  }
+  
+  $data = array(
+    'title'       =&gt; 'Latest Posts', //required
+    'lastUpdate'  =&gt; null, // optional
+    'link'        =&gt; $ro-&gt;gen(null, array(), array('relative' =&gt; false)), //required
+    'charset'     =&gt; 'UTF-8', // required
+    'published'   =&gt; time(), //optional
+    'description' =&gt; 'The latest posts from the agavi tutorial blog application', //optional
+    'author'      =&gt; null, //optional
+    'language'    =&gt; 'en', // optional
+    'entries'     =&gt; $entries
+  );
 
-	 
-	require 'Zend/Feed.php';
-	$feed = Zend_Feed::importArray($data, 'rss');
-	
-	return $feed-&gt;saveXml();
+   
+  require 'Zend/Feed.php';
+  $feed = Zend_Feed::importArray($data, 'rss');
+  
+  return $feed-&gt;saveXml();
 }</codeblock>
 
     <p>I won't go into the details of Zend_Feed but all we did was construct

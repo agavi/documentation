@@ -27,7 +27,7 @@
     in a moment. For now, just insert this route in the routing.xml, right
     after the index route: <codeblock outputclass="xml">
 
-	&lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
+  &lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
 
 </codeblock> Done. The action "Post.Show" in the module "Posts" will now be
     accessible by the url /post. Go ahead, open your browser and try it. You
@@ -40,30 +40,30 @@
     contain html, so we can format the text a little. Data retrieval goes in
     the action, so add the Posts_Post_ShowAction::executeRead() to look like
     this.</p><p><codeblock outputclass="php">
-	public function executeRead(AgaviRequestDataHolder $rd)
-	{
-	
-		$post = array(
-			'id' =&gt; 1,
-			'title' =&gt; 'First post',
-			'posted' =&gt; '2008-07-14 00:01:07',
-			'category_name' =&gt; 'No category',
-			'author_name' =&gt; 'Admin',
-			'url' =&gt; null,
-			'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;'
-		);
+  public function executeRead(AgaviRequestDataHolder $rd)
+  {
+  
+    $post = array(
+      'id' =&gt; 1,
+      'title' =&gt; 'First post',
+      'posted' =&gt; '2008-07-14 00:01:07',
+      'category_name' =&gt; 'No category',
+      'author_name' =&gt; 'Admin',
+      'url' =&gt; null,
+      'content' =&gt; '&lt;p&gt;Terrific! This is our first post!&lt;/p&gt;&lt;p&gt;This is just a first post. It has no actual contents. If you are reading this, things must be working.&lt;/p&gt;'
+    );
 
-		$this-&gt;setAttribute('post', $post);
-		
-		return 'Success';
-	}</codeblock> And we should adapt the title here as well. So open the the
+    $this-&gt;setAttribute('post', $post);
+    
+    return 'Success';
+  }</codeblock> And we should adapt the title here as well. So open the the
     Posts_PostSuccessView and change the line saying <codeblock
     outputclass="php">
-	$this-&gt;setAttribute('_title', 'Index');
+  $this-&gt;setAttribute('_title', 'Index');
 
 </codeblock> to <codeblock outputclass="php">
-		$post = $this-&gt;getAttribute('post');
-		$this-&gt;setAttribute('_title', $post['title']);
+    $post = $this-&gt;getAttribute('post');
+    $this-&gt;setAttribute('_title', $post['title']);
 
 </codeblock></p><p>An then the template: <codeblock outputclass="php">
 
