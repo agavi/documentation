@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/databases/1.0">
+	
+	<ae:configuration environment="development">
+		<databases default="pdo_mysql_main">
+			
+			<database name="pdo_mysql_main" class="AgaviPdoDatabase">
+				<ae:parameter name="dsn">mysql:host=localhost;dbname=bloggie</ae:parameter>
+				<ae:parameter name="username">bloggie</ae:parameter>
+				<ae:parameter name="password">bloggie</ae:parameter>
+			</database>
+		
+		</databases>
+	</ae:configuration>
+	
+</ae:configurations>
