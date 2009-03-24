@@ -40,7 +40,45 @@ class PostRoutingCallback extends AgaviRoutingCallback
 
 ?&gt;</codeblock>
 
-    <p>Now we need to pass a PostModel instead of id and title in out
+    <p>The callback must be available in the global autoload file in
+    <filepath>app/config/autoload.xml</filepath>:</p>
+
+    <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
+		&lt;ae:configuration&gt;
+
+			&lt;autoload name="BlogBaseAction"&gt;%core.lib_dir%/action/BlogBaseAction.class.php&lt;/autoload&gt;
+			&lt;autoload name="BlogBaseModel"&gt;%core.lib_dir%/model/BlogBaseModel.class.php&lt;/autoload&gt;
+			&lt;autoload name="BlogBaseView"&gt;%core.lib_dir%/view/BlogBaseView.class.php&lt;/autoload&gt;
+			&lt;autoload name="PostRoutingCallback"&gt;%core.module_dir%/Posts/lib/routing/PostRoutingCallback.class.php&lt;/autoload&gt;
+
+		&lt;/ae:configuration&gt;
+	&lt;/ae:configurations&gt;</codeblock>
+
+    <p>and registered in <filepath>app/config/routing.xml</filepath>:</p>
+
+    <codeblock>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+	&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+		&lt;ae:configuration&gt;
+			&lt;routes&gt;
+
+				&lt;!-- default action for "/" --&gt;
+				&lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+
+				&lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+					&lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
+						&lt;callbacks&gt;
+							&lt;callback class="PostRoutingCallback" /&gt;
+						&lt;/callbacks&gt;
+						&lt;route name=".show" pattern="^$" action=".Show" /&gt;
+					&lt;/route&gt; 
+				&lt;/route&gt;
+
+			&lt;/routes&gt;
+		&lt;/ae:configuration&gt;
+	&lt;/ae:configurations&gt;</codeblock>
+
+    <p>Now we need to pass a PostModel instead of id and title in our
     IndexSuccessView:</p>
 
     <codeblock>&lt;?php
