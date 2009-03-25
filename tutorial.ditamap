@@ -84,7 +84,7 @@
   </chapter>
 
   <chapter href="topics/tutorial/step6/introduction.dita">
-    <topicref href="topcis/tutorial/step6/basics-output-types.dita"/>
+    <topicref href="topics/tutorial/step6/basics-output-types.dita"/>
 
     <topicref href="topics/tutorial/step6/basics-exception-templates.dita"/>
 
