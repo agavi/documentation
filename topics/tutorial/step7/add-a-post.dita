@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="topics-tutorial-adding-a-post">
+  <title>Adding a Post</title>
+
+  <body>
+    <p>First we need to create a new action, let's name it "Add". We'll need
+    three views, "Input" to display the empty form, "Error" in case any
+    validation or other error occurs and "Success" for handling any successful
+    add to the database.</p>
+
+    <screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
+
+Module name: <userinput>Posts</userinput>
+
+Action name: <userinput>Add</userinput>
+
+Space-separated list of views to create for Add [Success]: <userinput>Input Success Error</userinput>
+
+bloggie$
+</screen>
+
+    <p>This created the action and all three views for us. Next we'll add the
+    route so we can reach the action: </p>
+
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+  &lt;ae:configuration&gt;
+    &lt;routes&gt;
+      &lt;!-- matches .rss at the end of the url, strips it, sets the output type to "rss" and continues matching --&gt;
+      &lt;route name="ot_rss" pattern=".rss$" cut="true" stop="false" output_type="rss" /&gt;
+      
+      &lt;!-- default action for "/" --&gt;
+      &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+
+      &lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+
+        &lt;route name=".create" pattern="^/add$" action="Add" /&gt;
+
+        &lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
+          &lt;callbacks&gt;
+            &lt;callback class="PostRoutingCallback" /&gt;
+          &lt;/callbacks&gt;
+        
+          &lt;route name=".show" pattern="^$" action=".Show" /&gt;
+
+        &lt;/route&gt; 
+      
+      &lt;/route&gt;
+
+    &lt;/routes&gt;
+  &lt;/ae:configuration&gt;
+&lt;/ae:configurations&gt;</codeblock>
+
+    <p>Now we need to create the input form in
+    <filepath>app/modules/Posts/templates/AddInput.php</filepath>. We'll leave
+    the posted date out of the form as we'll add that in the code (we do know
+    when the post was added) and the authod - this should be handled via
+    authentication later:</p>
+
+    <codeblock outputclass="php">&lt;form action="&lt;?php echo $t['target_url']; ?&gt;" method="post"&gt;
+  &lt;fieldset&gt;
+    &lt;div class="form_row"&gt;
+      &lt;label for="input_title"&gt;Title:&lt;/label&gt;
+      &lt;input type="text" name="title" id="input_title" /&gt;
+    &lt;/div&gt;
+    &lt;div class="form_row"&gt;
+      &lt;label for="input_content"&gt;Content:&lt;/label&gt;
+      &lt;textarea name="content" id="input_content"&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;div class="form_row"&gt;
+      &lt;label for="input_category"&gt;Category:&lt;/label&gt;
+      &lt;select name="category_name" id="input_category"&gt;
+        &lt;option value="1"&gt;No category&lt;/option&gt;
+        &lt;option value="2"&gt;Agavi&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class="form_row form_row_submit"&gt;
+      &lt;button type="submit" class="submit"&gt;Add Post&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</codeblock>
+
+    <p>and adapt the
+    <filepath>app/modules/Posts/views/AddInputView.class.php</filepath> to
+    generate the submit url for us:</p>
+
+    <codeblock outputclass="php">&lt;?php
+
+class Posts_AddInputView extends BlogPostsBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+
+    $this-&gt;setAttribute('target_url', $ro-&gt;gen('posts.create'));
+    $this-&gt;setAttribute('_title', 'Add a new Post');
+  }
+}
+
+?&gt;</codeblock>
+
+    <p>Let's try that. Point your browser to
+    http://localhost/bloggie/pub/posts/add. Hmm, blank page. Well, the actions
+    <apiname>getDefaultViewName</apiname>() method returns "Success" as
+    default view and that's what's getting called - and that's why we don't
+    see the form. So let's go and adapt that in
+    <filepath>app/modules/Posts/actions/AddAction.class.php</filepath>:</p>
+
+    <codeblock outputclass="php">&lt;?php
+
+class Posts_AddAction extends BlogPostsBaseAction
+{
+  /**
+   * Returns the default view if the action does not serve the request
+   * method used.
+   *
+   * @return     mixed &lt;ul&gt;
+   *                     &lt;li&gt;A string containing the view name associated
+   *                     with this action; or&lt;/li&gt;
+   *                     &lt;li&gt;An array with two indices: the parent module
+   *                     of the view to be executed and the view to be
+   *                     executed.&lt;/li&gt;
+   *                   &lt;/ul&gt;
+   */
+  public function getDefaultViewName()
+  {
+    return 'Input';
+  }
+}
+
+?&gt;</codeblock>
+
+    <p>And now we see our form, as expected.</p>
+  </body>
+</topic>

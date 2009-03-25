@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+"http://docs.oasis-open.org/dita/dtd/concept.dtd">
+<concept id="basics-the-fpf">
+  <title>The Form Population Filter</title>
+
+  <conbody>
+    <p/>
+
+    <section><title>The FPF and HTML Entities</title><p>As the FPF parsed
+    xhtml code as valid XML it does not like HTML entities such as &amp;nbsp,
+    &amp;copy and the like, so they should be avoided. The general
+    recommendation is to serve your pages with an UTF-8 charset that
+    eliminates the need for most of those entities as they are just valid
+    chars. So instead of &amp;copy use the regular © sign. For all other
+    entities that don't have a character to display use the numeric entities -
+    instead of &amp;nbsp; use &amp;160;. Numeric entities parse just fine in
+    XML.</p><p>An alternative way would be to add all entities you use to a
+    local DTD or to use the HTML parsing mode, but those have their own
+    drawbacks.</p></section>
+  </conbody>
+</concept>

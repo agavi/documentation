@@ -91,5 +91,11 @@
     <topicref href="topics/tutorial/step6/generating-an-rss-feed.dita"/>
   </chapter>
 
+  <chapter href="topics/tutorial/step7/introduction.dita">
+    <topicref href="topics/tutorial/step7/add-a-post.dita"/>
+
+    <topicref href="topics/tutorial/step7/the-form-population-filter.dita"/>
+  </chapter>
+
   <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  x-->
 </bookmap>
