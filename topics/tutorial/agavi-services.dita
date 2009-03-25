@@ -1,117 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="agavi-services">
   <title>Overview of Agavi services</title>
 
-  <body> 
-    <p>Agavi is a PHP application framework. It is a rich library of
-      PHP classes and supplemental data. This library provides certain
-      services to you, the application developer. This chapter lists
-      the basic Agavi services that a developer would use or adjust
-      most often.
-    </p>
-    <section>
-      <title>Agavi execution context</title>
-      <p>Agavi applications execute inside an envelope that's called
-  the "context" of the application. This envelope is exposed to
-  your application as the global singleton <apiname>Context</apiname> object.</p>
-      <p>The Context object is available to all of your code. It is an
-  important object, since you use it to access
-  the global services of the framework. For example, if you wanted to
-  retrieve a named database connection from
-  Agavi <apiname>DatabaseManager</apiname>, you'd do
-  it like this:</p> <codeblock class="php"
-  conref="../examples/examples.xml#services-example-context"/>
-    </section>
-    <section><title>MVC execution</title>
-    <p>Developers implement the target applications using the MVC architecture, 
-      spending most of their time working with Models, Actions and Views. This tutorial takes a look at these components in great detail.</p>
-    </section>
-    <section>
-      <title>Application configuration</title>
-      <p>Agavi configuration system stores names and their
-  corresponding values. It is a general purpose service that's
-  used both by Agavi applications and the framework itself. The
-  configuration system compiles XML configuration files into
-  executable PHP code. Agavi defines some configuration files
-  for its own purposes. Here's some example code:
-      </p>
-      <codeblock class="php" conref="../examples/examples.xml#services-example-config"/>
-      <p>Your application can access the configuration through the
-      global <apiname>AgaviConfig</apiname> interface. The configuration
-      system supports namespaces, arrays, value interpolation and
-      advanced XML processing features. 
-      </p>
-    </section>
-    <section>
-      <title>Database access</title>
-      <p>The framework itself does not need to access databases. It
-      does, however, provide a general database access abstraction
-      mechanism.</p>
-      <p>When enabled, Agavi <apiname>DatabaseManager</apiname> reads
-      and enacts the application's database configuration. It creates
-      instances of database adapters, through which your Models can
-      access the database servers.</p>
-      <p>Adapters may interact with low level database APIs or high
-      level third party database libraries. Agavi ships with a number
-      of adapters for most popular APIs, and you can easily write your
-      own adapter if you work with a custom database backend.</p>
-      <codeblock class="php" conref="../examples/examples.xml#services-example-database"/>
-    </section>
-    <section>
-      <title>Request dispatcher and execution flow</title>
-      <p>Agavi applications are exposed to the Web server through the
-      front end dispatcher script
-      (typically <filepath>pub/index.php</filepath>). The dispatcher
-      reads the requests and starts Agavi execution. Agavi routes the
-      request to the appropriate place in your application.</p>
-      <p>Several major things happen behind the scenes before the
-      execution is turned over to your application. Various Agavi
-      components are involved in the process of handling the request
-      and composing the response.</p>
-    </section>
-    <section>
-      <title>Routing</title>
-      <p>Web applications parse request URLs and invoke certain
-      application actions. Agavi applications do this by specifying a
-      routing map, which describes the URL structure of your application.</p>
-      <p>The routing mechanism can both construct and analyze URLs. It
-      is extensible and can cope with any conceivable URL structure.</p>
-      <codeblock class="php" conref="../examples/examples.xml#services-example-routing-gen"/>
-    </section>
-    <section>
-      <title>Security and Validation</title>
-      <p>Validation is Agavi's way to make sure that the request data
-      conforms to certain rules. If these rules are violated, the
-      framework would refuse to execute your code. When used
-      correctly, validation nullifies the threats of malformed
-      data. Validation rules are specified using a special XML
-      language, allowing you to codify the assumptions that your
-      code makes.</p>
-      <p>On the application level, Agavi provides a security mechanism
-      that understands individual user permissions, allowing to
-      specify who is allowed to access what in your
-      application. Access security is enforced on the framework level
-      as well.</p>
-    </section>
-    <section>
-      <title>Caching</title>
-      <p>Agavi has a special caching facility which can spare the
-      execution of unneeded code by reusing data that's already been
-      processed. This gives a great performance boost to real world
-      applications.</p>
-    </section>
-    <section>
-      <title>Date and translation services</title>
-      <p>Agavi's internationalization services are designed to solve
-      the common problems of maintaining an application in many
-      languages and locales. Agavi translation services are an
-      interface through which your application can transform certain
-      data into their local representation. Thus, Agavi provides
-      strong infrastructure for development of software with fully
-      functional and utilized internationalization features.</p>
-      <p>Agavi also ships with a date manipulation library.</p>
-    </section>
+  <body>
+    <p>Agavi is a PHP application framework. It is a rich library of PHP
+    classes and supplemental data. This library provides certain services to
+    you, the application developer. This chapter lists the basic Agavi
+    services that a developer would use or adjust most often.</p>
+
+    <section><title>Agavi execution context</title> <p>Agavi applications
+    execute inside an envelope that's called the "context" of the application.
+    This envelope is exposed to your application as the global singleton
+    <apiname>Context</apiname> object.</p> <p>The Context object is available
+    to all of your code. It is an important object, since you use it to access
+    the global services of the framework. For example, if you wanted to
+    retrieve a named database connection from Agavi
+    <apiname>DatabaseManager</apiname>, you'd do it like this:</p> <codeblock
+    conref="../examples/examples.xml#services-example-context"
+    outputclass="php"/></section>
+
+    <section><title>MVC execution</title> <p>Developers implement the target
+    applications using the MVC architecture, spending most of their time
+    working with Models, Actions and Views. This tutorial takes a look at
+    these components in great detail.</p></section>
+
+    <section><title>Application configuration</title> <p>Agavi configuration
+    system stores names and their corresponding values. It is a general
+    purpose service that's used both by Agavi applications and the framework
+    itself. The configuration system compiles XML configuration files into
+    executable PHP code. Agavi defines some configuration files for its own
+    purposes. Here's some example code: </p> <codeblock
+    conref="../examples/examples.xml#services-example-config"
+    outputclass="php"/> <p>Your application can access the configuration
+    through the global <apiname>AgaviConfig</apiname> interface. The
+    configuration system supports namespaces, arrays, value interpolation and
+    advanced XML processing features. </p></section>
+
+    <section><title>Database access</title> <p>The framework itself does not
+    need to access databases. It does, however, provide a general database
+    access abstraction mechanism.</p> <p>When enabled, Agavi
+    <apiname>DatabaseManager</apiname> reads and enacts the application's
+    database configuration. It creates instances of database adapters, through
+    which your Models can access the database servers.</p> <p>Adapters may
+    interact with low level database APIs or high level third party database
+    libraries. Agavi ships with a number of adapters for most popular APIs,
+    and you can easily write your own adapter if you work with a custom
+    database backend.</p> <codeblock
+    conref="../examples/examples.xml#services-example-database"
+    outputclass="php"/></section>
+
+    <section><title>Request dispatcher and execution flow</title> <p>Agavi
+    applications are exposed to the Web server through the front end
+    dispatcher script (typically <filepath>pub/index.php</filepath>). The
+    dispatcher reads the requests and starts Agavi execution. Agavi routes the
+    request to the appropriate place in your application.</p> <p>Several major
+    things happen behind the scenes before the execution is turned over to
+    your application. Various Agavi components are involved in the process of
+    handling the request and composing the response.</p></section>
+
+    <section><title>Routing</title> <p>Web applications parse request URLs and
+    invoke certain application actions. Agavi applications do this by
+    specifying a routing map, which describes the URL structure of your
+    application.</p> <p>The routing mechanism can both construct and analyze
+    URLs. It is extensible and can cope with any conceivable URL
+    structure.</p> <codeblock
+    conref="../examples/examples.xml#services-example-routing-gen"
+    outputclass="php"/></section>
+
+    <section><title>Security and Validation</title> <p>Validation is Agavi's
+    way to make sure that the request data conforms to certain rules. If these
+    rules are violated, the framework would refuse to execute your code. When
+    used correctly, validation nullifies the threats of malformed data.
+    Validation rules are specified using a special XML language, allowing you
+    to codify the assumptions that your code makes.</p> <p>On the application
+    level, Agavi provides a security mechanism that understands individual
+    user permissions, allowing to specify who is allowed to access what in
+    your application. Access security is enforced on the framework level as
+    well.</p></section>
+
+    <section><title>Caching</title> <p>Agavi has a special caching facility
+    which can spare the execution of unneeded code by reusing data that's
+    already been processed. This gives a great performance boost to real world
+    applications.</p></section>
+
+    <section><title>Date and translation services</title> <p>Agavi's
+    internationalization services are designed to solve the common problems of
+    maintaining an application in many languages and locales. Agavi
+    translation services are an interface through which your application can
+    transform certain data into their local representation. Thus, Agavi
+    provides strong infrastructure for development of software with fully
+    functional and utilized internationalization features.</p> <p>Agavi also
+    ships with a date manipulation library.</p></section>
   </body>
 </topic>
