@@ -7,16 +7,24 @@
   <conbody>
     <p/>
 
-    <section><title>The FPF and HTML Entities</title><p>As the FPF parsed
-    xhtml code as valid XML it does not like HTML entities such as &amp;nbsp,
-    &amp;copy and the like, so they should be avoided. The general
+    <section><title>The FPF and HTML Entities</title><p>As the FPF parses
+    xhtml code as valid XML by default it does not like HTML entities such as
+    &amp;nbsp, &amp;copy, so they should be avoided. The general
     recommendation is to serve your pages with an UTF-8 charset that
-    eliminates the need for most of those entities as they are just valid
-    chars. So instead of &amp;copy use the regular © sign. For all other
-    entities that don't have a character to display use the numeric entities -
-    instead of &amp;nbsp; use &amp;160;. Numeric entities parse just fine in
-    XML.</p><p>An alternative way would be to add all entities you use to a
-    local DTD or to use the HTML parsing mode, but those have their own
-    drawbacks.</p></section>
+    eliminates the need for most of those entities as they can be represented
+    by regular chars. So instead of &amp;copy use the regular © sign. For all
+    other entities that don't have a character to display use the numeric
+    entities - instead of &amp;nbsp; use &amp;160;. Numeric entities parse
+    just fine in XML.</p><p>An alternative way would be to add all entities
+    you use to a local DTD or to use the HTML parsing mode, but those have
+    their own drawbacks.</p></section>
+
+    <section><title>Advantages</title><p>Because the FPF evaluates the
+    resulting HTML code, it is independent from any template engine you might
+    want to use and works with all of them. Using the FPF to prefill and
+    refill the form data also makes your application immune to XSS injection
+    attacks in forms as the FPF handles all escaping. However, other XSS
+    injection attacks might still be possible - for example when you display
+    user-provided data at any other place.</p></section>
   </conbody>
 </concept>

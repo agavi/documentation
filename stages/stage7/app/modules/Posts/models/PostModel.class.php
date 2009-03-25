@@ -5,9 +5,22 @@ class Posts_PostModel extends BlogPostsBaseModel
 	private $id;
 	private $title;
 	private $posted;
+	private $categoryId;
 	private $categoryName;
+	private $authorId;
 	private $authorName;
 	private $content;
+	
+	protected $fields = array(
+		'id' => 'Id',
+		'title' => 'Title',
+		'posted' => 'Posted',
+		'category_id' => 'CategoryId',
+		'category_name' => 'CategoryName',
+		'author_id' => 'AuthorId',
+		'author_name' => 'AuthorName',
+		'content' => 'Content',
+	);
 	
 	public function __construct(array $data = null)
 	{
@@ -47,6 +60,16 @@ class Posts_PostModel extends BlogPostsBaseModel
 		$this->posted = $posted;
 	}
 	
+	public function getCategoryId()
+	{
+		return $this->categoryId;
+	}
+	
+	public function setCategoryId($id)
+	{
+		$this->categoryId = $id;
+	}
+	
 	public function getCategoryName()
 	{
 		return $this->categoryName;
@@ -55,6 +78,16 @@ class Posts_PostModel extends BlogPostsBaseModel
 	public function setCategoryName($name)
 	{
 		$this->categoryName = $name;
+	}
+	
+	public function getAuthorId()
+	{
+		return $this->authorId;
+	}
+	
+	public function setAuthorId($id)
+	{
+		$this->authorId = $id;
 	}
 	
 	public function getAuthorName()
@@ -79,23 +112,22 @@ class Posts_PostModel extends BlogPostsBaseModel
 	
 	public function fromArray(array $data)
 	{
-		$this->setId($data['id']);
-		$this->setTitle($data['title']);
-		$this->setPosted($data['posted']);
-		$this->setCategoryName($data['category_name']);
-		$this->setAuthorName($data['author_name']);
-		$this->setContent($data['content']);
+		foreach($data as $key => $value) {
+			if(isset($this->fields[$key])) {
+				$setter = 'set' . $this->fields[$key];
+				$this->$setter($value);
+			}
+		}
 	}
 	
 	public function toArray()
 	{
 		$data = array();
-		$data['id'] = $this->getId();
-		$data['title'] = $this->getTitle();
-		$data['posted'] = $this->getPosted();
-		$data['category_name'] = $this->getCategoryName();
-		$data['author_name'] = $this->getAuthorName();
-		$data['content'] = $this->getContent();
+
+		foreach($this->fields as $key => $getter) {
+			$getter = 'get'.$getter;
+			$data[$key] = $this->$getter();
+		}
 		
 		return $data;
 	}

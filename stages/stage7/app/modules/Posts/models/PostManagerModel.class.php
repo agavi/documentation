@@ -59,6 +59,40 @@ LIMIT ?';
 		return $posts;
 	}
 	
+	public function storeNew(Posts_PostModel $post)
+	{
+		$con = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+		
+		$sql = 'INSERT INTO
+	posts
+(
+	title,
+	category_id,
+	content,
+	posted,
+	author_id
+)
+VALUES
+(
+	?,
+	?,
+	?,
+	NOW(),
+	?
+)';
+
+		$stmt = $con->prepare($sql);
+		
+		$stmt->bindValue(1, $post->getTitle(), PDO::PARAM_STR);
+		$stmt->bindValue(2, $post->getCategoryId(), PDO::PARAM_INT);
+		$stmt->bindValue(3, $post->getContent(), PDO::PARAM_STR);
+		$stmt->bindValue(4, $post->getAuthorId(), PDO::PARAM_INT);
+		
+		$stmt->execute();
+		
+		return $con->lastInsertId();
+	}
+	
 }
 
 ?>
