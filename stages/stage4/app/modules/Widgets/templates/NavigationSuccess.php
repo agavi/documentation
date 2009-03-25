@@ -9,7 +9,7 @@
 			<li><a href="empty_page.html">Empty Page</a></li>
 		</ul>
 
-		<div class="clearer">&nbsp;</div>
+		<div class="clearer">&#160;</div>
 
 	</div>
 </div>

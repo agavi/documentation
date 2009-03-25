@@ -59,7 +59,7 @@
 					<a href="#" class="thumb"><img src="sample-thumbnail.jpg" width="75" height="75" alt="" /></a>
 					<a href="#" class="thumb"><img src="sample-thumbnail.jpg" width="75" height="75" alt="" /></a>
 
-					<div class="clearer">&nbsp;</div>
+					<div class="clearer">&#160;</div>
 
 				</div>
 

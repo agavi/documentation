@@ -26,7 +26,7 @@
 
 				<?php echo $slots['sidebar']; ?>
 
-				<div class="clearer">&nbsp;</div>
+				<div class="clearer">&#160;;</div>
 
 			</div>
 		</div>
