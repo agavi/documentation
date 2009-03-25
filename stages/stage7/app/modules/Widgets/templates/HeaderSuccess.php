@@ -6,7 +6,7 @@
 				<a href="#">Sitemap</a> | <a href="#">Privacy Policy</a> | <a href="#">FAQ</a>
 			</div>
 		</div>
-		<div class="clearer">&nbsp;</div>
+		<div class="clearer">&#160;</div>
 
 		<div id="site_title">
 			<h1><a href="#">Bloggie</a></h1>
