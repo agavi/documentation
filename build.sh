@@ -26,25 +26,26 @@ ant -Ddita.dir=$DITA_DIR -Dproject.dir=$PROJ_DIR -f $PROJ_DIR/build/agavitutoria
 # Go over the html files and cut off the doctype crap, dita XSLT processor ignores standalone attributes
 
 cd $PROJ_DIR
-for i in `find html-out -name '*.html'` ; do echo Postprocessing $i ; tail -n+3 $i > /tmp/foo ; cp $TEMP_DIR/foo $i ; done
-rm $TEMP_DIR/foo
+for i in `find html-out/topics -name '*.html'` ; do echo Postprocessing $i ; sed -i '.bak' -e '1,/^$/ d' -e '/<br id="endmain"/,$ d'  -e's|src="\.\./images|src="images/tutorial|g' $i ; done
 
 # Flatten TOC links & cut out HTML structure
 
 lines=`wc -l html-out/index.html | awk '{print $1}' `
-start=`expr $lines - 2`
+start=`expr $lines`
 
 echo '<ol class="thirdlevel left">' > html-out/toc.html
-sed -e '1,5 d' \
+sed -e '1,7 d' \
     -e "$start,$ d" \
     -e 's|href="topics/tutorial|href="documentation/tutorial|g' \
     -e 's|href="topics/concepts|href="documentation/tutorial|g' \
+    -e 's|href="topics/reference|href="documentation/tutorial|g' \
     -e 's|<ul>|<ol>|g' \
     -e 's|</ul>|</ol>|g' \
     html-out/index.html  >> html-out/toc.html
     
 # Correct the image links
-find html-out -name '*.html' -exec sed -i -e 's|src="\.\./images|src="images/tutorial|g' {} \;
+find html-out -name '*.html' -exec sed -i '.bak' -e 's|src="\.\./images|src="images/tutorial|g' {} \;
+find html-out -name '*.bak' -delete
 
 # Copy javascript
 
@@ -65,7 +66,8 @@ cd $PROJ_DIR/stages
 
 for i in *
 do
-    tar czf $PROJ_DIR/html-out/stages/$i.tgz $i
+    echo "Building Stage app " $i
+    #tar czf $PROJ_DIR/html-out/stages/$i.tgz $i
 done
 
 cd $PROJ_DIR
