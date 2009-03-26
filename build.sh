@@ -67,7 +67,7 @@ cd $PROJ_DIR/stages
 for i in *
 do
     echo "Building Stage app " $i
-    #tar czf $PROJ_DIR/html-out/stages/$i.tgz $i
+    tar czf $PROJ_DIR/html-out/stages/$i.tgz $i
 done
 
 cd $PROJ_DIR
