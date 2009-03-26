@@ -26,7 +26,7 @@ ant -Ddita.dir=$DITA_DIR -Dproject.dir=$PROJ_DIR -f $PROJ_DIR/build/agavitutoria
 # Go over the html files and cut off the doctype crap, dita XSLT processor ignores standalone attributes
 
 cd $PROJ_DIR
-for i in `find html-out/topics -name '*.html'` ; do echo Postprocessing $i ; sed -i '.bak' -e '1,/^$/ d' -e '/<br id="endmain"/,$ d'  -e's|src="\.\./images|src="images/tutorial|g' $i ; done
+for i in `find html-out/topics -name '*.html'` ; do echo Postprocessing $i ; sed -i '.bak' -e '1,/^$/ d' -e '/<br id="endmain"/,$ d'  -e's|src="\.\./images|src="images/tutorial|g' $i; echo '</div>' >> $i ; done
 
 # Flatten TOC links & cut out HTML structure
 
