@@ -79,40 +79,41 @@ class PostRoutingCallback extends AgaviRoutingCallback
   &lt;/ae:configurations&gt;</codeblock>
 
     <p>Now we need to pass a PostModel instead of id and title in our
-    IndexSuccessView:</p>
+    ShowSuccessView:</p>
 
     <codeblock outputclass="php">&lt;?php
 
-class Posts_IndexSuccessView extends BlogPostsBaseView
+class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 {
-  
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
     $this-&gt;setupHtml($rd);
-    $ro = $this-&gt;getContext()-&gt;getRouting();
-
-    $this-&gt;setAttribute('_title', 'Latest Posts');
     
+    $p = $this-&gt;getAttribute('post');
+    $post = $p-&gt;toArray();
+    $post['url'] = $this-&gt;getContext()-&gt;getRouting()-&gt;gen('posts.post.show', array('post' =&gt; $p));
     
-    $posts = array();
+    $this-&gt;setAttribute('post', $post);
     
-    foreach($this-&gt;getAttribute('posts') as $p)
-    {
-      $post = $p-&gt;toArray();
-      $post['url'] = $ro-&gt;gen(
-        'posts.post.show', 
-        array(
-          'post' =&gt; $p
-        )
-      );
-      
-      $posts[] = $post;
+    $isList = $this-&gt;getContainer()-&gt;getParameter('is_slot', false);
+    
+    if($isList) {
+      $headlineSize = 2;
+      $linkHeadline = true;
+      $displayComments = false;
+    } else {
+      $headlineSize = 1;
+      $linkHeadline = false;
+      $displayComments = true;
     }
     
-    $this-&gt;setAttribute('posts', $posts);
+    $this-&gt;setAttribute('headline_size', $headlineSize);
+    $this-&gt;setAttribute('link_headline', $linkHeadline);
+    $this-&gt;setAttribute('display_comments', $displayComments);
+    
+    $this-&gt;setAttribute('_title', $post['title']);
   }
 }
-
 ?&gt;</codeblock>
 
     <p>and that's it. Now the no part of the application itself needs to know
