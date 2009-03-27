@@ -15,14 +15,16 @@
     you prefer Propel over Doctrine, are in love with Zend_DB or
     ez_components, Agavi provides an appropriate adapter. If your poison of
     choice is something that agavi does not know about yet then it's easy to
-    provide an adapter. </p>
+    provide an adapter.</p>
 
     <p>For sake of simplicity we'll be using plain PDO and handwritten SQL to
     connect to a database though in a serious project we'd be using a serious
     ORM.</p>
 
     <p>The data files and schema description required for this step are
-    located in the <filepath>dev/sql</filepath> directory of the stage5
+    located in the <filepath>dev/sql</filepath> directory of the <xref
+    format="html"
+    href="http://www.agavi.org/guide/stages/stage5.tgz">http://www.agavi.org/guide/stages/stage6.tgz</xref>
     app.</p>
   </body>
 </topic>

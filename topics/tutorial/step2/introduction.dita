@@ -10,6 +10,8 @@
     detail page. You will learn to create new Actions and Modules and how to
     use routing and template variables. You'll also learn how to retrive and
     validate request parameters. The resulting application is also available
-    as stage2 tarball.</p>
+    as <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage2.tgz">http://www.agavi.org/guide/stages/stage2.tgz</xref>
+    tarball.</p>
   </body>
 </topic>

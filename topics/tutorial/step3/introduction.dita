@@ -27,5 +27,8 @@
     exchange the PostManager for a mock implementation in testing contexts.
     That way it's possible to have tests run even without a database
     dependency.</p>
+
+    <p>The result of this chapter is available at <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage3.tgz">http://www.agavi.org/guide/stages/stage3.tgz</xref></p>
   </body>
 </topic>

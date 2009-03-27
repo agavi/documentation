@@ -33,11 +33,19 @@
     to run in multiple contexts; most of the Web-oriented behaviors described
     can be easily generalized.</note><note>This guide is valid for Agavi
     1.0.X. Please note that beta versions and release candidates may differ in
-    some aspects.</note> </p> </section>
+    some aspects.</note> </p></section>
 
     <section><title>Prerequisites</title><p>You'll need a webserver and PHP
     &gt;= 5.2.0. The basics of setting up a webserver and installing PHP will
     not be covered in this guide, please refer to the respective
     documentations.</p></section>
+
+    <section><title>Resources and Staging apps</title><p>All resources
+    required for this tutorial can be downloaded from <xref format="html"
+    href="http://www.agavi.org/guide/resources/resources.tgz">http://www.agavi.org/guide/resources/resources.tgz</xref>
+    the staging apps can be downloaded from <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage1.tgz</xref>
+    to <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage7.tgz</xref>.</p></section>
   </body>
 </topic>

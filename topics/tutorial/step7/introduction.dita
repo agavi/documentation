@@ -14,6 +14,9 @@
     Validation must be performed, errors handled and forms pre-filled with
     values. Agavi offers multiple facilities to help form processing.</p>
 
+    <p>The result of this chapter can be downloaded at <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage7.tgz</xref></p>
+
     <section><title>Form Processing Workflow</title><p>A form should be
     processed in these steps:</p><ol>
         <li>Present the input form to the user - this is usually named "input"
