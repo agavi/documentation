@@ -48,6 +48,9 @@ done
 
 cd $PROJ_DIR
 
+echo "Building resources tarball"
+tar czf html-out/resources.tgz $PROJ_DIR/resources 
+
 rm -rf agavi-tutorial.tgz
 tar czf agavi-tutorial.tgz html-out/
 

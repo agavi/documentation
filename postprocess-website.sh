@@ -38,15 +38,18 @@ find website-out/tmp -name '*.bak' -delete
 echo "Building website template structure"
 TEMPLATES_TARGET=website-out/website/templates
 IMAGES_TARGET=website-out/website/images
-STAGES_TARGET=website-out/website/stages
+STAGES_TARGET=website-out/website/tutorial/stages
+RESOURCES_TARGET=website-out/website/tutorial/resources/
 mkdir -p $TEMPLATES_TARGET
 mkdir -p $IMAGES_TARGET
 mkdir -p $STAGES_TARGET
+mkdir -p $RESOURCES_TARGET
 mv website-out/tmp/toc.html $TEMPLATES_TARGET
 mv website-out/tmp/topics/tutorial/* $TEMPLATES_TARGET
 mv website-out/tmp/topics/reference/* $TEMPLATES_TARGET
 mv website-out/tmp/topics/images/* $IMAGES_TARGET
 mv website-out/tmp/stages/* $STAGES_TARGET
+mv website-out/tmp/resources.tgz $RESOURCES_TARGET
 
 rm -rf website-out/tmp
 
