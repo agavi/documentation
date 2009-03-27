@@ -448,7 +448,7 @@ VALUES
 
 ?&gt;</codeblock><p>Now we adapt the action to store the post - we retrieve
     the post from the database after storing it to get the default values
-    added by the database itself. </p><codeblock>&lt;?php
+    added by the database itself. </p><codeblock outputclass="php">&lt;?php
 
 class Posts_AddAction extends BlogPostsBaseAction
 {
