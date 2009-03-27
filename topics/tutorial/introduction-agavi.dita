@@ -3,7 +3,10 @@
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="introduction-to-agavi">
   <title>About Agavi</title>
+
   <body>
-  <section conref="../reference/about-agavi.dita#agavi-at-glance"/>
+    <p/>
+
+    <section conref="../reference/about-agavi.dita#agavi-at-glance"/>
   </body>
 </topic>
