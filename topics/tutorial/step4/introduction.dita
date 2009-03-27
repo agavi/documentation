@@ -27,8 +27,8 @@
 
     <p>We'll be using the open source Emplode template by Arcsin, which can be
     obtained from the <filepath>resources/template/</filepath> directory of
-    this tutorial or from
-    http://templates.arcsin.se/emplode-website-template/. The result of this
-    chapter is the stage4 application.</p>
+    this tutorial or from <xref format="html"
+    href="http://templates.arcsin.se/emplode-website-template/">http://templates.arcsin.se/emplode-website-template/</xref>.
+    The result of this chapter is the stage4 application.</p>
   </body>
 </topic>
