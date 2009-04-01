@@ -136,7 +136,7 @@
           is used to parse the document, otherwise <xref format="html"
           href="http://www.php.net/manual/en/domdocument.loadhtml.php"><apiname>DomDocument::loadHtml()</apiname></xref>.
           XML parsing mode offers major advantages in character encoding
-          handling. Defaults to true. </dd>
+          handling. Defaults to true.</dd>
         </dlentry>
 
         <dlentry>
@@ -313,7 +313,73 @@
     'orphaned_errors' in the namespace
     'org.agavi.filter.FormPopulationFilter'.</p></section>
 
-    <section><title>XML-Configuration</title><p/></section>
+    <section><title>XML-Configuration</title><p>The defaults for the FPF
+    configuration are set in the
+    <filepath>app/config/global_filters.xml</filepath>:</p><codeblock>&lt;filter name="FormPopulationFilter" class="AgaviFormPopulationFilter"&gt;
+  
+  &lt;!-- only run for request method "write" (=POST on web) by default (can be changed at runtime, of course) --&gt;
+  &lt;!-- if you omit this, it will never run --&gt;
+  &lt;ae:parameter name="methods"&gt;
+    &lt;ae:parameter&gt;write&lt;/ae:parameter&gt;
+  &lt;/ae:parameter&gt;
+  
+  &lt;!-- only run for output type "html" (so it doesn't break on, say, JSON data) --&gt;
+  &lt;!-- if you omit this, it will run for all output types --&gt;
+  &lt;ae:parameter name="output_types"&gt;
+    &lt;ae:parameter&gt;html&lt;/ae:parameter&gt;
+  &lt;/ae:parameter&gt;
+  
+  &lt;!-- error message insertion rules --&gt;
+  &lt;!-- they are run in sequence; once the first one matched, execution stops --&gt;
+  &lt;!--
+    errors that belong to more than one field (e.g. date validator) can be handled using "multi_field_error_messages"
+    "normal" errors are handled through "field_error_messages"
+    errors that yield no match and those that have no corresponding field are inserted using rules defined in "error_messages".
+  --&gt;
+  
+  &lt;!--
+    for all field error messages.
+  --&gt;
+  &lt;ae:parameter name="field_error_messages"&gt;
+    &lt;!-- ${htmlnsPrefix} is either empty (for HTML) or something like "html:" for XHTML documents with xmlns="..." notation. Always use this, makes your code more bullet proof. XPath needs the namespaces when the document is namespaced --&gt;
+    
+    &lt;!-- all input fields that are not checkboxes or radios, and all textareas --&gt;
+    &lt;ae:parameter name="self::${htmlnsPrefix}input[not(@type='checkbox' or @type='radio')] | self::${htmlnsPrefix}textarea"&gt;
+      &lt;!-- if this rule matched, then the node found by the rule is our starting point for inserting the error message(s). --&gt;
+      
+      &lt;!-- can be any of "before", "after" or "child" (to insert as prev, next sibling or last child) --&gt;
+      &lt;ae:parameter name="location"&gt;after&lt;/ae:parameter&gt;
+      &lt;!-- a container groups all errors for one element. ${errorMessages} is a string containing all errors (see below) --&gt;
+      &lt;ae:parameter name="container"&gt;&lt;![CDATA[&lt;div class="errors"&gt;${errorMessages}&lt;/div&gt;]]&gt;&lt;/ae:parameter&gt;
+      &lt;!-- this defines the HTML for each individual error message; those are then put into the container. ${errorMessage} is the error message string --&gt;
+      &lt;ae:parameter name="markup"&gt;&lt;![CDATA[&lt;p class="error"&gt;${errorMessage}&lt;/p&gt;]]&gt;&lt;/ae:parameter&gt;
+    &lt;/ae:parameter&gt;
+    
+    &lt;!-- all other inputs - note how we select the parent element and insert ourselves as last child of it --&gt;
+    &lt;ae:parameter name="parent::*"&gt;
+      &lt;ae:parameter name="location"&gt;child&lt;/ae:parameter&gt;
+      &lt;ae:parameter name="container"&gt;&lt;![CDATA[&lt;div class="errors"&gt;${errorMessages}&lt;/div&gt;]]&gt;&lt;/ae:parameter&gt;
+      &lt;ae:parameter name="markup"&gt;&lt;![CDATA[&lt;p class="error"&gt;${errorMessage}&lt;/p&gt;]]&gt;&lt;/ae:parameter&gt;
+    &lt;/ae:parameter&gt;
+  &lt;/ae:parameter&gt;
+  
+  &lt;!--
+  &lt;ae:parameter name="multi_field_error_messages"&gt;
+  &lt;/ae:parameter&gt;
+  --&gt;
+  
+  &lt;!-- everything that did not match any of the rules above, or errors that do not belong to a field --&gt;
+  &lt;ae:parameter name="error_messages"&gt;
+    &lt;!-- insert before the element --&gt;
+    &lt;!-- that can be an input, or a form, if the error does not belong to a field or didn't match anywhere else --&gt;
+    &lt;ae:parameter name="self::*"&gt;
+      &lt;ae:parameter name="location"&gt;before&lt;/ae:parameter&gt;
+      &lt;!-- no container here! we just insert paragraph elements --&gt;
+      &lt;ae:parameter name="markup"&gt;&lt;![CDATA[&lt;p class="error"&gt;${errorMessage}&lt;/p&gt;]]&gt;&lt;/ae:parameter&gt;
+    &lt;/ae:parameter&gt;
+  &lt;/ae:parameter&gt;
+  
+&lt;/filter&gt;</codeblock></section>
 
     <section><title>Runtime Configuration</title><p/></section>
 

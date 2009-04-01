@@ -102,8 +102,8 @@ class Posts_PostValidator extends AgaviValidator
 ?&gt;</codeblock>
 
     <p>Now we need to make the class known to the framework. This is most
-    easily done by adding it to the autoloader config you'll find in
-    <filepath>app/modules/Posts/config/autoload.xml</filepath>. Add the
+    easily done by adding it to the Post modules autoloader config you'll find
+    in <filepath>app/modules/Posts/config/autoload.xml</filepath>. Add the
     following line to the end of the autoload definitions:</p>
 
     <codeblock outputclass="xml">
