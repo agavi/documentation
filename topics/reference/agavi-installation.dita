@@ -91,8 +91,8 @@ $ <userinput>pear install -a agavi/agavi</userinput>
     from the Agavi website, unpack it somewhere and move the contents of the
     <filepath>src</filepath> folder to a location of your choice. Make sure to
     adjust PHP's include path to cover this location. Don't forget to copy
-    <filepath>etc/agavi-dist</filepath> or
-    <filepath>etc/agavi.bat-dist</filepath> script to an
+    <filepath>bin/agavi-dist</filepath> or
+    <filepath>bin/agavi.bat-dist</filepath> script to an
     <filepath>agavi</filepath> or <filepath>agavi.bat</filepath> executable
     into a convenient location so you can use the shell commands for creating
     projects, modules, actions etc. Keep in mind that you must edit the script
