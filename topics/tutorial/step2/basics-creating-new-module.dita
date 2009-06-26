@@ -96,8 +96,12 @@
     namespace will be available in the template later on. We want to serve the
     index page on Read (GET) requests so we define the
     <apiname>Posts_IndexAction::executeRead() </apiname>as follows - remember
-    that all data retrieval should be done in the action: <codeblock
-    outputclass="php">
+    that all data retrieval should be done in the action: <note
+    type="remember">The
+    <apiname>Posts_IndexAction::executeRead()</apiname>method is called any
+    time a Read request is mapped to this action. Please refer to <xref
+    href="../a-word-about-actions.dita">chapter 1</xref> for a more detailed
+    explanation.</note><codeblock outputclass="php">
 
   public function executeRead(AgaviRequestDataHolder $rd)
   {
@@ -124,9 +128,9 @@
     $this-&gt;setAttribute('posts', $posts);
 
     return 'Success';
-  }</codeblock> And while we're at it - why don't we change the title a little.
-    Have you noted the line in the Posts_IndexSuccessView saying<codeblock
-    outputclass="php">
+  }</codeblock> And while we're at it - why don't we change the title a
+    little. Have you noted the line in the Posts_IndexSuccessView
+    saying<codeblock outputclass="php">
 
   $this-&gt;setAttribute('_title', 'Index');
 
