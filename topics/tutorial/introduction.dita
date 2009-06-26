@@ -31,8 +31,8 @@
     on building a Web application, it will often refer to Agavi features
     specifically within a Web context. However, Agavi is designed to be able
     to run in multiple contexts; most of the Web-oriented behaviors described
-    can be easily generalized.</note><note>This guide is valid for Agavi
-    1.0.X. Please note that beta versions and release candidates may differ in
+    can be easily generalized.</note><note>This guide is valid for Agavi &gt;=
+    1.0.1. Please note that beta versions and release candidates may differ in
     some aspects.</note> </p></section>
 
     <section><title>Prerequisites</title><p>You'll need a webserver and PHP
