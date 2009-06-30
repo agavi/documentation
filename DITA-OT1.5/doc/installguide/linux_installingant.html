@@ -1,0 +1,96 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="DC.Type" content="task">
+<meta name="DC.Title" content="Installing Ant on Linux">
+<meta name="DC.subject" content="installing DITA Open Toolkit, Ant, installing on Linux, ANT_HOME, ANT_OPTS, ANT_HOME environment variable, ANT_OPTS environment variable">
+<meta name="keywords" content="installing DITA Open Toolkit, Ant, installing on Linux, ANT_HOME, ANT_OPTS, ANT_HOME environment variable, ANT_OPTS environment variable">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="prodname" content="DITA Open Toolkit">
+<meta name="version" content="1.4.1">
+<meta name="DC.Creator" content="Jen Linton">
+<meta name="DC.Creator" content="JoAnn Hackos">
+<meta name="DC.Creator" content="Kylene Bruski">
+<meta name="DC.Contributor" content="Anna van Raaphorst">
+<meta name="DC.Contributor" content="Richard Johnson">
+<meta name="DC.Contributor" content="Youyi Zhou">
+<meta name="DC.Publisher" content="OASIS (Organization for the Advancement of Structured Information Standards)">
+<meta name="copyright" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Rights.Owner" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Date.Created" content="2005-November-01">
+<meta name="DC.Date.Modified" content="2007-April-09">
+<meta name="DC.Date.Modified" content="2009-March-16">
+<meta name="DC.Format" content="XHTML">
+<meta name="DC.Identifier" content="linux_installingant">
+<meta name="DC.Language" content="en-us">
+<link rel="stylesheet" type="text/css" href="commonltr.css">
+<title>Installing Ant on Linux</title>
+</head>
+<body id="linux_installingant"><a name="linux_installingant"><!-- --></a>
+
+
+	<h1 class="topictitle1">Installing Ant on Linux</h1>
+
+	
+	<div>
+		<ol>
+			<li>
+				<span>Enter the URL: <a href="http://ant.apache.org/bindownload.cgi" target="_blank">http://ant.apache.org/bindownload.cgi</a>.
+				</span>
+			</li>
+
+			<li>
+				<span>On the Apache Ant Project page, find the heading 
+          <span class="uicontrol">Current Release of Ant</span>.
+				</span>
+			</li>
+
+			<li>
+				<span>Select <span class="uicontrol">apache-ant-1.7.1-bin.tar.gz [PGP] [SHA1] 
+          [MD5]</span>.
+				</span>
+			</li>
+
+			<li>
+				<span>Save and extract the package file into a Linux home 
+          directory.</span>
+			</li>
+
+			<li>
+				<span>Set the <var class="varname">ANT_OPTS</var> environment variable: 
+          
+								<samp class="codeph">export ANT_OPTS="-Xmx256M"</samp>
+				</span>
+			</li>
+
+			<li>
+				<span>Set the <var class="varname">ANT_HOME</var> environment variable 
+              to the directory where you installed Ant:
+          
+								<samp class="codeph">export ANT_HOME=${ant_dir}</samp>
+				</span>
+			</li>
+
+			<li>
+				<span>
+					Set the <var class="varname">PATH</var> environment variable to include the directory where you installed the Ant bin directory:
+					
+            								<samp class="codeph">export PATH=${ANT_HOME}/bin:${JAVA_HOME}/bin:${PATH}</samp>
+				</span>
+			</li>
+
+		</ol>
+
+	</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="linux_installing.html">Installing the small package on Linux</a></div>
+</div>
+</div>
+
+</body>
+</html>

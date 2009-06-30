@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?workdir /Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/temp/concepts?>
+<?path2project ../?>
+<concept id="wheelbarrow" xml:lang="en-us" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" ditaarch:DITAArchVersion="1.2" domains="(topic concept)                            (topic hi-d)                             (topic ut-d)                             (topic indexing-d)                            (topic hazard-d)                            (topic abbrev-d)                            (topic pr-d)                             (topic sw-d)                            (topic ui-d)    " class="- topic/topic concept/concept " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/wheelbarrow.xml" xtrc="concept:1">
+<title class="- topic/title " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/wheelbarrow.xml" xtrc="title:1">Wheel barrow</title>
+<conbody class="- topic/body  concept/conbody " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/wheelbarrow.xml" xtrc="conbody:1"><p class="- topic/p " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/wheelbarrow.xml" xtrc="p:1">A good wheel barrow will save your back from extensive trauma when you 
+garden.</p>
+</conbody>
+</concept>

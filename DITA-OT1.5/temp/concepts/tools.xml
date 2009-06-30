@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?workdir /Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/temp/concepts?>
+<?path2project ../?>
+<concept id="toolsconcept" xml:lang="en-us" xmlns:ditaarch="http://dita.oasis-open.org/architecture/2005/" ditaarch:DITAArchVersion="1.2" domains="(topic concept)                            (topic hi-d)                             (topic ut-d)                             (topic indexing-d)                            (topic hazard-d)                            (topic abbrev-d)                            (topic pr-d)                             (topic sw-d)                            (topic ui-d)    " class="- topic/topic concept/concept " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="concept:1">
+<title class="- topic/title " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="title:1">Tools</title>
+<conbody class="- topic/body  concept/conbody " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="conbody:1"><p class="- topic/p " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="p:1">Invest in a good set of tools for doing all kinds of tasks around the house. 
+Useful tools include the following items:</p>
+<ul class="- topic/ul " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="ul:1">
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:1">Hammer</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:2">Screw driver set</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:3">Wrench set</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:4">Nails and screws</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:5">Level</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:6">Saws</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:7">Drill</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:8">Air pressure guage</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:9">Spade</li>
+  <li class="- topic/li " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="li:10">Rake</li>
+</ul><p class="- topic/p " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="p:2">Keep your tools organized in a tool box.</p></conbody>
+<related-links class="- topic/related-links " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="related-links:1">
+<link href="toolbox.xml" format="dita" type="concept" class="- topic/link " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="link:1"><linktext class="- topic/linktext " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="linktext:1">Tool box</linktext></link>
+<link href="../tasks/organizing.xml" format="dita" type="task" class="- topic/link " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="link:2"><linktext class="- topic/linktext " xtrf="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/DITA-OT1.5/samples/concepts/tools.xml" xtrc="linktext:2">Organizing the workbench and tools</linktext></link>
+</related-links>
+</concept>
