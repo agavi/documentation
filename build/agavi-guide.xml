@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!-- (c) Copyright 2009 the agavi project. --> 
+<!-- Ant script for the agavi guide --> 
+<!-- Depending on the argument passed to the script at runtime, 
+this script processed to one (example: dita2xhtml), multiple, or all output targets. --> 
+
+<!-- This is a "user script," meant to be modified. 
+However, be cautious in modifying the environment initialization section. --> 
+<!-- --> 
+<!-- ENVIRONMENT INITIALIZATION SECTION --> 
+<!-- --> 
+<!-- The project name is agavi guide.The default output target is xhtml. --> 
+<project name="guide" default="xhtml"> 
+
+	<echo> </echo> 
+	<echo>Building the agavi guide. Please stand by...</echo> 
+	<echo> </echo> 
+
+	<!-- Allow the build process access to environment variables --> 
+	<property environment="env"/> 
+	<!-- Set toolkit directory from environment variable --> 
+	<property name="toolkit_dir" value="${env.DITA_DIR}"/> 
+
+	<import file="${toolkit_dir}${file.separator}build_dita2xhtml.xml"></import>
+	
+	<!-- Note: basedir may be set in a higher-level script that invokes this one. 
+	Some plug-ins depend on its pointing to the Toolkit directory. 
+	In particular, the Idiom plug-in, which is required for PDF2 processing, requires it. --> 
+	<property name="basedir" value="${env.DITA_DIR}"/> 
+
+	<!-- Define the location of the project (source file) directory. 
+	In this case, the project directory is up one directory level from the location of this file. --> 
+	<property name="projdir" value="."/> 
+
+	<!-- Define the location of the output directory. 
+	 In this case, it is a directory directly above the project (source file) directory. --> 
+	<property name="outdir" value="${projdir}/output"/>
+	<property name="args.logdir" value="${outdir}"/> 
+
+	<!-- Set the name of the (master) ditamap --> 
+	<!-- --> 
+	<!-- To process using a different map, you need to change the following value --> 
+	<!-- --> 
+	<property name="MAP_file" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/tutorial.ditamap"/> 
+
+	<!-- Set the extension string for the dita files (files can also be .xml) --> 
+	<property name="EXTNAME" value=".dita"/> 
+
+	<!-- Define the path to the Java code --> 
+	<path id="dost.class.path"> 
+		<pathelement location="${toolkit_dir}${file.separator}lib${file.separator}dost.jar"/> 
+	</path>
+ 
+	<echo> </echo> 
+	<echo>${toolkit_dir}${file.separator}lib${file.separator}dost.jar</echo> 
+	<echo> </echo>
+	
+	<!-- Define the Ant targets and initialize the DITA processing environment --> 
+	<taskdef name="integrate" classname="org.dita.dost.platform.IntegratorTask"> 
+		<classpath refid="dost.class.path"/> 
+	</taskdef> 
+
+	<!-- Create the default XHTML output and debug cross-reference --> 
+	<target name="xhtml" depends="integrate, dita2xhtml"> 
+	</target> 
+
+	<target name="pdf" depends="integrate, dita2pdf2"> 
+	</target>
+
+	<target name="integrate"> 
+		<integrate ditadir="${toolkit_dir}"/> 
+	</target>
+	
+
+	<!-- --> 
+	<!-- BEGIN INSTANCE PROCESSING SECTION --> 
+	<!-- --> 
+	<!-- Names of the output types this script is capable of producing --> 
+	<!-- The target names are somewhat arbitrary.The following are traditional, 
+	and they allude to the source and target (for example, dita2xhtml). --> 
+	<!-- JavaHelp and PDF (using FOP) are not included in this list, because they don't work in Toolkit 1.3.1! --> 
+
+	<target name="alltargets" depends="integrate, dita2xhtml, dita2htmlhelp, dita2pdf2, dita2eclipsecontent, dita2eclipsehelp"> 
+	</target> 
+
+	<!-- Handy abbreviation (all) for alltargets --> 
+	<target name="all" depends="alltargets"/> 
+
+	<!-- Create xhtml output (unfiltered) --> 
+	<target name="dita2xhtml"> 
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/xhtml"/> 
+			<property name="dita.temp.dir" value="${outdir}/temp"/> 
+			<property name="transtype" value="xhtml"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/>
+			<property name="args.xsl" value="${toolkit_dir}${file.separator}xsl${file.separator}dita2xhtml_custom.xsl" />
+			<property name="args.hdf" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/head.tpl" />
+			<property name="args.hdr" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/header.tpl" />
+			<property name="args.ftr" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/footer.tpl" />
+			<property name="dita.extname" value="${EXTNAME}"/>
+			<property name="args.xhtml.toc.class" value="toc" />
+			<property name="args.xhtml.toc.xsl" value="${dita.script.dir}${file.separator}map2xhtmtoc_custom.xsl" />
+		</ant>
+	</target> 
+
+
+	<!-- Create htmlhelp output -->
+	<target name="dita2htmlhelp">
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${projdir}/${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/htmlhelp"/> 
+			<property name="dita.temp.dir" value="${outdir}/temp"/> 
+			<property name="transtype" value="htmlhelp"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/> 
+			<property name="dita.extname" value="${EXTNAME}"/> 
+		</ant> 
+	</target>
+
+	<!-- Create idiom fo pdf2 output --> 
+	<target name="dita2pdf2">
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/pdf2"/> 
+			<property name="dita.temp.dir" value="${outdir}/temp"/> 
+			<property name="transtype" value="pdf2"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/> 
+			<property name="dita.extname" value="${EXTNAME}"/> 
+		</ant>
+	</target>
+
+	<!-- Create eclipsecontent output --> 
+	<target name="dita2eclipsecontent"> 
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${projdir}/${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/hierarchy/eclipsecontent"/> 
+			<property name="dita.temp.dir" value="${outdir}/hierarchy/temp"/> 
+			<property name="transtype" value="eclipsecontent"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/> 
+			<property name="dita.extname" value="${EXTNAME}"/> 
+		</ant> 
+	</target> 
+	<!-- Create eclipsehelp output --> 
+	<target name="dita2eclipsehelp"> 
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${projdir}/${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/hierarchy/eclipsehelp"/> 
+			<property name="dita.temp.dir" value="${outdir}/hierarchy/temp"/> 
+			<property name="transtype" value="eclipsehelp"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/> 
+			<property name="dita.extname" value="${EXTNAME}"/> 
+		</ant> 
+	</target>
+	<!-- Create wordrtf output --> 
+	<target name="dita2wordrtf"> 
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${projdir}/${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/hierarchy/wordrtf"/> 
+			<property name="dita.temp.dir" value="${outdir}/hierarchy/temp"/> 
+			<property name="transtype" value="wordrtf"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/> 
+			<property name="dita.extname" value="${EXTNAME}"/> 
+		</ant> 
+	</target> 
+</project> 
