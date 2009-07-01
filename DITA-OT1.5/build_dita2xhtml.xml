@@ -29,6 +29,12 @@
                 <isset property="args.xhtml.toc" />
             </not>
         </condition>
+        <condition property="args.xhtml.toc.xsl" value="${dita.script.dir}${file.separator}map2xhtmtoc.xsl">
+            <not>
+                <isset property="args.xhtml.toc.xsl" />
+            </not>
+        </condition>
+
     </target>
     
 
@@ -41,7 +47,7 @@
               destdir="${output.dir}"
               includesfile="${dita.temp.dir}${file.separator}${user.input.file.listfile}"
               classpathref="dost.class.path"
-              style="${dita.script.dir}${file.separator}map2xhtmtoc.xsl">
+              style="${args.xhtml.toc.xsl}">
         	<excludesfile name="${dita.temp.dir}${file.separator}${resourceonlyfile}" if="resourceonlyfile"/>
             <param name="DITAEXT" expression="${dita.ext}" if="dita.ext" />
             <param name="OUTEXT" expression="${out.ext}" if="out.ext" />
@@ -64,7 +70,7 @@
               destdir="${output.dir}"
               includesfile="${dita.temp.dir}${file.separator}${user.input.file.listfile}"
               classpathref="dost.class.path"
-              style="${dita.script.dir}${file.separator}map2xhtmtoc.xsl">
+              style="${args.xhtml.toc.xsl}">
         	<excludesfile name="${dita.temp.dir}${file.separator}${resourceonlyfile}" if="resourceonlyfile"/>
             <param name="DITAEXT" expression="${dita.ext}" if="dita.ext" />
             <param name="OUTEXT" expression="${out.ext}" if="out.ext" />
