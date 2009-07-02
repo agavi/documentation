@@ -35,8 +35,10 @@
 <!-- Include standard toc template -->
 <xsl:import href="map2htmtoc.xsl"/>
 
-<xsl:output method="html" encoding="UTF-8"
-	indent="yes"/>
+<xsl:output method="xml" encoding="UTF-8"
+	indent="yes"
+	omit-xml-declaration="yes"
+	/>
 	
 
 <!-- *********************************************************************************
