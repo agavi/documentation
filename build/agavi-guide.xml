@@ -30,7 +30,7 @@ However, be cautious in modifying the environment initialization section. -->
 
 	<!-- Define the location of the project (source file) directory. 
 	In this case, the project directory is up one directory level from the location of this file. --> 
-	<property name="projdir" value="."/> 
+	<property name="projdir" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/"/> 
 
 	<!-- Define the location of the output directory. 
 	 In this case, it is a directory directly above the project (source file) directory. --> 
@@ -41,7 +41,7 @@ However, be cautious in modifying the environment initialization section. -->
 	<!-- --> 
 	<!-- To process using a different map, you need to change the following value --> 
 	<!-- --> 
-	<property name="MAP_file" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/tutorial.ditamap"/> 
+	<property name="MAP_file" value="${projdir}/tutorial.ditamap"/> 
 
 	<!-- Set the extension string for the dita files (files can also be .xml) --> 
 	<property name="EXTNAME" value=".dita"/> 
@@ -61,9 +61,12 @@ However, be cautious in modifying the environment initialization section. -->
 	</taskdef> 
 
 	<!-- Create the default XHTML output and debug cross-reference --> 
-	<target name="xhtml" depends="integrate, dita2xhtml"> 
+	<target name="xhtml" depends="integrate, create-xhtml-file-structure"> 
 	</target> 
 
+	<target name="website" depends="integrate, create-website-structure">
+	</target>
+	
 	<target name="pdf" depends="integrate, dita2pdf2"> 
 	</target>
 
@@ -71,6 +74,13 @@ However, be cautious in modifying the environment initialization section. -->
 		<integrate ditadir="${toolkit_dir}"/> 
 	</target>
 	
+	<target name="init">
+		<property name="project" value="irv" />
+		<tstamp/>
+		<property name="now" value="${DSTAMP}-${TSTAMP}" />
+		<property name="tarball.tar" value="${project}-${now}.tar" />  
+		<property name="tarball.tar.gz" value="${tarball.tar}.gz" />
+	</target>
 
 	<!-- --> 
 	<!-- BEGIN INSTANCE PROCESSING SECTION --> 
@@ -95,16 +105,32 @@ However, be cautious in modifying the environment initialization section. -->
 			<property name="transtype" value="xhtml"/> 
 			<property name="args.draft" value="yes"/> 
 			<property name="args.indexshow" value="yes"/>
+			<property name="args.xhtml.toc" value="toc"/> 
 			<property name="args.xsl" value="${toolkit_dir}${file.separator}xsl${file.separator}dita2xhtml_custom.xsl" />
-			<property name="args.hdf" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/head.tpl" />
-			<property name="args.hdr" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/header.tpl" />
-			<property name="args.ftr" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/build/xhtml/footer.tpl" />
+			<property name="args.hdf" value="${projdir}/build/xhtml/head.tpl" />
+			<property name="args.hdr" value="${projdir}/build/xhtml/header.tpl" />
+			<property name="args.ftr" value="${projdir}/build/xhtml/footer.tpl" />
 			<property name="dita.extname" value="${EXTNAME}"/>
-			<property name="args.xhtml.toc.class" value="toc" />
-			<property name="args.xhtml.toc.xsl" value="${dita.script.dir}${file.separator}map2xhtmtoc_custom.xsl" />
+			<property name="args.xhtml.toc.class" value="" />
 		</ant>
-	</target> 
-
+	</target>
+	
+	<!-- Create xhtml output (unfiltered) --> 
+	<target name="dita2website"> 
+		<ant antfile="${toolkit_dir}${file.separator}conductor.xml" target="init"> 
+			<property name="args.input" value="${MAP_file}"/> 
+			<property name="output.dir" value="${outdir}/website-tmp"/> 
+			<property name="dita.temp.dir" value="${outdir}/temp"/> 
+			<property name="transtype" value="xhtml"/> 
+			<property name="args.draft" value="yes"/> 
+			<property name="args.indexshow" value="yes"/>
+			<property name="args.xhtml.toc" value="toc"/> 
+			<property name="args.xsl" value="${toolkit_dir}${file.separator}xsl${file.separator}dita2xhtml_website.xsl" />
+			<property name="dita.extname" value="${EXTNAME}"/>
+			<property name="args.xhtml.toc.class" value="thirdlevel left" />
+			<property name="args.xhtml.toc.xsl" value="${dita.script.dir}${file.separator}map2xhtmtoc_website.xsl" />
+		</ant>
+	</target>
 
 	<!-- Create htmlhelp output -->
 	<target name="dita2htmlhelp">
@@ -168,4 +194,97 @@ However, be cautious in modifying the environment initialization section. -->
 			<property name="dita.extname" value="${EXTNAME}"/> 
 		</ant> 
 	</target> 
+	
+	<target name="create-stage-tarball">
+		<tar tarfile="${outdir}/stages/${stage}.tar.gz" 
+			basedir="${projdir}/stages/${stage}"
+			excludes=".svn"
+			compression="gzip"
+			longfile="gnu" />
+	</target>
+	
+	<!-- this should probably done in a more intelligent way -->
+	<target name="create-stage-tarballs">
+		<mkdir dir="${outdir}/stages/" />
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage1"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage2"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage3"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage4"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage5"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage6"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage7"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage-serving-static-pages"/>
+		</antcall>
+	</target>
+	
+	<target name="create-resources-tarball">
+		<tar tarfile="${outdir}/resources.tar.gz" 
+			basedir="${projdir}/resources"
+			excludes=".svn"
+			compression="gzip"
+			longfile="gnu" />
+	</target>
+	
+	<target name="create-website-structure" depends="dita2website, create-stage-tarballs, create-resources-tarball">
+		<property name="website.base" value="${outdir}/website" />
+		<property name="website.templates" value="${website.base}/templates" />
+		<property name="website.stages" value="${website.base}//stages" />
+		<property name="website.images" value="${website.base}/images/" />
+		<property name="website.resources" value="${website.base}/resources" />
+		<mkdir dir="${website.templates}" />
+		<mkdir dir="${website.stages}" />
+		<mkdir dir="${website.images}" />
+		<mkdir dir="${website.resources}" />
+		
+		<copy todir="${website.templates}" overwrite="yes">
+			<fileset dir="${outdir}/website-tmp/topics/tutorial" includes="**/*.html"/>
+			<fileset dir="${outdir}/website-tmp/topics/reference" includes="**/*.html"/>
+			<!--<fileset dir="${outdir}/website-tmp/topics/concepts" includes="**/*.html"/>-->
+		</copy>
+		<copy file="${outdir}/website-tmp/toc.html" todir="${website.templates}" overwrite="yes"></copy>
+		
+		<copy todir="${website.images}" overwrite="yes">
+			<fileset dir="${outdir}/website-tmp/topics/images" includes="**/*"/>
+		</copy>
+		
+		<replaceregexp match="href=&quot;(../)*topics/(tutorial|reference|concepts)" replace="href=&quot;documentation/tutorial" flags="g" byline="true">
+		    <fileset dir="${website.templates}" includes="**/*.html"/>
+		</replaceregexp>
+		<replaceregexp match="src=&quot;(../)*images" replace="src=&quot;images/tutorial" flags="g" byline="true">
+		    <fileset dir="${website.templates}" includes="**/*.html"/>
+		</replaceregexp>
+		
+		<copy todir="${website.stages}" overwrite="yes">
+			<fileset dir="${outdir}/stages" includes="**/*"/>
+		</copy>
+		
+		<copy todir="${website.resources}" file="${outdir}/resources.tar.gz" overwrite="yes"></copy>
+		
+	</target>
+	
+	<target name="create-xhtml-file-structure" depends="dita2xhtml, create-stage-tarballs">
+		<copy todir="${outdir}/xhtml/topics/" overwrite="yes">
+			<fileset dir="${projdir}/shjs" includes="**/*.js"/>
+		</copy>
+		<mkdir dir="${outdir}/xhtml/stages/" />
+		<copy todir="${outdir}/xhtml/stages" overwrite="yes">
+			<fileset dir="${outdir}/stages" includes="**/*"/>
+		</copy>
+	</target>
+
 </project> 
