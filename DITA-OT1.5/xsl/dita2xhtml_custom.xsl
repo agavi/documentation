@@ -32,25 +32,6 @@ applicable licenses.-->
   <!-- DITAEXT file extension name of dita topic file -->
   <xsl:param name="DITAEXT" select="'.xml'"/>
 
-<!-- NESTED TOPIC TITLES (sensitive to nesting depth, but are still processed for contained markup) -->
-<!-- 1st level - topic/title -->
-<!-- Condensed topic title into single template without priorities; use $headinglevel to set heading.
-     If desired, somebody could pass in the value to manually set the heading level -->
-<xsl:template match="*[contains(@class,' topic/topic ')]/*[contains(@class,' topic/title ')]">
-  <xsl:param name="headinglevel">
-      <xsl:choose>
-          <xsl:when test="count(ancestor::*[contains(@class,' topic/topic ')]) + 1 > 6">6</xsl:when>
-          <xsl:otherwise><xsl:value-of select="count(ancestor::*[contains(@class,' topic/topic ')]) + 1"/></xsl:otherwise>
-      </xsl:choose>
-  </xsl:param>
-  <xsl:element name="h{$headinglevel}">
-      <xsl:attribute name="class">topictitle<xsl:value-of select="$headinglevel"/></xsl:attribute>
-      <xsl:call-template name="commonattributes"/>
-      <xsl:apply-templates/>
-  </xsl:element>
-  <xsl:value-of select="$newline"/>
-</xsl:template>
-
   <!-- ======== Left Sidebar ======== -->
 
 
