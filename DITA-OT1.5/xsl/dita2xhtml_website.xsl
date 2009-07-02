@@ -17,18 +17,14 @@ applicable licenses.-->
 		>
 
 
-<xsl:import href="dita2xhtml_custom.xsl"/>
+<xsl:import href="dita2xhtml_custom_base.xsl"/>
 
-  <!-- Output XHTML with XML syntax, use UFT-8 encoding="UTF-8", transitional XHTML.
-       Prevent indenting to conserve space on output. -->
-  <!--xsl:output method="saxon:xhtml" -->
-  <xsl:output method="xml" 
-	      encoding="UTF-8"
-	      indent="no"
-	      doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-	      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-	      />
-
+<xsl:output method="xml" 
+		encoding="UTF-8"
+		indent="yes"
+		omit-xml-declaration="yes"
+	/>
+	
   <!-- DITAEXT file extension name of dita topic file -->
   <xsl:param name="DITAEXT" select="'.xml'"/>
 
@@ -49,6 +45,18 @@ applicable licenses.-->
       <xsl:call-template name="commonattributes"/>
       <xsl:apply-templates/>
   </xsl:element>
+  <xsl:value-of select="$newline"/>
+</xsl:template>
+
+<xsl:template name="chapter-setup">
+  <xsl:value-of select="$newline"/>
+  <xsl:call-template name="chapterBody"/>
+</xsl:template>
+
+<xsl:template match="*" mode="chapterBody">
+  <div id="main">
+    <xsl:apply-templates/> <!-- this will include all things within topic; therefore, -->
+  </div>
   <xsl:value-of select="$newline"/>
 </xsl:template>
 
