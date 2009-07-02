@@ -10,7 +10,7 @@ However, be cautious in modifying the environment initialization section. -->
 <!-- ENVIRONMENT INITIALIZATION SECTION --> 
 <!-- --> 
 <!-- The project name is agavi guide.The default output target is xhtml. --> 
-<project name="guide" default="xhtml"> 
+<project name="guide" default="xhtml" basedir="."> 
 
 	<echo> </echo> 
 	<echo>Building the agavi guide. Please stand by...</echo> 
@@ -22,15 +22,14 @@ However, be cautious in modifying the environment initialization section. -->
 	<property name="toolkit_dir" value="${env.DITA_DIR}"/> 
 
 	<import file="${toolkit_dir}${file.separator}build_dita2xhtml.xml"></import>
+
+	<!-- Define the location of the project (source file) directory before overwriting basedir.-->
+	<property name="projdir" value="${basedir}/.."/> 
 	
 	<!-- Note: basedir may be set in a higher-level script that invokes this one. 
 	Some plug-ins depend on its pointing to the Toolkit directory. 
 	In particular, the Idiom plug-in, which is required for PDF2 processing, requires it. --> 
 	<property name="basedir" value="${env.DITA_DIR}"/> 
-
-	<!-- Define the location of the project (source file) directory. 
-	In this case, the project directory is up one directory level from the location of this file. --> 
-	<property name="projdir" value="/Users/fgilcher/Sites/agavi/documentation/branches/felix-build-scripts-rewrite/"/> 
 
 	<!-- Define the location of the output directory. 
 	 In this case, it is a directory directly above the project (source file) directory. --> 
