@@ -197,7 +197,7 @@ However, be cautious in modifying the environment initialization section. -->
 	<target name="create-stage-tarball">
 		<tar tarfile="${outdir}/stages/${stage}.tar.gz" 
 			basedir="${projdir}/stages/${stage}"
-			excludes=".svn"
+			excludes=".svn .svn/** **/*.svn"
 			compression="gzip"
 			longfile="gnu" />
 	</target>
@@ -234,7 +234,7 @@ However, be cautious in modifying the environment initialization section. -->
 	<target name="create-resources-tarball">
 		<tar tarfile="${outdir}/resources.tar.gz" 
 			basedir="${projdir}/resources"
-			excludes=".svn"
+			excludes=".svn .svn/** **/*.svn"
 			compression="gzip"
 			longfile="gnu" />
 	</target>
