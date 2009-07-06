@@ -1,5 +1,0 @@
-<VirtualHost *>
- ServerName bloggie.dev
- DocumentRoot /path/to/Agavi/pub
- <!-- In the future, we'll move the rewrite rules here and disable .htaccess to improve production performance -->
-</VirtualHost>
