@@ -1,0 +1,89 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="DC.Type" content="task">
+<meta name="DC.Title" content="Installing SAXON on Linux">
+<meta name="DC.subject" content="installing DITA Open Toolkit, SAXON XSLT processor, installing on Linux, CLASSPATH, CLASSPATH environment variable">
+<meta name="keywords" content="installing DITA Open Toolkit, SAXON XSLT processor, installing on Linux, CLASSPATH, CLASSPATH environment variable">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="prodname" content="DITA Open Toolkit">
+<meta name="version" content="1.4.1">
+<meta name="DC.Creator" content="Jen Linton">
+<meta name="DC.Creator" content="JoAnn Hackos">
+<meta name="DC.Creator" content="Kylene Bruski">
+<meta name="DC.Contributor" content="Anna van Raaphorst">
+<meta name="DC.Contributor" content="Richard Johnson">
+<meta name="DC.Contributor" content="Youyi Zhou">
+<meta name="DC.Publisher" content="OASIS (Organization for the Advancement of Structured Information Standards)">
+<meta name="copyright" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Rights.Owner" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Date.Created" content="2005-November-01">
+<meta name="DC.Date.Modified" content="2006-October-12">
+<meta name="DC.Date.Modified" content="2009-March-16">
+<meta name="DC.Format" content="XHTML">
+<meta name="DC.Identifier" content="linux_installingsaxon">
+<meta name="DC.Language" content="en-us">
+<link rel="stylesheet" type="text/css" href="commonltr.css">
+<title>Installing SAXON on Linux</title>
+</head>
+<body id="linux_installingsaxon"><a name="linux_installingsaxon"><!-- --></a>
+
+
+	<h1 class="topictitle1">Installing SAXON on Linux</h1>
+
+	
+	
+	<div>
+		<ol>
+			<li class="stepexpand">
+				<span>Enter the URL: <a href="http://saxon.sourceforge.net/" target="_blank">http://saxon.sourceforge.net/</a>
+				</span>
+			</li>
+
+			<li class="stepexpand">
+				<span>From SAXON: The XSLT and XQuery Processor page, scroll to find the 
+          heading <span class="uicontrol">Saxon-B 9.1</span>
+				</span>
+			</li>
+
+			<li class="stepexpand">
+				<span>Select <span class="uicontrol">Download for Java</span>. </span>
+				 The SourceForge.net page opens with a list of download 
+          options.
+			</li>
+
+			<li class="stepexpand">
+				<span>Select any of the <img src="../images/compressed.png"> 
+          images to start the download.</span>
+				  If SAXON does not appear to be downloading, wait a few minutes 
+          before selecting another <img src="../images/compressed.png"> 
+          image. You may have to select more than one <img src="../images/compressed.png"> image until you find one that works. 
+          	
+			</li>
+
+			<li class="stepexpand">
+				<span>Download and unzip the <span class="filepath">Saxonb9-1-0-5.zip</span> file and save it to a Linux 
+          home directory.</span>
+			</li>
+
+			<li class="stepexpand">
+				<span>Add Saxon to your <var class="varname">CLASSPATH</var> environment variable:
+				<kbd class="userinput">export CLASSPATH=${CLASSPATH}:${saxon_dir}/saxon9.jar:${saxon_dir}/saxon9-dom.jar:${saxon_dir}/saxon9-dom4j.jar:${saxon_dir}/saxon9-jdom.jar:${saxon_dir}/saxon9-s9api.jar:${saxon_dir}/saxon9-sql.jar:${saxon_dir}/saxon9-xom.jar:${saxon_dir}/saxon9-xpath.jar:${saxon_dir}/saxon9-xqj.jar </kbd>
+				</span>
+			</li>
+
+		</ol>
+
+	</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="linux_installing.html">Installing the small package on Linux</a></div>
+</div>
+</div>
+
+</body>
+</html>

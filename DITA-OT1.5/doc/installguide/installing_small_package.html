@@ -1,0 +1,120 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="DC.Type" content="concept">
+<meta name="DC.Title" content="Installing the DITA Tookit small package distribution">
+<meta name="DC.subject" content="installing DITA Open Toolkit, DITA Open Toolkit distributions, DITA Open Toolkit, distributions, small package distribution">
+<meta name="keywords" content="installing DITA Open Toolkit, DITA Open Toolkit distributions, DITA Open Toolkit, distributions, small package distribution">
+<meta name="DC.Relation" scheme="URI" content="installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="windows_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="windows_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="linux_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="linux_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="windows_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="windows_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="linux_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="linux_verifying.html">
+<meta name="prodname" content="DITA Open Toolkit">
+<meta name="version" content="1.4.1">
+<meta name="DC.Creator" content="Richard Johnson">
+<meta name="DC.Contributor" content="Anna van Raaphorst">
+<meta name="DC.Publisher" content="OASIS (Organization for the Advancement of Structured Information Standards)">
+<meta name="copyright" content="VR Communications, Inc. 2007" type="primary">
+<meta name="DC.Rights.Owner" content="VR Communications, Inc. 2007" type="primary">
+<meta name="DC.Date.Created" content="2006-September-26">
+<meta name="DC.Date.Modified" content="2007-April-09">
+<meta name="DC.Format" content="XHTML">
+<meta name="DC.Identifier" content="installing_small_package">
+<link rel="stylesheet" type="text/css" href="commonltr.css">
+<title>Installing the DITA Tookit small package distribution</title>
+</head>
+<body id="installing_small_package"><a name="installing_small_package"><!-- --></a>
+
+
+	<h1 class="topictitle1">Installing the DITA Tookit small package distribution</h1>
+
+	
+	<div>
+	<div class="section"><h2 class="sectiontitle">Installing the small package distribution</h2>
+	
+		<div class="p">To install the small package:
+	<br><ol>
+				<li>Download the small package from <a href="http://sourceforge.net/projects/dita-ot" target="_blank">http://sourceforge.net/projects/dita-ot</a>.</li>
+
+				<li>Unzip the package into the <span class="filepath">C:\ditaot</span> directory on Windows, or into a home directory on Linux.</li>
+
+				<li>On Windows, add <samp class="codeph">C:\ditaot\lib;C:\ditaot\lib\dost.jar;C:\ditaot\lib\resolver.jar</samp> to your <var class="varname">CLASSPATH </var> environment variable.</li>
+
+				<li>On Linux, set up your environment variable CLASSPATH. For example: 
+                  <pre class="codeblock">export CLASSPATH=$CLASSPATH:${ditaot_dir}/lib:${ditaot_dir}/lib/dost.jar:${ditaot_dir}/lib/resolver.jar</pre>
+
+				</li>
+
+			</ol>
+
+		</div>
+
+		</div>
+
+		<div class="section"><h2 class="sectiontitle">Installation considerations</h2>
+		
+		<p>Before installing the DITA Open Toolkit small package and its prerequisite software on Windows, check to see if any of the required tools are already installed on your system and, if so, whether the version you have is supported (see <a href="sysreqs.html">System requirements and supported applications</a>). For any tools you need to install, complete the tasks below in the order shown.</p>
+
+		</div>
+
+	</div>
+
+<div>
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="windows_installing.html">Installing the small package on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingant.html">Installing Ant on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingsaxon.html">Installing SAXON on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingxalan.html">Installing Xalan on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_settingenvvariables.html">Setting environment variables on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_verifying.html">Verifying the installation on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installing.html">Installing the small package on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingant.html">Installing Ant on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingsaxon.html">Installing SAXON on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingxalan.html">Installing Xalan on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_settingenvvariables.html">Setting environment variables on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_verifying.html">Verifying the installation on Linux</a></strong><br>
+</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="installing.html">Installing and upgrading DITA Open Toolkit</a></div>
+</div>
+</div>
+
+</body>
+</html>

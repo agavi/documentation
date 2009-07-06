@@ -1,0 +1,169 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="DC.Type" content="concept">
+<meta name="DC.Title" content="Installing and upgrading DITA Open Toolkit">
+<meta name="DC.subject" content="installing DITA Open Toolkit, installing, DITA Open Toolkit">
+<meta name="keywords" content="installing DITA Open Toolkit, installing, DITA Open Toolkit">
+<meta name="DC.Relation" scheme="URI" content="sysreqs.html">
+<meta name="DC.Relation" scheme="URI" content="installing_overview.html">
+<meta name="DC.Relation" scheme="URI" content="installing_distributions.html">
+<meta name="DC.Relation" scheme="URI" content="upgrading_considerations.html">
+<meta name="DC.Relation" scheme="URI" content="installing_considerations.html">
+<meta name="DC.Relation" scheme="URI" content="installing_authoring_tools.html">
+<meta name="DC.Relation" scheme="URI" content="installing_Java_SDK.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingjdk.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingjdk.html">
+<meta name="DC.Relation" scheme="URI" content="installing_full_package.html">
+<meta name="DC.Relation" scheme="URI" content="installing_small_package.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="windows_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="windows_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="linux_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="linux_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="macos_installing.html">
+<meta name="DC.Relation" scheme="URI" content="ditaot_directory.html">
+<meta name="DC.Relation" scheme="URI" content="installing_optional_tools.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installinghtmlhelp.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingfop.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingjavahelp.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingfop.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingjavahelp.html">
+<meta name="DC.Relation" scheme="URI" content="installing_ditablogs.html">
+<meta name="DC.Relation" scheme="URI" content="sysreqs.html">
+<meta name="DC.Relation" scheme="URI" content="installing_overview.html">
+<meta name="DC.Relation" scheme="URI" content="installing_distributions.html">
+<meta name="DC.Relation" scheme="URI" content="upgrading_considerations.html">
+<meta name="DC.Relation" scheme="URI" content="installing_considerations.html">
+<meta name="DC.Relation" scheme="URI" content="installing_authoring_tools.html">
+<meta name="DC.Relation" scheme="URI" content="installing_Java_SDK.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingjdk.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingjdk.html">
+<meta name="DC.Relation" scheme="URI" content="installing_full_package.html">
+<meta name="DC.Relation" scheme="URI" content="installing_small_package.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installing.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="windows_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="windows_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingant.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingsaxon.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingxalan.html">
+<meta name="DC.Relation" scheme="URI" content="linux_settingenvvariables.html">
+<meta name="DC.Relation" scheme="URI" content="linux_verifying.html">
+<meta name="DC.Relation" scheme="URI" content="macos_installing.html">
+<meta name="DC.Relation" scheme="URI" content="ditaot_directory.html">
+<meta name="DC.Relation" scheme="URI" content="installing_optional_tools.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installinghtmlhelp.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingfop.html">
+<meta name="DC.Relation" scheme="URI" content="windows_installingjavahelp.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingfop.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installingjavahelp.html">
+<meta name="DC.Relation" scheme="URI" content="installing_ditablogs.html">
+<meta name="prodname" content="DITA Open Toolkit">
+<meta name="version" content="1.4.1">
+<meta name="DC.Creator" content="Anna van Raaphorst">
+<meta name="DC.Contributor" content="Richard Johnson">
+<meta name="DC.Publisher" content="OASIS (Organization for the Advancement of Structured Information Standards)">
+<meta name="copyright" content="VR Communications, Inc. 2007" type="primary">
+<meta name="DC.Rights.Owner" content="VR Communications, Inc. 2007" type="primary">
+<meta name="DC.Date.Created" content="2006-May-01">
+<meta name="DC.Date.Modified" content="2007-June-27">
+<meta name="DC.Format" content="XHTML">
+<meta name="DC.Identifier" content="installing">
+<link rel="stylesheet" type="text/css" href="commonltr.css">
+<title>Installing and upgrading DITA Open Toolkit</title>
+</head>
+<body id="installing"><a name="installing"><!-- --></a>
+
+
+	<h1 class="topictitle1">Installing and upgrading DITA Open Toolkit</h1>
+
+	
+	<div>
+		<p>This chapter contains information on how to install and upgrade DITA Open Toolkit on Windows, Linux/UNIX, and Mac OS.</p>
+
+	</div>
+
+<div>
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="sysreqs.html">System requirements and supported applications</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_overview.html">Installation overview</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_distributions.html">DITA Tookit distributions</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="upgrading_considerations.html">Upgrade considerations</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_considerations.html">Installation considerations</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_authoring_tools.html">Installing your DITA authoring tool</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_Java_SDK.html">Installing the Java SDK (JDK)</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingjdk.html">Installing the JDK on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingjdk.html">Installing the JDK on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_full_package.html">Installing the DITA Tookit full package distribution</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_small_package.html">Installing the DITA Tookit small package distribution</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installing.html">Installing the small package on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingant.html">Installing Ant on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingsaxon.html">Installing SAXON on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingxalan.html">Installing Xalan on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_settingenvvariables.html">Setting environment variables on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_verifying.html">Verifying the installation on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installing.html">Installing the small package on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingant.html">Installing Ant on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingsaxon.html">Installing SAXON on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingxalan.html">Installing Xalan on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_settingenvvariables.html">Setting environment variables on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_verifying.html">Verifying the installation on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="macos_installing.html">Installing on Mac OS</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="ditaot_directory.html">Directories and files in the ditaot directory</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_optional_tools.html">Installing the optional tools</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installinghtmlhelp.html">Installing the HTML Help compiler on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingfop.html">Installing FOP on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="windows_installingjavahelp.html">Installing the JavaHelp processor on Windows</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingfop.html">Installing FOP on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="linux_installingjavahelp.html">Installing the JavaHelp processor on Linux</a></strong><br>
+</li>
+<li class="ulchildlink"><strong><a href="installing_ditablogs.html">DITAblogs (installing and upgrading)</a></strong><br>
+</li>
+</ul>
+</div>
+
+</body>
+</html>

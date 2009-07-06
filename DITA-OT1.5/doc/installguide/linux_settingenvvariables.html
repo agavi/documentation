@@ -1,0 +1,134 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="DC.Type" content="task">
+<meta name="DC.Title" content="Setting environment variables on Linux">
+<meta name="DC.subject" content="installing DITA Open Toolkit, environment variable, setting environment variables, on Linux, setting on Linux, PATH, ANT_HOME, ANT_OPTS, JAVA_HOME, JHHOME, CLASSPATH, PATH environment variable, ANT_HOME environment variable, ANT_OPTS environment variable, JAVA_HOME environment variable, JHHOME environment variable, CLASSPATH environment variable">
+<meta name="keywords" content="installing DITA Open Toolkit, environment variable, setting environment variables, on Linux, setting on Linux, PATH, ANT_HOME, ANT_OPTS, JAVA_HOME, JHHOME, CLASSPATH, PATH environment variable, ANT_HOME environment variable, ANT_OPTS environment variable, JAVA_HOME environment variable, JHHOME environment variable, CLASSPATH environment variable">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="DC.Relation" scheme="URI" content="linux_installing.html">
+<meta name="prodname" content="DITA Open Toolkit">
+<meta name="version" content="1.4.1">
+<meta name="DC.Creator" content="Jen Linton">
+<meta name="DC.Creator" content="JoAnn Hackos">
+<meta name="DC.Creator" content="Kylene Bruski">
+<meta name="DC.Contributor" content="Anna van Raaphorst">
+<meta name="DC.Contributor" content="Richard Johnson">
+<meta name="DC.Publisher" content="OASIS (Organization for the Advancement of Structured Information Standards)">
+<meta name="copyright" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Rights.Owner" content="Comtech Services, Inc. 2005" type="primary">
+<meta name="DC.Date.Created" content="2005-November-01">
+<meta name="DC.Date.Modified" content="2007-April-09">
+<meta name="DC.Format" content="XHTML">
+<meta name="DC.Identifier" content="linux_settingenvvariables">
+<meta name="DC.Language" content="en-us">
+<link rel="stylesheet" type="text/css" href="commonltr.css">
+<title>Setting environment variables on Linux</title>
+</head>
+<body id="linux_settingenvvariables"><a name="linux_settingenvvariables"><!-- --></a>
+
+
+	<h1 class="topictitle1">Setting environment variables on Linux</h1>
+
+	
+	<div>
+		<ol>
+			<li class="stepexpand">
+				<span>Type in the Linux Console.</span>
+			</li>
+
+			<li class="stepexpand">
+				<span>Modify each <var class="varname">environmental or system 
+          variable</var>.</span>
+				 
+					<p>Set the <var class="varname">PATH</var> environment variable to 
+              include the directory where you installed the Ant bin 
+              directory: <samp class="codeph">export PATH=${ANT_HOME}/bin:${JAVA_HOME}/bin:${PATH}</samp>
+					</p>
+
+				
+				 
+					<p>Set the <var class="varname">ANT_HOME</var> environment variable 
+              to the directory where you installed Ant: <samp class="codeph">export ANT_HOME=${ant_dir}</samp>
+					</p>
+
+				
+				 
+					<p>Set the <var class="varname">ANT_OPTS</var> environment variable 
+              to the directory where you installed Ant: <samp class="codeph">export ANT_OPTS="-Xmx256M"</samp>
+					</p>
+
+				
+				 
+					<p>Set the <var class="varname">JAVA_HOME</var> environment variable 
+              to the directory where you installed the J2SE SDK 
+              application: <samp class="codeph">export JAVA_HOME=${java_dir}</samp>
+					</p>
+
+				
+				 
+					<p>Set the <var class="varname">JHHOME</var> environment variable to 
+              the directory where you installed the JavaHelp 
+              application: <samp class="codeph">export JHHOME=${javahelp_dir}</samp>
+					</p>
+
+				
+				 
+					<div class="p">Set the <var class="varname">CLASSPATH </var>environment variable 
+              for DITA-OT: Set up your environment variable CLASSPATH to include the 
+                  dost.jar. For example: 
+                  <pre class="codeblock">export CLASSPATH=${ditaot_dir}/lib:${ditaot_dir}/lib/dost.jar:${ditaot_dir}/lib/resolver.jar</pre>
+
+					</div>
+
+				
+				 
+					<div class="p">Set the <var class="varname">CLASSPATH </var>environment variable 
+              for the Apache FOP application: Set up your environment variable CLASSPATH to include the 
+                  fop.jar, batik.jar and avalon.jar files in the FOP directory. 
+                  For example: 
+                  <pre class="codeblock">export CLASSPATH=${fop_dir}/build/fop.jar:${fop_dir}/lib/batik.jar:${fop_dir}/lib/avalon-framework-cvs-20020806.jar:${CLASSPATH}</pre>
+
+					</div>
+
+				
+				 
+					<div class="p">(If you use SAXON) Set environment variables for SAXON:
+    <br><ol type="a">
+							<li>Set up CLASSPATH to include the saxon.jar file. For example:
+					<pre class="codeblock">export CLASSPATH=${CLASSPATH}:${saxon_dir}/saxon9.jar:${saxon_dir}/saxon9-dom.jar:${saxon_dir}/saxon9-dom4j.jar:${saxon_dir}/saxon9-jdom.jar:${saxon_dir}/saxon9-s9api.jar:${saxon_dir}/saxon9-sql.jar:${saxon_dir}/saxon9-xom.jar:${saxon_dir}/saxon9-xpath.jar:${saxon_dir}/saxon9-xqj.jar </pre>
+
+							</li>
+
+							<li>Set up ANT_OPTS. For example: <pre class="codeblock">export ANT_OPTS=${ANT_OPTS} -Djavax.xml.transform.TransformerFactory=com.icl.saxon.TransformerFactoryImpl</pre>
+
+							</li>
+
+						</ol>
+
+					</div>
+
+				
+				 
+					<div class="p">(If you use Xalan) Set environment variables for Xalan: Set up CLASSPATH to include the <span class="filepath">xalan.jar</span> file and the 
+              <span class="filepath">xercesImpl.jar</span> file. For example:<pre class="codeblock">export CLASSPATH=${CLASSPATH}:${xalan_dir}/bin </pre>
+
+					</div>
+
+				
+			</li>
+
+		</ol>
+
+	</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="linux_installing.html">Installing the small package on Linux</a></div>
+</div>
+</div>
+
+</body>
+</html>
