@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="using-callbacks-for-title-in-url">
+  <title>Using Callbacks for the Title in URLs</title>
+
+  <body>
+    <p>We can use a RoutingCallback's onGenerate method to factor out the code
+    needed to generate a URL for the post's detail page. We'll just pass the
+    PostModel in and the callback takes care of extracting the id and the
+    title for the url. Let's create a callback in
+    <filepath>app/modules/Posts/lib/routing/PostRoutingCallback.class.php</filepath>.</p>
+
+    <codeblock outputclass="php">&lt;?php
+
+class PostRoutingCallback extends AgaviRoutingCallback
+{
+  /**
+   * Gets executed when the route of this callback is about to be reverse 
+   * generated into an URL.
+   *
+   * @param      array The default parameters stored in the route.
+   * @param      array The parameters the user supplied to AgaviRouting::gen().
+   * @param      array The options the user supplied to AgaviRouting::gen().
+   *
+   * @return     bool  Whether this route part should be generated.
+   */
+  public function onGenerate(array $defaultParameters, array &amp;$userParameters, array &amp;$userOptions)
+  {
+    $post = $userParameters['post']-&gt;getValue();
+    
+    $routing = $this-&gt;getContext()-&gt;getRouting();
+    
+    $userParameters['post'] = $routing-&gt;createValue($post-&gt;getId());
+    $userParameters['title'] = $routing-&gt;createValue(preg_replace('/\W/', '-', $post-&gt;getTitle()));
+    
+    return true;
+  }
+}
+
+?&gt;</codeblock>
+
+    <p>The callback must be available in the global autoload file in
+    <filepath>app/config/autoload.xml</filepath>:</p>
+
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
+    &lt;ae:configuration&gt;
+
+      &lt;autoload name="BlogBaseAction"&gt;%core.lib_dir%/action/BlogBaseAction.class.php&lt;/autoload&gt;
+      &lt;autoload name="BlogBaseModel"&gt;%core.lib_dir%/model/BlogBaseModel.class.php&lt;/autoload&gt;
+      &lt;autoload name="BlogBaseView"&gt;%core.lib_dir%/view/BlogBaseView.class.php&lt;/autoload&gt;
+      &lt;autoload name="PostRoutingCallback"&gt;%core.module_dir%/Posts/lib/routing/PostRoutingCallback.class.php&lt;/autoload&gt;
+
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;</codeblock>
+
+    <p>and registered in <filepath>app/config/routing.xml</filepath>:</p>
+
+    <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
+    &lt;ae:configuration&gt;
+      &lt;routes&gt;
+
+        &lt;!-- default action for "/" --&gt;
+        &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
+
+        &lt;route name="posts" pattern="^/posts" module="Posts"&gt;
+          &lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
+            &lt;callbacks&gt;
+              &lt;callback class="PostRoutingCallback" /&gt;
+            &lt;/callbacks&gt;
+            &lt;route name=".show" pattern="^$" action=".Show" /&gt;
+          &lt;/route&gt; 
+        &lt;/route&gt;
+
+      &lt;/routes&gt;
+    &lt;/ae:configuration&gt;
+  &lt;/ae:configurations&gt;</codeblock>
+
+    <p>Now we need to pass a PostModel instead of id and title in our
+    ShowSuccessView:</p>
+
+    <codeblock outputclass="php">&lt;?php
+
+class Posts_Post_ShowSuccessView extends BlogPostsBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    
+    $p = $this-&gt;getAttribute('post');
+    $post = $p-&gt;toArray();
+    $post['url'] = $this-&gt;getContext()-&gt;getRouting()-&gt;gen('posts.post.show', array('post' =&gt; $p));
+    
+    $this-&gt;setAttribute('post', $post);
+    
+    $isList = $this-&gt;getContainer()-&gt;getParameter('is_slot', false);
+    
+    if($isList) {
+      $headlineSize = 2;
+      $linkHeadline = true;
+      $displayComments = false;
+    } else {
+      $headlineSize = 1;
+      $linkHeadline = false;
+      $displayComments = true;
+    }
+    
+    $this-&gt;setAttribute('headline_size', $headlineSize);
+    $this-&gt;setAttribute('link_headline', $linkHeadline);
+    $this-&gt;setAttribute('display_comments', $displayComments);
+    
+    $this-&gt;setAttribute('_title', $post['title']);
+  }
+}
+?&gt;</codeblock>
+
+    <p>and that's it. Now the no part of the application itself needs to know
+    about how the urls to the posts are contructed and which parameters are
+    required. That's all nicely encapsulated in the routing.</p>
+  </body>
+</topic>

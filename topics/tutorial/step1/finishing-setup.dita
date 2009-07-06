@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="finishing-setup">
+  <title>Finishing the setup</title>
+
+  <body>
+    <p>Once the project is created some setup tasks are still left to do.</p>
+
+    <section><title>Setting up your editor or IDE</title> <p>While this may
+    seem trivial it is still important to configure your editor properly.
+    Eclipse for example tends to use a local encoding for files instead of
+    utf8. We strongly recommend using utf8 for various reasons, so now would
+    be a good time to change that and have your favorite editor use utf8 as
+    charset.</p></section>
+
+    <section><title>Removing the welcome page</title> <p>The welcome page only
+    serves to check wether creating the project was completed successfully, so
+    we can remove it now. To do so, remove the Welcome module by deleting the
+    directory <filepath>bloggie/app/modules/Welcome</filepath>. You probably
+    won't need the image resources for the welcome page any more, so remove
+    them by deleting <filepath>bloggie/pub/welcome</filepath>. Remove the
+    route pointing to the welcome page from
+    <filepath>bloggie/app/config/routing.xml</filepath>, it's the first one in
+    the file, the comment line should point you right at it. </p><p>After
+    you've done that you should see a blank with an "Index"
+    headline.</p></section>
+
+    <section><title>Adding version control</title> <p>You should be using
+    version control for any serious project. Now would be a good time to add
+    the project to version control - all the basic setup works are done and we
+    checked that the application is basically working. If you choose not to
+    use version control, you can skip this step but we still recommend you
+    read what's here.</p> <p>We won't cover the basics of version control in
+    this tutorial or pick a SCM for you, however there's a few things to note
+    that apply to all SCM systems. There are some files in your project that
+    contain information that depends on the environment you're running the
+    application in. The index.php dispatcher file contains the name of the
+    environment in the bootstrap call, and if you chose to generate the
+    .htaccess file, it contains the path relative to the web root. If you
+    check those files in you always have locally modified files in your
+    working copy and you need to be extra careful not to check those in as it
+    would break other developers working copies or even your production
+    environment. The best practice for all version control systems is not to
+    add those files to version control at all but instead add a template file
+    that is copied and adapted as needed. The agavi project generator already
+    added the template files for .htaccess and index.php to
+    <filepath>bloggie/dev/pub/</filepath> so all you need to do is take care
+    that you don't check in the files
+    <filepath>bloggie/pub/index.php</filepath> and
+    <filepath>bloggie/pub/.htaccess</filepath>. Instead add them to your SCMs
+    ignore mechanism, for svn set the svn:ignore property accordingly, for
+    darcs add those files to _darcs/prefs/boring etc.</p> <p>Oh, and while
+    we're at it: add all files in
+    <filepath>bloggie/app/cache/config</filepath> to the ignore list as
+    well.</p> <note type="tip">There is another way of handling the dispatcher
+    file. By reading the environment from a server variable such as
+    $_SERVER[AGAVI_ENVIRONMENT], the server admin can set the environment for
+    you and you can check in the dispatcher file. However, this does not apply
+    to the generated .htaccess file. This way of handling the environment
+    dependency does have it's ups and downs. While it removes the step of
+    manually copying the dispatcher file it forces anyone to use the same
+    dispatcher file. You cannot have multiple environments on the same server
+    without your server admin setting a variable for a specific path and more
+    important, you cannot use any of the config directives that need to be set
+    manually in the dispatcher file. We'll cover those later though, so for
+    the time being, stick to the recommended mechanism of copying the
+    dispatcher file.</note></section>
+  </body>
+</topic>

@@ -6,10 +6,11 @@
 
   <body>
     <section><title>Overview</title><p>In this chapter you will create your
-    application and perform some initial configuration. By the end of this
-    chapter, you will have a complete initial version of the blog
-    application—a newly configured Agavi application skeleton.</p><p>The
-    result of your hard labor this chapter is provided with this tutorial as
-    the <filepath>stage1</filepath> tarball for your perusal.</p></section>
+    application skeleton. By the end of this chapter, you will have a complete
+    initial version of the blog application—a newly configured Agavi
+    application skeleton.</p><p>The result of your hard labor this chapter is
+    provided with this tutorial as the <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage1.tgz</xref>
+    tarball.</p></section>
   </body>
 </topic>

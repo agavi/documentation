@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="step2-introduction">
+  <title>Adding first code</title>
+
+  <body>
+    <p>Now would be a good time to add a little code of your own to the
+    project. We'll start by adding a static index page and a static post
+    detail page. You will learn to create new Actions and Modules and how to
+    use routing and template variables. You'll also learn how to retrive and
+    validate request parameters. The resulting application is also available
+    as <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage2.tgz">http://www.agavi.org/guide/stages/stage2.tgz</xref>
+    tarball.</p>
+  </body>
+</topic>

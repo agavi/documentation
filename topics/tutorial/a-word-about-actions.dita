@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="basics-a-word-about-actions">
+  <title>A Word About Actions</title>
+
+  <body>
+    <p>Actions interact with the models to implements your applications
+    specific logic. They serve as glue code between the incoming request and
+    the business model laid out in your models. All data retrieval, be it from
+    a database, a flatfile etc. should be encapsulated in actions. An action
+    also handles all validation requirements and all error handling.</p>
+
+    <section><title>RequestMethods and Action
+    execution</title><p>RequestMethods are a concept in Agavi that abstracts
+    from the HTTP verbs GET/POST/PUT etc to more general terms that are
+    applicable in any environment. Agavi can be used in SOAP, XML-RPC, console
+    and other contexts where HTTP may not be involved. The most common
+    methodnames are Read and Write, but others like Create and Delete exist
+    and you can define your own methodnames on the fly if required. The
+    default methodnames are chosen to map nicely to the standard HTTP verbs
+    and also fit nicely into all other environments. The default mapping for
+    HTTP verbs is as follows:<ul>
+        <li>GET is translated to "Read". GET request should not modifiy any
+        data on the server as per HTTP Spec.</li>
+
+        <li>POST is translated to "Write".</li>
+
+        <li>PUT is translated to "Create"</li>
+
+        <li>DELETE is translated to "Delete"</li>
+      </ul> An action may respond to a specific RequestMethod by simply
+    implementing a method named after the RequestMethod: implement a method
+    named <apiname>executeRead()</apiname> to respond to read requests,
+    implement <apiname>executeWrite()</apiname> to respond to write requests.
+    An action may respond to as many RequestMethods as you wish simply by
+    implementing more than one method. An action may respond to all request
+    methods by implementing a method <apiname>execute()</apiname>. An action
+    may skip all exection by simply defining a method
+    <apiname>isSimple()</apiname> and returning (bool) true. If an action does
+    not respond to a RequestMethod it's <apiname>getDefaultView()</apiname>
+    method is called. </p></section>
+  </body>
+</topic>

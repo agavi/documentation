@@ -8,8 +8,10 @@
       <title>What are Layers?</title>
       <p>An Agavi developer has the choice of either composing the
       output directly in a View or use the built-in rendering
-      mechanism. If a View's <apiname>executeXXX</apiname> method does
-      not return anything, Agavi engages its own rendering.
+      mechanism. If a View's <apiname>executeXXX</apiname> creates
+      any layer, either directly or by loading a layout, Agavi engages 
+      its rendering. Any output returned from the view will be available
+      as $inner in the topmost <keyword>Layer</keyword>.
       </p>
       <p>To make Agavi render the output, a View configures a number
       of objects called <keyword>Layers</keyword> and
@@ -21,10 +23,10 @@
       is. Depending on what your code does, a View can have one or
       more Layers.</p>
       <p>
-	A <keyword>Renderer</keyword> is an Agavi adapter class that
-	knows how to process a certain template type into output. Agavi
-	ships with several such adapters, such as plain PHP template
-	renderer, Smarty renderer, DWOO renderer and so on.
+  A <keyword>Renderer</keyword> is an Agavi adapter class that
+  knows how to process a certain template type into output. Agavi
+  ships with several such adapters, such as plain PHP template
+  renderer, Smarty renderer, DWOO renderer and so on.
       </p>
       <p>Combining Layers and Renderers enables great flexibility: for
       example, some of the templates your application uses may be
@@ -34,29 +36,29 @@
     <section id="mechanics-of-rendering">
       <title>Mechanics of the rendering process</title>
       <p>
-	When executed, a View configures the layout - a simple array
-	of Layer objects. The rendering process walks the layout,
-	applying a corresponding Renderer adapter to every configured
-	Layer's template. The resulting output is collected and made
-	available to the next step. This template processing scheme is a
-	bit unusual, but has many practical advantages.
+  When executed, a View configures the layout - a simple array
+  of Layer objects. The rendering process walks the layout,
+  applying a corresponding Renderer adapter to every configured
+  Layer's template. The resulting output is collected and made
+  available to the next step. This template processing scheme is a
+  bit unusual, but has many practical advantages.
       </p>
       <p>
-	In order to understand how this mechanism is used in practice,
-	imagine that Layers are kept in a vertical stack - that is,
-	they sit on top of each other. The rendering is performed from
-	top to bottom, and every rendered layer can access the
-	finished output of the Layer above it. The output of the last
-	(bottom) Layer becomes the output (the response body) of the
-	View.
+  In order to understand how this mechanism is used in practice,
+  imagine that Layers are kept in a vertical stack - that is,
+  they sit on top of each other. The rendering is performed from
+  top to bottom, and every rendered layer can access the
+  finished output of the Layer above it. The output of the last
+  (bottom) Layer becomes the output (the response body) of the
+  View.
       </p>
       <p>Let's imagine that we're making a simple page with a header
       and a footer. The complete HTML output may look something like this:</p>
       <codeblock conref="../examples/examples.xml#layouts-full-html-example" class="xml"/>
       <p>
-	In a traditionally organized
-	templating system, the View's template would include a header
-	and a footer, like in the example below.
+  In a traditionally organized
+  templating system, the View's template would include a header
+  and a footer, like in the example below.
       </p>
       <p>Header:</p>
       <codeblock conref="../examples/examples.xml#layouts-classic-html-header" class="xml"/>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="tutorial-title-in-url">
+  <title>Adding the post's title to the url</title>
+
+  <body>
+    <p>Adding the post's title to the url has multiple advantages. It allows
+    the user to see where the url is pointing to and search engines will
+    improve your ranking.</p>
+
+    <p>The first thing we need to do is adapt our routing rules to allow for a
+    second parameter in the url. We'd like the title to be an optional part
+    and we'll restrict it to word-chars and dashes only:</p>
+
+    <codeblock outputclass="xml">&lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post"&gt;
+  &lt;route name=".show" pattern="^$" action=".Show" /&gt;
+&lt;/route&gt;</codeblock>
+
+    <p>Now that we made it possible to inject the title we just need to adapt
+    the places where we generate the urls to actually pass the title.
+    Currently this is only in the Posts_IndexSuccessView, so let's change
+    that. Remember that we only allowed word chars in the route, so we need to
+    make shure that we only pass word chars in - we'll just replace anything
+    that's not a word char by a dash:</p>
+
+    <codeblock outputclass="php">&lt;?php
+
+class Posts_IndexSuccessView extends BlogPostsBaseView
+{
+  
+  public function executeHtml(AgaviRequestDataHolder $rd)
+  {
+    $this-&gt;setupHtml($rd);
+    $ro = $this-&gt;getContext()-&gt;getRouting();
+
+    $this-&gt;setAttribute('_title', 'Latest Posts');
+    
+    
+    $posts = array();
+    
+    foreach($this-&gt;getAttribute('posts') as $p)
+    {
+      $post = $p-&gt;toArray();
+      $post['url'] = $ro-&gt;gen(
+        'posts.post.show', 
+        array(
+          'post' =&gt; $p-&gt;getId(), 
+          'title' =&gt; preg_replace('/\W/', '-', $p-&gt;getTitle())
+        )
+      );
+      
+      $posts[] = $post;
+    }
+    
+    $this-&gt;setAttribute('posts', $posts);
+  }
+}
+
+?&gt;</codeblock>
+
+    <p>Hmm. That works, but it might get a bit tedious to always remember that
+    if you generate the url to a post, you'll have to pass in the post-id and
+    the title and replace all non-word chars by dashes. Well, surprise,
+    there's a better way.</p>
+  </body>
+</topic>

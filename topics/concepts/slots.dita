@@ -32,25 +32,25 @@
     <example>
       <p>Configuring a View to be used as a slot in <filepath>output_types.xml</filepath>:</p>
       <ul>
-	<li><filepath>output_types.xml</filepath>:
-	<codeblock conref="../examples/slots.dita#concepts-slots-example1" class="xml"/>
-	</li>
-	<li>View's <apiname>executeHtml</apiname>():
-	  <codeblock conref="../examples/slots.dita#concepts-slots-example2" class="php"/>
-	</li>
-	</ul>
+  <li><filepath>output_types.xml</filepath>:
+  <codeblock conref="../examples/slots.dita#concepts-slots-example1" class="xml"/>
+  </li>
+  <li>View's <apiname>executeHtml</apiname>():
+    <codeblock conref="../examples/slots.dita#concepts-slots-example2" class="php"/>
+  </li>
+  </ul>
     </example>
     <example>
       <p>Using a slot:</p>
       <ul>
-	<li><filepath>output_types.xml</filepath>: <codeblock conref="../examples/slots.dita#concepts-slots-example3" class="xml"/></li>
-	<li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example4" class="xml"/></li>
-	<li>Template: <codeblock conref="../examples/slots.dita#concepts-slots-example5" class="xml"/></li>
+  <li><filepath>output_types.xml</filepath>: <codeblock conref="../examples/slots.dita#concepts-slots-example3" class="xml"/></li>
+  <li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example4" class="xml"/></li>
+  <li>Template: <codeblock conref="../examples/slots.dita#concepts-slots-example5" class="xml"/></li>
       </ul>
     </example>
     <example><p>Using the slot API to create slots on the fly (<filepath>output_types.xml</filepath> layouts aren't used):</p>
       <ul>
-	<li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example6"/></li>
+  <li>View: <codeblock conref="../examples/slots.dita#concepts-slots-example6"/></li>
       </ul>
     </example>
     

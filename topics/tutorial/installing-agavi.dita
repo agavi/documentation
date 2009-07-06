@@ -5,16 +5,16 @@
   <title>Installing Agavi</title>
 
   <body>
-    <p>Agavi can be installed in several ways. The recommended way is to use
-    PEAR, as it performs a complete setup for your system.</p>
+    <p>Agavi can be installed in several ways, we recommend using a PEAR
+    installation for initial setup. It's the easiest and most maintainable way
+    to have agavi on your system. However, if you can't use PEAR for any
+    reason, there's still good old tarballs and even a subversion repository
+    access.</p>
 
-    <p>If you wish, you can install Agavi (and the Phing package on which the
-    project configuration system depends) manually. A Subversion repository is
-    also available. For full details on installation using these methods,
-    please see (manual).</p>
-    
-    <section conref="../reference/agavi-installation.dita#installing-from-pear"></section>
-    <section conref="../reference/agavi-installation.dita#testing-installation"></section>
-    
+    <section
+    conref="../reference/agavi-installation.dita#installing-from-pear"/>
+
+    <section
+    conref="../reference/agavi-installation.dita#testing-installation"/>
   </body>
 </topic>

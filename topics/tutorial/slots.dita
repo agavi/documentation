@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="slots">
   <title>Implementing the comments Action in a slot</title>
   <body>
@@ -10,32 +10,32 @@
       <title>Using slots and Action methods in Bloggie</title>
       <p>In our Bloggie application, slots are used in two different places:
       <ol>
-	<li>The global navigation is displayed from a slot</li>
-	<li>The <apiname>ShowPost</apiname> Action displays
-	the <apiname>PostComments</apiname> Action in a slot. This
-	draws the comments attached to a blog post and the comment submission form</li>
+  <li>The global navigation is displayed from a slot</li>
+  <li>The <apiname>ShowPost</apiname> Action displays
+  the <apiname>PostComments</apiname> Action in a slot. This
+  draws the comments attached to a blog post and the comment submission form</li>
       </ol>
       </p>
       <p>Let's create the <apiname>PostComments</apiname> Action. This
       Action will serve two purposes, and we'll write an Action method
       for each of them:
-	<ol>
-	  <li>When invoked in the read mode (over HTTP GET), it will
-	  look up all the comments associated with a given blog post
-	  and display them, along with the new comment submission
-	  form. This is implemented in
-	  <apiname>executeRead</apiname>().
-	  </li>
-	  <li>When invoked in the write mode (over HTTP POST), it will
-	  accept, validate and save the submitted comment, and then
-	  refresh the page in the user's browser so that the new
-	  comment is displayed. This is implemented
-	  in <apiname>executeWrite</apiname>().</li>
-	</ol>
-	<note type="note">With very little effort, you could enable
-	AJAX form validation and submission. This would only require a
-	slight modification of Views and templates. We'll see how this
-	done later on.</note>
+  <ol>
+    <li>When invoked in the read mode (over HTTP GET), it will
+    look up all the comments associated with a given blog post
+    and display them, along with the new comment submission
+    form. This is implemented in
+    <apiname>executeRead</apiname>().
+    </li>
+    <li>When invoked in the write mode (over HTTP POST), it will
+    accept, validate and save the submitted comment, and then
+    refresh the page in the user's browser so that the new
+    comment is displayed. This is implemented
+    in <apiname>executeWrite</apiname>().</li>
+  </ol>
+  <note type="note">With very little effort, you could enable
+  AJAX form validation and submission. This would only require a
+  slight modification of Views and templates. We'll see how this
+  done later on.</note>
       </p>
       <p><apiname>PostComments</apiname> has to manipulate the
       database in the comments. Let's create the <apiname>Comments</apiname> model and
@@ -50,18 +50,18 @@
       <codeblock conref="../examples/slots.dita#bloggie-comments-action" class="php"/>
       </p>
       <p>As you see, this Action has both read and write methods. The
-	read method is used to render the comments for a given post ID,
-	and the write method is used to handle comment submission. You
-	would also note that this Action has three Views: "Comments",
-	"Error" and "Success". The "Comments" View is used to draw
-	the comments, the "Error" View is used to indicate that the
-	comment can not be saved, and the "Success" View is used to
-	forward the browser back to the updated post page after a
-	successful comment submission.</p>
+  read method is used to render the comments for a given post ID,
+  and the write method is used to handle comment submission. You
+  would also note that this Action has three Views: "Comments",
+  "Error" and "Success". The "Comments" View is used to draw
+  the comments, the "Error" View is used to indicate that the
+  comment can not be saved, and the "Success" View is used to
+  forward the browser back to the updated post page after a
+  successful comment submission.</p>
       <p>Even though these three Views belong to the same Action, they
-	behave quite differently. The "Comments" View is meant to be used
-	in a slot on the post page, and thus it uses the "slot"
-	layout in which there is no regular decorator:
+  behave quite differently. The "Comments" View is meant to be used
+  in a slot on the post page, and thus it uses the "slot"
+  layout in which there is no regular decorator:
       <codeblock conref="../examples/slots.dita#bloggie-comments-success-view" class="php"/>
       </p>
       <note type="important">It is possible to create an infinite loop
@@ -74,17 +74,17 @@
       <codeblock conref="../examples/slots.dita#bloggie-comments-success-template" class="php"/>
       </p>
       <p>The "Error" View, on the other hand, is only invoked after a
-	failed comment submission, so whenever it is executed, the
-	PostComments action is running as the primary Action, and not as a
-	slot on top of another Action. Thus, the normal decorator is
-	needed and so the "Error" View uses the default layout:
+  failed comment submission, so whenever it is executed, the
+  PostComments action is running as the primary Action, and not as a
+  slot on top of another Action. Thus, the normal decorator is
+  needed and so the "Error" View uses the default layout:
       <codeblock conref="../examples/slots.dita#bloggie-comments-error-view" class="php"/>
       </p>
       <p>The "Success" View is different. It's invoked when a
-	comment submission succeeds, which means the Action is running as
-	the primary Action just like in the "Error" View. Whenever a
-	comment is submitted, the user should be forwarded back to the
-	post page, which is now updated with his comment. We'll use an HTTP redirect:
+  comment submission succeeds, which means the Action is running as
+  the primary Action just like in the "Error" View. Whenever a
+  comment is submitted, the user should be forwarded back to the
+  post page, which is now updated with his comment. We'll use an HTTP redirect:
       <codeblock conref="../examples/slots.dita#bloggie-comments-forward-view" class="php"/>
       </p>
     </section>

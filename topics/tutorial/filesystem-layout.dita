@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+    "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="filesystem-layout">
   <title>Application filesystem layout</title>
 
@@ -20,38 +20,38 @@
 
     <dl>
       <dlentry>
-	<dt><filepath>app/modules/</filepath></dt>
-	<dd>Contains application Modules and their corresponding contents</dd>
+  <dt><filepath>app/modules/</filepath></dt>
+  <dd>Contains application Modules and their corresponding contents</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/cache/</filepath></dt>
-	<dd>Action cache and compiled configuration</dd>
+  <dt><filepath>app/cache/</filepath></dt>
+  <dd>Action cache and compiled configuration</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/config/</filepath></dt>
-	<dd>Application configuration (see next chapter)</dd>
+  <dt><filepath>app/config/</filepath></dt>
+  <dd>Application configuration (see next chapter)</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/lib/</filepath></dt>
-	<dd>Global framework extensions, third party libraries, etc</dd>
+  <dt><filepath>app/lib/</filepath></dt>
+  <dd>Global framework extensions, third party libraries, etc</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/models/</filepath></dt>
-	<dd>Global application Models</dd>
+  <dt><filepath>app/models/</filepath></dt>
+  <dd>Global application Models</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/log/</filepath></dt>
-	<dd>Log files (if logging into files is used)</dd>
+  <dt><filepath>app/log/</filepath></dt>
+  <dd>Log files (if logging into files is used)</dd>
       </dlentry>
 
       <dlentry>
-	<dt><filepath>app/templates/</filepath></dt>
-	<dd>Global templates</dd>
+  <dt><filepath>app/templates/</filepath></dt>
+  <dd>Global templates</dd>
       </dlentry>
     </dl>
   </body>

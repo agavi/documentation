@@ -42,7 +42,7 @@
 </route>]]></codeblock>
 
       <codeblock class="php"><![CDATA[<?php print $ro->gen('blog.post+plaintext', array('post_id' => $template['post_id']));?>]]></codeblock>
-	
+  
       <p>Assuming that <varname>$template</varname>['post_id'] contains the value 42, the above call to <apiname>gen</apiname>() would yield "/blog/42.txt".</p>
 
       <p>On the other hand, the minus (-) can be used to exclude a certain implied route from generation.</p>
@@ -53,61 +53,61 @@
       of this request.</p>
     </section>
       <section>
-	<title>Generation options</title>
-	<p><apiname>gen</apiname>() accepts an array of options via its <varname>$options</varname> that affect the way the route is generated:</p>
-	<dl>
-	  <dlentry>
-	    <dt>relative</dt>
-	    <dd>When true, generate a fully qualified URL. Otherwise, generate an URL relative to the application base URL (default behaviour).</dd>
-	  </dlentry>
+  <title>Generation options</title>
+  <p><apiname>gen</apiname>() accepts an array of options via its <varname>$options</varname> that affect the way the route is generated:</p>
+  <dl>
+    <dlentry>
+      <dt>relative</dt>
+      <dd>When true, generate a fully qualified URL. Otherwise, generate an URL relative to the application base URL (default behaviour).</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>refill_all_parameters</dt>
-	    <dd>Fill all the parameters in the route with the values from the current request, until the first user-supplied
-	    parameter value. This is the equivalent of the asterisk syntax in <varname>$route</varname> (see above).</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>refill_all_parameters</dt>
+      <dd>Fill all the parameters in the route with the values from the current request, until the first user-supplied
+      parameter value. This is the equivalent of the asterisk syntax in <varname>$route</varname> (see above).</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>omit_defaults</dt>
-	    <dd>If the parameter values towards the end of the URL equal their default values, remove them from the URL. This
-	    results in shorter URLs. The default value is false.</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>omit_defaults</dt>
+      <dd>If the parameter values towards the end of the URL equal their default values, remove them from the URL. This
+      results in shorter URLs. The default value is false.</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>separator</dt>
-	    <dd>The argument separator character to be used in the URL. Default value is obtained from <filepath>php.ini</filepath> <varname>arg_separator.output</varname></dd>
-	  </dlentry>
+    <dlentry>
+      <dt>separator</dt>
+      <dd>The argument separator character to be used in the URL. Default value is obtained from <filepath>php.ini</filepath> <varname>arg_separator.output</varname></dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>use_trans_sid</dt>
-	    <dd>Export the session ID (as returned by <apiname>session_id()</apiname>) to argument <apiname>session_name()</apiname>. Default is false.</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>use_trans_sid</dt>
+      <dd>Export the session ID (as returned by <apiname>session_id()</apiname>) to argument <apiname>session_name()</apiname>. Default is false.</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>scheme</dt> 
-	    <dd>URI scheme, default is obtained from current request (typically "http" or "https")</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>scheme</dt> 
+      <dd>URI scheme, default is obtained from current request (typically "http" or "https")</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>authority</dt>
-	    <dd>URI authority (user:password@hostname:port) for an absolute URL, default is obtained from current request</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>authority</dt>
+      <dd>URI authority (user:password@hostname:port) for an absolute URL, default is obtained from current request</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>host</dt>
-	    <dd>Host name for an absolute URL, default is obtained from the current request.</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>host</dt>
+      <dd>Host name for an absolute URL, default is obtained from the current request.</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>port</dt>
-	    <dd>Port number for an absolute URL. Default value is obtained from the current request. Default is obtained from the current request. If the port number equals the default port number for the scheme, then it is not included in the generated URL (80 for HTTP, 443 for HTTPS).</dd>
-	  </dlentry>
+    <dlentry>
+      <dt>port</dt>
+      <dd>Port number for an absolute URL. Default value is obtained from the current request. Default is obtained from the current request. If the port number equals the default port number for the scheme, then it is not included in the generated URL (80 for HTTP, 443 for HTTPS).</dd>
+    </dlentry>
 
-	  <dlentry>
-	    <dt>Fragment</dt>
-	    <dd>Value of the fragment part of the generated URL (http://foo/bar#fragment). Routing does not deal with fragments, so the fragment part is omitted unless this parameter is explicitly specified.</dd>
-	  </dlentry>
-	</dl>
+    <dlentry>
+      <dt>Fragment</dt>
+      <dd>Value of the fragment part of the generated URL (http://foo/bar#fragment). Routing does not deal with fragments, so the fragment part is omitted unless this parameter is explicitly specified.</dd>
+    </dlentry>
+  </dl>
       </section>
   </body>
 </topic>

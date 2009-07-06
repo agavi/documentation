@@ -39,33 +39,33 @@ Agavi::bootstrap('development');
       code.</p>
 
       <p>
-	Here's an example of Agavi configuration. It is written in the
-	database connection description sublanguage. Two
-	configurations are specified, one for a developer called David
-	and the other for his cat Mudkips:
+  Here's an example of Agavi configuration. It is written in the
+  database connection description sublanguage. Two
+  configurations are specified, one for a developer called David
+  and the other for his cat Mudkips:
       </p>
       <codeblock class="php"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <configurations xmlns="http://agavi.org/agavi/1.0/config">
-	<configuration environment="development-joe">
-	 <databases default="project">
-	  <database name="project" class="AgaviPdoDatabase">
-	   <parameter name="dsn">mysql:host=db.dev.office;dbname=david_dev</parameter>
-	   <parameter name="username">david</parameter>
-	   <parameter name="password">Sa3q@sAf</parameter>
-	  </database>
-	 </databases>
-	</configuration>	
+  <configuration environment="development-joe">
+   <databases default="project">
+    <database name="project" class="AgaviPdoDatabase">
+     <parameter name="dsn">mysql:host=db.dev.office;dbname=david_dev</parameter>
+     <parameter name="username">david</parameter>
+     <parameter name="password">Sa3q@sAf</parameter>
+    </database>
+   </databases>
+  </configuration>  
 
-	<configuration environment="development-mudkips">
-	 <databases default="project">
-	  <database name="project" class="AgaviPdoDatabase">
-	   <parameter name="dsn">mysql:host=localhost;dbname=MEOW</parameter>
-	   <parameter name="username">mudkips</parameter>
-	   <parameter name="password">OMNOMNOM</parameter>
-	  </database>
-	 </databases>
-	</configuration>	
+  <configuration environment="development-mudkips">
+   <databases default="project">
+    <database name="project" class="AgaviPdoDatabase">
+     <parameter name="dsn">mysql:host=localhost;dbname=MEOW</parameter>
+     <parameter name="username">mudkips</parameter>
+     <parameter name="password">OMNOMNOM</parameter>
+    </database>
+   </databases>
+  </configuration>  
 </configurations>]]>
       </codeblock>
       <p>Subsequently, the application that David and Mudkips are

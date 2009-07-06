@@ -3,30 +3,35 @@
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="examples">
   <title>Tutorial source code examples</title>
+
   <body>
-    <codeblock id="services-example-context">$db_conn = $this->context->getDatabaseManager()->getDatabase('mydb');</codeblock>
-    <codeblock id="services-example-config"><![CDATA[
+    <codeblock id="services-example-context">$db_conn = $this-&gt;context-&gt;getDatabaseManager()-&gt;getDatabase('mydb');</codeblock>
+
+    <codeblock id="services-example-config" outputclass="php">
 // Retrieve a configuration value for item "meaning_of_life" and prefix "org.mycompany.myapp"
 // In settings.xml this would be:
 //
-// <settings prefix="org.mycompany.myapp">
-//  <setting name="meaning_of_life">24</setting>
-// </setting>
+// &lt;settings prefix="org.mycompany.myapp"&gt;
+//  &lt;setting name="meaning_of_life"&gt;24&lt;/setting&gt;
+// &lt;/setting&gt;
 //
 // The second parameter is the value that should be returned instead of null
 
-$val = AgaviConfig::get('org.mycompany.myapp.meaning_of_life', 42);]]>
+$val = AgaviConfig::get('org.mycompany.myapp.meaning_of_life', 42);
     </codeblock>
-    <codeblock id="services-example-database">
-$dbm = $this->context->getDatabaseManager();
-$db = $dbm->getDatabase('blog');
-$conn = $db->getConnection();</codeblock>
-   <codeblock id="services-example-routing-gen">
-$ro = $this->context->getRouting();
+
+    <codeblock id="services-example-database" outputclass="php">
+$dbm = $this-&gt;context-&gt;getDatabaseManager();
+$db = $dbm-&gt;getDatabase('blog');
+$conn = $db-&gt;getConnection();</codeblock>
+
+    <codeblock id="services-example-routing-gen">
+$ro = $this-&gt;context-&gt;getRouting();
 
 // Generate an absolute URL to a named route 
-$url = $ro->gen('posts.edit', array('id' => $post->id), array('relative' => false));</codeblock>
-    <codeblock class="e1" id="configuration-database">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+$url = $ro-&gt;gen('posts.edit', array('id' =&gt; $post-&gt;id), array('relative' =&gt; false));</codeblock>
+
+    <codeblock class="e1" id="configuration-database" outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;configurations xmlns="http://agavi.org/agavi/1.0/config"&gt;
  &lt;!-- The "development" attribute here means that this configuration is
 only used in the development mode. See pub/index.php in which the current
@@ -42,7 +47,8 @@ environment is set. --&gt;
   &lt;/databases&gt;
  &lt;/configuration&gt;
 &lt;/configurations&gt;</codeblock>
-<codeblock id="stage2-base-model">
+
+    <codeblock id="stage2-base-model" outputclass="php">
   /**
   * The base model from which all project models inherit.
   */
@@ -56,10 +62,11 @@ class BlogBaseModel extends AgaviModel
   protected function getPdo()
   {
     // The connection parameters are configured in app/config/databases.xml
-    return $this->context->getDatabaseManager()->getDatabase()->getConnection('blog');
+    return $this-&gt;context-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection('blog');
   }
 }</codeblock>
-<codeblock id="stage2-posts-model">
+
+    <codeblock id="stage2-posts-model" outputclass="php">
   /**
    * This Model is used to retrieve posts and their contents
    */
@@ -76,9 +83,9 @@ class Public_PostsModel extends BlogBaseModel
   public function findFrontPagePosts()
   {
     // Obtain the connection identifier from our base class
-    // This works out to $this->context->getDatabaseManager()->getConnection()
+    // This works out to $this-&gt;context-&gt;getDatabaseManager()-&gt;getConnection()
 
-    $conn = $this->getPdo();
+    $conn = $this-&gt;getPdo();
 
     $sql = 'SELECT p.id, p.title, p.posted , a.screen_name AS author_name, c.name AS category_name
            FROM posts p
@@ -86,7 +93,7 @@ class Public_PostsModel extends BlogBaseModel
            LEFT JOIN categories c ON p.category_id = c.id
            ORDER BY posted DESC LIMIT 20';
     
-    return $conn->query($sql)->fetchAll();
+    return $conn-&gt;query($sql)-&gt;fetchAll();
   }
 
   /**
@@ -99,19 +106,20 @@ class Public_PostsModel extends BlogBaseModel
 
   public function findPostById($id)
   {
-    $conn = $this->getPdo(); //getPdo() is defined in the base model
+    $conn = $this-&gt;getPdo(); //getPdo() is defined in the base model
     
-    $sth = $conn->prepare('SELECT p.*, a.screen_name AS author_name, c.name AS category_name
+    $sth = $conn-&gt;prepare('SELECT p.*, a.screen_name AS author_name, c.name AS category_name
            FROM posts p
            LEFT JOIN admin_users a ON p.author_id = a.id
            LEFT JOIN categories c ON p.category_id = c.id
            WHERE p.id = ? LIMIT 1');
-    $sth->execute(array($id));
+    $sth-&gt;execute(array($id));
     
-    return $sth->fetch(PDO::FETCH_ASSOC);
+    return $sth-&gt;fetch(PDO::FETCH_ASSOC);
   }
 }</codeblock>
-<codeblock id="stage2-index-action">/**
+
+    <codeblock id="stage2-index-action" outputclass="php">/**
    * This Action doesn't change anything in the application state, so
    * it has no execute() methods. 
    */
@@ -129,23 +137,25 @@ class Public_IndexAction extends BlogPublicBaseAction
   }
 }
 </codeblock>
-<codeblock id="stage2-index-success-view">
+
+    <codeblock id="stage2-index-success-view" outputclass="php">
 class Public_IndexSuccessView extends BlogPublicBaseView
 {
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
     // Load the rendering configuration. 
-    $this->setupHtml($rd);
+    $this-&gt;setupHtml($rd);
 
     // Obtain the Posts model from this module
-    $m = $this->context->getModel('Posts', 'Public');
+    $m = $this-&gt;context-&gt;getModel('Posts', 'Public');
 
     // Obtain the list of most recent posts from the model and export
     // it so that templates can access it
-    $this->setAttribute('posts', $m->findFrontpagePosts());
+    $this-&gt;setAttribute('posts', $m-&gt;findFrontpagePosts());
   }
 }</codeblock>
-      <codeblock id="stage2-showpost-action">
+
+    <codeblock id="stage2-showpost-action" outputclass="php">
 class Public_ShowPostAction extends BlogPublicBaseAction
 {
   // Just to demonstrate how an execute() method looks, we'll define
@@ -167,23 +177,24 @@ class Public_ShowPostAction extends BlogPublicBaseAction
 }
       
 </codeblock>
-<codeblock id="stage2-showpost-success-view">
+
+    <codeblock id="stage2-showpost-success-view" outputclass="php">
 class Public_ShowPostSuccessView extends BlogPublicBaseView
 {
   public function executeHtml(AgaviRequestDataHolder $rd)
   {
     // Load the rendering configuration 
-    $this->setupHtml($rd);
+    $this-&gt;setupHtml($rd);
 
     // Obtain the requested post from the model
-    $m = $this->context->getModel('Posts', 'Public');
+    $m = $this-&gt;context-&gt;getModel('Posts', 'Public');
 
-    $post = $m->findPostById($rd->getParameter('post_id'));
-    $this->setAttribute('post', $post);
+    $post = $m-&gt;findPostById($rd-&gt;getParameter('post_id'));
+    $this-&gt;setAttribute('post', $post);
   }
 }</codeblock>
 
-<codeblock id="user-object-example">// Obtain the current User object
+    <codeblock id="user-object-example" outputclass="php">// Obtain the current User object
 $us = $this-&gt;context-&gt;getUser();
 
 if (! $us-&gt;isAuthenticated())
@@ -205,109 +216,117 @@ $us-&gt;setAttribute('last_seen_at', time());
 
 // If it's suddenly Christmas, allow the user to see Christmas-only pages
 if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
-<codeblock id="output-types-simple-example"><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<configurations xmlns="http://agavi.org/agavi/1.0/config">
-  <configuration>
-    <output_types default="html">
-      <output_type name="html">
-	<renderers default="php">
-	  <renderer name="php" class="AgaviPhpRenderer">
-	    <parameter name="assigns">
-	      <parameter name="routing">ro</parameter>
-	      <parameter name="request">rq</parameter>
-	      <parameter name="controller">ct</parameter>
-	      <parameter name="user">us</parameter>
-	      <parameter name="translation_manager">tm</parameter>
-	      <parameter name="request_data">rd</parameter>
-	    </parameter>
-	  </renderer>
-	</renderers>
 
-	<layouts default="default">
-	  <layout name="default">
-	    <layer name="content" />
-	  </layout>
-	</layouts>
+    <codeblock id="output-types-simple-example" outputclass="xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configurations xmlns="http://agavi.org/agavi/1.0/config"&gt;
+  &lt;configuration&gt;
+    &lt;output_types default="html"&gt;
+      &lt;output_type name="html"&gt;
+  &lt;renderers default="php"&gt;
+    &lt;renderer name="php" class="AgaviPhpRenderer"&gt;
+      &lt;parameter name="assigns"&gt;
+        &lt;parameter name="routing"&gt;ro&lt;/parameter&gt;
+        &lt;parameter name="request"&gt;rq&lt;/parameter&gt;
+        &lt;parameter name="controller"&gt;ct&lt;/parameter&gt;
+        &lt;parameter name="user"&gt;us&lt;/parameter&gt;
+        &lt;parameter name="translation_manager"&gt;tm&lt;/parameter&gt;
+        &lt;parameter name="request_data"&gt;rd&lt;/parameter&gt;
+      &lt;/parameter&gt;
+    &lt;/renderer&gt;
+  &lt;/renderers&gt;
 
-	<parameter name="http_headers">
-	  <parameter name="Content-Type">text/html; charset=UTF-8</parameter>
-	</parameter>
-      </output_type>
-    </output_types>
-  </configuration>
-</configurations>
-]]></codeblock>
-<codeblock id="layouts-full-html-example">
+  &lt;layouts default="default"&gt;
+    &lt;layout name="default"&gt;
+      &lt;layer name="content" /&gt;
+    &lt;/layout&gt;
+  &lt;/layouts&gt;
+
+  &lt;parameter name="http_headers"&gt;
+    &lt;parameter name="Content-Type"&gt;text/html; charset=UTF-8&lt;/parameter&gt;
+  &lt;/parameter&gt;
+      &lt;/output_type&gt;
+    &lt;/output_types&gt;
+  &lt;/configuration&gt;
+&lt;/configurations&gt;
+</codeblock>
+
+    <codeblock id="layouts-full-html-example" outputclass="php">
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My website&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div class=&quot;navigation&quot;&gt;
+&lt;div class="navigation"&gt;
 &lt;!--- navigation stuff here --&gt;
 &lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
+&lt;div class="content"&gt;
   &lt;h1&gt;My content page&lt;/h1&gt;
   &lt;p&gt;Blah blah&lt;/p&gt;
 &lt;/div&gt;
 &lt;/body&gt;</codeblock>
-<codeblock id="layouts-classic-html-header">
+
+    <codeblock id="layouts-classic-html-header">
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My website&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div class=&quot;navigation&quot;&gt;
+&lt;div class="navigation"&gt;
 &lt;!--- navigation stuff here --&gt;
 &lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;</codeblock>
-<codeblock id="layouts-classic-html-page">
+&lt;div class="content"&gt;</codeblock>
+
+    <codeblock id="layouts-classic-html-page" outputclass="php">
 &lt;?php require_once 'header.inc.php'; ?&gt;
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;
 &lt;?php require_once 'footer.inc.php'; ?&gt;</codeblock>
-<codeblock id="layouts-classic-html-footer">
+
+    <codeblock id="layouts-classic-html-footer">
 &lt;/div&gt;
 &lt;/body&gt;</codeblock>
-<codeblock id="layouts-agavi-html-decorator">
+
+    <codeblock id="layouts-agavi-html-decorator" outputclass="php">
 &lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My website&lt;/title&gt;
 &lt;body&gt;
-&lt;div class=&quot;navigation&quot;&gt;
+&lt;div class="navigation"&gt;
 &lt;!--- navigation stuff here --&gt;
 &lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
+&lt;div class="content"&gt;
 &lt;?php print $inner; ?&gt;
 &lt;/div&gt;
 &lt;/body&gt;</codeblock>
-<codeblock id="layouts-agavi-html-view-template">
+
+    <codeblock id="layouts-agavi-html-view-template" outputclass="php">
 &lt;h1&gt;My content page&lt;/h1&gt;
 &lt;p&gt;Blah blah&lt;/p&gt;</codeblock>
-<codeblock id="layouts-complete-stage3-decorator-public"><![CDATA[
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<meta name="description" content="Agavi Demo Blog Application"/>
-<meta name="keywords" content="agavi, demo, win, god"/> 
-<meta name="author" content="Agavi Development Team"/> 
-<link rel="stylesheet" type="text/css" href="/public/default.css" media="screen"/>
-<base href="<?php print $ro->getBaseHref(); ?>"/>
-<title><?php print $template['title'];?></title>
-</head>
-<body>
-<div class="container">
-<div class="title" style="background: url(/agavi.png) no-repeat; padding-left: 64px; ">
-  <h1 id="title"><a href="<?php print $ro->gen('home'); ?>">Agavi Demo Blog</a></h1>
-  <?php if ($template['title']): ?><h2><?php print $template['title'];?></h2><?php endif;?>
-</div>
 
-<div class="navigation">
+    <codeblock id="layouts-complete-stage3-decorator-public" outputclass="php">
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html; charset=utf-8"/&gt;
+&lt;meta name="description" content="Agavi Demo Blog Application"/&gt;
+&lt;meta name="keywords" content="agavi, demo, win, god"/&gt; 
+&lt;meta name="author" content="Agavi Development Team"/&gt; 
+&lt;link rel="stylesheet" type="text/css" href="/public/default.css" media="screen"/&gt;
+&lt;base href="&lt;?php print $ro-&gt;getBaseHref(); ?&gt;"/&gt;
+&lt;title&gt;&lt;?php print $template['title'];?&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="container"&gt;
+&lt;div class="title" style="background: url(/agavi.png) no-repeat; padding-left: 64px; "&gt;
+  &lt;h1 id="title"&gt;&lt;a href="&lt;?php print $ro-&gt;gen('home'); ?&gt;"&gt;Agavi Demo Blog&lt;/a&gt;&lt;/h1&gt;
+  &lt;?php if ($template['title']): ?&gt;&lt;h2&gt;&lt;?php print $template['title'];?&gt;&lt;/h2&gt;&lt;?php endif;?&gt;
+&lt;/div&gt;
+
+&lt;div class="navigation"&gt;
   
-  <?php
+  &lt;?php
 
   /* Print a slot. The layout configuration specifies which Action
   goes into this slot - the default layout loads ShowNavigation. Admin
@@ -318,31 +337,32 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
 
   print $slots['navigation'];
 
-  ?>
-<div class="clearer"><span></span></div>
-</div>
+  ?&gt;
+&lt;div class="clearer"&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
 
-<div class="holder_top"></div>
-<div class="holder">
-  <?php
+&lt;div class="holder_top"&gt;&lt;/div&gt;
+&lt;div class="holder"&gt;
+  &lt;?php
 
   /* Print whatever is in the layer above this - normally an Action's output */
   print $inner; 
   
-  ?>
-</div>
-<div class="holder_bottom"></div>
+  ?&gt;
+&lt;/div&gt;
+&lt;div class="holder_bottom"&gt;&lt;/div&gt;
 
-<div class="holder_top"></div>
-<div class="holder">
-<div class="footer">&#169; 2008 <a href="index.html">bloggie.dev</a>. Valid <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> &amp; <a href="http://validator.w3.org/check?uri=referer">XHTML</a>. Template design by <a href="http://arcsin.se">Arcsin</a>
-</div>
-</div>
-<div class="holder_bottom"></div>
-</div>
-</body>
-</html>]]></codeblock>
-<codeblock id="stage3-showpost-modified-template">
+&lt;div class="holder_top"&gt;&lt;/div&gt;
+&lt;div class="holder"&gt;
+&lt;div class="footer"&gt;&amp;#169; 2008 &lt;a href="index.html"&gt;bloggie.dev&lt;/a&gt;. Valid &lt;a href="http://jigsaw.w3.org/css-validator/check/referer"&gt;CSS&lt;/a&gt; &amp;amp; &lt;a href="http://validator.w3.org/check?uri=referer"&gt;XHTML&lt;/a&gt;. Template design by &lt;a href="http://arcsin.se"&gt;Arcsin&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="holder_bottom"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</codeblock>
+
+    <codeblock id="stage3-showpost-modified-template" outputclass="php">
 &lt;?php
 
  // For convenience, import the post contents into a local variable
@@ -355,42 +375,43 @@ if (isItChristmas()) $us-&gt;addCredential('christmas');</codeblock>
  &lt;div&gt;
   &lt;?php print $post['content']; ?&gt;
  &lt;/div&gt;</codeblock>
-<codeblock id="stage3-index-modified-template">
+
+    <codeblock id="stage3-index-modified-template" outputclass="php">
  &lt;h1&gt;Latest posts&lt;/h1&gt;
  &lt;!-- Loop over the posts exported by the View --&gt;
  &lt;?php if (! empty($template['posts'])) foreach($template['posts'] as $post):?&gt;
  &lt;hr/&gt;
  &lt;h3&gt;
    &lt;!-- Generate a link to the post, using its title as the caption --&gt;
-   &lt;a href=&quot;&lt;?php print $ro-&gt;gen('ShowPost', array('post_id' =&gt; $post['id'])); ?&gt;&quot;&gt;&lt;?php print $post['title']; ?&gt;&lt;/a&gt;
+   &lt;a href="&lt;?php print $ro-&gt;gen('ShowPost', array('post_id' =&gt; $post['id'])); ?&gt;"&gt;&lt;?php print $post['title']; ?&gt;&lt;/a&gt;
  &lt;/h3&gt;
    &lt;!-- the summary line with author name, posting date and category name --&gt;
 by &lt;?php print $post['author_name']; ?&gt; @ &lt;?php print $post['posted']; ?&gt; in &lt;strong&gt;&lt;?php print $post['category_name']; ?&gt;&lt;/strong&gt;
 
  &lt;?php endforeach; ?&gt;</codeblock>
-<codeblock id="stage3-modified-output-types">
-	&lt;layouts default=&quot;default&quot;&gt;
 
-	  &lt;!-- The default layout for HTML includes two layers: the
-	       &quot;content&quot; layer is used by the View to render its
-	       output, and the &quot;decorator&quot; layer is preconfigured with
-	       the decorator template of the Public module --&gt;
+    <codeblock id="stage3-modified-output-types" outputclass="xml">
+  &lt;layouts default="default"&gt;
 
-	  &lt;layout name=&quot;default&quot;&gt;
+    &lt;!-- The default layout for HTML includes two layers: the
+         "content" layer is used by the View to render its
+         output, and the "decorator" layer is preconfigured with
+         the decorator template of the Public module --&gt;
 
-	    &lt;!-- This is the topmost layer. Views would render their output here, using a default
-	    template name that matches the name of the View. --&gt;
-	    &lt;layer name=&quot;content&quot; /&gt;
+    &lt;layout name="default"&gt;
 
-	    &lt;!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
-	    to render the decorator template. The content of the output becomes available to us here
-	    through $inner (see app/modules/Public/templates/decorator.php) --&gt;
-	    &lt;layer name=&quot;decorator&quot;&gt;
-	      &lt;parameter name=&quot;template&quot;&gt;decorator&lt;/parameter&gt;
-	      &lt;parameter name=&quot;directory&quot;&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
-	    &lt;/layer&gt;
-	  &lt;/layout&gt;
-	&lt;/layouts&gt;</codeblock>
+      &lt;!-- This is the topmost layer. Views would render their output here, using a default
+      template name that matches the name of the View. --&gt;
+      &lt;layer name="content" /&gt;
 
-</body>
+      &lt;!-- The output of the above layer will fall through into this fixed layer, which is preconfigured
+      to render the decorator template. The content of the output becomes available to us here
+      through $inner (see app/modules/Public/templates/decorator.php) --&gt;
+      &lt;layer name="decorator"&gt;
+        &lt;parameter name="template"&gt;decorator&lt;/parameter&gt;
+        &lt;parameter name="directory"&gt;%core.module_dir%/Public/templates&lt;/parameter&gt;
+      &lt;/layer&gt;
+    &lt;/layout&gt;
+  &lt;/layouts&gt;</codeblock>
+  </body>
 </topic>

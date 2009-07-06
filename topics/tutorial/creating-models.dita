@@ -17,13 +17,13 @@
     you need to create a new Model. The project configuration system eases
     your job immensely:</p>
     <p>
-	<screen>bloggie$ <userinput>agavi model-create</userinput>
+  <screen>bloggie$ <userinput>agavi model-create</userinput>
 
 Module name: <userinput>Public</userinput>
 
 Model name: <userinput>Posts</userinput>
      [copy] Copying 1 file to [...]/app/modules/Public/models</screen>
-	</p>
+  </p>
       <p>You now have an empty Posts Model class ready to be populated
     with application logic:</p>
     <codeblock conref="../examples/examples.xml#stage2-posts-model" class="php"/>

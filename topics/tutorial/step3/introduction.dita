@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<topic id="tutorial-step3-introduction">
+  <title>Putting the M in MVC</title>
+
+  <body>
+    <p>So far we created two static pages that feed on data that's held in the
+    view. That's not what MVC is about. Instead we should put the logic of
+    where to obtain the data in our business model and the view should only be
+    concerned with how to display it. It's about time we change that. In this
+    chapter, we'll move the code to retrieve and handle posts into separate
+    classes and start to created our business model.</p>
+
+    <p>Models in agavi are just plain classes. While they usually extend
+    AgaviModel in one way or another, this is not a requirement. You can
+    create your business model completely independent of Agavi and then use it
+    in your application. However, you'll loose a couple of benefits that the
+    framework has to offer, so consider carefully whether you'll ever have the
+    need to use your Models in a context without using agavi. Unless you have
+    a very specific reason we recommend that your models extend the
+    applications BaseModel which has been created by the project wizard.</p>
+
+    <p>We'll be using two models to handle our business logic. First a "Post"
+    model that represents a single post and a "PostManager" that handles all
+    storage and retrieval operations for the post. That way we can easily
+    exchange the PostManager for a mock implementation in testing contexts.
+    That way it's possible to have tests run even without a database
+    dependency.</p>
+
+    <p>The result of this chapter is available at <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage3.tgz">http://www.agavi.org/guide/stages/stage3.tgz</xref></p>
+  </body>
+</topic>

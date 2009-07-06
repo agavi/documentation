@@ -31,54 +31,54 @@
       annoying to solve. Some of these include:</p>
 
       <dl>
-	<dlentry>
-	  <dt>It helps you build and maintain clean URLs.</dt>
-	  <dd>Agavi's routing implementation can not only map
-	  request URLs to actions, but also handles your web service
-	  requests, generates URLs for you, and much more. Read the
-	  chapter on routing for more information on advanced
-	  features such as route callbacks or how to read an HTTP
-	  Accept header and set an output type accordingly.</dd>
-	</dlentry>
-	<dlentry>
-	  <dt>It validates your data and helps
-	  secure your code.</dt>
-	  <dd> Agavi can validate input submitted
-	  by the user, filter and normalize values, and make your
-	  application totally bullet-proof by only exposing validated data
-	  to your code, greatly lowering the risks of you or one of your
-	  developers using potentially unsafe data in your code. This
-	  applies to any potentially unsafe input, not just GET or POST
-	  data - files, cookies, and HTTP headers, among other input
-	  sources, will all be run through the validation system, and the
-	  single point of access to such data guarantees that you really
-	  only process data you have validated.</dd>
-	</dlentry>
+  <dlentry>
+    <dt>It helps you build and maintain clean URLs.</dt>
+    <dd>Agavi's routing implementation can not only map
+    request URLs to actions, but also handles your web service
+    requests, generates URLs for you, and much more. Read the
+    chapter on routing for more information on advanced
+    features such as route callbacks or how to read an HTTP
+    Accept header and set an output type accordingly.</dd>
+  </dlentry>
+  <dlentry>
+    <dt>It validates your data and helps
+    secure your code.</dt>
+    <dd> Agavi can validate input submitted
+    by the user, filter and normalize values, and make your
+    application totally bullet-proof by only exposing validated data
+    to your code, greatly lowering the risks of you or one of your
+    developers using potentially unsafe data in your code. This
+    applies to any potentially unsafe input, not just GET or POST
+    data - files, cookies, and HTTP headers, among other input
+    sources, will all be run through the validation system, and the
+    single point of access to such data guarantees that you really
+    only process data you have validated.</dd>
+  </dlentry>
 
-	<dlentry>
-	  <dt>It takes the pain out of HTML forms</dt>
-	  <dd>Agavi features a very clever approach to
-	  handling forms for you that does not rely on helpers or a
-	  specific template language to work. Not only will it
-	  re-populate the information the user entered when a form is
-	  shown again after submission, it also assigns classes to
-	  erroneous fields and their labels, and can even insert error
-	  messages into your form without any placeholders in the
-	  markup. Of course, you have full control over all aspects at
-	  any time, allowing you to pre-populate forms with
-	  information from your database or other sources.</dd>
-	</dlentry>
-	
-	<dlentry>
-	  <dt>It offers powerful features for
-	  globalization</dt>
-	  <dd>Besides support for translating
-	  strings in different languages, Agavi comes with the ability to
-	  format and parse numbers, dates and currencies in over 250
-	  different locales. It is aware of time zones, has extensive
-	  support for calendars and calendar operations, can give you a
-	  list of country names in the language (and script!) you like,
-	and much, much more.</dd></dlentry>
+  <dlentry>
+    <dt>It takes the pain out of HTML forms</dt>
+    <dd>Agavi features a very clever approach to
+    handling forms for you that does not rely on helpers or a
+    specific template language to work. Not only will it
+    re-populate the information the user entered when a form is
+    shown again after submission, it also assigns classes to
+    erroneous fields and their labels, and can even insert error
+    messages into your form without any placeholders in the
+    markup. Of course, you have full control over all aspects at
+    any time, allowing you to pre-populate forms with
+    information from your database or other sources.</dd>
+  </dlentry>
+  
+  <dlentry>
+    <dt>It offers powerful features for
+    globalization</dt>
+    <dd>Besides support for translating
+    strings in different languages, Agavi comes with the ability to
+    format and parse numbers, dates and currencies in over 250
+    different locales. It is aware of time zones, has extensive
+    support for calendars and calendar operations, can give you a
+    list of country names in the language (and script!) you like,
+  and much, much more.</dd></dlentry>
       </dl>
     </section>
 
@@ -109,28 +109,28 @@
       easily maintainable:</p>
 
       <ul>
-	<li>The <keyword>Model</keyword> accesses your
-	data. It might talk to a database, or to a web service, or use
-	smoke signals to acquire the information it returns to you; the
-	essential point is that the way the data is retrieved is
-	absolutely irrelevant to the code that uses the model. So in the
-	beginning, your application would use models that return "fake"
-	dummy test data for rapid prototyping, and later, you will write
-	the actual code that talks to a database.</li>
-	<li>The <keyword>View</keyword> presents your
-	data. For Web sites, that typically means it renders an HTML
-	document from one or more templates. But it could also build an
-	RSS feed from the data it was given, or create a JSON data
-	structure for the Ajax functionality of your application - it's
-	all up to you!</li>
+  <li>The <keyword>Model</keyword> accesses your
+  data. It might talk to a database, or to a web service, or use
+  smoke signals to acquire the information it returns to you; the
+  essential point is that the way the data is retrieved is
+  absolutely irrelevant to the code that uses the model. So in the
+  beginning, your application would use models that return "fake"
+  dummy test data for rapid prototyping, and later, you will write
+  the actual code that talks to a database.</li>
+  <li>The <keyword>View</keyword> presents your
+  data. For Web sites, that typically means it renders an HTML
+  document from one or more templates. But it could also build an
+  RSS feed from the data it was given, or create a JSON data
+  structure for the Ajax functionality of your application - it's
+  all up to you!</li>
 
-	<li>The <keyword>Controller</keyword> contains
-	the business logic: the code that talks to the model, transforms
-	the data, performs necessary tasks and then prepares data for
-	the View. In Agavi, we call this the
-	<keyword>Action</keyword>. After it has finished its task,
-	it tells the system which View to use to generate the
-	output. </li>
+  <li>The <keyword>Controller</keyword> contains
+  the business logic: the code that talks to the model, transforms
+  the data, performs necessary tasks and then prepares data for
+  the View. In Agavi, we call this the
+  <keyword>Action</keyword>. After it has finished its task,
+  it tells the system which View to use to generate the
+  output. </li>
       </ul>
     </section>
   </body>

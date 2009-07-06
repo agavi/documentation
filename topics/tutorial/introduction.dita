@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-	  "http://docs.oasis-open.org/dita/dtd/topic.dtd">
+"http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="introduction">
   <title>Introduction</title>
 
   <body>
-    <section><title>About this tutorial</title>
-      <p>This tutorial provides a
-	high-level overview of the architecture of the Agavi application
-	framework, examining various common Web application problems and how Agavi
-	addresses them. It does not cover more exotic cases which eventually
-	invite themselves into your project plans. For advanced magic you should
-	consult the User's Guide and the Cookbook. </p><p>This tutorial will cover
-	the complete development cycle of a PHP blog engine, from a basic skeleton
-	application to a working and themed implementation. It is broken down into
-	stages: each chapter involves the creation of a partial implementation, so
-	you can see the blog software in various stages of development and make
-	comparisons. The stages are available as tarballs.</p><p>The final version
-	of the blog engine is also the official demo application of Agavi. It is
-	extremely well documented and showcases many of the features Agavi has to
-	offer.</p>
-      <p>
-      <note>This tutorial is written for an experienced developer
-	who has created Web applications in the past. It does not include a
-	detailed discussion of the Model-View-Controller (MVC) pattern or its
-	associated implications, benefits, and disadvantages. There is certain
-	basic knowledge that you must possess to understand and wield the power of
-	a production framework. Agavi is not complicated, but it is certainly
-	vast. If you are a newcomer to Web application development, you should
-	start your quest by studying MVC and HTTP mechanics. HTTP and the MVC
-	architecture have a profound influence on how developers structure
-	software and design user interfaces, sometimes in subtle
-	ways.
-      </note>
-      </p>
-      <p>
-	<note>Since this tutorial focuses on building a Web
-	  application, it will often refer to Agavi features specifically within a
-	  Web context. However, Agavi is designed to be able to run in multiple
-	  contexts; most of the Web-oriented behaviors described can be easily
-	  generalized.</note>
-      </p>
-      <p>Let's get started!</p>
-    </section>
+    <section><title>About this guide</title> <p>This guide provides a
+    comprehensive overview of the architecture of the Agavi application
+    framework, examining various common Web application problems and how Agavi
+    addresses them. It does not cover the api documentation which can be found
+    in a separate section of the website. </p><p>During the course we will
+    cover the complete development cycle of a PHP blog engine, from a basic
+    skeleton application to a working and themed implementation. It is broken
+    down into stages: each chapter involves the creation of a partial
+    implementation, so you can see the blog software in various stages of
+    development and make comparisons. The stages are available as
+    tarballs.</p><p>The final version of the blog engine is also the official
+    demo application of Agavi. It is extremely well documented and showcases
+    many of the features Agavi has to offer.</p> <p> <note>This guide is
+    written for an experienced developer who has created Web applications in
+    the past. It does not include a detailed discussion of the
+    Model-View-Controller (MVC) pattern or its associated implications,
+    benefits, and disadvantages. There is certain basic knowledge that you
+    must possess to understand and wield the power of a production framework.
+    Agavi is not complicated, but it is certainly vast. If you are a newcomer
+    to Web application development, you should start your quest by studying
+    MVC and HTTP mechanics. HTTP and the MVC architecture have a profound
+    influence on how developers structure software and design user interfaces,
+    sometimes in subtle ways.</note></p><p><note>Since this tutorial focuses
+    on building a Web application, it will often refer to Agavi features
+    specifically within a Web context. However, Agavi is designed to be able
+    to run in multiple contexts; most of the Web-oriented behaviors described
+    can be easily generalized.</note><note>This guide is valid for Agavi &gt;=
+    1.0.1. Please note that beta versions and release candidates may differ in
+    some aspects.</note> </p></section>
+
+    <section><title>Prerequisites</title><p>You'll need a webserver and PHP
+    &gt;= 5.2.0. The basics of setting up a webserver and installing PHP will
+    not be covered in this guide, please refer to the respective
+    documentations.</p></section>
+
+    <section><title>Resources and Staging apps</title><p>All resources
+    required for this tutorial can be downloaded from <xref format="html"
+    href="http://www.agavi.org/guide/resources/resources.tgz">http://www.agavi.org/guide/resources/resources.tgz</xref>
+    the staging apps can be downloaded from <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage1.tgz</xref>
+    to <xref format="html"
+    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage7.tgz</xref>.</p></section>
   </body>
 </topic>

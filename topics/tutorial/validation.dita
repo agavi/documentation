@@ -11,16 +11,16 @@
       database. We have to make sure these comments follow certain rules and do not include
       hostile content. Let's define our demands that the comments would have to follow:
       <ol>
-	<li>The email field must carry a correct email address. It
-	should be no longer than 255 characters, and it can't be
-	empty.</li>
-	<li>The author name must not be empty, it must contain
-	alphanumeric characters, dashes and spaces only. It should not
-	be longer than 255 characters.</li>
-	<li>The body of the comment must be no longer than 2000
-	characters and only carry plain text with no HTML/Javascript
-	allowed, so we have to encode it with
-	<apiname>htmlentities</apiname>()</li>
+  <li>The email field must carry a correct email address. It
+  should be no longer than 255 characters, and it can't be
+  empty.</li>
+  <li>The author name must not be empty, it must contain
+  alphanumeric characters, dashes and spaces only. It should not
+  be longer than 255 characters.</li>
+  <li>The body of the comment must be no longer than 2000
+  characters and only carry plain text with no HTML/Javascript
+  allowed, so we have to encode it with
+  <apiname>htmlentities</apiname>()</li>
       </ol>
       </p>
       <note type="caution">It is not a good practice to encode input
@@ -62,7 +62,7 @@
       <codeblock conref="../examples/validation.dita#bloggie-postcomments-error-view"
       class="php"/></p>
       <p>The corresponding template:
-	<codeblock conref="../examples/validation.dita#bloggie-postcomments-error-template" class="php"/></p>
+  <codeblock conref="../examples/validation.dita#bloggie-postcomments-error-template" class="php"/></p>
       <note type="tip">There is a better way to handle form submission
       errors. Agavi has a Form Population Filter, which can
       automatically fill and refill forms, parse the validation errors
