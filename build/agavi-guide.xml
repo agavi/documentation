@@ -12,6 +12,16 @@ However, be cautious in modifying the environment initialization section. -->
 <!-- The project name is agavi guide.The default output target is xhtml. --> 
 <project name="guide" default="xhtml" basedir="."> 
 
+	<!-- path to the svnant libraries. Usually they will be located in ANT_HOME/lib -->
+	<path id="svnant.classpath">
+		<fileset dir="${basedir}/lib/svnant">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>  
+
+	<!-- load the svn task -->
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+
 	<echo> </echo> 
 	<echo>Building the agavi guide. Please stand by...</echo> 
 	<echo> </echo> 
@@ -239,6 +249,16 @@ However, be cautious in modifying the environment initialization section. -->
 			longfile="gnu" />
 	</target>
 	
+	<target name="create-pdf-tarball" depends="pdf, create-stage-tarballs">
+		<property name="pdf.tarfile" value="${outdir}/pdf-tarball.tar.gz" />
+		<tar tarfile="${pdf.tarfile}" compression="gzip" longfile="gnu">
+			<tarfileset dir="${outdir}">
+				<include name="stages/**" />
+				<include name="pdf2/tutorial.pdf" />
+			</tarfileset>
+		</tar>
+	</target>
+	
 	<target name="create-website-structure" depends="dita2website, create-stage-tarballs, create-resources-tarball">
 		<property name="website.base" value="${outdir}/website" />
 		<property name="website.templates" value="${website.base}/templates" />
@@ -284,6 +304,15 @@ However, be cautious in modifying the environment initialization section. -->
 		<copy todir="${outdir}/xhtml/stages" overwrite="yes">
 			<fileset dir="${outdir}/stages" includes="**/*"/>
 		</copy>
+	</target>
+
+	<target name="update-project">
+		<svn>
+			<update dir="${projdir}" />
+		</svn>
+	</target>
+	
+	<target name="build-latest-pdf" depends="update-project, create-pdf-tarball">
 	</target>
 
 </project> 
