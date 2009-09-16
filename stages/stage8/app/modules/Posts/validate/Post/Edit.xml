@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations
+	xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+	parent="%core.module_dir%/Posts/config/validators.xml"
+>
+	<ae:configuration>
+		<validators method="read">
+			<validator class="Posts_PostValidator" name="post">
+				<arguments>
+					<argument>post</argument>
+				</arguments>
+				<errors>
+					<error>The parameter post must contain a valid post id</error>
+				</errors>
+				<ae:parameters>
+					<ae:parameter name="export">post</ae:parameter>
+				</ae:parameters>
+			</validator>
+		</validators>
+		
+		<validators method="write">
+			<validator class="Posts_PostValidator" name="post">
+				<arguments>
+					<argument>post</argument>
+				</arguments>
+				<errors>
+					<error>The parameter post must contain a valid post id</error>
+				</errors>
+				<ae:parameters>
+					<ae:parameter name="export">post</ae:parameter>
+				</ae:parameters>
+			</validator>
+			
+			<validator class="string">
+				<arguments>
+					<argument>title</argument>
+				</arguments>
+				<errors>
+					<error>The title field has an invalid value.</error>
+					<error for="required">Please provide a title.</error>
+					<error for="max_error">The title must be shorter than 255 characters.</error>
+				</errors>
+				<ae:parameters>
+					<ae:parameter name="max">255</ae:parameter>
+				</ae:parameters>
+			</validator>
+			
+			<validator class="string">
+				<arguments>
+					<argument>content</argument>
+				</arguments>
+				<errors>
+					<error>The content field has an invalid value.</error>
+					<error for="required">Please provide a post body.</error>
+					<error for="max_error">The post body must be shorter than 65536 characters.</error>
+				</errors>
+				<ae:parameters>
+					<ae:parameter name="max">65536</ae:parameter>
+				</ae:parameters>
+			</validator>
+			
+			<validator class="inarray">
+				<arguments>
+					<argument>category</argument>
+				</arguments>
+				<errors>
+					<error>Please choose a valid category.</error>
+					<error for="required">Please choose a category.</error>
+				</errors>
+				<ae:parameters>
+					<ae:parameter name="values">
+						<ae:parameters>
+							<ae:parameter>1</ae:parameter>
+							<ae:parameter>2</ae:parameter>
+						</ae:parameters>
+					</ae:parameter>
+				</ae:parameters>
+			</validator>
+		</validators>
+		
+	</ae:configuration>
+</ae:configurations>

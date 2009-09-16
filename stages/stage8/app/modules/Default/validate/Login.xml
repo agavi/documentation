@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ae:configurations
+	xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+	xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+	parent="%core.module_dir%/Default/config/validators.xml"
+>
+	<ae:configuration>
+		
+		<validators method="write">
+			<validator class="string" required="true" name="user_valid">
+				<argument>username</argument>
+				<error>Username error.</error>
+				<ae:parameters>
+					<ae:parameter name="min">4</ae:parameter>
+				</ae:parameters>
+			</validator>
+			
+			<validator class="string" required="true" name="password_valid">
+				<argument>password</argument>
+				<error>Your password is too short.</error>
+				<ae:parameters>
+					<ae:parameter name="min">4</ae:parameter>
+				</ae:parameters>
+			</validator>
+			
+			<validator class="isset" required="false">
+				<argument>remember</argument>
+			</validator>
+		</validators>
+		
+	</ae:configuration>
+</ae:configurations>
