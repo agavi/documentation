@@ -3,33 +3,27 @@
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="tutorial-form-processing-introduction">
   <title>Form Processing</title>
-
   <body>
-    <p>In this chapter we'll create an admin section for the blog. Adding
-    posts, editing and deleting posts are regular tasks that need to be
-    done.</p>
-
-    <p>Form processing is a routine task for webapplications. It's a mostly
-    boring and monotone duty that still needs to be done with high diligence.
-    Validation must be performed, errors handled and forms pre-filled with
-    values. Agavi offers multiple facilities to help form processing.</p>
-
+    <p>In this chapter we'll create an admin section for the blog. Adding, editing and deleting
+      posts are regular tasks that need to be done.</p>
+    <p>Form processing is a routine task for web applications. It's a mostly boring and monotone
+      duty that still needs to be done with high diligence. Validation must be performed, errors
+      handled and forms pre-filled with values. Agavi offers multiple facilities to help form
+      processing.</p>
     <p>The result of this chapter can be downloaded at <xref format="html"
-    href="http://www.agavi.org/guide/stages/stage7.tgz">http://www.agavi.org/guide/stages/stage7.tgz</xref></p>
-
-    <section><title>Form Processing Workflow</title><p>A form should be
-    processed in these steps:</p><ol>
-        <li>Present the input form to the user - this is usually named "input"
-        and should be a GET request</li>
-
-        <li>Submit the form to the same action using a POST request<ol>
-            <li>If an error occurs, present the form again with prefilled
-            fields and error messages.</li>
-          </ol></li>
-
-        <li>If validation and form processing are successful, redirect the
-        user to a success page. This should be a GET request to a different
-        URL.</li>
-      </ol></section>
+        href="http://www.agavi.org/guide/stages/stage7.tgz"
+        >http://www.agavi.org/guide/stages/stage7.tgz</xref></p>
+    <section>
+      <title>Form Processing Workflow</title>
+      <p>A form should be processed in these steps:</p>
+      <ol>
+        <li>Present the input form to the user - this is usually named "input" and should be a GET
+          request</li>
+        <li>Submit the form to the same action using a POST request<ol><li>If an error occurs,
+              present the form again with prefilled fields and error messages.</li></ol></li>
+        <li>If validation and form processing are successful, redirect the user to a success page.
+          This should be a GET request to a different URL.</li>
+      </ol>
+    </section>
   </body>
 </topic>

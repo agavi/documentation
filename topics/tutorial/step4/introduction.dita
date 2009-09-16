@@ -2,35 +2,28 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="tutorial-step4-introduction">
-  <title>Polishing it up</title>
-
+  <title>Polishing It Up</title>
   <body>
-    <p>Now that we have the basics working just fine we should do some
-    polishing. We'd like the title of the post to be displayed in the url to
-    make our friends from the SEO department happy and we'll make the whole
-    blog look a little better. Let's start with the looks.</p>
-
-    <p>You might have noticed that our templates consisted of only the most
-    basic html code needed to display the list or respectively the post.
-    However, when you looked at the page there was a title tag that we were
-    able to manipulate through a template variable and the page title was also
-    set. If you had a look at the HTML source you'd have noticed that it is
-    indeed valid xhtml. How did that happen?</p>
-
-    <p>Old style PHP applications often made use of included snippets of HTML
-    code, often called header and footer. Those were included in the templates
-    to factor out common html code. Agavi has a mechanism to factor out common
-    code but it works far better than using includes. It's called layers. When
-    we created the application using the agavi build script a very basic set
-    of layers was created and configured for us. In the following chapter
-    we'll go through those to understand what this is all about.</p>
-
-    <p>We'll be using the open source Emplode template by Arcsin, which can be
-    obtained from the <filepath>resources/template/</filepath> directory of
-    this tutorial or from <xref format="html"
-    href="http://templates.arcsin.se/emplode-website-template/">http://templates.arcsin.se/emplode-website-template/</xref>.
-    The result of this chapter is the <xref format="html"
-    href="http://www.agavi.org/guide/stages/stage4.tgz">http://www.agavi.org/guide/stages/stage4.tgz</xref>
-    application.</p>
+    <p>Now that we have the basics working just fine, we should do some polishing. We'd like the
+      title of the post to be displayed in the URL to make our friends from the Search Engine
+      Optimisation (SEO) department happy and we'll make the whole blog look a little better. Let's
+      start with the looks.</p>
+    <p>You might have noticed that our templates consisted of only the most basic html code needed
+      to display the list or respectively the post. However, when you looked at the page there was a
+      title tag that we were able to manipulate through a template variable and the page title was
+      also set. If you had a look at the HTML source you'd have noticed that it is indeed valid
+      xhtml. How did that happen?</p>
+    <p>Old style PHP applications often made use of included snippets of HTML code, often called
+      header and footer. Those were included in the templates to factor out common html code. Agavi
+      has a mechanism to factor out common code but it works far better than using includes. It's
+      called layers. When we created the application using the Agavi build script a very basic set
+      of layers was created and configured for us. In the following chapter we'll go through those
+      to understand what this is all about.</p>
+    <p>We'll be using the open source Emplode template by Arcsin, which can be obtained from the
+        <filepath>resources/template/</filepath> directory of this tutorial or from <xref
+        format="html" href="http://templates.arcsin.se/emplode-website-template/"
+        >http://templates.arcsin.se/emplode-website-template/</xref>. The result of this chapter is
+      the <xref format="html" href="http://www.agavi.org/guide/stages/stage4.tgz"
+        >http://www.agavi.org/guide/stages/stage4.tgz</xref> application.</p>
   </body>
 </topic>

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="using-callbacks-for-title-in-url">
   <title>Using Callbacks for the Title in URLs</title>
-
   <body>
-    <p>We can use a RoutingCallback's onGenerate method to factor out the code
-    needed to generate a URL for the post's detail page. We'll just pass the
-    PostModel in and the callback takes care of extracting the id and the
-    title for the url. Let's create a callback in
-    <filepath>app/modules/Posts/lib/routing/PostRoutingCallback.class.php</filepath>.</p>
-
+    <p>We can use the <apiname>onGenerate</apiname> method from <apiname
+        >AgaviRoutingCallback</apiname> to factor out the code needed to generate a URL for the
+      post's detail page. We'll just pass the <apiname>PostModel</apiname> in and the callback takes
+      care of extracting the id and the title for the URL. Let's create a callback in <filepath
+        >app/modules/Posts/lib/routing/PostRoutingCallback.class.php</filepath>.</p>
     <codeblock outputclass="php">&lt;?php
 
 class PostRoutingCallback extends AgaviRoutingCallback
@@ -39,10 +36,8 @@ class PostRoutingCallback extends AgaviRoutingCallback
 }
 
 ?&gt;</codeblock>
-
-    <p>The callback must be available in the global autoload file in
-    <filepath>app/config/autoload.xml</filepath>:</p>
-
+    <p>The callback must be available in the global autoload file in <filepath
+        >app/config/autoload.xml</filepath>:</p>
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
   &lt;ae:configurations xmlns="http://agavi.org/agavi/config/parts/autoload/1.0" xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" parent="%core.system_config_dir%/autoload.xml"&gt;
     &lt;ae:configuration&gt;
@@ -54,9 +49,7 @@ class PostRoutingCallback extends AgaviRoutingCallback
 
     &lt;/ae:configuration&gt;
   &lt;/ae:configurations&gt;</codeblock>
-
     <p>and registered in <filepath>app/config/routing.xml</filepath>:</p>
-
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
   &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
     &lt;ae:configuration&gt;
@@ -77,10 +70,7 @@ class PostRoutingCallback extends AgaviRoutingCallback
       &lt;/routes&gt;
     &lt;/ae:configuration&gt;
   &lt;/ae:configurations&gt;</codeblock>
-
-    <p>Now we need to pass a PostModel instead of id and title in our
-    ShowSuccessView:</p>
-
+    <p>Now we need to pass a <apiname>PostModel</apiname> instead of id and title in our <apiname>ShowSuccessView</apiname>:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_Post_ShowSuccessView extends BlogPostsBaseView
@@ -115,9 +105,8 @@ class Posts_Post_ShowSuccessView extends BlogPostsBaseView
   }
 }
 ?&gt;</codeblock>
-
-    <p>and that's it. Now the no part of the application itself needs to know
-    about how the urls to the posts are contructed and which parameters are
-    required. That's all nicely encapsulated in the routing.</p>
+    <p>and that's it. Now the no part of the application itself needs to know about how the urls to
+      the posts are contructed and which parameters are required. That's all nicely encapsulated in
+      the routing.</p>
   </body>
 </topic>

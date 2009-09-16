@@ -2,33 +2,25 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="installing-a-new-copy">
-  <title>Installing a new copy of your application</title>
-
+  <title>Installing a New Copy of Your Application</title>
   <body>
-    <p>Sooner or later you'll face the task of installing a new copy of your
-    application - either you get a new developer on your team or you need to
-    deploy your app to a testing/staging/live environment. With all the work
-    we just invested that's a simple task. Here's what you do: </p>
-
+    <p>Sooner or later, you will face the task of installing a new copy of your application - either
+      you get a new developer on your team or you need to deploy your app to a testing/staging/live
+      environment. With all the work we just invested that's a simple task. Here's what you do: </p>
     <ol>
       <li>Check out or export your application from the VCS.</li>
-
       <li>Copy and adapt the build script in dev/bin/</li>
-
-      <li>Call dev/bin/agavi public-create and answer the questions (we assume
-      a development-joe-rambo environment here):</li>
+      <li>Call dev/bin/agavi public-create and answer the questions (we assume a
+        development-joe-rambo environment here):</li>
     </ol>
-
     <screen>bloggie$ <userinput>dev/bin/agavi public-create</userinput>
 
 Name of the environment to bootstrap in dispatcher scripts [development]: <userinput>development-joe-rambo</userinput>
 Should an Apache .htaccess file with rewrite rules be generated (y/n) [n]? 
 
 </screen>
-
-    <p>This will copy all files from <filepath>dev/pub</filepath> to the
-    appropriate place in <filepath>app/pub</filepath> and adjust the
-    environment to bootstrap. Add configs for your new environment as needed,
-    done.</p>
+    <p>This will copy all files from <filepath>dev/pub</filepath> to the appropriate place in
+        <filepath>app/pub</filepath> and adjust the environment to bootstrap. Add configs for your
+      new environment as needed, done.</p>
   </body>
 </topic>

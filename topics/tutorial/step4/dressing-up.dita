@@ -2,23 +2,18 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="tutorial-dressing-up">
-  <title>Applying our Layout</title>
-
+  <title>Applying Our Layout</title>
   <body>
-    <p>So let's go apply the pieces from the emplode template to our blog.
-    First we need to copy the ressources like images and css files to our
-    public directory. We'll just copy all images to
-    <filepath>pub/img</filepath> and the style.css to
-    <filepath>pub/css/style.css</filepath>. As we're moving the stylesheet to
-    a different location we'll need to adjust it a little, the stylesheet
-    directives referring to 'img' must be changed to '../img'.</p>
-
-    <p>Next we'll add the stylesheet to our decorator template in
-    <filepath>app/templates/Master.php</filepath>. You'll notice that the
-    master template reads the base href from the routing so that's taken care
-    of. All we need to to is insert the link tag. The Master.php should now
-    look like this:</p>
-
+    <p>So let's go apply the pieces from the emplode template to our blog. First we need to copy the
+      ressources like images and css files to our public directory. We'll just copy all images to
+        <filepath>pub/img</filepath> and the style.css to <filepath>pub/css/style.css</filepath>. As
+      we're moving the stylesheet to a different location we'll need to adjust it a little, the
+      stylesheet directives referring to <codeph>img</codeph> must be changed to <codeph
+        >../img</codeph>.</p>
+    <p>Next we'll add the stylesheet to our decorator template in <filepath
+        >app/templates/Master.php</filepath>. You'll notice that the master template reads the base
+      href from the routing so that's taken care of. All we need to to is insert the link tag. The
+        <filepath>Master.php</filepath> should now look like this:</p>
     <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
   &lt;head&gt;
@@ -33,11 +28,8 @@
   &lt;/body&gt;
 &lt;/html&gt;
 </codeblock>
-
-    <p>So let's add the required html-code. We don't have most of the elements
-    yet so for the header, navigation and all missing elements we'll keep the
-    raw html source:</p>
-
+    <p>So let's add the required HTML code. We don't have most of the elements yet so for the
+      header, navigation and all missing elements we'll keep the raw HTML source:</p>
     <codeblock outputclass="php">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
   &lt;head&gt;
@@ -245,12 +237,9 @@
   &lt;/body&gt;
 &lt;/html&gt;
 </codeblock>
-
-    <p>Far better, but not perfect yet. We'll need to adapt the Index template
-    and the Post.Show template as well. The
-    <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> should
-    look like this:</p>
-
+    <p>Far better, but not perfect yet. We'll need to adapt the Index template and the Post.Show
+      template as well. The <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> should
+      look like this:</p>
     <codeblock outputclass="php">&lt;?php
 foreach ($t['posts'] as $post)
 {
@@ -273,11 +262,8 @@ foreach ($t['posts'] as $post)
 }
 ?&gt;
 </codeblock>
-
-    <p>And for the Post.Show page we'll leave the comments out for the moment.
-    So <filepath>app/modules/Posts/templates/Posts/ShowSuccess.php</filepath>
-    should look like this:</p>
-
+    <p>And for the Post.Show page we'll leave the comments out for the moment. So <filepath
+        >app/modules/Posts/templates/Posts/ShowSuccess.php</filepath> should look like this:</p>
     <codeblock outputclass="php">&lt;?php
 // alias the post, to make access shorter
 $post = $t['post'];
@@ -296,16 +282,13 @@ $post = $t['post'];
   &lt;/div&gt;
 
 &lt;/div&gt;</codeblock>
-
     <p>That's it for now.</p>
-
-    <note type="note">There's different opinions about whether it's better to
-    first skin the application and then continue building it or the other way
-    round. We'd recommend to first build major parts of the application and
-    then skin it. Just add a rough layout and then move on to implementing
-    functionality. That way you can have someone test the clickflows and the
-    overall logic while you make it look good. However, for the course of this
-    tutorial that would imply that you'd have to learn a lot of more difficult
-    things before actually returning to this point.</note>
+    <note type="note">There's different opinions about whether it's better to first skin the
+      application and then continue building it or the other way round. We'd recommend to first
+      build major parts of the application and then skin it. Just add a rough layout and then move
+      on to implementing functionality. That way you can have someone test the clickflows and the
+      overall logic while you make it look good. However, for the course of this tutorial that would
+      imply that you'd have to learn a lot of more difficult things before actually returning to
+      this point.</note>
   </body>
 </topic>

@@ -3,13 +3,10 @@
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="topics-tutorial-adding-a-post">
   <title>Adding a Post</title>
-
   <body>
-    <p>First we need to create a new action, let's name it "Add". We'll need
-    three views, "Input" to display the empty form, "Error" in case any
-    validation or other error occurs and "Success" for handling any successful
-    add to the database.</p>
-
+    <p>First we need to create a new action, let's name it "Add". We'll need three views, "Input" to
+      display the empty form, "Error" in case any validation or other error occurs and "Success" for
+      handling any successful add to the database.</p>
     <screen>bloggie$ <userinput>dev/bin/agavi action-wizard</userinput>
 
 Module name: <userinput>Posts</userinput>
@@ -20,10 +17,8 @@ Space-separated list of views to create for Add [Success]: <userinput>Input Succ
 
 bloggie$
 </screen>
-
-    <p>This created the action and all three views for us. Next we'll add the
-    route so we can reach the action:</p>
-
+    <p>This created the action and all three views for us. Next we'll add the route so we can reach
+      the action:</p>
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/routing/1.0"&gt;
   &lt;ae:configuration&gt;
@@ -52,13 +47,10 @@ bloggie$
     &lt;/routes&gt;
   &lt;/ae:configuration&gt;
 &lt;/ae:configurations&gt;</codeblock>
-
-    <p>Now we need to create the input form in
-    <filepath>app/modules/Posts/templates/AddInput.php</filepath>. We'll leave
-    the posted date out of the form as we'll add that in the code (we do know
-    when the post was added) and the authod - this should be handled via
-    authentication later:</p>
-
+    <p>Now we need to create the input form in <filepath
+        >app/modules/Posts/templates/AddInput.php</filepath>. We'll leave the posted date out of the
+      form as we'll add that in the code (we do know when the post was added) and the author - this
+      should be handled via authentication later:</p>
     <codeblock outputclass="php">&lt;form action="&lt;?php echo $t['target_url']; ?&gt;" method="post"&gt;
   &lt;fieldset&gt;
     &lt;div class="form_row"&gt;
@@ -81,11 +73,8 @@ bloggie$
     &lt;/div&gt;
   &lt;/fieldset&gt;
 &lt;/form&gt;</codeblock>
-
-    <p>and adapt the
-    <filepath>app/modules/Posts/views/AddInputView.class.php</filepath> to
-    generate the submit url for us:</p>
-
+    <p>and adapt the <filepath>app/modules/Posts/views/AddInputView.class.php</filepath> to generate
+      the submit url for us:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_AddInputView extends BlogPostsBaseView
@@ -102,14 +91,10 @@ class Posts_AddInputView extends BlogPostsBaseView
 }
 
 ?&gt;</codeblock>
-
-    <p>Let's try that. Point your browser to
-    http://localhost/bloggie/pub/posts/add. Hmm, blank page. Well, the actions
-    <apiname>getDefaultViewName</apiname>() method returns "Success" as
-    default view and that's what's getting called - and that's why we don't
-    see the form. So let's go and adapt that in
-    <filepath>app/modules/Posts/actions/AddAction.class.php</filepath>:</p>
-
+    <p>Let's try that. Point your browser to http://localhost/bloggie/pub/posts/add. Hmm, blank
+      page. Well, the actions <apiname>getDefaultViewName</apiname>() method returns "Success" as
+      default view and that's what's getting called - and that's why we don't see the form. So let's
+      go and adapt that in <filepath>app/modules/Posts/actions/AddAction.class.php</filepath>:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_AddAction extends BlogPostsBaseAction
@@ -133,28 +118,25 @@ class Posts_AddAction extends BlogPostsBaseAction
 }
 
 ?&gt;</codeblock>
-
     <p>And now we see our form, as expected.</p>
-
-    <section><title>Validating the Form Data</title><p>A usual we need to
-    validate the incoming form data. Let's list our restrictions:</p><ul>
-        <li>The title must be a string and must not be longer than 255
-        characters or it would not fit in our database field.</li>
-
-        <li>The content must be a string not longer than 65536 characters as
-        this is the maximum size for the mysql text column.</li>
-
+    <section>
+      <title>Validating The Form Data</title>
+      <p>A usual we need to validate the incoming form data. Let's list our restrictions:</p>
+      <ul>
+        <li>The title must be a string and must not be longer than 255 characters or it would not
+          fit in our database field.</li>
+        <li>The content must be a string not longer than 65536 characters as this is the maximum
+          size for the mysql text column.</li>
         <li>The category field must have a valid id.</li>
-
         <li>All fields are required.</li>
-      </ul><p>Let's forget about the fact that the categories are stored in
-    the database and should thus be validated accordingly and just assume that
-    for the moment there's only two categories with the ids 1 and 2. We'll be
-    using an <apiname>AgaviInarrayValidator</apiname> for the categories field
-    and an <apiname>AgaviStringValidator</apiname> for the title and content
-    fields. So our validation file in
-    <filepath>app/modules/Posts/validate/Add.xml</filepath> would look like
-    this:</p><codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+      </ul>
+      <p>Let's forget about the fact that the categories are stored in the database and should thus
+        be validated accordingly and just assume that for the moment there's only two categories
+        with the ids 1 and 2. We'll be using an <apiname>AgaviInarrayValidator</apiname> for the
+        categories field and an <apiname>AgaviStringValidator</apiname> for the title and content
+        fields. So our validation file in <filepath>app/modules/Posts/validate/Add.xml</filepath>
+        would look like this:</p>
+      <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;ae:configurations
   xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
   xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
@@ -212,10 +194,11 @@ class Posts_AddAction extends BlogPostsBaseAction
 
   &lt;/ae:configuration&gt;
 &lt;/ae:configurations&gt;
-</codeblock><p>Don't forget that validation only happens if the target action
-    handles the request method. So we'll have to add at least a stub
-    <apiname>executeWrite</apiname>() method to our action:</p><codeblock
-    outputclass="php">&lt;?php
+</codeblock>
+      <p>Don't forget that validation only happens if the target action handles the request method.
+        So we'll have to add at least a stub <apiname>executeWrite</apiname>() method to our
+        action:</p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_AddAction extends BlogPostsBaseAction
 {
@@ -255,21 +238,20 @@ class Posts_AddAction extends BlogPostsBaseAction
   }
 }
 
-?&gt;</codeblock></section>
-
-    <section><title>Handling Validation Errors</title><p>The last time we had
-    to handle validation erros was when we forwarded to the 404 page when an
-    invalid post-id was found in the url to the posts detail page. At that
-    time, a forward was the right way to go but in this case we want to
-    re-display the form, fill in the data the user provided and insert error
-    message where appropriate. All we need to do is re-display our form on the
-    error page and the <apiname>AgaviFormPopulationFilter</apiname> will
-    perform all of those duties. To re-display the form we could either
-    include it in the ErrorViews template or we could set the input template
-    in the view. For now we'll just go include the Input template in the error
-    template. However, we need to provide the target url from the error view
-    as well and while we're at it, let's set a proper title:</p><codeblock
-    outputclass="php">&lt;?php
+?&gt;</codeblock>
+    </section>
+    <section>
+      <title>Handling Validation Errors</title>
+      <p>The last time we had to handle validation erros was when we forwarded to the 404 page when
+        an invalid post-id was found in the url to the posts detail page. At that time, a forward
+        was the right way to go but in this case we want to re-display the form, fill in the data
+        the user provided and insert error message where appropriate. All we need to do is
+        re-display our form on the error page and the <apiname>AgaviFormPopulationFilter</apiname>
+        will perform all of those duties. To re-display the form we could either include it in the
+        error views template or we could set the input template in the view. For now we'll just go
+        include the input template in the error template. However, we need to provide the target URL
+        from the error view as well and while we're at it, let's set a proper title:</p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_AddErrorView extends BlogPostsBaseView
 {
@@ -284,31 +266,29 @@ class Posts_AddErrorView extends BlogPostsBaseView
   }
 }
 
-?&gt;</codeblock><p>Go ahed, try submitting a post with an empty title but
-    fill in some content. You'll see the message "Please provide a title."
-    right underneath the title field and the text you provided for the content
-    is already filled in. Things could use a little styling but the
-    functionality is there. So how did this work? In short words: The
-    <apiname>AgaviFormPopulationFilter</apiname> (often called FPF) parse the
-    HTML code and finds the form that was submitted. It then inserts the
-    values provided by the user and the error messages at the appropriate
-    place. We'll see that in more detail a little later, for now just enjoy
-    that you didn't have to write a single line of code for
-    that.</p></section>
-
-    <section><title>Storing the new Post</title><p>Doing this really properly
-    would require a whole set of new models, we'll postpone that to a later
-    chapter so that we can keep this chapter within reasonable bounds. For now
-    we'll deal with raw ids for the category and the user and format the
-    posted date manually - it will still get the post stored. We still need to
-    add a set of new properties to the
-    <filepath>app/modules/Posts/models/PostModel.class.php</filepath>:</p><ul>
+?&gt;</codeblock>
+      <p>Go ahed, try submitting a post with an empty title but fill in some content. You'll see the
+        message "Please provide a title." right underneath the title field and the text you provided
+        for the content is already filled in. Things could use a little styling but the
+        functionality is there. So how did this work? In short words: The <apiname
+          >AgaviFormPopulationFilter</apiname> (often called FPF) parse the HTML code and finds the
+        form that was submitted. It then inserts the values provided by the user and the error
+        messages at the appropriate place. We'll see that in more detail a little later, for now
+        just enjoy that you didn't have to write a single line of code for that.</p>
+    </section>
+    <section>
+      <title>Storing The New Post</title>
+      <p>Doing this really properly would require a whole set of new models, we'll postpone that to
+        a later chapter so that we can keep this chapter within reasonable bounds. For now we'll
+        deal with raw ids for the category and the user and format the posted date manually - it
+        will still get the post stored. We still need to add a set of new properties to the
+          <filepath>app/modules/Posts/models/PostModel.class.php</filepath>:</p>
+      <ul>
         <li>An author-id</li>
-
         <li>A category-id</li>
-
         <li>The respective getters and setters</li>
-      </ul><codeblock outputclass="php">&lt;?php
+      </ul>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_PostModel extends BlogPostsBaseModel
 {
@@ -342,14 +322,14 @@ class Posts_PostModel extends BlogPostsBaseModel
   ...
 }
 
-?&gt;</codeblock><p>Adding the new properties to the
-    <apiname>toArray()</apiname> and <apiname>fromArray()</apiname> methods
-    proves a little tedious though. We have take into account that we'll be
-    passing partial array sometimes - especially when adding a post, so we'd
-    have to surround each element with a condition that checks whether the key
-    is set in the incoming array - this makes the whole code bloat. So let's
-    go an introduce an array that lists how to map incoming data to
-    getters/setters and use that one:</p><codeblock outputclass="php">&lt;?php
+?&gt;</codeblock>
+      <p>Adding the new properties to the <apiname>toArray()</apiname> and <apiname
+          >fromArray()</apiname> methods proves a little tedious though. We have take into account
+        that we'll be passing partial array sometimes - especially when adding a post, so we'd have
+        to surround each element with a condition that checks whether the key is set in the incoming
+        array - this makes the whole code bloat. So let's go an introduce an array that lists how to
+        map incoming data to getters/setters and use that one:</p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_PostModel extends BlogPostsBaseModel
 {
@@ -398,12 +378,12 @@ class Posts_PostModel extends BlogPostsBaseModel
   }
 }
 
-?&gt;</codeblock><p>While this does puts some contraints on the naming of
-    getters and setters, it works like a charm and reduces code massively. The
-    next thing we'll need to do is teach our
-    <apiname>Posts_PostManagerModel</apiname> in
-    <filepath>app/modules/Posts/Models/PostManager.class.php</filepath> how to
-    store a new post:</p><codeblock outputclass="php">&lt;?php
+?&gt;</codeblock>
+      <p>While this does puts some contraints on the naming of getters and setters, it works like a
+        charm and reduces code massively. The next thing we'll need to do is teach our <apiname
+          >Posts_PostManagerModel</apiname> in <filepath
+          >app/modules/Posts/Models/PostManager.class.php</filepath> how to store a new post:</p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {
@@ -446,9 +426,10 @@ VALUES
   
 }
 
-?&gt;</codeblock><p>Now we adapt the action to store the post - we retrieve
-    the post from the database after storing it to get the default values
-    added by the database itself. </p><codeblock outputclass="php">&lt;?php
+?&gt;</codeblock>
+      <p>Now we adapt the action to store the post - we retrieve the post from the database after
+        storing it to get the default values added by the database itself. </p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_AddAction extends BlogPostsBaseAction
 {
@@ -509,15 +490,15 @@ class Posts_AddAction extends BlogPostsBaseAction
   }
 }
 
-?&gt;</codeblock></section>
-
-    <section><title>Redirecting on Success</title><p>After we've successfully
-    stored the post we should redirect to a new page - we could have a
-    completely new page saying "Thanks, your post has been added." but the
-    posts detail page will serve our purpose just as well. So let's add the
-    redirect to
-    <filepath>app/modules/Posts/views/AddSuccessView.class.php</filepath>:</p><codeblock
-    outputclass="php">&lt;?php
+?&gt;</codeblock>
+    </section>
+    <section>
+      <title>Redirecting on Success</title>
+      <p>After we've successfully stored the post we should redirect to a new page - we could have a
+        completely new page saying "Thanks, your post has been added." but the posts detail page
+        will serve our purpose just as well. So let's add the redirect to <filepath
+          >app/modules/Posts/views/AddSuccessView.class.php</filepath>:</p>
+      <codeblock outputclass="php">&lt;?php
 
 class Posts_AddSuccessView extends BlogPostsBaseView
 {
@@ -529,8 +510,9 @@ class Posts_AddSuccessView extends BlogPostsBaseView
   }
 }
 
-?&gt;</codeblock><p>And with this, we're done. We could add some buttons but
-    we'll to that later when we've added some security so that only admins can
-    access the page.</p></section>
+?&gt;</codeblock>
+      <p>And with this, we're done. We could add some buttons but we'll to that later when we've
+        added some security so that only admins can access the page.</p>
+    </section>
   </body>
 </topic>

@@ -2,57 +2,46 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
     "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="filesystem-layout">
-  <title>Application filesystem layout</title>
-
-  <body>
-    <p>An Agavi application directory is structured according to Agavi's
-      conventions. The Agavi project configuration system knows about the layout
-      and its commands create or modify files and directories inside the source
-      tree.</p>
-
-    <p>An application's <filepath>pub/</filepath> directory is the document
-      root for your Web server: it contains static resources such as CSS files,
-      javascript source, images and other items that are reachable through the
-      Web server but do not involve invocation of the application.</p>
-
-    <p>The application itself—configuration, temporary and cache directories,
-      libraries and source files—are located in <filepath>app/</filepath>.</p>
-
-    <dl>
-      <dlentry>
-  <dt><filepath>app/modules/</filepath></dt>
-  <dd>Contains application Modules and their corresponding contents</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/cache/</filepath></dt>
-  <dd>Action cache and compiled configuration</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/config/</filepath></dt>
-  <dd>Application configuration (see next chapter)</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/lib/</filepath></dt>
-  <dd>Global framework extensions, third party libraries, etc</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/models/</filepath></dt>
-  <dd>Global application Models</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/log/</filepath></dt>
-  <dd>Log files (if logging into files is used)</dd>
-      </dlentry>
-
-      <dlentry>
-  <dt><filepath>app/templates/</filepath></dt>
-  <dd>Global templates</dd>
-      </dlentry>
-    </dl>
-  </body>
+    <title>Application filesystem layout</title>
+    <body>
+        <p>An Agavi application directory is structured according to Agavi's conventions. The Agavi
+            project configuration system knows about the layout and its commands create or modify
+            files and directories inside the source tree.</p>
+        <p>An application's <filepath>pub</filepath> directory is the document root for your web
+            server, it contains static resources such as CSS files, javascript source, images and
+            other items that are reachable through the web server but do not not need to be
+            processedby the application — except for the index.php file.</p>
+        <p>The application itself — configuration, temporary and cache directories, libraries and
+            source files — are located in the <filepath>app</filepath> directory which contains:</p>
+        <dl>
+            <dlentry>
+                <dt><filepath>modules</filepath></dt>
+                <dd>Contains application modules and their corresponding contents</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>cache</filepath></dt>
+                <dd>Action cache and compiled configuration</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>config</filepath></dt>
+                <dd>Application configuration (see next chapter)</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>lib</filepath></dt>
+                <dd>Global framework extensions, third party libraries, etc</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>models</filepath></dt>
+                <dd>Global application Models</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>log</filepath></dt>
+                <dd>Log files (if logging into files is used)</dd>
+            </dlentry>
+            <dlentry>
+                <dt><filepath>templates</filepath></dt>
+                <dd>Global templates</dd>
+            </dlentry>
+        </dl>
+    </body>
 </topic>

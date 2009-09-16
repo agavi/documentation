@@ -3,16 +3,12 @@
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="basics-the-database-manager">
   <title>The Database Manager</title>
-
   <body>
-    <p>All connections to databases are controlled by the database manager. It
-    establishes all connections when started and provides access to the
-    connections via
-    <apiname>AgaviDatabaseManager::getDatabase()</apiname>.</p>
-
-    <p>The database subsystem is enabled by setting "use_database" to "true"
-    in <filepath>app/config/settings.xml</filepath>:</p>
-
+    <p>All database connections are controlled by the database manager. It establishes all
+      connections when started and provides access to the connections via <apiname
+        >AgaviDatabaseManager::getDatabase()</apiname>.</p>
+    <p>The database subsystem is enabled by setting <varname>use_database</varname>" to <codeph
+        >true</codeph> in <filepath>app/config/settings.xml</filepath>:</p>
     <codeblock outputclass="xml">...
 
 &lt;settings&gt;
@@ -28,12 +24,9 @@
 &lt;/settings&gt;
 
 ...</codeblock>
-
-    <p>The connection data is then configured in
-    <filepath>app/config/databases.xml</filepath>. We'll assume a mysql
-    database named "bloggie" on localhost with the user "bloggie" and the
-    password "bloggie".</p>
-
+    <p>The connection data is then configured in <filepath>app/config/databases.xml</filepath>.
+      We'll assume a MySQL database named "bloggie" on localhost with the user "bloggie" and the
+      password "bloggie".</p>
     <codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
   &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/databases/1.0"&gt;
 
@@ -52,19 +45,15 @@
   &lt;/ae:configurations&gt;
 
 </codeblock>
-
-    <p>This configures a single database connection named "pdo_mysql_main"
-    that uses the <apiname>AgaviPdoDatabase</apiname> adapter. It also sets
-    that connection as default connection.</p>
-
-    <section><title>Accessing a Database connection</title><p>A database
-    connection can be accessed via
-    <apiname>AgaviDatabaseManager::getDatabase($name)</apiname>. If "null" is
-    passed as connection name the default connection is used. </p><p>Let's
-    adapt our application to read it's data from that database. You'll see how
-    it pays off that we structured our application nicely - all we need to do
-    is adapt our <apiname>Posts_PostManager</apiname> to read it's data from
-    the appropriate tables:</p><codeblock outputclass="php">&lt;?php
+    <p>This configures a single database connection named "pdo_mysql_main" that uses the <apiname
+        >AgaviPdoDatabase</apiname> adapter. It also sets that connection as default connection.</p>
+    <section><title>Accessing a Database connection</title><p>A database connection can be accessed
+        via <apiname>AgaviDatabaseManager::getDatabase($name)</apiname>. If "null" is passed as
+        connection name the default connection is used. </p><p>Let's adapt our application to read
+        it's data from that database. You'll see how it pays off that we structured our application
+        nicely - all we need to do is adapt our <apiname>Posts_PostManager</apiname> to read it's
+        data from the appropriate
+      tables:</p><codeblock outputclass="php">&lt;?php
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
 {
@@ -127,10 +116,10 @@ LIMIT ?';
   
 }
 
-?&gt;</codeblock>Well, that's it. We could certainly do a little cleanup and
-    move the lengthy call to
-    <apiname>$this-&gt;getContext()-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection()</apiname>
-    to an extra method but that won't change the principle. If you fire up
-    your browser, you'll note no difference.</section>
+?&gt;</codeblock>Well,
+      that's it. We could certainly do a little cleanup and move the lengthy call to <apiname
+        >$this-&gt;getContext()-&gt;getDatabaseManager()-&gt;getDatabase()-&gt;getConnection()</apiname>
+      to an extra method but that won't change the principle. If you fire up your browser, you'll
+      note no difference.</section>
   </body>
 </topic>

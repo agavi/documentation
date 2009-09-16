@@ -2,50 +2,43 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="finishing-the-basic-setup">
-  <title>Finishing the basic setup</title>
-
+  <title>Finishing The Basic Setup</title>
   <body>
-    <p>Now would be a good time to perform some setup tasks that might seem a
-    bit unnecessary at the moment but will save you a lot of time and hassle
-    further down the road.</p>
-
-    <section><title>Getting away from pear</title> <p>While using the pear
-    install is just perfect for the basic project setup and first steps, it is
-    recommended to move away from using the pear install and bundle the agavi
-    lib for further development. This enables your fellow developers to check
-    out your application without having a full agavi install and gives you
-    full control over which agavi version you need for your application. This
-    will come in handy the moment someone upgrades the installed agavi version
-    on the server or you need to install two applications on the same server
-    that require different agavi versions.</p> <p>The first step is to bundle
-    agavi with your application by placing a copy in
-    <filepath>libs/agavi</filepath>. You can either have a full export there,
-    use a tarball or just have an external point to the appropriate revision
-    in the agavi svn repository.</p> <p>Then create a copy of the agavi bin
-    directory in dev/bin. Again you can use an export or use an external, but
-    best use the same method as you used to bundle agavi to ensure
-    consistency. Whatever method you choose, make sure you only check in a
-    template of the agavi build script as the path setup must be done manually
-    in some cases.</p><p>For the tutorial we'll be using the 1.0.0 release
-    tarball. Just download it from www.agavi.org/download and extract it. Copy
-    the contents of the src directory to
-    <filepath>bloggie/libs/agavi</filepath>. Copy the contents of the bin
-    directory to <filepath>bloggie/dev/bin</filepath>. Copy all the licence
-    files to <filepath>bloggie/</filepath>. Add all those files to version
-    control. Now copy the agavi build script in <filepath>dev/bin</filepath>
-    to it's real name. On windows copy agavi.bat-dist to agavi.bat, on linux
-    and other unix derivates copy agavi-dist to agavi. Adapt the path to the
-    agavi directory in the script and make it executable if nessesary. Add the
-    script to your VCS ignore list. We'll be using the bundled version from
-    now on.</p> <note type="tip">While you can bundle agavi as a svn:external
-    as lot's of people do, we recommend that you use a full export at least
-    for deployment. While we do our very best to ensure constant availability,
-    it would be a pity to have your application deployment interrupted because
-    our sysadmins choose to reboot the subversion server, taking it offline
-    just in the right moment to have you in big trouble.</note><note
-    type="remember">When bundling agavi with your application you have to take
-    care to obey it's license. The license is LGPL, so using and bundling is
-    just perfectly fine, even in closed source applications - you just need to
-    bundle the licence file somewhere. </note></section>
+    <p>Now would be a good time to perform some setup tasks that might seem a bit unnecessary at the
+      moment but will save you a lot of time and hassle further down the road.</p>
+    <section>
+      <title>Getting Away From Pear</title>
+      <p>While using the pear install is just perfect for the basic project setup and first steps,
+        it is recommended to move away from using the pear install and bundle the agavi lib for
+        further development. This enables your fellow developers to check out your application
+        without having a full agavi install and gives you full control over which agavi version you
+        need for your application. This will come in handy the moment someone upgrades the installed
+        agavi version on the server or you need to install two applications on the same server that
+        require different agavi versions.</p>
+      <p>The first step is to bundle agavi with your application by placing a copy in <filepath
+          >libs/agavi</filepath>. You can either have a full export there, use a tarball or just
+        have an external point to the appropriate revision in the agavi svn repository.</p>
+      <p>Then create a copy of the agavi bin directory in dev/bin. Again you can use an export or
+        use an external, but best use the same method as you used to bundle agavi to ensure
+        consistency. Whatever method you choose, make sure you only check in a template of the agavi
+        build script as the path setup must be done manually in some cases.</p>
+      <p>For the tutorial we'll be using the 1.0.0 release tarball. Just download it from
+        www.agavi.org/download and extract it. Copy the contents of the src directory to <filepath
+          >bloggie/libs/agavi</filepath>. Copy the contents of the bin directory to <filepath
+          >bloggie/dev/bin</filepath>. Copy all the licence files to <filepath>bloggie/</filepath>.
+        Add all those files to version control. Now copy the agavi build script in <filepath
+          >dev/bin</filepath> to it's real name. On windows copy agavi.bat-dist to agavi.bat, on
+        linux and other unix derivates copy agavi-dist to agavi. Adapt the path to the agavi
+        directory in the script and make it executable if nessesary. Add the script to your VCS
+        ignore list. We'll be using the bundled version from now on.</p>
+      <note type="tip">While you can bundle agavi as a svn:external as lot's of people do, we
+        recommend that you use a full export at least for deployment. While we do our very best to
+        ensure constant availability, it would be a pity to have your application deployment
+        interrupted because our sysadmins choose to reboot the subversion server, taking it offline
+        just in the right moment to have you in big trouble.</note>
+      <note type="remember">When bundling agavi with your application you have to take care to obey
+        it's license. The license is LGPL, so using and bundling is just perfectly fine, even in
+        closed source applications - you just need to bundle the licence file somewhere. </note>
+    </section>
   </body>
 </topic>

@@ -2,71 +2,62 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="execution-flow-overview">
-  <title>Overview of application execution flow</title>
-
+  <title>Overview of Application Execution Flow</title>
   <body>
-    <p>Agavi handles user requests and organizes the execution flow of an
-    application. This chapter gives a brief overview what happens when a web
-    request lands in the Agavi dispatcher. Understanding Agavi architecture is
-    key to write efficient and durable applications.</p>
-
-    <section><title>Request dispatching</title> <p>The first stage of
-    execution is called the dispatch stage. The dispatcher script - typically
-    <filepath>index.php</filepath> for Web applications - boots the framework
-    and commands the Agavi Controller to dispatch the Web request. </p> <p>The
-    Controller looks up the request using the routing map to find out the
-    identity of the Action that should be executed. If no route matches, or
-    the specified Action can not be found, a substitute system action is
-    executed instead to indicate an error condition.</p> <p>When the requested
-    Action is discovered, the Controller creates a special envelope object,
-    called the Execution Container. Actions and Views execute inside the
-    Execution Container which isolates them from the outside world and
-    provides them with shared space.</p> <p>As soon as the initial Action is
-    loaded into the Execution Container, the Controller creates the global
-    filter chain which governs the execution of actions. The Execution
-    Container is fed into the filter chain. One of the filters in the chain
-    executes the Container, and the resulting response is returned to the
-    outside world - most often as an HTTP response.</p> <note type="tip">
-    Filter chains are configurable pipelines which execute filters. A filter
-    is a plugin-like class that accepts an Execution Container and does
-    something with it. Filters are nested, which means they can execute before
-    or after other (inner) filters. </note></section>
-
-    <section><title>Running the Execution Container</title> <note>An Action
-    always selects a View that is destined to compose the response. A
-    combination of such Action and View is called an "Action-View chain". It
-    has nothing to do with filter chains.</note> <p>The Execution Container
-    encapsulates an Action-View chain. It sets up the environment, runs both
-    the Action and one of its Views and then invokes the rendering mechanism
-    to apply templates if needed. The output of is collected and returned.</p>
-    <p>Internally, Actions/Views are executed inside another filter chain,
-    which is called the "actions" filter chain. Unlike the global FC which is
-    executed once per request, the actions FC is executed once for every
-    Action. Thus, filters of the "actions" FC would be applied to every Action
-    ever called, and the ones in the "global" chain will be applied
-    globally.</p> <p>The Action itself is invoked through the Execution
-    Filter, which is the last filter in the "actions" chain. Output caching is
-    performed at this stage.</p> <note>Several other filters may be involved
-    in the action chain: for example, the security filter would refuse to
-    execute an Action that the user isn't authorized to execute.</note> <p>If
-    the Action requests input validation, the request data is checked by Agavi
-    according to the rules laid out by developers. If the data does not
-    conform to the specified constraints, execution of the Action is aborted
-    and error handling procedure begins instead.</p> <p>After the validation
-    and caching checks are finished, the Action will be executed. This is
-    where your code comes into play: the Action interacts with Models and
-    tells Agavi which View should be executed.</p> <p>The appointed View's
-    respectable executeXXX() method is called. The View sets up the
-    configuration for output rendering and prepares any data needed by the
-    rendering mechanism, again querying Models if needed.</p> <p>After the
-    View has finished executing, the rendering mechanism executes the
-    rendering procedure. This procedure may involve calling other Actions,
-    which in turn get their own Execution Containers and action filter chains.
-    Alternatively, a View may choose to skip the rendering step and compose
-    the response itself (for example, encoding API response into JSON would
-    not require any sort of external templates.)</p> <p>The resulting output
-    is collected and sent back to the client.</p></section>
-
-    <section><title>A word about Actions</title><p/></section>
+    <p>Agavi handles user requests and organizes the execution flow of an application. This chapter
+      gives a brief overview what happens when a web request lands in the Agavi dispatcher.
+      Understanding Agavi architecture is key to write efficient and durable applications.</p>
+    <section>
+      <title>Request Dispatching</title>
+      <p>The first stage of execution is called the dispatch stage. The dispatcher script -
+        typically <filepath>index.php</filepath> for web applications — boots the framework and
+        commands the Agavi controller to dispatch the web request. </p>
+      <p>The controller looks up the request using the routing map to find out the identity of the
+        action that should be executed. If no route matches, or the specified action can not be
+        found, a substitute system action is executed instead to indicate an error condition.</p>
+      <p>When the requested action is discovered, the controller creates a special envelope object,
+        called the execution container. Actions and views execute inside the execution container
+        which isolates them from the outside world and provides them with shared space.</p>
+      <p>As soon as the initial action is loaded into the execution container, the controller
+        creates the global filter chain (FC) which governs the execution of actions. The execution
+        container is fed into the filter chain. One of the filters in the chain executes the
+        container, and the resulting response is returned to the outside world — most often as an
+        HTTP response.</p>
+      <note type="tip"> Filter chains are configurable pipelines which execute filters. A filter is
+        a plugin-like class that accepts an execution container and does something with it. Filters
+        are nested, which means they can execute before or after other (inner) filters. </note>
+    </section>
+    <section>
+      <title>Running the Execution Container</title>
+      <note>An action always selects a view that is destined to compose the response. A combination
+        of such action and view is called an "action-view chain", it has nothing to do with filter
+        chains.</note>
+      <p>The execution container encapsulates an action-view chain. It sets up the environment, runs
+        both the action and one of its views and then invokes the rendering mechanism to apply
+        templates if needed. The output of the view is collected and returned.</p>
+      <p>Internally, actions/views are executed inside another filter chain, which is called the
+        "actions" filter chain. Unlike the global FC which is executed once per request, the actions
+        FC is executed once for every action. Thus, filters of the "actions" FC would be applied to
+        every action ever called, and the ones in the "global" chain will be applied globally.</p>
+      <p>The action itself is invoked through the Execution Filter, which is the last filter in the
+        "actions" chain. Output caching is performed at this stage.</p>
+      <note>Several other filters may be involved in the action chain: for example, the security
+        filter would refuse to execute an action that the user isn't authorized to execute.</note>
+      <p>If the action requests input validation, the request data is checked by Agavi according to
+        the rules laid out by developers. If the data does not conform to the specified constraints,
+        execution of the action is aborted and error handling procedure begins instead.</p>
+      <p>After the validation and caching checks are finished, the action will be executed. This is
+        where your code comes into play: the action interacts with models and tells Agavi which view
+        should be executed.</p>
+      <p>The appointed view's respectable executeXXX() method is called. The view sets up the
+        configuration for output rendering and prepares any data needed by the rendering mechanism,
+        again querying models if needed.</p>
+      <p>After the view has finished executing, the rendering mechanism executes the rendering
+        procedure. This procedure may involve calling other actions, which in turn get their own
+        Execution Containers and action filter chains. Alternatively, a view may choose to skip the
+        rendering step and compose the response itself (for example, encoding API response into JSON
+        would not require any sort of external templates.)</p>
+      <p>The resulting output is collected and sent back to the client.</p>
+    </section>
   </body>
 </topic>

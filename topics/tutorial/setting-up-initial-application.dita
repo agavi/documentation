@@ -2,15 +2,16 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="setting-up-initial-application">
-  <title>Setting up the initial application</title>
-
+  <title>Setting Up The Initial Application</title>
   <body>
-    <section><title>Overview</title><p>In this chapter you will create your
-    application skeleton. By the end of this chapter, you will have a complete
-    initial version of the blog application—a newly configured Agavi
-    application skeleton.</p><p>The result of your hard labor this chapter is
-    provided with this tutorial as the <xref format="html"
-    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage1.tgz</xref>
-    tarball.</p></section>
+    <section>
+      <title>Overview</title>
+      <p>In this chapter you will create your application skeleton. By the end of this chapter, you
+        will have a complete initial version of the blog application—a newly configured Agavi
+        application skeleton.</p>
+      <p>The result of your hard labor this chapter is provided with this tutorial as the <xref
+          format="html" href="http://www.agavi.org/guide/stages/stage1.tgz"
+          >http://www.agavi.org/guide/stages/stage1.tgz</xref> tarball.</p>
+    </section>
   </body>
 </topic>

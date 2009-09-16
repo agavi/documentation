@@ -1,51 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-"http://docs.oasis-open.org/dita/dtd/topic.dtd">
-<topic id="introduction">
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd">
+<topic id="topic-1">
   <title>Introduction</title>
-
   <body>
-    <section><title>About this guide</title> <p>This guide provides a
-    comprehensive overview of the architecture of the Agavi application
-    framework, examining various common Web application problems and how Agavi
-    addresses them. It does not cover the api documentation which can be found
-    in a separate section of the website. </p><p>During the course we will
-    cover the complete development cycle of a PHP blog engine, from a basic
-    skeleton application to a working and themed implementation. It is broken
-    down into stages: each chapter involves the creation of a partial
-    implementation, so you can see the blog software in various stages of
-    development and make comparisons. The stages are available as
-    tarballs.</p><p>The final version of the blog engine is also the official
-    demo application of Agavi. It is extremely well documented and showcases
-    many of the features Agavi has to offer.</p> <p> <note>This guide is
-    written for an experienced developer who has created Web applications in
-    the past. It does not include a detailed discussion of the
-    Model-View-Controller (MVC) pattern or its associated implications,
-    benefits, and disadvantages. There is certain basic knowledge that you
-    must possess to understand and wield the power of a production framework.
-    Agavi is not complicated, but it is certainly vast. If you are a newcomer
-    to Web application development, you should start your quest by studying
-    MVC and HTTP mechanics. HTTP and the MVC architecture have a profound
-    influence on how developers structure software and design user interfaces,
-    sometimes in subtle ways.</note></p><p><note>Since this tutorial focuses
-    on building a Web application, it will often refer to Agavi features
-    specifically within a Web context. However, Agavi is designed to be able
-    to run in multiple contexts; most of the Web-oriented behaviors described
-    can be easily generalized.</note><note>This guide is valid for Agavi &gt;=
-    1.0.1. Please note that beta versions and release candidates may differ in
-    some aspects.</note> </p></section>
-
-    <section><title>Prerequisites</title><p>You'll need a webserver and PHP
-    &gt;= 5.2.0. The basics of setting up a webserver and installing PHP will
-    not be covered in this guide, please refer to the respective
-    documentations.</p></section>
-
-    <section><title>Resources and Staging apps</title><p>All resources
-    required for this tutorial can be downloaded from <xref format="html"
-    href="http://www.agavi.org/guide/resources/resources.tgz">http://www.agavi.org/guide/resources/resources.tgz</xref>
-    the staging apps can be downloaded from <xref format="html"
-    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage1.tgz</xref>
-    to <xref format="html"
-    href="http://www.agavi.org/guide/stages/stage1.tgz">http://www.agavi.org/guide/stages/stage7.tgz</xref>.</p></section>
+    <section>
+      <title>About This Guide</title>
+      <p>This guide provides you with enough information to be able to create basic
+        applications within Agavi and shows you the fundamental architecture by examining
+        various aspects of Agavi along the way. This guide does not attempt to cover the API
+        docs, instead they are located <xref href="http://agavi.org/apidocs" format="html"
+          scope="external">here</xref></p>
+      <p>This guide is intended to be valid for the 1.0 and all minor versions of Agavi.
+        Please note that beta versions and release candidates may differ at certain
+        points.</p>
+      <p>During this guide, we will cover the complete development cycle of a PHP blog engine,
+        from a basic skeleton application to a working and themed implementation. It is
+        broken down into stages: each chapter involves the creation of a partial
+        implementation, so you can see the blog software in various stages of development
+        and make comparisons. The stages are available as tarballs.</p>
+      <note>This guide has been written for developers whom have experience in creating web
+        applications. This guide does not provide detailed discussions about the
+        Model-View-Controller (MVC) pattern and its associated implications, benefits, and
+        disadvantages. There is a certain of level of basic knowledge one must poses in
+        order to understand the power of a production framework. Agavi is not complicated,
+        but it is rather vast. If you are new to web application development, you should
+        first start by trying to understand the concept of MVC application design and the
+        HTTP standard.</note>
+    </section>
+    <section>
+      <title>Resources</title>
+      <p> This guide supplies tarball files for each stage of the seven stages of this guide,
+        they are available here, or at the end of each section.<ul
+          id="ul_a461d85c-bed6-4e6f-8dc8-7c10df240b51"><li><xref
+            href="http://www.agavi.org/guide/resources/resources.tgz" format="html"
+            scope="external">Resources (http://www.agavi.org/guide/resources/resources.tgz)</xref></li><li><xref
+              href="http://www.agavi.org/guide/stages/stage1.tgz" format="html"
+              scope="external">Stage 1 (http://www.agavi.org/guide/stages/stage1.tgz)</xref></li><li><xref
+                href="http://www.agavi.org/guide/stages/stage2.tgz" format="html"
+                scope="external">Stage 2 (http://www.agavi.org/guide/stages/stage2.tgz</xref></li><li><xref
+                  href="http://www.agavi.org/guide/stages/stage3.tgz" format="html"
+                  scope="external">Stage 3 (http://www.agavi.org/guide/stages/stage3.tgz</xref></li><li><xref
+                    href="http://www.agavi.org/guide/stages/stage4.tgz" format="html"
+                    scope="external">Stage 4 (http://www.agavi.org/guide/stages/stage4.tgz</xref></li><li><xref
+                      href="http://www.agavi.org/guide/stages/stage5.tgz" format="html"
+                      scope="external">Stage 5 (http://www.agavi.org/guide/stages/stage5.tgz</xref></li><li><xref
+                        href="http://www.agavi.org/guide/stages/stage6.tgz" format="html"
+                        scope="external">Stage 6 (http://www.agavi.org/guide/stages/stage6.tgz</xref></li><li><xref
+                          href="http://www.agavi.org/guide/stages/stage7.tgz" format="html"
+                          scope="external">Stage 7 (http://www.agavi.org/guide/stages/stage7.tgz</xref></li></ul>
+      </p>
+    </section>
   </body>
 </topic>

@@ -5,8 +5,6 @@
   <title>About Agavi</title>
 
   <body>
-    <p/>
-
     <section conref="../reference/about-agavi.dita#agavi-at-glance"/>
   </body>
 </topic>

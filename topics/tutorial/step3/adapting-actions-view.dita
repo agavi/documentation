@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
-"http://docs.oasis-open.org/dita/dtd/topic.dtd">
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="tutorial-adapting-actions">
-  <title>Adapting the Actions and Views</title>
-
+  <title>Adapting The Actions and Views</title>
   <body>
-    <p>There are two changes we need to introduce. First we want our actions
-    and views to use the models we created in the last step. Second we should
-    move all data retrieval code to the place where it belongs - in the
-    Action. Let's start with the Post.Show Action.</p>
-
-    <p>As our Post.IndexAction should respond to GET - Request, we'll need to
-    adapt <apiname>executeRead()</apiname> that contains our data retrieval
-    logic. Using the Posts_PostManagerModel we created in the last step this
-    is very little work:</p>
-
+    <p>There are two changes we need to introduce. First we want our actions and views to use the
+      models we created in the last step. Second we should move all data retrieval code to the place
+      where it belongs - in the Action. Let's start with the Post.Show Action.</p>
+    <p>As our Post.IndexAction should respond to GET - Request, we'll need to adapt <apiname
+        >executeRead()</apiname> that contains our data retrieval logic. Using the <apiname
+        >Posts_PostManagerModel</apiname> we created in the last step this is very little work:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexAction extends BlogPostsBaseAction
@@ -59,9 +53,7 @@ class Posts_IndexAction extends BlogPostsBaseAction
 }
 
 ?&gt;</codeblock>
-
     <p>Now we need to adapt the view accordingly:</p>
-
     <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView
@@ -88,20 +80,15 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
 }
 
 ?&gt;</codeblock>
-
-    <p>Note how we transform the objects we retrieved from our PostManager to
-    arrays. While it may seem easier to pass objects to the template it
-    removes a lot of flexibilty. Some template engines don't handle objects
-    gracefully. There is little added overhead and little code we had to add
-    for that as we need to add some information anyways - in our case the url
-    to the post detail page. We could have added the url in the PostModels
-    toArray() method but that would be bad practice - the url is probably only
-    required in this specific context and would be useless clutter in all
-    other occasions.</p>
-
-    <p>Let's just go over our Post.Show action and adapt that, using our
-    models it will be a breeze:</p>
-
+    <p>Note how we transform the objects we retrieved from our <apiname>PostManager</apiname> to
+      arrays. While it may seem easier to pass objects to the template it removes a lot of
+      flexibilty. Some template engines don't handle objects gracefully. There is little added
+      overhead and little code we had to add for that as we need to add some information anyways -
+      in our case the url to the post detail page. We could have added the url in the <apiname>PostModels</apiname> <apiname>toArray()</apiname>
+      method but that would be bad practice - the url is probably only required in this specific
+      context and would be useless clutter in all other occasions.</p>
+    <p>Let's just go over our Post.Show action and adapt that, using our models it will be a
+      breeze:</p>
     <codeblock outputclass="php">class Posts_Post_ShowAction extends BlogPostsBaseAction
 {
 
@@ -134,11 +121,9 @@ class Posts_Post_ShowSuccessView extends BlogPostsBaseView
 }
 
 </codeblock>
-
-    <p>And that's it. Now our actions and views are completely decoupled from
-    the data retrieval, they don't care about whether data is loaded from a
-    flatfile, retrieved from a database, from a webserver or just faked with a
-    static array like we do. You can bet that this will come in handy at some
-    later point.</p>
+    <p>And that's it. Now our actions and views are completely decoupled from the data retrieval,
+      they don't care about whether data is loaded from a flatfile, retrieved from a database, from
+      a webserver or just faked with a static array like we do. You can bet that this will come in
+      handy at some later point.</p>
   </body>
 </topic>

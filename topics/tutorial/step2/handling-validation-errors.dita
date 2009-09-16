@@ -2,81 +2,81 @@
 <!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN"
 "http://docs.oasis-open.org/dita/dtd/topic.dtd">
 <topic id="basics-handling-validation-errors">
-  <title>Handling validation errors</title>
-
+  <title>Handling Validation Errors</title>
   <body>
-    <p>So far we have only been concerned about how to keep users from passing
-    invalid data but not about what happens if users passes invalid data - in
-    our case calls an invalid URL to a post's detail page. If you try that now
-    you'll see a shiny <apiname>AgaviException</apiname> explaining that it
-    can't find a certain view's file. We'd rather see a "404 Not Found" page
-    in that moment.</p>
+    <p>So far we have only been concerned about how to keep users from passing invalid data but not
+      about what happens if users passes invalid data - in our case calls an invalid URL to a post's
+      detail page. If you try that now you'll see a shiny <apiname>AgaviException</apiname>
+      explaining that it can't find a certain view's file. We'd rather see a "404 Not Found" page in
+      that moment.</p>
+    <section>
+      <title>The handle*Error Methods</title>
+      <p>Whenever validation fails the framework calls a method on the action to handle the error.
+        As with the execute* methods the framework first looks for a method named <apiname
+          >handle&lt;RequestMethod&gt;Error()</apiname> and if no such method is declared it calls a
+        generic <apiname>handleError()</apiname>. So if an error occurs on a Write request, agavi
+        looks if <apiname>handleWriteError()</apiname> was declared, if validation fails on a Read
+        request, it looks for <apiname>handleReadError()</apiname>. In both cases it would fall back
+        to <apiname>handleError()</apiname> if no specific method was declared. If an action does
+        not declare any error handling at all, the default <apiname>handleError()</apiname> method
+        declared in <apiname>AgaviAction</apiname> is executed. The signature for all these methods
+        is the same as for the <apiname>execute()</apiname> method, they accept an <apiname
+          >AgaviRequestDataHolder</apiname> as single parameter and return a view name. Please refer
+        to the API-documentation for <apiname>AgaviAction::handleError()</apiname> for further
+        details.</p>
+      <p>In our case we'll rely on the standard method predefined in Agavi. It executes no logic and
+        just returns 'Error' as the view's name. We don't have that view yet, so let's go create
+        one.</p>
+    </section>
+    <section>
+      <title>Creating a new View</title>
+      <p>Creating a new view is most easily done using the agavi build system:</p>
+      <screen>  
+  bloggie$ <userinput>dev/bin/agavi view-create</userinput>
 
-    <section><title>The handle*Error Methods</title><p>Whenever validation
-    fails the framework calls a method on the action to handle the error. As
-    with the execute* methods the framework first looks for a method named
-    <apiname>handle&lt;RequestMethod&gt;Error()</apiname> and if no such
-    method is declared it calls a generic <apiname>handleError()</apiname>. So
-    if an error occurs on a Write request, agavi looks if
-    <apiname>handleWriteError()</apiname> was declared, if validation fails on
-    a Read request, <apiname>it looks for handleReadError()</apiname>. In both
-    cases it would fall back to <apiname>handleError()</apiname> if no
-    specific method was declared. If an action does not declare any error
-    handling at all, the default <apiname>handleError()</apiname> method
-    declared in <apiname>AgaviAction</apiname> is executed. The signature for
-    all these methods is the same as for the <apiname>execute()</apiname>
-    method, they accept an <apiname>AgaviRequestDataHolder</apiname> as single
-    parameter and return a ViewName. Please refer to the API-documentation for
-    <apiname>AgaviAction::handleError()</apiname> for further
-    details.</p><p>In our case we'll rely on the standard method predefined in
-    Agavi. It executes no logic and just returns 'Error' as the view's name.
-    We don't have that view yet, so let's go create one.</p></section>
+  Module name: <userinput>Posts</userinput>
 
-    <section><title>Creating a new View</title><p>Creating a new view is most
-    easily done using the agavi build system:</p><screen>bloggie$ <userinput>dev/bin/agavi view-create</userinput>
+  Action name: <userinput>Post.Show</userinput>
 
-Module name: <userinput>Posts</userinput>
+  View name: <userinput>Error</userinput>
 
-Action name: <userinput>Post.Show</userinput>
+  bloggie$
+</screen>
+    </section>
+    <section>
+      <title>Forwarding to another Action</title>
+      <p>A validation failure in this specific case means that the requested post does not exist or
+        is otherwise inaccessible, so instead of displaying an error message to the user we should
+        display the 404-Not-Found page. We don't want to implement this page in all and every place
+        where such errors occur and we alread have an implementation for it so all we need to do is
+        tell Agavi to continue with the default 404 action. This is called a "forward" as the client
+        never gets to know that the last executed action is not the action that was actually
+        requested. It's important to differentiate a forward and a redirect, the latter one uses the
+        HTTP 301/302 header to tell the client to go looking somewhere else for the requested
+        ressource. </p>
+      <p>Forwards should happen in the view as the response may depend on the output type. To
+        forward in a view, we just return a new <apiname>AgaviExecutionContainer</apiname> with the
+        module and action we want to forward to. To create such a container we use the convienience
+        method <apiname>AgaviView::createForwardContainer()</apiname>. It will create a new
+        container based on the current view's container and initialize it properly. Please refer to
+        the API-Documentation for further details on this method.</p>
+      <codeblock outputclass="php">
+  &lt;?php
 
-View name: <userinput>Error</userinput>
-
-bloggie$
-
-</screen></section>
-
-    <section><title>Forwarding to another Action</title><p>A validation
-    failure in this specific case means that the requested post does not exist
-    or is otherwise inaccessible, so instead of displaying an error message to
-    the user we should display the 404-Not-Found page. We don't want to
-    implement this page in all and every place where such errors occur and we
-    alread have an implementation for it so all we need to do is tell Agavi to
-    continue with the default 404 action. This is called a "forward" as the
-    client never gets to know that the last executed action is not the action
-    that was actually requested. It's important to differentiate a forward and
-    a redirect, the latter one uses the HTTP 301/302 header to tell the client
-    to go looking somewhere else for the requested ressource. </p><p>Forwards
-    should happen in the view as the response may depend on the output type.
-    To forward in a view, we just return a new
-    <apiname>AgaviExecutionContainer</apiname> with the module and action we
-    want to forward to. To create such a container we use the convienience
-    method <apiname>AgaviView::createForwardContainer()</apiname>. It will
-    create a new container based on the current view's container and
-    initialize it properly. Please refer to the API-Documentation for further
-    details on this method.</p><codeblock outputclass="php">&lt;?php
-
-class Posts_Post_ShowErrorView extends BlogPostsBaseView
-{
-  public function executeHtml(AgaviRequestDataHolder $rd)
+  class Posts_Post_ShowErrorView extends BlogPostsBaseView
   {
-    return $this-&gt;createForwardContainer(AgaviConfig::get('actions.error404_module'), AgaviConfig::get('actions.error404_action'));
+    public function executeHtml(AgaviRequestDataHolder $rd)
+    {
+      return $this-&gt;createForwardContainer(AgaviConfig::get('actions.error404_module'), AgaviConfig::get('actions.error404_action'));
+    }
   }
-}
 
-?&gt;</codeblock><p>The calls to <apiname>AgaviConfig::get()</apiname> just
-    read the configured directives from the settings.xml and otherwise that's
-    all we need to display the 404 page. Go ahead, have a look - enter an
-    invalid post id and see how the right page is displayed. It even emits the
-    right set of headers.</p></section>
+  ?&gt;
+</codeblock>
+      <p>The calls to <apiname>AgaviConfig::get()</apiname> just read the configured directives from
+        the settings.xml and otherwise that's all we need to display the 404 page. Go ahead, have a
+        look - enter an invalid post id and see how the right page is displayed. It even emits the
+        right set of headers.</p>
+    </section>
   </body>
 </topic>

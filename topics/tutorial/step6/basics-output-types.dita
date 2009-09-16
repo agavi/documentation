@@ -3,41 +3,27 @@
 "http://docs.oasis-open.org/dita/dtd/concept.dtd">
 <concept id="basics-output-types">
   <title>Output Types</title>
-
   <conbody>
-    <p>Output types are the Agavi way of dealing with the requirement of
-    having multiple representation formats for a ressource. A list of items
-    could for example be delivered to the client as a regular plain html list,
-    a json serialized array of objects, as a SOAP response or even rendered as
-    an image or chart if required.</p>
-
-    <p>Output types are configured in
-    <filepath>app/config/output_types.xml</filepath>. An output type
-    configuration can specify a variety of parameters:</p>
-
+    <p>Output types is Agavi's way of dealing with the requirement of having multiple presentation
+      formats for a ressource. For example, a list of items could be delivered to the client as a
+      regular plain HTML list, a json serialized array of objects, as a SOAP response or even
+      rendered as an image or chart if required.</p>
+    <p>Output types are configured in <filepath>app/config/output_types.xml</filepath>. An output
+      type configuration can specify a variety of parameters:</p>
     <ul>
       <li>A name. Each output type must have a unique name.</li>
-
-      <li>A set of HTTP headers to send with the response, most notably the
-      content-type header. These headers can be overwritten later but it's
-      still good practice to define a reasonable default</li>
-
-      <li>A specific exeption template to use in case an uncaught exception
-      occurs.</li>
-
-      <li>A renderer configuration, including the renderer to use and any
-      parameters required for rendering.</li>
-
+      <li>A set of HTTP headers to send with the response, most notably the content-type header.
+        These headers can be overwritten later but it's still good practice to define a reasonable
+        default set.</li>
+      <li>A specific exeption template to use in case an uncaught exception occurs.</li>
+      <li>A renderer configuration, including the renderer to use and any parameters required for
+        rendering.</li>
       <li>Any number of preconfigured layouts.</li>
     </ul>
-
-    <p>Except for the output type name all of these parameters are optional.
-    There's quite a few output types where using a renderer wouldn't make
-    sense - for example a json serialized response.</p>
-
-    <p>Let's have a look at the stock html output type from the standard
-    generated application:</p>
-
+    <p>Except for the output type name, all of these parameters are optional. There's quite a few
+      output types where using a renderer wouldn't make sense, for example a json serialized
+      response.</p>
+    <p>Let's have a look at the stock HTML output type from the standard generated application:</p>
     <codeblock outputclass="xml">...
 &lt;output_types default="html"&gt;
   
@@ -110,16 +96,13 @@
 
 &lt;/output_types&gt;
 ...</codeblock>
-
-    <p>We've already had a look at the layout definition so we'll skip that at
-    this point. Please refer to the chapter about layouts. The parameter
-    "exception_template" sets a specific exception template for this output
-    type. <note type="caution">You should use a custom exception template -
-    and if you do so double check that it's sending a correct 500 Internal
-    Server Error status code. You don't want your error page to end up in
-    caches or even worse on google.</note> The section &lt;renderers&gt;
-    specifies a list of renderers:</p>
-
+    <p>We've already had a look at the layout definition so we'll skip that at this point. Please
+      refer to the chapter about layouts. The parameter <varname>exception_template</varname> sets a
+      specific exception template for this output type. <note type="caution">You should use a custom
+        exception template - and if you do so double check that it's sending a correct 500 Internal
+        Server Error status code. You don't want your error page to end up in caches or even worse
+        on google.</note> The section <codeph>&lt;renderers&gt;</codeph> specifies a list of
+      renderers:</p>
     <codeblock outputclass="xml">&lt;renderers default="php"&gt;
   &lt;renderer name="php" class="AgaviPhpRenderer"&gt;
     &lt;ae:parameter name="assigns"&gt;
@@ -135,49 +118,43 @@
     &lt;ae:parameter name="var_name"&gt;t&lt;/ae:parameter&gt;
   &lt;/renderer&gt;
 &lt;/renderers&gt;</codeblock>
-
-    <p>This specifies a single renderer named "php" that uses the default
-    <apiname>AgaviPhpRenderer</apiname>. This renderer is the default renderer
-    used. The &lt;assigns&gt; tag controls which internal objects are
-    available in the template and their respective variable name. The
-    parameters named "default_extension" sets the expected template extension
-    to ".php". The "var_name" parameter controls the name of the template
-    variable.</p>
-
+    <p>This specifies a single renderer named "php" that uses the default <apiname
+      >AgaviPhpRenderer</apiname>. This renderer is the default renderer used. The <codeph>&lt;assigns&gt;</codeph> tag controls
+      which internal objects are available in the template and their respective variable name. The
+      parameter named <varname>default_extension</varname> sets the expected template extension to ".php". The
+      <varname>var_name</varname> parameter controls the name of the template variable.</p>
     <p>Then there's the last section named "http_headers":</p>
-
     <codeblock outputclass="xml">&lt;ae:parameter name="http_headers"&gt;
   &lt;ae:parameter name="Content-Type"&gt;text/html; charset=UTF-8&lt;/ae:parameter&gt;
 &lt;/ae:parameter&gt;
 </codeblock>
-
-    <p>This section contains a list of default HTTP headers to send. In most
-    cases it's reasonable to at least list a default content-type header
-    here.</p>
-
-    <section><title>Rendering for a specific output type</title><p>The
-    framework calls a method named execute&lt;OutputTypeName&gt; on the view
-    to render. So for an HTML output type the method "executeHtml()" is called
-    on a view, for a JSON output type "executeJson()" etc. The method can
-    either return a valid response content or set up layers to render or even
-    both. Valid response content may be</p><ul>
+    <p>This section contains a list of default HTTP headers to send. In most cases it's reasonable
+      to at least list a default content-type header here.</p>
+    <section>
+      <title>Rendering for a specific output type</title>
+      <p>The framework calls a method named execute&lt;OutputTypeName&gt; on the view to render. So
+        for an HTML output type the method <apiname>executeHtml()</apiname> is called on a view, for a JSON output
+        type <apiname>executeJson()</apiname> etc. The method can either return a valid response content or set up
+        layers to render or even both. Valid response content may be</p>
+      <ul>
         <li>A string.</li>
-
-        <li>An open file pointer. Agavi will stream the contents of that file
-        to the user with the most efficient method available.</li>
-      </ul></section>
-
-    <section><title>Using a specific output type</title><p>The output type to
-    use can either be set on the container using the
-    <apiname>setOutputType</apiname> method, by passing an output type name to
-    <apiname>createSlotContainer()</apiname> when creating a slot, by passing
-    the output type to <apiname>createForwardContainer()</apiname> when doing
-    an internal forward or by the routing.</p><p>The any route can use the
-    "output_type" attribute to set the active output type. A standard example
-    is setting output types based on the file extension using a non-stopping
-    route:</p><codeblock outputclass="xml"> &lt;route name="ot_xml" pattern=".xml$" cut="true" output_type="xml" /&gt;</codeblock><p>This
-    route would match any url ending in ".xml", strip the extension, set the
-    output type to "xml" and then continue processing. The output type must be
-    configured to to use this facility.</p></section>
+        <li>An open file pointer. Agavi will stream the contents of that file to the user with the
+          most efficient method available.</li>
+      </ul>
+    </section>
+    <section>
+      <title>Using a specific output type</title>
+      <p>The output type to use can either be set on the container using the <apiname
+          >setOutputType</apiname> method, by passing an output type name to <apiname
+          >createSlotContainer()</apiname> when creating a slot, by passing the output type to
+          <apiname>createForwardContainer()</apiname> when doing an internal forward or by the
+        routing.</p>
+      <p>The any route can use the "output_type" attribute to set the active output type. A standard
+        example is setting output types based on the file extension using a non-stopping route:</p>
+      <codeblock outputclass="xml"> &lt;route name="ot_xml" pattern=".xml$" cut="true" output_type="xml" /&gt;</codeblock>
+      <p>This route would match any url ending in ".xml", strip the extension, set the output type
+        to "xml" and then continue processing. The output type must be configured to to use this
+        facility.</p>
+    </section>
   </conbody>
 </concept>

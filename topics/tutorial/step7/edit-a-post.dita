@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd">
+<topic id="topic-1">
+  <title>Editing a Post</title>
+  <body>
+    <p>To demonstrate the ability to use the Form Population Filter (FPF), we're going to make an
+      edit post page. So to start, we need to create the action, views and
+      templates.<codeblock>
+  bloggie$ dev/bin/agavi action-wizard
+            
+  Module name: <userinput>Posts</userinput>
+            
+  Action name: <userinput>Post.Edit</userinput>
+            
+  Space-separated list of views to create for Add [Success]: Input Success Error
+            
+  bloggie$
+            </codeblock></p>
+    <p>The Action has nothing special in it, other than a new method for the <apiname
+        >Posts_PostManager</apiname> model, it does nothing more than update the database row for
+      the post and the <apiname>getDefaultViewName()</apiname> has been replaced with <apiname
+        >executeRead()</apiname> so the validation would
+      work.<codeblock outputclass="php">
+  &lt;?php
+
+  class Posts_Post_EditAction extends BlogPostsBaseAction
+  {
+    /**
+     * Serves Write (POST) requests.
+     * 
+     * @param      AgaviRequestDataHolder the incoming request data
+     * 
+     * @return     mixed &lt;ul>
+     *                     &lt;li>A string containing the view name associated
+     *                     with this action; or&lt;/li>
+     *                     &lt;li>An array with two indices: the parent module
+     *                     of the view to be executed and the view to be
+     *                     executed.&lt;/li>
+     *                   &lt;/ul>
+     */
+    public function executeWrite(AgaviRequestDataHolder $rd)
+    {
+      $post = $rd->getParameter('post');
+    
+      $post->setTitle($rd->getParameter('title'));
+      $post->setCategoryId($rd->getParameter('category'));
+      $post->setContent($rd->getParameter('content'));
+    
+      $postManager = $this->getContext()->getModel('PostManager', 'Posts');
+      $postManager->storeEdit($post);
+    
+      return 'Success';
+    }
+  
+    public function executeRead(AgaviRequestDataHolder $rd)
+    {
+      return 'Input';
+    }
+  
+    public function isSecure()
+    {
+      return true;
+    }
+  }
+
+  ?>
+      </codeblock></p>
+    <p>As pointed out in the action, there's a new method in the <apiname
+        >Posts_PostManager</apiname> called <apiname>storeEdit()</apiname>, it's a rather simple
+      update query being
+      executed.<codeblock outputclass="php">
+  public function storeEdit(Posts_PostModel $post) 
+  {
+    $con = $this->getContext()->getDatabaseManager()->getDatabase()->getConnection();
+    
+    $sql = 'UPDATE posts SET title=?, category_id=?, content=? WHERE id=?';
+    
+    $stmt = $con->prepare($sql);
+    
+    $stmt->bindValue(1, $post->getTitle(), PDO::PARAM_STR);
+    $stmt->bindValue(2, $post->getCategoryId(), PDO::PARAM_INT);
+    $stmt->bindValue(3, $post->getContent(), PDO::PARAM_STR);
+    $stmt->bindValue(4, $post->getId(), PDO::PARAM_INT);
+    
+    $stmt->execute();
+    
+    return $stmt->execute();
+  }
+      </codeblock></p>
+    <p>The validation code is not really any different from the experiences you have had with it
+      before, except it's a mixture between the add action and the show
+      action<codeblock outputclass="xml">
+  &lt;?xml version="1.0" encoding="UTF-8"?>
+  &lt;ae:configurations
+    xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+    xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+    parent="%core.module_dir%/Posts/config/validators.xml"
+  >
+    &lt;ae:configuration>
+      &lt;validators method="read">
+        &lt;validator class="Posts_PostValidator" name="post">
+          &lt;arguments>
+            &lt;argument>post&lt;/argument>
+          &lt;/arguments>
+          &lt;errors>
+            &lt;error>The parameter post must contain a valid post id&lt;/error>
+          &lt;/errors>
+          &lt;ae:parameters>
+            &lt;ae:parameter name="export">post&lt;/ae:parameter>
+          &lt;/ae:parameters>
+        &lt;/validator>
+      &lt;/validators>
+    
+      &lt;validators method="write">
+        &lt;validator class="Posts_PostValidator" name="post">
+          &lt;arguments>
+            &lt;argument>post&lt;/argument>
+          &lt;/arguments>
+          &lt;errors>
+            &lt;error>The parameter post must contain a valid post id&lt;/error>
+          &lt;/errors>
+          &lt;ae:parameters>
+            &lt;ae:parameter name="export">post&lt;/ae:parameter>
+          &lt;/ae:parameters>
+        &lt;/validator>
+      
+        &lt;validator class="string">
+          &lt;arguments>
+            &lt;argument>title&lt;/argument>
+          &lt;/arguments>
+          &lt;errors>
+            &lt;error>The title field has an invalid value.&lt;/error>
+            &lt;error for="required">Please provide a title.&lt;/error>
+            &lt;error for="max_error">The title must be shorter than 255 characters.&lt;/error>
+          &lt;/errors>
+          &lt;ae:parameters>
+            &lt;ae:parameter name="max">255&lt;/ae:parameter>
+          &lt;/ae:parameters>
+        &lt;/validator>
+      
+        &lt;validator class="string">
+          &lt;arguments>
+            &lt;argument>content&lt;/argument>
+          &lt;/arguments>
+          &lt;errors>
+            &lt;error>The content field has an invalid value.&lt;/error>
+            &lt;error for="required">Please provide a post body.&lt;/error>
+            &lt;error for="max_error">The post body must be shorter than 65536 characters.&lt;/error>
+          &lt;/errors>
+          &lt;ae:parameters>
+            &lt;ae:parameter name="max">65536&lt;/ae:parameter>
+          &lt;/ae:parameters>
+        &lt;/validator>
+      
+        &lt;validator class="inarray">
+          &lt;arguments>
+            &lt;argument>category&lt;/argument>
+          &lt;/arguments>
+          &lt;errors>
+            &lt;error>Please choose a valid category.&lt;/error>
+            &lt;error for="required">Please choose a category.&lt;/error>
+          &lt;/errors>
+          &lt;ae:parameters>
+            &lt;ae:parameter name="values">
+              &lt;ae:parameters>
+                &lt;ae:parameter>1&lt;/ae:parameter>
+                &lt;ae:parameter>2&lt;/ae:parameter>
+              &lt;/ae:parameters>
+            &lt;/ae:parameter>
+          &lt;/ae:parameters>
+        &lt;/validator>
+      &lt;/validators>
+    
+    &lt;/ae:configuration>
+  &lt;/ae:configurations>
+      
+      </codeblock></p>
+    <p>The code used for this section isn't anything special until you get to the <apiname
+        >Posts_Post_EditInputView</apiname>, where we introduce a new feature to the project. The
+      FPF code is rather simplistic and is rather easy to use the code below simply creates a new
+        <apiname>AgaviParameterHolder</apiname> and uses the form control names as the keys, the
+      values for these keys is what is going to be shown in the form's control value attribute. We
+      add the <apiname>AgaviParameterHolder</apiname> object as an attribute directory to the
+      request object with the namespace "org.agavi.filter.FormPopulationFilter" so Agavi knows what
+      it
+      is.<codeblock outputclass="php">
+  &lt;?php
+
+  class Posts_Post_EditInputView extends BlogPostsBaseView
+  {
+    public function executeHtml(AgaviRequestDataHolder $rd)
+    {
+      $this->setupHtml($rd);
+
+      $post = $rd->getParameter('post');
+
+      $form = new AgaviParameterHolder(array(
+        'post' => $post->getId(),
+        'title' => $post->getTitle(),
+        'content' => $post->getContent(),
+        'category' => $post->getCategoryId(),
+      ));
+
+      $this->setAttribute('_title', 'Edit Post');
+      $this->setAttribute('post', $post);
+      $this->getContext()->getRequest()->setAttribute('populate', array('edit' => $form), 'org.agavi.filter.FormPopulationFilter');
+    }
+  }
+
+  ?>
+</codeblock>
+      And the corresponding template, this is the same code for the add template but with an ID set
+      on the
+      form:<codeblock>
+  &lt;form id="edit" action="&lt;?php echo $ro->gen('posts.post.edit', array('post' => $t['post'])); ?>" method="post">
+    &lt;fieldset>
+      &lt;div class="form_row">
+        &lt;label for="input_title">Title:&lt;/label>
+        &lt;input type="text" name="title" id="input_title" />
+      &lt;/div>
+      &lt;div class="form_row">
+        &lt;label for="input_content">Content:&lt;/label>
+        &lt;textarea name="content" id="input_content">&lt;/textarea>
+      &lt;/div>
+      &lt;div class="form_row">
+        &lt;label for="input_category">Category:&lt;/label>
+        &lt;select name="category" id="input_category">
+          &lt;option value="1">No category&lt;/option>
+          &lt;option value="2">Agavi&lt;/option>
+        &lt;/select>
+      &lt;/div>
+      &lt;div class="form_row form_row_submit">
+        &lt;input type="hidden" name="post" />
+        &lt;button type="submit" class="submit">Add Post&lt;/button>
+      &lt;/div>
+    &lt;/fieldset>
+  &lt;/form>
+      </codeblock></p>
+    <p>The Success view is no different from the view used for <apiname
+        >Posts_AddSuccessView</apiname>.</p>
+    <p>To make the page actually viewable, we need to add a line to the <filepath
+        >app/config/routing.xml</filepath>, so the "Post" block now looks like
+      this:<codeblock>
+  &lt;route name=".post" pattern="^/(post:\d+)(-{title:[-\w]+})?" action="Post">
+    &lt;callbacks>
+      &lt;callback class="PostRoutingCallback" />
+    &lt;/callbacks>
+    
+    &lt;route name=".show" pattern="^$" action=".Show" />
+    &lt;route name=".edit" pattern="^/edit$" action=".Edit" />
+  &lt;/route>
+</codeblock></p>
+  </body>
+</topic>
