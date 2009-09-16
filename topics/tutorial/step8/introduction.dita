@@ -536,7 +536,10 @@
   }          
         </codeblock></p>
       <p>The <apiname>isSecure()</apiname> method is simply just added to the bottom of any action
-        class you want to protect.</p>
+      class you want to protect.</p>
+      <p>The source code for this chapter is available here: <xref
+        href="http://www.agavi.org/guide/stages/stage8.tgz" format="html"
+        scope="external">Stage 8 (http://www.agavi.org/guide/stages/stage8.tgz</xref></p>
     </section>
   </body>
 </topic>
