@@ -3,319 +3,228 @@
 "http://docs.oasis-open.org/dita/dtd/concept.dtd">
 <concept id="basics-the-fpf">
   <title>The Form Population Filter (FPF)</title>
-
   <conbody>
-    <p>The Form Population Filter wraps around the whole request processing
-    and repopulates forms when errors occur. It also inserts error messages at
-    appropriate places. The FPF parses the resulting HTML code and uses
-    DOM/XPATH to insert the form values and messages. The FPF refills the
-    fields in any form that has an "action" attribute matching the incoming
-    request uri.</p>
-
-    <section><title>The FPF and HTML Entities</title><p>As the FPF parses
-    xhtml code as valid XML by default it does not like HTML entities such as
-    &amp;nbsp, &amp;copy, so they should be avoided. The general
-    recommendation is to serve your pages with an UTF-8 charset that
-    eliminates the need for most of those entities as they can be represented
-    by regular chars. So instead of &amp;copy use the regular © sign. For all
-    other entities that don't have a character to display use the numeric
-    entities - instead of &amp;nbsp; use &amp;160;. Numeric entities parse
-    just fine in XML.</p><p>An alternative way would be to add all entities
-    you use to a local DTD or to use the HTML parsing mode, but those have
-    their own drawbacks.</p></section>
-
-    <section><title>Advantages</title><p>Because the FPF evaluates the
-    resulting HTML code, it is independent from any template engine you might
-    want to use and works with all of them. Using the FPF to prefill and
-    refill the form data also makes your application immune to XSS injection
-    attacks in forms as the FPF handles all escaping. However, other XSS
-    injection attacks might still be possible - for example when you display
-    user-provided data at any other place.</p></section>
-
-    <section><title>Configuring the FPF</title><p>The FPF uses
-    XPATH-expressions to insert the error messages into the document, so using
-    the FPF requires at least a basic knowledge of XPATH. The configuration is
-    done in the <filepath>app/config/global_filters.xml</filepath> or at
-    runtime. The FPF take a long list of configuration options:</p><dl>
+    <p>The Form Population Filter wraps around the whole request processing and repopulates forms
+      when errors occur. It also inserts error messages at appropriate places. The FPF parses the
+      resulting HTML code and uses DOM/XPATH to insert the form values and messages. The FPF refills
+      the fields in any form that has an "action" attribute matching the incoming request uri.</p>
+    <section>
+      <title>The FPF and HTML Entities</title>
+      <p>As the FPF parses xhtml code as valid XML by default it does not like HTML entities such as
+        &amp;nbsp, &amp;copy, so they should be avoided. The general recommendation is to serve your
+        pages with an UTF-8 charset that eliminates the need for most of those entities as they can
+        be represented by regular chars. So instead of &amp;copy use the regular © sign. For all
+        other entities that don't have a character to display use the numeric entities - instead of
+        &amp;nbsp; use &amp;160;. Numeric entities parse just fine in XML.</p>
+      <p>An alternative way would be to add all entities you use to a local DTD or to use the HTML
+        parsing mode, but those have their own drawbacks.</p>
+    </section>
+    <section>
+      <title>Advantages</title>
+      <p>Because the FPF evaluates the resulting HTML code, it is independent from any template
+        engine you might want to use and works with all of them. Using the FPF to prefill and refill
+        the form data also makes your application immune to XSS injection attacks in forms as the
+        FPF handles all escaping. However, other XSS injection attacks might still be possible - for
+        example when you display user-provided data at any other place.</p>
+    </section>
+    <section>
+      <title>Configuring the FPF</title>
+      <p>The FPF uses XPATH-expressions to insert the error messages into the document, so using the
+        FPF requires at least a basic knowledge of XPATH. The configuration is done in the <filepath
+          >app/config/global_filters.xml</filepath> or at runtime. The FPF take a long list of
+        configuration options:</p>
+      <dl>
         <dlentry>
           <dt>methods</dt>
-
-          <dd>on which request-methods the FPF should be invoked. Usually the
-          FPF should only act on write requests as these indicate a form
-          submission. The FPF parses the resulting HTML code for each request
-          of the given method, so having the FPF act on read requests would be
-          a major performance issue. If the parameter is omitted, the FPF
-          never runs.</dd>
+          <dd>on which request-methods the FPF should be invoked. Usually the FPF should only act on
+            write requests as these indicate a form submission. The FPF parses the resulting HTML
+            code for each request of the given method, so having the FPF act on read requests would
+            be a major performance issue. If the parameter is omitted, the FPF never runs.</dd>
         </dlentry>
-
         <dlentry>
           <dt>output_types</dt>
-
-          <dd>A list of ouput types for which the FPF should be invoked. The
-          FPF can only be used on output types that produce valid (X)HTML
-          output. It must not be used for output types that produce JSON or
-          other non-html output. If the parameter is omitted, the FPF runs for
-          all output types.</dd>
+          <dd>A list of ouput types for which the FPF should be invoked. The FPF can only be used on
+            output types that produce valid (X)HTML output. It must not be used for output types
+            that produce JSON or other non-html output. If the parameter is omitted, the FPF runs
+            for all output types.</dd>
         </dlentry>
-
         <dlentry>
           <dt>field_error_messages</dt>
-
-          <dd>Where to insert error messages that affect a single field only -
-          regular textfields, checkboxes and the like. The parameter contains
-          a list of XPATH expressions with corresponding insertion rules. The
-          expressions and insertion rules are relative to the form field for
-          which the messages are inserted.</dd>
+          <dd>Where to insert error messages that affect a single field only - regular textfields,
+            checkboxes and the like. The parameter contains a list of XPATH expressions with
+            corresponding insertion rules. The expressions and insertion rules are relative to the
+            form field for which the messages are inserted.</dd>
         </dlentry>
-
         <dlentry>
           <dt>multi_field_error_messages</dt>
-
-          <dd>Where to insert error messages that affect multiple fields like
-          messages from a date validator or a validator that compares two
-          fields. The parameter contains a list of XPATH expressions with
-          corresponding insertion rules. The expressions and insertion rules
-          are relative to the form field for which the messages are
-          inserted.</dd>
+          <dd>Where to insert error messages that affect multiple fields like messages from a date
+            validator or a validator that compares two fields. The parameter contains a list of
+            XPATH expressions with corresponding insertion rules. The expressions and insertion
+            rules are relative to the form field for which the messages are inserted.</dd>
         </dlentry>
-
         <dlentry>
           <dt>error_messages</dt>
-
-          <dd>Where to insert error messages that have no corresponding field
-          or did not match in field_error_messages or
-          multi_field_error_messages. The parameter contains a list of XPATH
-          expressions with corresponding insertion rules. The expressions and
-          insertion rules are relative to the form field for which the
-          messages are inserted or relative to the form element itself when a
-          message has no corresponding field.</dd>
+          <dd>Where to insert error messages that have no corresponding field or did not match in
+            field_error_messages or multi_field_error_messages. The parameter contains a list of
+            XPATH expressions with corresponding insertion rules. The expressions and insertion
+            rules are relative to the form field for which the messages are inserted or relative to
+            the form element itself when a message has no corresponding field.</dd>
         </dlentry>
-
         <dlentry>
           <dt>error_class</dt>
-
-          <dd>The CSS class to set on all element that have an error. Defaults
-          to 'error'.</dd>
+          <dd>The CSS class to set on all element that have an error. Defaults to 'error'.</dd>
         </dlentry>
-
         <dlentry>
           <dt>error_class_map</dt>
-
-          <dd>A list of xpath expressions as key and a class as value. Sets
-          the given class on all elements that match the given xpath
-          expression. Defaults to 'self::${htmlnsPrefix}*' =&gt;
-          '&lt;error_class&gt;'.</dd>
+          <dd>A list of xpath expressions as key and a class as value. Sets the given class on all
+            elements that match the given xpath expression. Defaults to 'self::${htmlnsPrefix}*'
+            =&gt; '&lt;error_class&gt;'.</dd>
         </dlentry>
-
         <dlentry>
           <dt>include_password_inputs</dt>
-
-          <dd>True if password input fields should be refilled as well,
-          defaults to false.</dd>
+          <dd>True if password input fields should be refilled as well, defaults to false.</dd>
         </dlentry>
-
         <dlentry>
           <dt>include_hidden_inputs</dt>
-
-          <dd>True if hidden input fields should be refilled as well, defaults
-          to true</dd>
+          <dd>True if hidden input fields should be refilled as well, defaults to true</dd>
         </dlentry>
-
         <dlentry>
           <dt>skip</dt>
-
           <dd>contains a list of field names that should not be refilled.</dd>
         </dlentry>
-
         <dlentry>
           <dt>parse_xhtml_as_xml</dt>
-
-          <dd>true to use XML parsing mode for XHTML documents. If XML parsing
-          mode is enabled <xref format="html"
-          href="http://www.php.net/manual/en/domdocument.loadxml.php"><apiname>DomDocument::loadXml()</apiname></xref>
-          is used to parse the document, otherwise <xref format="html"
-          href="http://www.php.net/manual/en/domdocument.loadhtml.php"><apiname>DomDocument::loadHtml()</apiname></xref>.
-          XML parsing mode offers major advantages in character encoding
-          handling. Defaults to true.</dd>
+          <dd>true to use XML parsing mode for XHTML documents. If XML parsing mode is enabled <xref
+              format="html" href="http://www.php.net/manual/en/domdocument.loadxml.php"><apiname
+                >DomDocument::loadXml()</apiname></xref> is used to parse the document, otherwise
+              <xref format="html" href="http://www.php.net/manual/en/domdocument.loadhtml.php"
+                ><apiname>DomDocument::loadHtml()</apiname></xref>. XML parsing mode offers major
+            advantages in character encoding handling. Defaults to true.</dd>
         </dlentry>
-
         <dlentry>
           <dt>ignore_parse_errors</dt>
-
-          <dd>True to ignore parse errors and continue processing. The form
-          will not be refilled and no error messages inserted but will be
-          displayed to the user instead of throwing an exeception. Defaults to
-          false.</dd>
+          <dd>True to ignore parse errors and continue processing. The form will not be refilled and
+            no error messages inserted but will be displayed to the user instead of throwing an
+            exeception. Defaults to false.</dd>
         </dlentry>
-
         <dlentry>
           <dt>dom_substitute_entities</dt>
-
           <dd>Sets the <xref format="html"
-          href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.substituteentities">substitutEntities</xref>
-          flag on the DomDocument created, defaults to false. If true,
-          entities are substituted.</dd>
+              href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.substituteentities"
+              >substitutEntities</xref> flag on the DomDocument created, defaults to false. If true,
+            entities are substituted.</dd>
         </dlentry>
-
         <dlentry>
           <dt>dom_resolve_externals</dt>
-
           <dd>Sets the <xref format="html"
-          href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals">resolveExternals</xref>
-          flag on the DomDocument created, defaults to false. Enabling this
-          option may slow processing down by a large factor as all externals
-          for the Document Type Definition may be loaded from an external
-          server.</dd>
+              href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals"
+              >resolveExternals</xref> flag on the DomDocument created, defaults to false. Enabling
+            this option may slow processing down by a large factor as all externals for the Document
+            Type Definition may be loaded from an external server.</dd>
         </dlentry>
-
         <dlentry>
           <dt>dom_validate_on_parse</dt>
-
           <dd>Sets the <xref format="html"
-          href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.validateonparse">validateOnParse</xref>
-          flag on the DomDocument created, defaults to false. If true, the
-          XLML code is validated against the DTD on load.</dd>
+              href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.validateonparse"
+              >validateOnParse</xref> flag on the DomDocument created, defaults to false. If true,
+            the XLML code is validated against the DTD on load.</dd>
         </dlentry>
-
         <dlentry>
           <dt>dom_preserve_white_space</dt>
-
           <dd>Sets the <xref format="html"
-          href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.preservewhitespace">preserveWhiteSpace</xref>
-          flag on the DomDocument created, defaults to true. If false,
-          redundant white space is removed from the document.</dd>
+              href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.preservewhitespace"
+              >preserveWhiteSpace</xref> flag on the DomDocument created, defaults to true. If
+            false, redundant white space is removed from the document.</dd>
         </dlentry>
-
         <dlentry>
           <dt>dom_format_output</dt>
-
           <dd>Sets the <xref format="html"
-          href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.formatoutput">formatOutput</xref>
-          flag on the DomDocument, defaults to false. If true, the output is
-          nicely formatted with indenting and extra space.</dd>
+              href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.formatoutput"
+              >formatOutput</xref> flag on the DomDocument, defaults to false. If true, the output
+            is nicely formatted with indenting and extra space.</dd>
         </dlentry>
-
         <dlentry>
           <dt>log_parse_errors</dt>
-
-          <dd>True to write parse errors to a logfile. The log will contain
-          the parse errors as well as the HTML code that cause the errors.
-          Requires logging, defaults to true.</dd>
+          <dd>True to write parse errors to a logfile. The log will contain the parse errors as well
+            as the HTML code that cause the errors. Requires logging, defaults to true.</dd>
         </dlentry>
-
         <dlentry>
           <dt>logging_severity</dt>
-
-          <dd>Any of the AgaviLogger logging severities. The severity of the
-          log message, defaults to AgaviLogger::FATAL.</dd>
+          <dd>Any of the AgaviLogger logging severities. The severity of the log message, defaults
+            to AgaviLogger::FATAL.</dd>
         </dlentry>
-
         <dlentry>
           <dt>logging_logger</dt>
-
-          <dd>The logger to write the message to, can be any configured logger
-          name, null to write to no specific logger. Defaults to null.</dd>
+          <dd>The logger to write the message to, can be any configured logger name, null to write
+            to no specific logger. Defaults to null.</dd>
         </dlentry>
-
         <dlentry>
           <dt>force_encoding</dt>
-
-          <dd>Force the output to be in the specified encoding. Any encoding
-          that is supported by your PHP installation is a valid value, false
-          to keep the document encoding. Requires the iconv extension for any
-          encoding other than ISO-8859-1 an UTF-8. Defaults to false.</dd>
+          <dd>Force the output to be in the specified encoding. Any encoding that is supported by
+            your PHP installation is a valid value, false to keep the document encoding. Requires
+            the iconv extension for any encoding other than ISO-8859-1 an UTF-8. Defaults to
+            false.</dd>
         </dlentry>
-
         <dlentry>
           <dt>force_output_mode</dt>
-
-          <dd>Enforce the given output mode regardless of how the document was
-          formatted. 'xhtml' or 'html' are valid and supported values, false
-          to keep the documents output mode. Defaults to false.</dd>
+          <dd>Enforce the given output mode regardless of how the document was formatted. 'xhtml' or
+            'html' are valid and supported values, false to keep the documents output mode. Defaults
+            to false.</dd>
         </dlentry>
-
         <dlentry>
           <dt>force_request_uri</dt>
-
-          <dd>Don't use the incoming request uri to detect the form to
-          populate but the given one. Any URI is a valid value, false to use
-          the incoming URI. Defaults to false.</dd>
+          <dd>Don't use the incoming request uri to detect the form to populate but the given one.
+            Any URI is a valid value, false to use the incoming URI. Defaults to false.</dd>
         </dlentry>
-
         <dlentry>
           <dt>cdata_fix</dt>
-
-          <dd>Fix CDATA wrappers in inline style and script blocks. Defaults
-          to true.</dd>
+          <dd>Fix CDATA wrappers in inline style and script blocks. Defaults to true.</dd>
         </dlentry>
-
         <dlentry>
           <dt>remove_auto_xml_prolog</dt>
-
-          <dd>remove any XML prolog that is autogenerated by libxml, defaults
-          to true.</dd>
+          <dd>remove any XML prolog that is autogenerated by libxml, defaults to true.</dd>
         </dlentry>
-
         <dlentry>
           <dt>validation_report</dt>
-
-          <dd>The validation result to obtain the error messages from.
-          Defaults to the main containers validation result.</dd>
+          <dd>The validation result to obtain the error messages from. Defaults to the main
+            containers validation result.</dd>
         </dlentry>
-      </dl><p>The insertion rules contain three parameters:</p><dl>
+      </dl>
+      <p>The insertion rules contain three parameters:</p>
+      <dl>
         <dlentry>
           <dt>location</dt>
-
-          <dd>Where to insert the message in respect to the matched element.
-          The location accepts three possible values:<dl>
-              <dlentry>
-                <dt>before</dt>
-
-                <dd>Insert as previous sibling of the element matched - i.e.
-                before the element in the dom structure.</dd>
-              </dlentry>
-
-              <dlentry>
-                <dt>after</dt>
-
-                <dd>Insert as next sibling of the element matched - i.e. after
-                the element in the dom structure.</dd>
-              </dlentry>
-
-              <dlentry>
-                <dt>child</dt>
-
-                <dd>Insert as last child element of the element matched.</dd>
-              </dlentry>
-            </dl></dd>
+          <dd>Where to insert the message in respect to the matched element. The location accepts
+            three possible values:<dl><dlentry><dt>before</dt><dd>Insert as previous sibling of the
+                  element matched - i.e. before the element in the dom
+                structure.</dd></dlentry><dlentry><dt>after</dt><dd>Insert as next sibling of the
+                  element matched - i.e. after the element in the dom
+                structure.</dd></dlentry><dlentry><dt>child</dt><dd>Insert as last child element of
+                  the element matched.</dd></dlentry></dl></dd>
         </dlentry>
-
         <dlentry>
           <dt>container</dt>
-
-          <dd>Contains markup for a container element. If this paramater is
-          set, all error message will be collected in the container and then
-          the whole container will be inserted at the given location. The
-          markup consists entirely of HTML code and must contain the special
-          variable ${errorMessages} which marks the place where the messages
-          will be inserted in the HTML code.</dd>
+          <dd>Contains markup for a container element. If this paramater is set, all error message
+            will be collected in the container and then the whole container will be inserted at the
+            given location. The markup consists entirely of HTML code and must contain the special
+            variable ${errorMessages} which marks the place where the messages will be inserted in
+            the HTML code.</dd>
         </dlentry>
-
         <dlentry>
           <dt>markup</dt>
-
-          <dd>Contains markup for the error message. The markup consists
-          entirely of HTML code and must contain the special variable
-          ${errorMessage} which marks the place where the message will be
-          inserted in the HTML code.</dd>
+          <dd>Contains markup for the error message. The markup consists entirely of HTML code and
+            must contain the special variable ${errorMessage} which marks the place where the
+            message will be inserted in the HTML code.</dd>
         </dlentry>
-      </dl><p>Errors that did not match will be set in the request attribute
-    'orphaned_errors' in the namespace
-    'org.agavi.filter.FormPopulationFilter'.</p></section>
-
-    <section><title>XML-Configuration</title><p>The defaults for the FPF
-    configuration are set in the
-    <filepath>app/config/global_filters.xml</filepath>:</p><codeblock>&lt;filter name="FormPopulationFilter" class="AgaviFormPopulationFilter"&gt;
+      </dl>
+      <p>Errors that did not match will be set in the request attribute 'orphaned_errors' in the
+        namespace 'org.agavi.filter.FormPopulationFilter'.</p>
+    </section>
+    <section>
+      <title>XML-Configuration</title>
+      <p>The defaults for the FPF configuration are set in the <filepath
+          >app/config/global_filters.xml</filepath>:</p>
+      <codeblock>&lt;filter name="FormPopulationFilter" class="AgaviFormPopulationFilter"&gt;
   
   &lt;!-- only run for request method "write" (=POST on web) by default (can be changed at runtime, of course) --&gt;
   &lt;!-- if you omit this, it will never run --&gt;
@@ -379,24 +288,21 @@
     &lt;/ae:parameter&gt;
   &lt;/ae:parameter&gt;
   
-&lt;/filter&gt;</codeblock></section>
-
-    <section><title>Runtime Configuration</title><p/></section>
-
-    <section><title>Prepopulating a Form</title><p/></section>
-
-    <section><title>Common Pitfalls</title><p>A list of common <xref
-    format="html" href="http://www.thedailywtf.com"> WTF?!</xref> moments that
-    occur when using the FPF.</p><dl>
+&lt;/filter&gt;</codeblock>
+    </section>
+    <section>
+      <title>Common Pitfalls</title>
+      <p>A list of common <xref format="html" href="http://www.thedailywtf.com"> WTF?!</xref>
+        moments that occur when using the FPF.</p>
+      <dl>
         <dlentry>
           <dt>mangled specialchars</dt>
-
-          <dd>A common cause for mangled specialchars is the HTML parsing
-          mode. HTML parsing mode requires a &lt;meta
-          http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-          tag with a valid charset and this tag must be the first thing in the
-          document's head.</dd>
+          <dd>A common cause for mangled specialchars is the HTML parsing mode. HTML parsing mode
+            requires a &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+            tag with a valid charset and this tag must be the first thing in the document's
+            head.</dd>
         </dlentry>
-      </dl></section>
+      </dl>
+    </section>
   </conbody>
 </concept>
