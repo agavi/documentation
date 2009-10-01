@@ -74,9 +74,9 @@
   ?&gt;
 </codeblock>
       <p>The calls to <apiname>AgaviConfig::get()</apiname> just read the configured directives from
-        the settings.xml and otherwise that's all we need to display the 404 page. Go ahead, have a
-        look - enter an invalid post id and see how the right page is displayed. It even emits the
-        right set of headers.</p>
+        the <filepath>app/config/settings.xml</filepath> and otherwise that's all we need to display
+        the 404 page. Go ahead, have a look - enter an invalid post id and see how the right page is
+        displayed. It even emits the right set of headers.</p>
     </section>
   </body>
 </topic>

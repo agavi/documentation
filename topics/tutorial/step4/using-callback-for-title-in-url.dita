@@ -70,7 +70,9 @@ class PostRoutingCallback extends AgaviRoutingCallback
       &lt;/routes&gt;
     &lt;/ae:configuration&gt;
   &lt;/ae:configurations&gt;</codeblock>
-    <p>Now we need to pass a <apiname>PostModel</apiname> instead of id and title in our <apiname>ShowSuccessView</apiname>:</p>
+    <p>Now we need to pass a <apiname>PostModel</apiname> instead of id and title in our <apiname
+        >ShowSuccessView</apiname> [<filepath
+        >app/modules/Posts/views/Posts/ShowSuccess.class.php</filepath>]:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_Post_ShowSuccessView extends BlogPostsBaseView

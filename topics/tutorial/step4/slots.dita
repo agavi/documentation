@@ -153,7 +153,7 @@ Space-separated list of views to create for Sidebar [Success]:
 
 bloggie$
 </screen>
-      <p>Next register the slots:</p>
+      <p>Next register the slots in <filepath>app/config/output_types.xml</filepath>:</p>
       <codeblock outputclass="xml">&lt;!-- standard layout with a content and a decorator layer --&gt;
 &lt;layout name="standard"&gt;
   &lt;!-- content layer without further params. this means the standard template is used, i.e. the one with the same name as the current view --&gt;
@@ -604,9 +604,10 @@ class BlogWidgetsBaseAction extends BlogBaseAction
         fast but what if we'd have to connect to a SOAP service that needs 0.5 seconds for a reply?
         That would be 5 seconds overhead for a list of 10 items, that's way to much and it's
         completely wasted, we ourselves pass the post and we do know it's valid.</p>
-      <p>We could perhaps implement our <apiname>Posts_PostShowAction::isSimple()</apiname> in a way
-        that returns true if the action is called in a slot and false if not. Something along the
-        lines of </p>
+      <p>We could perhaps implement our <apiname>Posts_PostShowAction::isSimple()</apiname>
+          [<filepath>app/modules/Posts/actions/Posts/ShowAction.class.php</filepath>] in a way that
+        returns true if the action is called in a slot and false if not. Something along the lines
+        of </p>
       <codeblock outputclass="php">  /**
    * Whether or not this action is "simple", i.e. doesn't use validation etc.
    *
@@ -662,8 +663,9 @@ class Posts_PostValidator extends AgaviValidator
 }
 
 ?&gt;</codeblock>
-      <p>Now we need to change the <apiname>Posts_PostIndexSuccessView::executeHtml()</apiname> to
-        pass a full <apiname>Posts_PostModel</apiname> object instead of the id: </p>
+      <p>Now we need to change the <apiname>Posts_PostIndexSuccessView::executeHtml()</apiname>
+          [<filepath>app/modules/Posts/views/IndexSuccessView.class.php</filepath>] to pass a full
+          <apiname>Posts_PostModel</apiname> object instead of the id: </p>
       <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView

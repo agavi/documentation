@@ -23,12 +23,13 @@
       <p>We created a new action named "Post.Show" in the Posts module. The dot in the name denotes
         a subaction. Subactions can be nested to arbitrary depth and are useful to organize your
         actions in a tree-like structure. Now we just need to make that action accessible with an
-        url. Once again we use a route for that. Hang on a litte, we'll explain routing in a moment.
-        For now, just insert this route in the routing.xml, right after the index route:
+        URL. Once again we use a route for that. Hang on a litte, we'll explain routing in a moment.
+        For now, just insert this route in the <filepath>app/config/routing.xml</filepath>, right
+        after the index route:
         <codeblock outputclass="xml">
   &lt;route name="post" pattern="^/post$" module="Posts" action="Post.Show" /&gt;
 </codeblock>
-        Done. The action "Post.Show" in the module "Posts" will now be accessible by the url /post.
+        Done. The action "Post.Show" in the module "Posts" will now be accessible by the URL /post.
         Go ahead, open your browser and try it. You should see a page with a big headline saying
         "Post.Show".</p>
     </section>
@@ -37,8 +38,9 @@
       <p>You already learned about template variables in the last parts, so we make this a quick one
         - we just add the information for a single post to the template, containing the same
         information as in the list plus the body. We allow for the body to contain html, so we can
-        format the text a little. Data retrieval goes in the action, so add the
-        <codeph>Posts_Post_ShowAction::executeRead()</codeph> to look like this.</p>
+        format the text a little. Data retrieval goes in the action, so add the <codeph
+          >Posts_Post_ShowAction::executeRead()</codeph> [<filepath
+          >app/modules/Posts/actions/Post/ShowAction.class.php</filepath>] to look like this.</p>
       <p><codeblock outputclass="php">
   public function executeRead(AgaviRequestDataHolder $rd)
   {
@@ -57,8 +59,10 @@
     
     return 'Success';
   }</codeblock>
-        And we should adapt the title here as well. So open the the <codeph>Posts_PostSuccessView</codeph> and change
-        the line saying
+        And we should adapt the title here as well. So open the the <codeph
+          >Posts_PostSuccessView</codeph> [<filepath
+          >app/modules/Posts/views/Post/PostSuccessView.class.php</filepath>] and change the line
+        saying
         <codeblock outputclass="php">
   $this-&gt;setAttribute('_title', 'Index');
 
@@ -68,7 +72,7 @@
     $this-&gt;setAttribute('_title', $post['title']);
 
 </codeblock></p>
-      <p>An then the template:
+      <p>An then the <filepath>app/modules/Posts/templates/Post/ShowSuccess.php</filepath> template:
         <codeblock outputclass="php">
 &lt;?php
     // alias the post, to make access shorter

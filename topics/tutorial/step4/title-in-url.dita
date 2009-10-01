@@ -14,9 +14,10 @@
 &lt;/route&gt;</codeblock>
     <p>Now that we made it possible to inject the title we just need to adapt the places where we
       generate the URLs to actually pass the title. Currently this is only in the <apiname
-        >Posts_IndexSuccessView</apiname>, so let's change that. Remember that we only allowed word
-      chars in the route, so we need to make shure that we only pass word chars in - we'll just
-      replace anything that's not a word char by a dash:</p>
+        >Posts_IndexSuccessView</apiname> [<filepath
+        >app/modules/Posts/views/IndexSuccessView.class.php</filepath>], so let's change that.
+      Remember that we only allowed word chars in the route, so we need to make shure that we only
+      pass word chars in - we'll just replace anything that's not a word char by a dash:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexSuccessView extends BlogPostsBaseView

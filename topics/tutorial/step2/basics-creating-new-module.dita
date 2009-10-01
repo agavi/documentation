@@ -30,9 +30,10 @@
       <p>We created a new module named "Posts" which currently contains a single action named
         "Index". However, this action is not accessible as there is no route that points to it. We
         want the list of posts to be on the front page so we just point the default index route to
-        that action. Look for the route that looks like that: &lt;!-- default action for "/" --&gt;
-        &lt;route name="index" pattern="^/$" module="%actions.default_module%"
-        action="%actions.default_action%" /&gt; and change it to point to the new action:
+        that action. In <filepath>app/config/routing.xml</filepath>, look for the route that looks
+        like that: <codeph>&lt;!-- default action for "/" --&gt; &lt;route name="index"
+          pattern="^/$" module="%actions.default_module%" action="%actions.default_action%"
+          /&gt;</codeph> and change it to point to the new action:
         <codeblock outputclass="xml">
   &lt;!-- default action for "/" --&gt;
   &lt;route name="index" pattern="^/$" module="Posts" action="%actions.default_action%" /&gt;
@@ -76,8 +77,9 @@
       <p> To pass the information to the template we just need to set it as an attribute in the view
         or the action. Any attribute set in the global namespace will be available in the template
         later on. We want to serve the index page on Read (GET) requests so we define the <apiname
-          >Posts_IndexAction::executeRead()</apiname> as follows - remember that all data retrieval
-        should be done in the
+          >Posts_IndexAction::executeRead()</apiname> [<filepath
+          >app/modules/Posts/actions/IndexAction.class.php</filepath>] as follows - remember that
+        all data retrieval should be done in the
           action:<codeblock outputclass="php">
   public function executeRead(AgaviRequestDataHolder $rd)
   {
@@ -110,7 +112,8 @@
           any time a Read request is mapped to this action. Please refer to <xref
             href="../a-word-about-actions.dita">Chapter 1</xref> for a more detailed
           explanation.</note> And while we're at it - why don't we change the page title a little,
-        have you noticed the line in the <apiname>Posts_IndexSuccessView</apiname>, which reads
+        have you noticed the line in the <apiname>Posts_IndexSuccessView</apiname> [<filepath
+          >app/modules/Posts/views/IndexSuccessView.class.php</filepath>], which reads
         as:<codeblock outputclass="php">
 
   $this-&gt;setAttribute('_title', 'Index');
@@ -127,7 +130,8 @@
       <p>Now that we passed in the information about the posts, we adapt the template to make use of
         this information. As mentioned above, all the attributes we have set will be available in
         the template variable $t in the template. We want to display the posts as a list, so we
-        change the template to look like in the following listing:
+        change the template <filepath>app/modules/Posts/templates/IndexSuccess.php</filepath> to
+        look like in the following listing:
         <codeblock outputclass="php">
 &lt;ul&gt;
 &lt;?php foreach ($t['posts'] as $post): ?&gt;

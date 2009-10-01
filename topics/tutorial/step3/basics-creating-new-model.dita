@@ -54,8 +54,9 @@
       <p>Let's add a bit of functionality to the models. The Post model currently is just a
         container for the data a Post can have, so we'll primarily add the attributes and getters
         and setters for those attributes and throw in two methods to create a post from an array of
-        values and reverse. Your final Posts_PostModel should look like that (the comments are left
-        out to keep it short):</p>
+        values and reverse. Your final Posts_PostModel [<filepath
+          >app/modules/Posts/models/PostModel.class.php</filepath>] should look like that (the
+        comments are left out to keep it short):</p>
       <codeblock outputclass="php"> 
   &lt;?php
 
@@ -162,10 +163,12 @@
 
   ?>
 </codeblock>
-      <p>The <apiname>Posts_PostManageModel</apiname> is responsible for all storage and retrieval
-        operations. We currently need two operations: Retrieve a single Post and retrieve the latest
-        posts for the front page. As we now do have a model encapsulating all the data retrieval we
-        can move our mock-data into that model. The end result should look like this:</p>
+      <p>The <apiname>Posts_PostManageModel</apiname> [<filepath
+          >app/modules/Posts/models/PostManager.class.php</filepath>] is responsible for all storage
+        and retrieval operations. We currently need two operations: Retrieve a single Post and
+        retrieve the latest posts for the front page. As we now do have a model encapsulating all
+        the data retrieval we can move our mock-data into that model. The end result should look
+        like this:</p>
       <codeblock outputclass="php">
   &lt;?php
 

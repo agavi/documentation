@@ -87,7 +87,8 @@
       <p>Now that we validated the incoming post-id we can display the requested post on our detail
         page. For the time being we just copy the static posts array that we used for the list and
         pick the right one of the two. Change the <apiname
-          >Posts_PostShowAction::executeRead()</apiname> to look like this: </p>
+          >Posts_PostShowAction::executeRead()</apiname> [<filepath
+          >app/modules/Posts/actions/Posts/ShowAction.class.php</filepath>] to look like this: </p>
       <codeblock outputclass="php">  public function executeRead(AgaviRequestDataHolder $rd)
   {
 

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "http://docs.oasis-open.org/dita/v1.1/OS/dtd/topic.dtd">
+<topic id="topic-1">
+  <title>Role Management with RBAC</title>
+  <body>
+    <p><keyword>Role Based Access Controls</keyword> (RBAC) are a fundamental part of most
+      applications, allowing per-user or per-group based permissions to be granted. For example, you
+      may decide to create two roles: one named <i>admin</i> and the other named <i>editor</i>. The
+        <i>admin</i> role can have all permissions, whilst the <i>editor</i> can have permissions
+      for post creation tasks.</p>
+    <codeblock outputclass="xml">
+  &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/rbac_definitions/1.0">
+    &lt;ae:configuration>
+      &lt;roles>
+        &lt;role name="editor">
+          &lt;permissions>
+            &lt;permission>Post.Create&lt;/permission>
+            &lt;permission>Post.Edit&lt;/permission>
+            &lt;permission>Post.Delete&lt;/permission>
+          &lt;/permissions>
+          &lt;roles>
+            &lt;role name="admin">
+              &lt;permissions>
+                &lt;permission>Account.Create&lt;/permission>
+                &lt;permission>Account.Edit&lt;/permission>
+                &lt;permission>Account.Delete&lt;/permission>
+              &lt;/permissions>
+            &lt;/role>
+          &lt;/roles>
+        &lt;/role>
+      &lt;/roles>
+    &lt;/ae:configuration>
+  &lt;/ae:configurations>
+        </codeblock>
+    <p>The code above shows you an example of <filepath>rbac_definitions.xml</filepath>, in this
+      example there are two roles: <i>editor</i> and <i>admin</i>. As you could have probably
+      guessed, the admin role has inherited the <i>editor</i> role's permissions. </p>
+    <section>
+      <title>Setting Up RBAC in Bloggie</title>
+      <p>So with the above in mind, we only really need two roles, we'll call them <i>poster</i> and
+          <i>editor</i> and give them the obvious roles of <i>post.create</i> and <i>post.edit</i>.
+        The <filepath>rbac_definitions.xml</filepath> will look like:</p>
+      <codeblock outputclass="xml">
+  &lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  &lt;ae:configurations xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0" xmlns="http://agavi.org/agavi/config/parts/rbac_definitions/1.0">
+    &lt;ae:configuration>
+      &lt;roles>
+        &lt;role name="editor">
+          &lt;permissions>
+            &lt;permission>Post.Edit&lt;/permission>
+          &lt;/permissions>
+        &lt;/role>
+        &lt;role name="poster">
+          &lt;permissions>
+            &lt;permission>Post.Add&lt;/permission>
+          &lt;/permissions>
+        &lt;/role>
+      &lt;/roles>
+    &lt;/ae:configuration>
+  &lt;/ae:configurations>
+      </codeblock>
+      <p>So now we need another user for out blog to test this out, I suggest adding this user:</p>
+      <pre>
+  Screen name: walker
+  Password: texas
+  Salt: ranger
+  Role: admin    
+      </pre>
+      <codeblock outputclass="sql">
+  INSERT INTO admin_users VALUES (
+    null, 
+    'walker', 
+    '6a0f4fd120e8477ea8e19906ac1d894ec4e87e50', 
+    'e8126c64c3486e84081fffad6a0ab22d4267bb41', 
+    'editor'
+  );
+      </codeblock>
+    </section>
+    <section>
+      <title>Settings Permissions</title>
+      <p>Setting actions for an action is rather easy and simple, to implement a specific permission
+        you need to add the <apiname>getCredentials()</apiname> in your action file. So for the
+          <apiname>Posts_AddAction</apiname> class, we need to add:</p>
+      <codeblock outputclass="php">
+  public function getCredentials()
+  {
+    return array('Posts.Add');
+  }
+      </codeblock>
+      <p>You may have taken a rather educatated guess about what this method is doing and how it all
+        works at this point <data>Posts.Add</data> corresponds with the <filepath
+          >rbac_definitions.xml</filepath>. If a role has the required permission, in this case
+          <data>Posts.Add</data>, it is allowed to view the page. </p>
+      <p>We still need to do this for the <apiname>Posts_Post_EditAction</apiname>, as you can
+        guess, we're going to apply the <data>Posts.Edit</data> permission.</p>
+      <codeblock outputclass="php">
+  public function getCredentials()
+  {
+    return array('Posts.Edit');
+  }
+      </codeblock>
+    </section>
+    <section>
+      <title>Altering The Models</title>
+    </section>
+  </body>
+</topic>

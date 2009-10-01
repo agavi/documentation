@@ -8,7 +8,9 @@
       where it belongs - in the Action. Let's start with the Post.Show Action.</p>
     <p>As our Post.IndexAction should respond to GET - Request, we'll need to adapt <apiname
         >executeRead()</apiname> that contains our data retrieval logic. Using the <apiname
-        >Posts_PostManagerModel</apiname> we created in the last step this is very little work:</p>
+        >Posts_PostManagerModel</apiname> [<filepath
+        >app/modules/Posts/models/PostManager.class.php</filepath>] we created in the last step this
+      is very little work:</p>
     <codeblock outputclass="php">&lt;?php
 
 class Posts_IndexAction extends BlogPostsBaseAction
@@ -84,9 +86,10 @@ class Posts_IndexSuccessView extends BlogPostsBaseView
       arrays. While it may seem easier to pass objects to the template it removes a lot of
       flexibilty. Some template engines don't handle objects gracefully. There is little added
       overhead and little code we had to add for that as we need to add some information anyways -
-      in our case the url to the post detail page. We could have added the url in the <apiname>PostModels</apiname> <apiname>toArray()</apiname>
-      method but that would be bad practice - the url is probably only required in this specific
-      context and would be useless clutter in all other occasions.</p>
+      in our case the url to the post detail page. We could have added the url in the <apiname
+        >PostModels</apiname>
+      <apiname>toArray()</apiname> method but that would be bad practice - the url is probably only
+      required in this specific context and would be useless clutter in all other occasions.</p>
     <p>Let's just go over our Post.Show action and adapt that, using our models it will be a
       breeze:</p>
     <codeblock outputclass="php">class Posts_Post_ShowAction extends BlogPostsBaseAction

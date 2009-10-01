@@ -10,7 +10,7 @@
     <ol>
       <li>Check out or export your application from the VCS.</li>
       <li>Copy and adapt the build script in dev/bin/</li>
-      <li>Call dev/bin/agavi public-create and answer the questions (we assume a
+      <li>Call <cmdname>dev/bin/agavi public-create</cmdname> and answer the questions (we assume a
         development-joe-rambo environment here):</li>
     </ol>
     <screen>bloggie$ <userinput>dev/bin/agavi public-create</userinput>

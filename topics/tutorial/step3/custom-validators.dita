@@ -141,7 +141,8 @@ class Posts_PostValidator extends AgaviValidator
       in the view itself it's better practice to do it in the action. If we're to change something
       about the logic how a post is retrieved, maybe add some checks that the post may or may not be
       displayed etc, we'd have to change the action and the view as opposed to only changing the
-      action. The <apiname>Posts_Post_ShowAction::executeRead()</apiname> should now look like
+      action. The <apiname>Posts_Post_ShowAction::executeRead()</apiname> [<filepath
+        >app/modules/Posts/actions/Post/ShowAction.class.php</filepath>] should now look like
       this:</p>
     <codeblock outputclass="php">  public function executeRead(AgaviRequestDataHolder $rd)
   {

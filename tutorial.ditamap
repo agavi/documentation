@@ -2,64 +2,65 @@
 <!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN"
 "http://docs.oasis-open.org/dita/dtd/bookmap.dtd">
 <bookmap>
-  <title>Agavi Tutorial</title>
-  <bookmeta>
-    <author>Michael Stolovitzsky &lt;michael.stolovitzsky@bitextender.com&gt;</author>
-    <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
-    <author>Felix Gilcher &lt;felix.gilcher@bitextender.com&gt;</author>
-    <author>Simon Thulbourn &lt;simon.thulbourn@bitextender.com&gt;</author>
-  </bookmeta>
-  <chapter collection-type="sequence" href="topics/tutorial/introduction.dita">
-    <topicref href="topics/tutorial/introduction-agavi.dita"/>
-    <topicref href="topics/tutorial/mvc-in-agavi.dita"/>
-    <topicref href="topics/tutorial/agavi-services.dita"/>
-    <topicref href="topics/tutorial/execution-flow-overview.dita"/>
-    <topicref href="topics/tutorial/a-word-about-actions.dita"/>
-    <topicref href="topics/tutorial/filesystem-layout.dita"/>
-    <topicref href="topics/tutorial/configuration-overview.dita"/>
-  </chapter>
-  <chapter collection-type="sequence" href="topics/tutorial/setting-up-initial-application.dita">
-    <topicref href="topics/reference/agavi-installation.dita"/>
-    <topicref href="topics/tutorial/step1/creating-agavi-project.dita"/>
-    <topicref href="topics/tutorial/step1/finishing-setup.dita"/>
-    <topicref href="topics/tutorial/finishing-the-basic-setup.dita"/>
-    <topicref href="topics/tutorial/step1/getting-a-new-checkout-to-work.dita"/>
-  </chapter>
-  <chapter collection-type="sequence" href="topics/tutorial/step2/introduction.dita">
-    <topicref href="topics/tutorial/step2/basics-creating-new-module.dita"/>
-    <topicref href="topics/tutorial/step2/basics-creating-new-action.dita"/>
-    <topicref href="topics/tutorial/step2/introduction-routing.dita"/>
-    <topicref href="topics/tutorial/step2/fixing-bloggie-routing.dita"/>
-    <topicref href="topics/tutorial/step2/accessing-request-parameters.dita"/>
-    <topicref href="topics/tutorial/step2/handling-validation-errors.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step3/introduction.dita">
-    <topicref href="topics/tutorial/step3/basics-creating-new-model.dita"/>
-    <topicref href="topics/tutorial/step3/adapting-actions-view.dita"/>
-    <topicref href="topics/tutorial/step3/custom-validators.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step4/introduction.dita">
-    <topicref href="topics/tutorial/step4/layers-and-layouts.dita"/>
-    <topicref href="topics/tutorial/step4/dressing-up.dita"/>
-    <topicref href="topics/tutorial/step4/slots.dita"/>
-    <topicref href="topics/tutorial/step4/title-in-url.dita"/>
-    <topicref href="topics/tutorial/step4/routing-callbacks.dita"/>
-    <topicref href="topics/tutorial/step4/using-callback-for-title-in-url.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step5/introduction.dita">
-    <topicref href="topics/tutorial/step5/the-database-manager.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step6/introduction.dita">
-    <topicref href="topics/tutorial/step6/basics-output-types.dita"/>
-    <topicref href="topics/tutorial/step6/basics-exception-templates.dita"/>
-    <topicref href="topics/tutorial/step6/generating-an-rss-feed.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step7/introduction.dita">
-    <topicref href="topics/tutorial/step7/add-a-post.dita"/>
-    <topicref href="topics/tutorial/step7/edit-a-post.dita"/>
-    <topicref href="topics/tutorial/step7/the-form-population-filter.dita"/>
-  </chapter>
-  <chapter href="topics/tutorial/step8/introduction.dita">
-  </chapter>
-  <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  x-->
+    <title>Agavi Tutorial</title>
+    <bookmeta>
+        <author>Michael Stolovitzsky &lt;michael.stolovitzsky@bitextender.com&gt;</author>
+        <author>Noah Fontes &lt;noah.fontes@bitextender.com&gt;</author>
+        <author>Felix Gilcher &lt;felix.gilcher@bitextender.com&gt;</author>
+        <author>Simon Thulbourn &lt;simon.thulbourn@bitextender.com&gt;</author>
+    </bookmeta>
+    <chapter collection-type="sequence" href="topics/tutorial/introduction.dita">
+        <topicref href="topics/tutorial/introduction-agavi.dita"/>
+        <topicref href="topics/tutorial/mvc-in-agavi.dita"/>
+        <topicref href="topics/tutorial/agavi-services.dita"/>
+        <topicref href="topics/tutorial/execution-flow-overview.dita"/>
+        <topicref href="topics/tutorial/a-word-about-actions.dita"/>
+        <topicref href="topics/tutorial/filesystem-layout.dita"/>
+        <topicref href="topics/tutorial/configuration-overview.dita"/>
+    </chapter>
+    <chapter collection-type="sequence" href="topics/tutorial/setting-up-initial-application.dita">
+        <topicref href="topics/reference/agavi-installation.dita"/>
+        <topicref href="topics/tutorial/step1/creating-agavi-project.dita"/>
+        <topicref href="topics/tutorial/step1/finishing-setup.dita"/>
+        <topicref href="topics/tutorial/finishing-the-basic-setup.dita"/>
+        <topicref href="topics/tutorial/step1/getting-a-new-checkout-to-work.dita"/>
+    </chapter>
+    <chapter collection-type="sequence" href="topics/tutorial/step2/introduction.dita">
+        <topicref href="topics/tutorial/step2/basics-creating-new-module.dita"/>
+        <topicref href="topics/tutorial/step2/basics-creating-new-action.dita"/>
+        <topicref href="topics/tutorial/step2/introduction-routing.dita"/>
+        <topicref href="topics/tutorial/step2/fixing-bloggie-routing.dita"/>
+        <topicref href="topics/tutorial/step2/accessing-request-parameters.dita"/>
+        <topicref href="topics/tutorial/step2/handling-validation-errors.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step3/introduction.dita">
+        <topicref href="topics/tutorial/step3/basics-creating-new-model.dita"/>
+        <topicref href="topics/tutorial/step3/adapting-actions-view.dita"/>
+        <topicref href="topics/tutorial/step3/custom-validators.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step4/introduction.dita">
+        <topicref href="topics/tutorial/step4/layers-and-layouts.dita"/>
+        <topicref href="topics/tutorial/step4/dressing-up.dita"/>
+        <topicref href="topics/tutorial/step4/slots.dita"/>
+        <topicref href="topics/tutorial/step4/title-in-url.dita"/>
+        <topicref href="topics/tutorial/step4/routing-callbacks.dita"/>
+        <topicref href="topics/tutorial/step4/using-callback-for-title-in-url.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step5/introduction.dita">
+        <topicref href="topics/tutorial/step5/the-database-manager.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step6/introduction.dita">
+        <topicref href="topics/tutorial/step6/basics-output-types.dita"/>
+        <topicref href="topics/tutorial/step6/basics-exception-templates.dita"/>
+        <topicref href="topics/tutorial/step6/generating-an-rss-feed.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step7/introduction.dita">
+        <topicref href="topics/tutorial/step7/add-a-post.dita"/>
+        <topicref href="topics/tutorial/step7/edit-a-post.dita"/>
+        <topicref href="topics/tutorial/step7/the-form-population-filter.dita"/>
+    </chapter>
+    <chapter href="topics/tutorial/step8/introduction.dita">
+        <topicref href="topics/tutorial/step8/Rbac.dita"/>
+    </chapter>
+    <!-- <chapter href="topics/tutorial/advanced-facilities.dita" collection-type="sequence">  x-->
 </bookmap>

@@ -51,8 +51,9 @@
         via <apiname>AgaviDatabaseManager::getDatabase($name)</apiname>. If "null" is passed as
         connection name the default connection is used. </p><p>Let's adapt our application to read
         it's data from that database. You'll see how it pays off that we structured our application
-        nicely - all we need to do is adapt our <apiname>Posts_PostManager</apiname> to read it's
-        data from the appropriate
+        nicely - all we need to do is adapt our <apiname>Posts_PostManager</apiname> [<filepath
+          >app/modules/Posts/models/PostManager.class.php</filepath>] to read it's data from the
+        appropriate
       tables:</p><codeblock outputclass="php">&lt;?php
 
 class Posts_PostManagerModel extends BlogPostsBaseModel
