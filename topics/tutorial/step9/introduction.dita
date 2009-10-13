@@ -44,144 +44,180 @@
       javascripts and stylesheets.</li>
     </ul>
   </body>
-			<topic id="slots">
-	    <title>Handling Slots</title><body><p>Some of those requirements go
-	    along quite well while others are outright contradicting. So let's start
-	    by tackling the easy ones. Let's tackle the last one on the list and
-	    enable slots to pass javascript requirements to the main action. The basic
-	    idea is that each slot can register a set of javascripts and stylesheets
-	    it needs to display and function properly so that the including
-	    action/view does not need any knowledge about that. This promotes proper
-	    encapsulation and eases code reuse. Changes to the slot are isolated to a
-	    single location which makes it easier and less error prone to add another
-	    required stylesheet or javascript.</p><p>We need access to an object that
-	    outlives the slot container to tackle this requirement. The slot's
-	    container will be executed after the parent view has run but before the
-	    template has been rendered, there is no direct way we can return
-	    information.</p> <section><title>First idea: Request
-	    Attributes</title><p>The request object is created at the beginning of the
-	    request and lives until the end. The request is easily accessible in all
-	    locations where we need it. The slot could set a request attribute and the
-	    master template could read this. </p><p><b>In a view:</b></p><codeblock>
-	  $this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/messagebox.css');
 
-	</codeblock><p><b>Master Template</b></p><codeblock outputclass="php">
-	  &lt;head&gt;
-	    &lt;?php 
-	    foreach($rq-&gt;getAttribute('stylesheets') as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	  &lt;/head&gt;
+  <topic id="slots">
+    <title>Handling Slots</title>
 
-	</codeblock><p>The same can be done for javascripts in a similar way. So now,
-	    each slot can specify which javascripts and stylesheets are needed for
-	    proper display and function. But, hey, stop. What happens if two slots
-	    specify the same stylesheet or javascript? Well, we get duplicates.
-	    Annoying, isn't it? But there's a simple solution, wrap an <codeph
-	    outputclass="php" platform="">array_unique()</codeph> around the <codeph
-	    outputclass="php" platform="">$rq-&gt;getAttribute('stylesheets')</codeph>
-	    in the Master template. So the template looks like this: </p><codeblock
-	    outputclass="php">
-	  &lt;head&gt;
-	    &lt;?php 
-	    foreach(array_unique($rq-&gt;getAttribute('stylesheets')) as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	  &lt;/head&gt;
+    <body>
+      <p>Some of those requirements go along quite well while others are
+      outright contradicting. So let's start by tackling the easy ones. Let's
+      tackle the last one on the list and enable slots to pass javascript
+      requirements to the main action. The basic idea is that each slot can
+      register a set of javascripts and stylesheets it needs to display and
+      function properly so that the including action/view does not need any
+      knowledge about that. This promotes proper encapsulation and eases code
+      reuse. Changes to the slot are isolated to a single location which makes
+      it easier and less error prone to add another required stylesheet or
+      javascript.</p>
 
-	</codeblock><p>Much better, duplicates will be identified by url and removed.
-	    However, there's still a slight problem. The instant we enable caching for
-	    this slot, the whole mechanism breaks because the view code will never run
-	    and request attributes are not cacheable. Back to square one
-	    or...</p></section> <section><title>Second idea:
-	    Response Attributes</title><p>Recent trunk versions support response
-	    attributes (This change will be in 1.1.0). And those are cached and merged
-	    to the main response even if the slot was restored from cache. So let's
-	    modify the code slightly to use response attributes instead of request
-	    attributes.</p><p><b>In a View:</b></p><codeph>
-	    $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('stylesheets',
-	    'css/messagebox.css');</codeph><p><b>Master Template:</b></p><codeblock
-	    outputclass="php">
-	  &lt;head&gt;
-	    &lt;?php 
-	    foreach(array_unique($re-&gt;getAttribute('stylesheets')) as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	  &lt;/head&gt;
+      <p>We need access to an object that outlives the slot container to
+      tackle this requirement. The slot's container will be executed after the
+      parent view has run but before the template has been rendered, there is
+      no direct way we can return information.</p>
 
-	</codeblock><p>That solves it. Slots can specify stylesheets and javascripts,
-	    duplicates are removed and it works with cached slots as well as without
-	    caching. We could be happy but wait...</p></section></body></topic>
+      <section><title>First idea: Request Attributes</title><p>The request
+      object is created at the beginning of the request and lives until the
+      end. The request is easily accessible in all locations where we need it.
+      The slot could set a request attribute and the master template could
+      read this. </p><p><b>In a view:</b></p><codeblock>
+$this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/messagebox.css');
 
-	    <topic id="order"><title>Order Is Important, Sometimes At
-	    Least</title><body><p>Javascripts and Stylesheets often depend on each other, so
-	    the order is important. However, when response attributes are merged, the
-	    order is unpredictable. The attributes from slots usually appear first in
-	    the order that the slots were registered while the attributes set by the
-	    main view move to the back of the queue. That's unfortunate since most of
-	    the time, the main view will register libraries and other global files. We
-	    need to sort that out. We could give each javascript a numeric priority
-	    but often that level of fine-grained control is not needed. For most
-	    purposes defining three areas of inclusion are usually sufficient. Let's
-	    call them "core-libs", "plugins", "widgets". Files that are loaded in the
-	    section "core-libs" should have no external dependencies. "Plugins" can
-	    depend on "core-libs" and widgets on "plugins" and on "core-libs". Some
-	    dependencies in the same section are allowed: file X may depend on file Y
-	    if both are registered in the same view because that order will be stable
-	    when merging. Both files can be registered as often as necessary in
-	    multiple views but each must never be required without the other one. We
-	    can use namespaces to wrap this up
-	    nicely.</p><p><b>View</b>:</p><codeblock outputclass="php">
-	  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('core-libs', 'css/reset.css', 'com.example.stylesheets');
-	  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('widgets', 'css/messagebox.css', 'com.example.stylesheets');
+</codeblock><p><b>Master Template</b></p><codeblock outputclass="php">
+  &lt;head&gt;
+    &lt;?php 
+    foreach($rq-&gt;getAttribute('stylesheets') as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+  &lt;/head&gt;
 
-	</codeblock><p><b>Master Template:</b></p><codeblock outputclass="php">
-	  &lt;head&gt;
-	    &lt;!-- core stylesheets --&gt;
-	    &lt;?php 
-	    foreach(array_unique($re-&gt;getAttribute('core-libs', 'com.example.stylesheets')) as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	    &lt;!-- plugin stylesheets --&gt;
-	    &lt;?php 
-	    foreach(array_unique($re-&gt;getAttribute('plugins', 'com.example.stylesheets')) as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	    &lt;!-- widget stylesheets --&gt;
-	    &lt;?php 
-	    foreach(array_unique($re-&gt;getAttribute('widget', 'com.example.stylesheets')) as $src) {
-	      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-	    }
-	    ?&gt;
-	  &lt;/head&gt;
+</codeblock><p>The same can be done for javascripts in a similar way. So now,
+      each slot can specify which javascripts and stylesheets are needed for
+      proper display and function. But, hey, stop. What happens if two slots
+      specify the same stylesheet or javascript? Well, we get duplicates.
+      Annoying, isn't it? But there's a simple solution, wrap an <codeph
+      outputclass="php" platform="">array_unique()</codeph> around the <codeph
+      outputclass="php"
+      platform="">$rq-&gt;getAttribute('stylesheets')</codeph> in the Master
+      template. So the template looks like this: </p><codeblock
+      outputclass="php">
+  &lt;head&gt;
+    &lt;?php 
+    foreach(array_unique($rq-&gt;getAttribute('stylesheets')) as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+  &lt;/head&gt;
 
-	</codeblock><p>So now we can define a partial order for stylesheets and
-	    javascripts, modeling dependencies between files. It may be a good idea to
-	    define another section for javascripts to be included at the end of the
-	    HTML-source. It's also helpful to define some wrapper functions to shorten
-	    the code but this trivial task is left as an exercise to the reader (I've
-	    always wanted to write that sentence ever since I studied physics and had
-	    to work through math books. Math students will know why).</p></body></topic>
+</codeblock><p>Much better, duplicates will be identified by url and removed.
+      However, there's still a slight problem. The instant we enable caching
+      for this slot, the whole mechanism breaks because the view code will
+      never run and request attributes are not cacheable. Back to square one
+      or...</p></section>
 
-	    <topic id="creating-files"><title>Creating the Packaged Files</title><body><p>Creating the
-	    packaged files consists of two parts. First we need to combine the
-	    individual files and then we need to compress them. We'll be using a phing
-	    task to do both. There's a ping task that does the concatenation job for
-	    us. We'll add a task to do the minifying and we'll need a task to create
-	    the actual file-list. While we're at it we'll throw in a jslint just to
-	    make sure that the generated file is ok (There is an error in phings
-	    jsllint task, see http://www.phing.info/trac/ticket/349).</p><p>I'll spare
-	    you the details of how the phing tasks look like and just point out that
-	    while the javascript handling is quite straightforward (lint, concat, lint
-	    again, compress, lint again just to be sure) you'll have to remember that
-	    stylesheets may import other stylesheets via @import rules. The task
-	    replaces any @import rule that points to a local file with the contents of
-	    that file.</p><p>That set of phing tasks completes our resource handling
-	    toolchain. All we need to do is call the right phing task before deploying
-	    and we have a solution that fulfills all our requirements.</p></body></topic>
+      <section><title>Second idea: Response Attributes</title><p>Recent trunk
+      versions support response attributes (This change will be in 1.1.0). And
+      those are cached and merged to the main response even if the slot was
+      restored from cache. So let's modify the code slightly to use response
+      attributes instead of request attributes.</p><p><b>In a
+      View:</b></p><codeph>
+      $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('stylesheets',
+      'css/messagebox.css');</codeph><p><b>Master Template:</b></p><codeblock
+      outputclass="php">
+  &lt;head&gt;
+    &lt;?php 
+    foreach(array_unique($re-&gt;getAttribute('stylesheets')) as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+  &lt;/head&gt;
+
+</codeblock><p>That solves it. Slots can specify stylesheets and javascripts,
+      duplicates are removed and it works with cached slots as well as without
+      caching. We could be happy but wait...</p></section>
+    </body>
+  </topic>
+
+  <topic id="order">
+    <title>Order Is Important, Sometimes At Least</title>
+
+    <body>
+      <p>Javascripts and Stylesheets often depend on each other, so the order
+      is important. However, when response attributes are merged, the order is
+      unpredictable. The attributes from slots usually appear first in the
+      order that the slots were registered while the attributes set by the
+      main view move to the back of the queue. That's unfortunate since most
+      of the time, the main view will register libraries and other global
+      files. We need to sort that out. We could give each javascript a numeric
+      priority but often that level of fine-grained control is not needed. For
+      most purposes defining three areas of inclusion are usually sufficient.
+      Let's call them "core-libs", "plugins", "widgets". Files that are loaded
+      in the section "core-libs" should have no external dependencies.
+      "Plugins" can depend on "core-libs" and widgets on "plugins" and on
+      "core-libs". Some dependencies in the same section are allowed: file X
+      may depend on file Y if both are registered in the same view because
+      that order will be stable when merging. Both files can be registered as
+      often as necessary in multiple views but each must never be required
+      without the other one. We can use namespaces to wrap this up nicely.</p>
+
+      <p><b>View</b>:</p>
+
+      <codeblock outputclass="php">
+  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('core-libs', 'css/reset.css', 'com.example.stylesheets');
+  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('widgets', 'css/messagebox.css', 'com.example.stylesheets');
+
+</codeblock>
+
+      <p><b>Master Template:</b></p>
+
+      <codeblock outputclass="php">
+  &lt;head&gt;
+    &lt;!-- core stylesheets --&gt;
+    &lt;?php 
+    foreach(array_unique($re-&gt;getAttribute('core-libs', 'com.example.stylesheets')) as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+    &lt;!-- plugin stylesheets --&gt;
+    &lt;?php 
+    foreach(array_unique($re-&gt;getAttribute('plugins', 'com.example.stylesheets')) as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+    &lt;!-- widget stylesheets --&gt;
+    &lt;?php 
+    foreach(array_unique($re-&gt;getAttribute('widget', 'com.example.stylesheets')) as $src) {
+      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+    }
+    ?&gt;
+  &lt;/head&gt;
+
+</codeblock>
+
+      <p>So now we can define a partial order for stylesheets and javascripts,
+      modeling dependencies between files. It may be a good idea to define
+      another section for javascripts to be included at the end of the
+      HTML-source. It's also helpful to define some wrapper functions to
+      shorten the code but this trivial task is left as an exercise to the
+      reader (I've always wanted to write that sentence ever since I studied
+      physics and had to work through math books. Math students will know
+      why).</p>
+    </body>
+  </topic>
+
+  <topic id="creating-files">
+    <title>Creating the Packaged Files</title>
+
+    <body>
+      <p>Creating the packaged files consists of two parts. First we need to
+      combine the individual files and then we need to compress them. We'll be
+      using a phing task to do both. There's a ping task that does the
+      concatenation job for us. We'll add a task to do the minifying and we'll
+      need a task to create the actual file-list. While we're at it we'll
+      throw in a jslint just to make sure that the generated file is ok (There
+      is an error in phings jsllint task, see
+      http://www.phing.info/trac/ticket/349).</p>
+
+      <p>I'll spare you the details of how the phing tasks look like and just
+      point out that while the javascript handling is quite straightforward
+      (lint, concat, lint again, compress, lint again just to be sure) you'll
+      have to remember that stylesheets may import other stylesheets via
+      @import rules. The task replaces any @import rule that points to a local
+      file with the contents of that file.</p>
+
+      <p>That set of phing tasks completes our resource handling toolchain.
+      All we need to do is call the right phing task before deploying and we
+      have a solution that fulfills all our requirements.</p>
+    </body>
+  </topic>
 </topic>
