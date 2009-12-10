@@ -205,7 +205,7 @@ However, be cautious in modifying the environment initialization section. -->
 	</target> 
 	
 	<target name="create-stage-tarball">
-		<tar tarfile="${outdir}/stages/${stage}.tar.gz" 
+		<tar tarfile="${outdir}/stages/${stage}.tgz" 
 			basedir="${projdir}/stages/${stage}"
 			excludes=".svn .svn/** **/*.svn"
 			compression="gzip"
@@ -237,12 +237,15 @@ However, be cautious in modifying the environment initialization section. -->
 			<param name="stage" value="stage7"/>
 		</antcall>
 		<antcall target="create-stage-tarball">
+			<param name="stage" value="stage8"/>
+		</antcall>
+		<antcall target="create-stage-tarball">
 			<param name="stage" value="stage-serving-static-pages"/>
 		</antcall>
 	</target>
 	
 	<target name="create-resources-tarball">
-		<tar tarfile="${outdir}/resources.tar.gz" 
+		<tar tarfile="${outdir}/resources.tgz" 
 			basedir="${projdir}/resources"
 			excludes=".svn .svn/** **/*.svn"
 			compression="gzip"
