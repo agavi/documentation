@@ -295,7 +295,7 @@ However, be cautious in modifying the environment initialization section. -->
 			<fileset dir="${outdir}/stages" includes="**/*"/>
 		</copy>
 		
-		<copy todir="${website.resources}" file="${outdir}/resources.tar.gz" overwrite="yes"></copy>
+		<copy todir="${website.resources}" file="${outdir}/resources.tgz" overwrite="yes"></copy>
 		
 	</target>
 	

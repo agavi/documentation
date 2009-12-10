@@ -59,39 +59,31 @@
 			<p>
 				<b>In a view:</b>
 			</p>
-			<codeblock>
-$this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/messagebox.css');
-
-</codeblock>
+			<codeblock outputclass="php">
+$this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/messagebox.css');</codeblock>
 			<p>
 				<b>Master Template</b>
 			</p>
-			<codeblock outputclass="php">
-  &lt;head&gt;
-    &lt;?php 
-    foreach($rq-&gt;getAttribute('stylesheets') as $src) {
-      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-    }
-    ?&gt;
-  &lt;/head&gt;
-
-</codeblock>
+			<codeblock outputclass="php">&lt;head&gt;
+  &lt;?php 
+  foreach($rq-&gt;getAttribute('stylesheets') as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+&lt;/head&gt;</codeblock>
 			<p>The same can be done for javascripts in a similar way. So now,
       each slot can specify which javascripts and stylesheets are needed for
       proper display and function. But, hey, stop. What happens if two slots
       specify the same stylesheet or javascript? Well, we get duplicates.
       Annoying, isn't it? But there's a simple solution, wrap an <codeph outputclass="php" platform="">array_unique()</codeph> around the <codeph outputclass="php" platform="">$rq-&gt;getAttribute('stylesheets')</codeph> in the Master
       template. So the template looks like this: </p>
-			<codeblock outputclass="php">
-  &lt;head&gt;
-    &lt;?php 
-    foreach(array_unique($rq-&gt;getAttribute('stylesheets')) as $src) {
-      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-    }
-    ?&gt;
-  &lt;/head&gt;
-
-</codeblock>
+			<codeblock outputclass="php">&lt;head&gt;
+  &lt;?php 
+  foreach(array_unique($rq-&gt;getAttribute('stylesheets')) as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+&lt;/head&gt;</codeblock>
 			<p>Much better, duplicates will be identified by url and removed.
       However, there's still a slight problem. The instant we enable caching
       for this slot, the whole mechanism breaks because the view code will
@@ -109,22 +101,19 @@ $this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/
 				<b>In a
       View:</b>
 			</p>
-			<codeph>
+			<codeph outputclass="php">
       $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('stylesheets',
       'css/messagebox.css');</codeph>
 			<p>
 				<b>Master Template:</b>
 			</p>
-			<codeblock outputclass="php">
-  &lt;head&gt;
-    &lt;?php 
-    foreach(array_unique($re-&gt;getAttribute('stylesheets')) as $src) {
-      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-    }
-    ?&gt;
-  &lt;/head&gt;
-
-</codeblock>
+			<codeblock outputclass="php">&lt;head&gt;
+  &lt;?php 
+  foreach(array_unique($re-&gt;getAttribute('stylesheets')) as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+&lt;/head&gt;</codeblock>
 			<p>That solves it. Slots can specify stylesheets and javascripts,
       duplicates are removed and it works with cached slots as well as without
       caching. We could be happy but wait...</p>
@@ -151,37 +140,31 @@ $this-&gt;getContext()-&gt;getRequest()-&gt;appendAttribute('stylesheets', 'css/
 
 			      <p><b>View</b>:</p>
 
-			      <codeblock outputclass="php">
-			  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('core-libs', 'css/reset.css', 'com.example.stylesheets');
-			  $this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('widgets', 'css/messagebox.css', 'com.example.stylesheets');
-
-			</codeblock>
+       <codeblock outputclass="php">$this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('core-libs', 'css/reset.css', 'com.example.stylesheets');
+$this-&gt;getContainer()-&gt;getResponse()-&gt;appendAttribute('widgets', 'css/messagebox.css', 'com.example.stylesheets');</codeblock>
 
 			      <p><b>Master Template:</b></p>
 
-			      <codeblock outputclass="php">
-			  &lt;head&gt;
-			    &lt;!-- core stylesheets --&gt;
-			    &lt;?php 
-			    foreach(array_unique($re-&gt;getAttribute('core-libs', 'com.example.stylesheets')) as $src) {
-			      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-			    }
-			    ?&gt;
-			    &lt;!-- plugin stylesheets --&gt;
-			    &lt;?php 
-			    foreach(array_unique($re-&gt;getAttribute('plugins', 'com.example.stylesheets')) as $src) {
-			      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-			    }
-			    ?&gt;
-			    &lt;!-- widget stylesheets --&gt;
-			    &lt;?php 
-			    foreach(array_unique($re-&gt;getAttribute('widget', 'com.example.stylesheets')) as $src) {
-			      echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
-			    }
-			    ?&gt;
-			  &lt;/head&gt;
-
-			</codeblock>
+			      <codeblock outputclass="php">&lt;head&gt;
+  &lt;!-- core stylesheets --&gt;
+  &lt;?php 
+  foreach(array_unique($re-&gt;getAttribute('core-libs', 'com.example.stylesheets')) as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+  &lt;!-- plugin stylesheets --&gt;
+  &lt;?php 
+  foreach(array_unique($re-&gt;getAttribute('plugins', 'com.example.stylesheets')) as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+  &lt;!-- widget stylesheets --&gt;
+  &lt;?php 
+  foreach(array_unique($re-&gt;getAttribute('widget', 'com.example.stylesheets')) as $src) {
+    echo "&lt;link rel=\"stylesheet\" href=\"$src\" /&gt;\n";
+  }
+  ?&gt;
+&lt;/head&gt;</codeblock>
 
 			      <p>So now we can define a partial order for stylesheets and javascripts,
 			      modeling dependencies between files. It may be a good idea to define

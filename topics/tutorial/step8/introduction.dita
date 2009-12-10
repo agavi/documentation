@@ -17,39 +17,106 @@
               >getCurrentUser()</apiname></li></ul></p>
       <p> So now we have our empty class, we need to extend it with <apiname
           >AgaviRbacSecurityUser</apiname> and start implementing these features, so we'll do them
-        one-by-one.<codeblock outputclass="php">
-  class BlogUser extends AgaviRbacSecurityUser
+        one-by-one.<codeblock outputclass="php">class BlogUser extends AgaviRbacSecurityUser
+{
+  public function startup()
   {
-    public function startup()
-    {
-      // call parent
-      parent::startup();
+    // call parent
+    parent::startup();
 
-      $reqData = $this->getContext()->getRequest()->getRequestData();
+    $reqData = $this->getContext()->getRequest()->getRequestData();
 
-      if(!$this->isAuthenticated() &amp;&amp; $reqData->hasCookie('autologon')) {
-        $login = $reqData->getCookie('autologon');
-      
-        try {
-          $this->login($login['username'], $login['password'], true);
-        } catch(AgaviSecurityException $e) {
-          $response = $this->getContext()->getController()->getGlobalResponse();
+    if(!$this->isAuthenticated() &amp;&amp; $reqData->hasCookie('autologon')) {
+      $login = $reqData->getCookie('autologon');
+    
+      try {
+        $this->login($login['username'], $login['password'], true);
+      } catch(AgaviSecurityException $e) {
+        $response = $this->getContext()->getController()->getGlobalResponse();
 
-          // Unset the the login cookie since it didn't work
-          $response->setCookie('autologon[username]', false);
-          $response->setCookie('autologon[password]', false);
-        }
+        // Unset the the login cookie since it didn't work
+        $response->setCookie('autologon[username]', false);
+        $response->setCookie('autologon[password]', false);
       }
     }
   }
-                </codeblock></p>
+}</codeblock></p>
       <p>The <apiname>startup()</apiname> method is rather short and to the point, it checks if the
         user is already logged in and if the user has a valid cookie stored for automatically
         logging in.</p>
       <p>The <apiname>login()</apiname> method is rather simple, it simply just grabs the correct
         user from the <apiname>UserManager</apiname> model (we'll get to that a bit later in this
         chapter) and then checks if the credentials supplied matches the ones
-        stored.<codeblock outputclass="php">
+        stored.<codeblock outputclass="php">public function login($username, $password, $isPasswordHashed = false)
+{
+  $userManager = $this->getContext()->getModel('UserManager');
+  $user = $userManager->retrieveById($username);
+
+  if(!$user->getId()) {
+    throw new AgaviSecurityException('username error');
+  }
+
+  if(!$isPasswordHashed) {
+    $password = sha1($password . $user->getSalt());
+  }
+
+  if($password != $user->getPassword()) {
+    throw new AgaviSecurityException('password error');
+  }
+
+  $this->setAuthenticated(true);
+  $this->grantRoles($user->getRoles());
+  $this->user = $user;
+}</codeblock></p>
+      <p>To logout of the system, it's a case of just clearing the credentials stored in the
+        session.<codeblock outputclass="php">public function logout()
+{
+  $this->clearCredentials();
+  $this->setAuthenticated(false);
+}</codeblock></p>
+      <p> Now we just have the <apiname>getCurrentUser()</apiname> method to implement, it's not too
+        much different to the login
+        code,<codeblock outputclass="php">public function getCurrentUser()
+{
+  $id = $this->getAttribute('id', 'org.ditabrain.user');
+  $user = null; 
+  
+  if ($this->isAuthenticated()) {
+    $userMan = $this->getContext()->getModel('UserManager');
+    $user = $userMan->retrieveById($id);
+  }
+
+  return $user;
+}</codeblock></p>
+      <p>Right, with our class completed
+        <codeblock outputclass="php">&lt;?php
+
+class BlogUser extends AgaviRbacSecurityUser
+{
+  protected $user;
+
+  public function startup()
+  {
+    // call parent
+    parent::startup();
+
+    $reqData = $this->getContext()->getRequest()->getRequestData();
+
+    if(!$this->isAuthenticated() &amp;&amp; $reqData->hasCookie('autologon')) {
+      $login = $reqData->getCookie('autologon');
+  
+      try {
+        $this->login($login['username'], $login['password'], true);
+      } catch(AgaviSecurityException $e) {
+        $response = $this->getContext()->getController()->getGlobalResponse();
+
+        // Unset the the login cookie since it didn't work
+        $response->setCookie('autologon[username]', false);
+        $response->setCookie('autologon[password]', false);
+      }
+    }
+  }
+  
   public function login($username, $password, $isPasswordHashed = false)
   {
     $userManager = $this->getContext()->getModel('UserManager');
@@ -66,244 +133,160 @@
     if($password != $user->getPassword()) {
       throw new AgaviSecurityException('password error');
     }
+  
+    $this->setAttribute('id', $user->getId(), 'org.bloggie.user');
 
     $this->setAuthenticated(true);
     $this->grantRoles($user->getRoles());
+
     $this->user = $user;
+
+    return true;
   }
-                </codeblock></p>
-      <p>To logout of the system, it's a case of just clearing the credentials stored in the
-        session.<codeblock outputclass="php">
+
   public function logout()
   {
     $this->clearCredentials();
     $this->setAuthenticated(false);
   }
-                </codeblock></p>
-      <p> Now we just have the <apiname>getCurrentUser()</apiname> method to implement, it's not too
-        much different to the login
-        code,<codeblock outputclass="php">
+
   public function getCurrentUser()
   {
-    $id = $this->getAttribute('id', 'org.ditabrain.user');
-    $user = null; 
-    
     if ($this->isAuthenticated()) {
-      $userMan = $this->getContext()->getModel('UserManager');
-      $user = $userMan->retrieveById($id);
-    }
-
-    return $user;
-  }
-                </codeblock></p>
-      <p>Right, with our class completed
-        <codeblock outputclass="php">
-  &lt;?php
-
-  class BlogUser extends AgaviRbacSecurityUser
-  {
-    protected $user;
-
-    public function startup()
-    {
-      // call parent
-      parent::startup();
-
-      $reqData = $this->getContext()->getRequest()->getRequestData();
-
-      if(!$this->isAuthenticated() &amp;&amp; $reqData->hasCookie('autologon')) {
-        $login = $reqData->getCookie('autologon');
-    
-        try {
-          $this->login($login['username'], $login['password'], true);
-        } catch(AgaviSecurityException $e) {
-          $response = $this->getContext()->getController()->getGlobalResponse();
-
-          // Unset the the login cookie since it didn't work
-          $response->setCookie('autologon[username]', false);
-          $response->setCookie('autologon[password]', false);
-        }
-      }
-    }
-    
-    public function login($username, $password, $isPasswordHashed = false)
-    {
-      $userManager = $this->getContext()->getModel('UserManager');
-      $user = $userManager->retrieveById($username);
-
-      if(!$user->getId()) {
-        throw new AgaviSecurityException('username error');
-      }
-
-      if(!$isPasswordHashed) {
-        $password = sha1($password . $user->getSalt());
-      }
-
-      if($password != $user->getPassword()) {
-        throw new AgaviSecurityException('password error');
-      }
-    
-      $this->setAttribute('id', $user->getId(), 'org.bloggie.user');
-
-      $this->setAuthenticated(true);
-      $this->grantRoles($user->getRoles());
-
-      $this->user = $user;
-
-      return true;
-    }
-  
-    public function logout()
-    {
-      $this->clearCredentials();
-      $this->setAuthenticated(false);
-    }
-  
-    public function getCurrentUser()
-    {
-      if ($this->isAuthenticated()) {
-        return $this->user;
-      }
+      return $this->user;
     }
   }
+}
 
-  ?>
-</codeblock>We
+?></codeblock>We
         need to add the class to the project, there's two things we need to do for this, add it to
           <filepath>app/config/autoload.xml</filepath>
-        <codeblock outputclass="xml">  
-  &lt;autoload name="BlogUser">%core.lib_dir%/user/BlogUser.class.php&lt;/autoload>
+        <codeblock outputclass="xml">&lt;autoload name="BlogUser">%core.lib_dir%/user/BlogUser.class.php&lt;/autoload>
 </codeblock>and
           <filepath>app/config/factories.xml</filepath> which is already set as <apiname
           >AgaviRbacSecurityUser</apiname> so change so it looks like
-        below<codeblock outputclass="xml">
-  &lt;user class="BlogUser" />
-</codeblock></p>
+        below<codeblock outputclass="xml">&lt;user class="BlogUser" /></codeblock></p>
     </section>
     <section>
       <title>Creating the Models</title>
       <p>Like before, you use the <cmdname>agavi</cmdname> build tool to create your models,
           <apiname>User</apiname> and <apiname>UserManager</apiname> with the difference of, you're
         using the <cmdname>project-model-create</cmdname>
-          functionality.<codeblock outputclass="php">
-  class UserManagerModel extends BlogBaseModel
+          functionality.<codeblock outputclass="php">class UserManagerModel extends BlogBaseModel
+{
+  private $users = array(
+    'chuck' => array(
+      'id' => 'chuck',
+      'name' => 'Chuck Norris',
+      'password' => 'a92b2df2a6863585637ac733044be05032bd1a7b', // roundhouse with salt
+      'salt' => 'b295d117135a9763da282e7dae73a5ca7d3e5b11', // salt
+      'roles' => array('admin'),
+    )
+  );
+
+  public function retrieveById($id)
   {
-    private $users = array(
-      'chuck' => array(
-        'id' => 'chuck',
-        'name' => 'Chuck Norris',
-        'password' => 'a92b2df2a6863585637ac733044be05032bd1a7b', // roundhouse with salt
-        'salt' => 'b295d117135a9763da282e7dae73a5ca7d3e5b11', // salt
-        'roles' => array('admin'),
-      )
-    );
+    if (isset($this->users[$id])) {
+      return $this->getContext()->getModel('User', null, array($this->users[$id]));
+    }
  
-    public function retrieveById($id)
-    {
-      if (isset($this->users[$id])) {
-        return $this->getContext()->getModel('User', null, array($this->users[$id]));
-      }
-   
-      throw new Exception('invalid user specified');
-    }
+    throw new Exception('invalid user specified');
   }
-</codeblock><b
+}</codeblock><b
           >User
-        Model</b><codeblock outputclass="php">
-  class UserModel extends BlogBaseModel
+        Model</b><codeblock outputclass="php">class UserModel extends BlogBaseModel
+{
+  protected $id;
+
+  protected $name;
+
+  protected $salt;
+
+  protected $password;
+
+  protected $roles;
+
+  protected static $fields = array(
+    'id',
+    'name',
+    'salt',
+    'password',
+    'roles',
+  );
+
+  public function __construct( $data )
   {
-    protected $id;
+    $this->fromArray($data);
+  }
+
+  public function toArray()
+  {
+    $retval = array();
   
-    protected $name;
-
-    protected $salt;
-
-    protected $password;
-
-    protected $roles;
-
-    protected static $fields = array(
-      'id',
-      'name',
-      'salt',
-      'password',
-      'roles',
-    );
-  
-    public function __construct( $data )
-    {
-      $this->fromArray($data);
+    foreach(self::$fields as $field) {
+      $retval[$field] = $this->$field;
     }
+  
+    return $retval;
+  }
 
-    public function toArray()
-    {
-      $retval = array();
-    
-      foreach(self::$fields as $field) {
-        $retval[$field] = $this->$field;
+  public function fromArray(array $data = array())
+  {
+    foreach (self::$fields as $field) {
+      if (isset($data[$field])) {
+        $this->$field = $data[$field];
       }
-    
-      return $retval;
-    }
-  
-    public function fromArray(array $data = array())
-    {
-      foreach (self::$fields as $field) {
-        if (isset($data[$field])) {
-          $this->$field = $data[$field];
-        }
-      }
-    }
-  
-    public function getId()
-    {
-      return $this->id;
-    }
-  
-    public function getName()
-    {
-      return $this->Name;
-    }
-  
-    public function getPassword()
-    {
-      return $this->password;
-    }
-  
-    public function getRoles($accountid = null)
-    {
-      return $this->roles;
-    }
-    
-      return $this->roles;
-    }
-  
-    public function getSalt()
-    {
-      return $this->salt;
-    }
-  
-    public function setName($value)
-    {
-      $this->name = $value;
-    }
-  
-    public function setPassword($value)
-    {
-      $this->password = $value;
-    }
-  
-    public function setRoles($value)
-    {
-      $this->roles = $value;
-    }
-  
-    public function setSalt($value)
-    {
-      $this->salt = $value;
     }
   }
-</codeblock></p>
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function getName()
+  {
+    return $this->Name;
+  }
+
+  public function getPassword()
+  {
+    return $this->password;
+  }
+
+  public function getRoles($accountid = null)
+  {
+    return $this->roles;
+  }
+  
+    return $this->roles;
+  }
+
+  public function getSalt()
+  {
+    return $this->salt;
+  }
+
+  public function setName($value)
+  {
+    $this->name = $value;
+  }
+
+  public function setPassword($value)
+  {
+    $this->password = $value;
+  }
+
+  public function setRoles($value)
+  {
+    $this->roles = $value;
+  }
+
+  public function setSalt($value)
+  {
+    $this->salt = $value;
+  }
+}</codeblock></p>
     </section>
     <section>
       <title>Login Page</title>
@@ -355,36 +338,36 @@
         need to do this again for the "Success" view. </p>
       <p>Lets start by adding the form code for our
         login.<codeblock outputclass="php">&lt;div id="box">
-	&lt;h2>&lt;?php echo $t['_title']; ?>&lt;/h2>
-	&lt;form id="login" action="&lt;?php echo $ro->gen('login'); ?>" method="post">
-		&lt;fieldset>
-			&lt;div class="form-row">
-				&lt;div class="form-label">
-					&lt;label for="username">Username&lt;/label>
-				&lt;/div>
-				&lt;div class="form-control">
-					&lt;input type="text" id="username" name="username" />
-				&lt;/div>
-			&lt;/div>
-			&lt;div class="form-row">
-				&lt;div class="form-label">
-					&lt;label for="password">Password&lt;/label>
-				&lt;/div>
-				&lt;div class="form-control">
-					&lt;input type="password" id="password" name="password" />
-				&lt;/div>
-			&lt;/div>
-			&lt;div class="form-row-nolabel">
-				&lt;input type="checkbox" id="remember" name="remember" value="remember" />
-				&lt;label for="remember">Stay Signed in for a Week&lt;/label>
-			&lt;/div>
-		&lt;/fieldset>
-		&lt;fieldset>
-			&lt;div class="form-row-nolabel">
-				&lt;input type="submit" name="login" value="Log in" />
-			&lt;/div>
-		&lt;/fieldset>	
-	&lt;/form>
+  &lt;h2>&lt;?php echo $t['_title']; ?>&lt;/h2>
+  &lt;form id="login" action="&lt;?php echo $ro->gen('login'); ?>" method="post">
+    &lt;fieldset>
+      &lt;div class="form-row">
+        &lt;div class="form-label">
+          &lt;label for="username">Username&lt;/label>
+        &lt;/div>
+        &lt;div class="form-control">
+          &lt;input type="text" id="username" name="username" />
+        &lt;/div>
+      &lt;/div>
+      &lt;div class="form-row">
+        &lt;div class="form-label">
+          &lt;label for="password">Password&lt;/label>
+        &lt;/div>
+        &lt;div class="form-control">
+          &lt;input type="password" id="password" name="password" />
+        &lt;/div>
+      &lt;/div>
+      &lt;div class="form-row-nolabel">
+        &lt;input type="checkbox" id="remember" name="remember" value="remember" />
+        &lt;label for="remember">Stay Signed in for a Week&lt;/label>
+      &lt;/div>
+    &lt;/fieldset>
+    &lt;fieldset>
+      &lt;div class="form-row-nolabel">
+        &lt;input type="submit" name="login" value="Log in" />
+      &lt;/div>
+    &lt;/fieldset>  
+  &lt;/form>
 &lt;/div></codeblock></p>
     </section>
     <section>
@@ -392,37 +375,37 @@
       <p>For the login page to be usable, we need to add the validation rules for the three controls
         we've just created for our login
         form.<codeblock outputclass="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
-          &lt;ae:configurations
-          xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
-          xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
-          parent="%core.module_dir%/Default/config/validators.xml"
-          >
-          &lt;ae:configuration>
-          
-          &lt;validators method="write">
-          &lt;validator class="string" required="true" name="user_valid">
-          &lt;argument>username&lt;/argument>
-          &lt;error>Username error.&lt;/error>
-          &lt;ae:parameters>
+&lt;ae:configurations
+  xmlns="http://agavi.org/agavi/config/parts/validators/1.0"
+  xmlns:ae="http://agavi.org/agavi/config/global/envelope/1.0"
+  parent="%core.module_dir%/Default/config/validators.xml"
+>
+  &lt;ae:configuration>
+
+    &lt;validators method="write">
+      &lt;validator class="string" required="true" name="user_valid">
+        &lt;argument>username&lt;/argument>
+        &lt;error>Username error.&lt;/error>
+        &lt;ae:parameters>
           &lt;ae:parameter name="min">4&lt;/ae:parameter>
-          &lt;/ae:parameters>
-          &lt;/validator>
-          
-          &lt;validator class="string" required="true" name="password_valid">
-          &lt;argument>password&lt;/argument>
-          &lt;error>Your password is too short.&lt;/error>
-          &lt;ae:parameters>
+        &lt;/ae:parameters>
+      &lt;/validator>
+
+      &lt;validator class="string" required="true" name="password_valid">
+        &lt;argument>password&lt;/argument>
+        &lt;error>Your password is too short.&lt;/error>
+        &lt;ae:parameters>
           &lt;ae:parameter name="min">4&lt;/ae:parameter>
-          &lt;/ae:parameters>
-          &lt;/validator>
-          
-          &lt;validator class="isset" required="false">
-          &lt;argument>remember&lt;/argument>
-          &lt;/validator>
-          &lt;/validators>
-          
-          &lt;/ae:configuration>
-          &lt;/ae:configurations></codeblock></p>
+        &lt;/ae:parameters>
+      &lt;/validator>
+
+      &lt;validator class="isset" required="false">
+        &lt;argument>remember&lt;/argument>
+      &lt;/validator>
+    &lt;/validators>
+
+  &lt;/ae:configuration>
+&lt;/ae:configurations></codeblock></p>
       <p>Now I guess it's time for the action code for <apiname>Default_LoginAction</apiname>, the
         code is rather simple, we just add an <apiname>executeWrite()</apiname> and try to login
         checking for
@@ -466,62 +449,58 @@
         two templates for two different views earlier in this chapter, so we should add some code
         into these views.</p>
       <p>The <apiname
-        >Default_LoginInputView</apiname>:<codeblock>
-  &lt;?php
+        >Default_LoginInputView</apiname>:<codeblock outputclass="php">&lt;?php
 
-  class Default_LoginInputView extends BlogDefaultBaseView
+class Default_LoginInputView extends BlogDefaultBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
   {
-    public function executeHtml(AgaviRequestDataHolder $rd)
-    {
-      $user = $this->getContext()->getUser();
-      if($this->getContainer()->hasAttributeNamespace('org.agavi.controller.forwards.login')) {
-        // we were redirected to the login form by the controller because the requested action required security
-        // so store the input URL in the session for a redirect after login
-        $user->setAttribute('redirect', $this->getContext()->getRequest()->getUrl(), 'org.agavi.bloggie.login');
-      } else {
-        // clear the redirect URL just to be sure
-        // but only if request method is "read", i.e. if the login form is served via GET!
-        $user->removeAttribute('redirect', 'org.agavi.bloggie.login');
-      }
-    
-      $this->setupHtml($rd);
-      $this->setAttribute('_title', 'Login');
+    $user = $this->getContext()->getUser();
+    if($this->getContainer()->hasAttributeNamespace('org.agavi.controller.forwards.login')) {
+      // we were redirected to the login form by the controller because the requested action required security
+      // so store the input URL in the session for a redirect after login
+      $user->setAttribute('redirect', $this->getContext()->getRequest()->getUrl(), 'org.agavi.bloggie.login');
+    } else {
+      // clear the redirect URL just to be sure
+      // but only if request method is "read", i.e. if the login form is served via GET!
+      $user->removeAttribute('redirect', 'org.agavi.bloggie.login');
     }
+  
+    $this->setupHtml($rd);
+    $this->setAttribute('_title', 'Login');
   }
+}
 
-  ?>
-        </codeblock>
+?></codeblock>
         The <apiname>Default_LoginSuccessView</apiname>:
-        <codeblock outputclass="php">
-  &lt;?php
+        <codeblock outputclass="php">&lt;?php
 
-  class Default_LoginSuccessView extends BlogDefaultBaseView
+class Default_LoginSuccessView extends BlogDefaultBaseView
+{
+  public function executeHtml(AgaviRequestDataHolder $rd)
   {
-    public function executeHtml(AgaviRequestDataHolder $rd)
-    {
-      $user = $this->getContext()->getUser();
-      $res = $this->getResponse();
-    
-      // set the autologon cookie if requested
-      if($rd->hasParameter('remember')) {
-        $res->setCookie('autologon[username]', $rd->getParameter('username'), '+1 week');
-        $res->setCookie('autologon[password]', $user->getCurrentUser()->getPassword(), '+1 week');
-      }
-    
-      if($user->hasAttribute('redirect', 'org.agavi.bloggie.login')) {
-        $this->getResponse()->setRedirect($user->removeAttribute('redirect', 'org.agavi.bloggie.login'));
-        return;
-      } else {
-        $this->getResponse()->setRedirect($this->getContext()->getRouting()->gen('index'));
-      }
-    
-      $this->setupHtml($rd);
-      $this->setAttribute('_title', 'Login');
+    $user = $this->getContext()->getUser();
+    $res = $this->getResponse();
+  
+    // set the autologon cookie if requested
+    if($rd->hasParameter('remember')) {
+      $res->setCookie('autologon[username]', $rd->getParameter('username'), '+1 week');
+      $res->setCookie('autologon[password]', $user->getCurrentUser()->getPassword(), '+1 week');
     }
+  
+    if($user->hasAttribute('redirect', 'org.agavi.bloggie.login')) {
+      $this->getResponse()->setRedirect($user->removeAttribute('redirect', 'org.agavi.bloggie.login'));
+      return;
+    } else {
+      $this->getResponse()->setRedirect($this->getContext()->getRouting()->gen('index'));
+    }
+  
+    $this->setupHtml($rd);
+    $this->setAttribute('_title', 'Login');
   }
+}
 
-  ?>
-</codeblock></p>
+?></codeblock></p>
     </section>
     <section>
       <title>Making Things Secure</title>
@@ -529,12 +508,10 @@
         protecting anything. To do this, we need to add a method to the actions we want to protect.
         A reasonable page in our blog to protect is the "add a blog entry" (<apiname
           >Posts_AddAction</apiname>) page created earlier.
-        <codeblock outputclass="php">
-  public function isSecure()
-  {
-    return true;
-  }          
-        </codeblock></p>
+        <codeblock outputclass="php">public function isSecure()
+{
+  return true;
+}</codeblock></p>
       <p>The <apiname>isSecure()</apiname> method is simply just added to the bottom of any action
         class you want to protect.</p>
       <p>The source code for this chapter is available here: <xref
