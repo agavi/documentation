@@ -36,8 +36,8 @@ applicable licenses.-->
 <xsl:template match="*[contains(@class,' topic/topic ')]/*[contains(@class,' topic/title ')]">
   <xsl:param name="headinglevel">
       <xsl:choose>
-          <xsl:when test="count(ancestor::*[contains(@class,' topic/topic ')]) + 1 > 6">6</xsl:when>
-          <xsl:otherwise><xsl:value-of select="count(ancestor::*[contains(@class,' topic/topic ')]) + 1"/></xsl:otherwise>
+          <xsl:when test="count(ancestor::*[contains(@class,' topic/topic ')]) > 6">6</xsl:when>
+          <xsl:otherwise><xsl:value-of select="count(ancestor::*[contains(@class,' topic/topic ')])"/></xsl:otherwise>
       </xsl:choose>
   </xsl:param>
   <xsl:element name="h{$headinglevel}">

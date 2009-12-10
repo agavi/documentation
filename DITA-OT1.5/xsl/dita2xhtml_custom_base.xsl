@@ -79,10 +79,10 @@
 
 	<!--main template for setting up all links after the body - applied to the related-links container-->
 	<xsl:template match="*[contains(@class,' topic/related-links ')]" name="topic.related-links">
-	 <div>
-	    <xsl:call-template name="commonattributes"/>
+		<div>
+			<xsl:call-template name="commonattributes"/>
 
-	  <xsl:call-template name="ul-child-links"/><!--handle child/descendants outside of linklists in collection-type=unordered or choice-->
+	  <!-- <xsl:call-template name="ul-child-links"/> --><!--handle child/descendants outside of linklists in collection-type=unordered or choice-->
 
 	  <!-- <xsl:call-template name="ol-child-links"/> --><!--handle child/descendants outside of linklists in collection-type=ordered/sequence-->
 
@@ -103,8 +103,9 @@
 	             transform types, and is located in ../common/related-links.xsl. Actual code for
 	             creating group titles and formatting links is located in XSL files specific to each type. -->
 	  <!--linklists - last but not least, create all the linklists and their links, with no sorting or re-ordering-->
-	  <xsl:apply-templates select="*[contains(@class,' topic/linklist ')]"/>
-	 </div>
+			<xsl:apply-templates select="*[contains(@class,' topic/linklist ')]"/>
+			<br />
+		</div>
 	</xsl:template>
 
   <xsl:template match="/">
