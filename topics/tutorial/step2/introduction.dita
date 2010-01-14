@@ -8,7 +8,7 @@
       adding a static index page and a static post detail page. You will learn to create new actions
       and modules and how to use routing and template variables. You'll also learn how to retrive
       and validate request parameters. The resulting application is also available as <xref
-        format="html" href="http://www.agavi.org/guide/stages/stage2.tgz"
+        format="tgz" href="http://www.agavi.org/guide/stages/stage2.tgz"
         >http://www.agavi.org/guide/stages/stage2.tgz</xref> tarball.</p>
   </body>
 </topic>

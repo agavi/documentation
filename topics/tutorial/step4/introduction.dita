@@ -23,7 +23,7 @@
         <filepath>resources/template/</filepath> directory of this tutorial or from <xref
         format="html" href="http://templates.arcsin.se/emplode-website-template/"
         >http://templates.arcsin.se/emplode-website-template/</xref>. The result of this chapter is
-      the <xref format="html" href="http://www.agavi.org/guide/stages/stage4.tgz"
+      the <xref format="tgz" href="http://www.agavi.org/guide/stages/stage4.tgz"
         >http://www.agavi.org/guide/stages/stage4.tgz</xref> application.</p>
   </body>
 </topic>

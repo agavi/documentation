@@ -20,7 +20,7 @@
       a single post and a <apiname>PostManager</apiname> that handles all storage and retrieval operations for the
       post. That way we can easily exchange the <apiname>PostManager</apiname> for a mock implementation in testing
       contexts. That way it's possible to have tests run even without a database dependency.</p>
-    <p>The result of this chapter is available at <xref format="html"
+    <p>The result of this chapter is available at <xref format="tgz"
         href="http://www.agavi.org/guide/stages/stage3.tgz"
         >http://www.agavi.org/guide/stages/stage3.tgz</xref></p>
   </body>

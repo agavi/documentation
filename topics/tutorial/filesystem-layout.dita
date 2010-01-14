@@ -9,8 +9,8 @@
             files and directories inside the source tree.</p>
         <p>An application's <filepath>pub</filepath> directory is the document root for your web
             server, it contains static resources such as CSS files, javascript source, images and
-            other items that are reachable through the web server but do not not need to be
-            processedby the application — except for the index.php file.</p>
+            other items that are reachable through the web server but do not need to be processed
+            by the application — except for the index.php file.</p>
         <p>The application itself — configuration, temporary and cache directories, libraries and
             source files — are located in the <filepath>app</filepath> directory which contains:</p>
         <dl>
